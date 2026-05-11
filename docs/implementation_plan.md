@@ -24,8 +24,19 @@ This document outlines the frontend architecture, UI/UX flow, and integration po
 - Vibrant, animated background.
 - Central glassmorphic login card.
 
-## 4. Home Page (Dual Search Interface)
+## 4. Landing Page (Scroll-Snap Editorial)
 ### `app/page.tsx`
+- High-end, luxury editorial design with Framer Motion animations.
+- `snap-mandatory` scroll container for presentation-style slides.
+- **Sections:**
+  - Hero with cinematic video background.
+  - Problem statement with animated count-up statistics.
+  - Four feature slides showcasing core AI agents (Price, Bot Review, Budget/Gift, Return Risk).
+  - Call to Action & Premium Footer.
+- Global theme-aware styling.
+
+## 5. Dashboard / Main App
+### `app/dashboard/page.tsx` (Future Implementation)
 - Split-screen dynamic search area.
 - **Left Panel:** Product Search (URL or Name).
 - **Right Panel:** Smart Advisor Search (Budget, Intent).
