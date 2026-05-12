@@ -1,26 +1,29 @@
 from fastapi import FastAPI
-from models.product import ReviewInput, ProductAnalysisRequest, ProductAnalysisResponse
-
-from services.gemini_service import analyze_review
-from services.product_service import analyze_product_details
-
 from fastapi.middleware.cors import CORSMiddleware
+from routes import analysis, advisor, auth
+from database import engine, Base
 
-app = FastAPI()
+# Veritabanı tablolarını oluştur
+Base.metadata.create_all(bind=engine)
 
-# Frontend'in erişimine izin ver
+app = FastAPI(title="Pitoresk AI Backend")
+
+
+# CORS Ayarları
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], 
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-@app.post("/analyze-review")
-def analyze(data: ReviewInput):
-    return analyze_review(data.review)
+# Rotaları Dahil Et
+app.include_router(auth.router, prefix="/auth", tags=["Authentication"])
+app.include_router(analysis.router, tags=["Analysis"])
+app.include_router(advisor.router, tags=["Advisor"])
 
-@app.post("/analyze-product", response_model=ProductAnalysisResponse)
-def analyze_product(data: ProductAnalysisRequest):
-    return analyze_product_details(data.url)
+
+@app.get("/")
+def home():
+    return {"status": "Pitoresk AI Backend is running"}
