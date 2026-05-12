@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { Mail, Lock, LogIn, UserPlus, ArrowRight, Loader2 } from "lucide-react";
+import { Mail, Lock, LogIn, UserPlus, ArrowRight, Loader2, User } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { ThemeToggle } from "@/components/theme-toggle";
