@@ -251,7 +251,11 @@ export default function LandingPage() {
                 <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Link>
               <button
-                onClick={scrollToIntro}
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToIntro();
+                }}
                 className="flex items-center gap-2 text-white/65 hover:text-white w-full sm:w-auto justify-center px-8 py-3.5 rounded-full border border-white/20 hover:border-white/50 text-sm tracking-wide transition-all"
               >
                 Özellikleri Keşfet
@@ -260,10 +264,14 @@ export default function LandingPage() {
           </motion.div>
 
           <motion.button
+            type="button"
             animate={{ y: [0, 8, 0] }}
             transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
             className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/35"
-            onClick={scrollToIntro}
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToIntro();
+            }}
           >
             <ChevronDown className="h-5 w-5" />
           </motion.button>

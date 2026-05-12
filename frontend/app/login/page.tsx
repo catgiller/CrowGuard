@@ -1,14 +1,27 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { Mail, Lock, LogIn, UserPlus, User, ArrowRight } from "lucide-react";
+import { Mail, Lock, LogIn, UserPlus, ArrowRight, Loader2 } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { NavLogo } from "@/components/nav-logo";
 
 export default function LoginPage() {
+  const router = useRouter();
   const [mounted, setMounted] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    // Ervanur arka planı bitirene kadar sahte (mock) yönlendirme
+    setTimeout(() => {
+      localStorage.setItem("isLoggedIn", "true");
+      router.push("/dashboard");
+    }, 800);
+  };
 
   useEffect(() => {
     setMounted(true);
@@ -53,7 +66,7 @@ export default function LoginPage() {
           </AnimatePresence>
 
           {/* Form */}
-          <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+          <form className="space-y-5" onSubmit={handleSubmit}>
             <AnimatePresence initial={false}>
               {!isLogin && (
                 <motion.div
@@ -113,13 +126,23 @@ export default function LoginPage() {
 
             <div className="pt-4">
               <motion.button
+                type="submit"
+                disabled={isLoading}
                 whileHover={{ x: 4 }}
                 whileTap={{ scale: 0.98 }}
-                className="flex items-center gap-3 text-white bg-black hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200 px-6 py-3 rounded-full font-medium text-sm tracking-widest uppercase group transition-colors"
+                className="flex items-center gap-3 text-white bg-black hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200 px-6 py-3 rounded-full font-medium text-sm tracking-widest uppercase group transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
               >
-                {isLogin ? <LogIn className="h-4 w-4" /> : <UserPlus className="h-4 w-4" />}
-                {isLogin ? "Giriş Yap" : "Kayıt Ol"}
-                <ArrowRight className="h-4 w-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                {isLoading ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : isLogin ? (
+                  <LogIn className="h-4 w-4" />
+                ) : (
+                  <UserPlus className="h-4 w-4" />
+                )}
+                {isLoading ? "Bekleniyor..." : isLogin ? "Giriş Yap" : "Kayıt Ol"}
+                {!isLoading && (
+                  <ArrowRight className="h-4 w-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                )}
               </motion.button>
             </div>
           </form>
@@ -140,7 +163,7 @@ export default function LoginPage() {
 
         {/* Bottom subtle tag */}
         <p className="absolute bottom-8 left-10 sm:left-16 text-[10px] text-gray-500 tracking-widest uppercase">
-          © 2025 Pitoresk AI
+          © 2026 Pitoresk AI
         </p>
       </div>
 
@@ -157,9 +180,9 @@ export default function LoginPage() {
           <source src="/login-bg.mp4" type="video/mp4" />
         </video>
 
-        {/* Gradient overlay to blend with left panel */}
-        <div className="absolute inset-0 bg-gradient-to-r from-gray-50 dark:from-[#0a0a0a] via-transparent to-transparent transition-colors duration-500" />
         <div className="absolute inset-0 bg-black/20" />
+        {/* Gradient overlay to blend with left panel */}
+        <div className="absolute inset-0 w-32 bg-gradient-to-r from-gray-50 dark:from-[#0a0a0a] to-transparent transition-colors duration-500" />
 
         {/* Tagline overlay */}
         <div className="absolute bottom-12 left-10 right-10">

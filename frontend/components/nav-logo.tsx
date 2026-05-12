@@ -1,8 +1,23 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export function NavLogo() {
+  const pathname = usePathname() || "";
+  const [href, setHref] = useState("/");
+
+  useEffect(() => {
+    if (pathname.startsWith("/dashboard")) {
+      setHref("/dashboard");
+    } else {
+      setHref("/");
+    }
+  }, [pathname]);
+
   return (
-    <Link href="/" className="flex items-center gap-2.5 group">
+    <Link href={href} className="flex items-center gap-2.5 group">
       {/* Clean SVG logo mark — no background, works in both themes */}
       <svg
         width="34"
