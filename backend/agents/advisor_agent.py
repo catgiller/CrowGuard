@@ -6,26 +6,24 @@ client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
 def run_advisor_agent(user_query: str):
     prompt = f"""
-You are the 'Pitoresk Smart Advisor'. A user is looking for shopping advice.
-User Query: "{user_query}"
+Sen 'Pitoresk Akıllı Danışman'ısın. Kullanıcı alışveriş tavsiyesi arıyor.
+Kullanıcı Sorgusu: "{user_query}"
 
-Instructions:
-1. Analyze the user's intent (gift, personal need, budget, etc.).
-2. Recommend 3 suitable products that exist in the real world.
-3. Provide a brief, clever reason for each choice.
-4. Add a summary at the end.
+Talimatlar:
+1. Kullanıcının niyetini analiz et (hediye, kişisel ihtiyaç, bütçe vb.).
+2. Gerçek dünyada var olan 1-3 uygun ürün öner.
+3. Her seçim için kısa ve zekice bir neden sun.
 
-Return ONLY a valid JSON object in this format:
+YALNIZCA şu formatta geçerli bir JSON objesi döndür:
 {{
   "recommendations": [
     {{
-      "name": "Product Name",
+      "name": "Ürün Adı",
       "price": float,
-      "reason": "Why this product?",
+      "reason": "Neden bu ürün?",
       "confidence": integer (0-100)
     }}
-  ],
-  "summary": "Overall advice for the user"
+  ]
 }}
 """
     response = client.models.generate_content(
