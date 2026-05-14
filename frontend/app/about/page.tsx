@@ -60,7 +60,7 @@ export default function AboutPage() {
             inanıyoruz.
           </h1>
           <p className="text-gray-500 text-lg font-light max-w-2xl mx-auto leading-relaxed">
-            Pitoresk AI, bir hackathon ruhunun ürünüdür.
+            CrowGuard AI, bir hackathon ruhunun ürünüdür.
             İki geliştirici, sahte yorumlarla dolu, fiyat karşılaştırmasının zor olduğu
             ve iade oranlarının yüksek olduğu e-ticaret dünyasını değiştirmeye karar verdi.
           </p>
@@ -123,7 +123,7 @@ export default function AboutPage() {
             Hackathon&apos;dan doğdu.
           </h3>
           <p className="text-gray-500 text-sm font-light max-w-lg mx-auto leading-relaxed">
-            Pitoresk AI, LangGraph + Gemini API + FastAPI + Next.js yığını üzerine inşa edilmiş
+            CrowGuard AI, LangGraph + Gemini API + FastAPI + Next.js yığını üzerine inşa edilmiş
             çok ajanlı bir e-ticaret karar platformudur. Fiyat avı, sahte yorum tespiti,
             akıllı sepet danışmanlığı ve iade riski tahmini tek çatı altında.
           </p>
@@ -132,7 +132,7 @@ export default function AboutPage() {
 
       {/* ── Footer ── */}
       <footer className="border-t border-gray-100 dark:border-white/5 px-6 sm:px-14 py-6 flex items-center justify-between text-[11px] uppercase tracking-widest text-gray-400 dark:text-gray-700">
-        <span style={{ fontFamily: "var(--font-playfair)" }}>Pitoresk AI</span>
+        <span style={{ fontFamily: "var(--font-playfair)" }}>CrowGuard AI</span>
         <span>© 2025</span>
       </footer>
     </main>

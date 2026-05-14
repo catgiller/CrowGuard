@@ -110,7 +110,7 @@ export default function DashboardPage() {
           transition={{ duration: 0.9, delay: 0.15 }}
           className="text-[11px] uppercase text-gray-400 dark:text-gray-600 mb-3 font-semibold"
         >
-          Pitoresk AI
+          CrowGuard AI
         </motion.p>
 
         <h1

@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # PostgreSQL Bağlantı Bilgisi
-SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://pitoresk_user:pitoresk123@localhost/pitoresk_db")
+SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://crowguard_user:crowguard123@localhost/crowguard_db")
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

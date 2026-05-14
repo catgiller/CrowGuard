@@ -6,7 +6,7 @@ client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
 def run_advisor_agent(user_query: str):
     prompt = f"""
-Sen 'Pitoresk Akıllı Danışman'ısın. Kullanıcı alışveriş tavsiyesi arıyor.
+Sen 'CrowGuard Akıllı Danışman'ısın. Kullanıcı alışveriş tavsiyesi arıyor.
 Kullanıcı Sorgusu: "{user_query}"
 
 Talimatlar:

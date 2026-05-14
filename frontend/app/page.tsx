@@ -317,7 +317,7 @@ export default function LandingPage() {
             style={{ fontFamily: "var(--font-playfair)" }}
           >
             <span className="tracking-[0.2em] uppercase text-gray-900 dark:text-white font-normal">
-              Pitoresk <span className="font-light text-gray-400 dark:text-gray-500">AI</span>
+              CrowGuard <span className="font-light text-gray-400 dark:text-gray-500">AI</span>
             </span>{"\u00A0"}
             bunu değiştirmek için burada.
           </motion.p>
@@ -460,7 +460,7 @@ export default function LandingPage() {
             {/* Logo Area */}
             <div className="flex flex-col items-center lg:items-start gap-1">
                <span style={{ fontFamily: "var(--font-playfair)" }} className="text-xs sm:text-sm uppercase tracking-widest text-gray-900 dark:text-white font-semibold">
-                 Pitoresk <span className="font-light text-gray-400">AI</span>
+                 CrowGuard <span className="font-light text-gray-400">AI</span>
                </span>
                <span className="hidden sm:block text-[10px] text-gray-400 dark:text-gray-600">Smart Shopping Assistant</span>
             </div>
@@ -475,7 +475,7 @@ export default function LandingPage() {
             
             {/* Copyright Area */}
             <div className="flex items-center mt-2 lg:mt-0">
-              <span className="text-[10px] sm:text-xs">© 2026 Pitoresk AI. <span className="hidden sm:inline">Tüm hakları saklıdır.</span></span>
+              <span className="text-[10px] sm:text-xs">© 2026 CrowGuard AI. <span className="hidden sm:inline">Tüm hakları saklıdır.</span></span>
             </div>
 
           </div>
