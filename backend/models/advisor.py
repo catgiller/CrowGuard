@@ -12,4 +12,3 @@ class RecommendedProduct(BaseModel):
 
 class AdvisorResponse(BaseModel):
     recommendations: List[RecommendedProduct]
-    summary: str
