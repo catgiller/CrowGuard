@@ -2,6 +2,11 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from routes import analysis, advisor, auth
 from database import engine, Base
+from dotenv import load_dotenv
+import os
+
+# .env dosyasını yükle
+load_dotenv()
 
 # Veritabanı tablolarını oluştur
 Base.metadata.create_all(bind=engine)
