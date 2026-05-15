@@ -131,7 +131,7 @@ export default function LandingPage() {
       style={{ scrollbarWidth: "none" }}
     >
       {/* 1. Dot Navigation (Right Edge) */}
-      <div className="fixed right-6 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-3 pointer-events-auto mix-blend-difference text-white">
+      <div className="fixed right-6 top-1/2 -translate-y-1/2 z-50 hidden sm:flex flex-col gap-3 pointer-events-auto mix-blend-difference text-white">
         {Array.from({ length: totalSlides }).map((_, i) => (
           <button
             key={i}
@@ -209,6 +209,15 @@ export default function LandingPage() {
             <ThemeToggle />
             <Link href="/about" className="hidden md:block text-sm text-white/60 hover:text-white transition-colors tracking-wide">
               Hakkında
+            </Link>
+            <Link href="/pricing" className="hidden md:block text-sm text-white/60 hover:text-white transition-colors tracking-wide">
+              Fiyatlar
+            </Link>
+            <Link href="/faq" className="hidden md:block text-sm text-white/60 hover:text-white transition-colors tracking-wide">
+              SSS
+            </Link>
+            <Link href="/contact" className="hidden md:block text-sm text-white/60 hover:text-white transition-colors tracking-wide">
+              İletişim
             </Link>
             <Link href="/login" className="hidden sm:block text-sm text-white/60 hover:text-white transition-colors tracking-wide">
               Giriş Yap
@@ -459,15 +468,20 @@ export default function LandingPage() {
             
             {/* Logo Area */}
             <div className="flex flex-col items-center lg:items-start gap-1">
-               <span style={{ fontFamily: "var(--font-playfair)" }} className="text-xs sm:text-sm uppercase tracking-widest text-gray-900 dark:text-white font-semibold">
-                 CrowGuard <span className="font-light text-gray-400">AI</span>
+                 <span
+                 className="text-xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-indigo-300 via-sky-400 to-indigo-600 leading-none"
+                 style={{ fontFamily: "var(--font-playfair)", filter: "drop-shadow(0 2px 8px rgba(99,102,241,0.3))" }}
+               >
+                 CrowGuard
                </span>
-               <span className="hidden sm:block text-[10px] text-gray-400 dark:text-gray-600">Smart Shopping Assistant</span>
+               <span className="hidden sm:block text-[9px] font-bold tracking-[0.4em] text-indigo-400/70">SHOPPING ASSISTANT</span>
             </div>
             
             {/* Links Area */}
             <div className="grid grid-cols-2 sm:flex sm:flex-wrap justify-items-center sm:justify-center gap-x-12 gap-y-3 sm:gap-6 md:gap-10 font-medium">
               <Link href="/about" className="hover:text-gray-900 dark:hover:text-white transition-colors">Hakkında</Link>
+              <Link href="/pricing" className="hover:text-gray-900 dark:hover:text-white transition-colors">Fiyatlar</Link>
+              <Link href="/faq" className="hover:text-gray-900 dark:hover:text-white transition-colors">SSS</Link>
               <Link href="/privacy" className="hover:text-gray-900 dark:hover:text-white transition-colors">Gizlilik</Link>
               <Link href="/terms" className="hover:text-gray-900 dark:hover:text-white transition-colors">Koşullar</Link>
               <Link href="/contact" className="hover:text-gray-900 dark:hover:text-white transition-colors">İletişim</Link>
