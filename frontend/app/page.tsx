@@ -20,7 +20,7 @@ const features = [
     icon: TrendingDown,
     title: "Doğru Fiyatı,\nDoğru Anda Öde",
     desc: "Şu an almak mantıklı mı? Yarın düşer mi? Kaç lira fazla ödüyorsun? Sormana gerek yok — yapay zeka fiyat geçmişini analiz eder, AL ya da BEKLE kararını sana verir.",
-    accent: "#4ade80",
+    accent: "#6366f1", // indigo
     image: "/feature-price.png",
     imageRight: true,
   },
@@ -28,7 +28,7 @@ const features = [
     icon: ScanSearch,
     title: "Gerçek Yorumu\nBottan Ayır",
     desc: "4.9 yıldız görünce sevinme. O yorumların kaçı gerçek, kaçı bot ordusu? Her ürüne sahte-gerçek oranı ve güven skoru — satın almadan önce gerçeği gör.",
-    accent: "#f59e0b",
+    accent: "#38bdf8", // sky
     image: "/feature-review.png",
     imageRight: false,
   },
@@ -36,7 +36,7 @@ const features = [
     icon: Sparkles,
     title: "Ne İstediğini Söyle,\nGerisini Bırak",
     desc: '"Sevgilime hediye, teknoloji sever, 800₺" — sadece yaz. Saatlerce liste taramak yok, onlarca sekme açmak yok. Yapay zeka sana en uygun seçenekleri sıralar.',
-    accent: "#818cf8",
+    accent: "#a855f7", // purple
     image: "/feature-budget.png",
     imageRight: true,
   },
@@ -44,7 +44,7 @@ const features = [
     icon: ShieldCheck,
     title: "İade Etmeden\nÖnce Bil",
     desc: "Kargo gelmeden önce bil: bu ürünü iade etme ihtimalin %72. Profil, ürün tipi ve geçmiş veriler — pişmanlık yaşamadan karar ver.",
-    accent: "#f87171",
+    accent: "#ec4899", // pink
     image: "/feature-return.png",
     imageRight: false,
   },
@@ -435,7 +435,7 @@ export default function LandingPage() {
             style={{ fontFamily: "var(--font-playfair)" }}
           >
             Daha iyi kararlar vermeye<br />
-            <span className="italic font-normal text-gray-400 dark:text-white/40">bugün başla.</span>
+            <span className="italic font-normal bg-gradient-to-r from-sky-400 via-indigo-500 to-pink-500 bg-clip-text text-transparent">bugün başla.</span>
           </motion.h2>
 
           <motion.p {...fallIn(0.1)} className="text-gray-500 text-base mb-10 max-w-md mx-auto font-light">

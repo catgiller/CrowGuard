@@ -18,15 +18,23 @@ export function NavLogo() {
   }, [pathname]);
 
   return (
-    <Link href={href} className="flex items-center gap-2.5 group">
-      <Image src="/logo.png" alt="CrowGuard Logo" width={34} height={34} className="object-contain" />
-
-      <span
-        className="text-lg sm:text-xl tracking-[0.2em] text-black dark:text-white uppercase leading-none transition-colors"
-        style={{ fontFamily: "var(--font-playfair)" }}
-      >
-        CrowGuard <span className="font-light text-gray-400 dark:text-gray-500">AI</span>
-      </span>
+    <Link href={href} className="flex items-center gap-3 group">
+      <Image src="/logo.png" alt="CrowGuard Logo" width={60} height={60} className="object-contain drop-shadow-2xl" />
+      
+      <div className="flex flex-col -gap-1">
+        <span 
+          className="text-2xl sm:text-3xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-indigo-300 via-sky-400 to-indigo-600 leading-none py-1"
+          style={{ 
+            fontFamily: "var(--font-playfair)", 
+            filter: "drop-shadow(0 2px 10px rgba(99, 102, 241, 0.4))"
+          }}
+        >
+          CrowGuard
+        </span>
+        <span className="text-[9px] font-bold tracking-[0.5em] text-indigo-400/70 ml-1">
+          SHOPPING ASSISTANT
+        </span>
+      </div>
     </Link>
   );
 }
