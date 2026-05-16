@@ -1,34 +1,52 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
 from routes import analysis, advisor, auth
+from routes import likes
 from database import engine, Base
 from dotenv import load_dotenv
 import os
 
-# .env dosyasını yükle
 load_dotenv()
 
-# Veritabanı tablolarını oluştur
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title="CrowGuard AI Backend")
+limiter = Limiter(key_func=get_remote_address, default_limits=["60/minute"])
 
+app = FastAPI(
+    title="Pitoresk AI Backend",
+    description="Akıllı ürün analiz ve öneri sistemi",
+    version="1.0.0",
+)
 
-# CORS Ayarları
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=[
+        "http://localhost:3000",
+        "http://localhost:5173",
+        "http://127.0.0.1:3000",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Rotaları Dahil Et
 app.include_router(auth.router, prefix="/auth", tags=["Authentication"])
 app.include_router(analysis.router, tags=["Analysis"])
 app.include_router(advisor.router, tags=["Advisor"])
+app.include_router(likes.router)
 
 
 @app.get("/")
 def home():
-    return {"status": "CrowGuard AI Backend is running"}
+    return {"status": "Pitoresk AI Backend is running", "version": "1.0.0"}
+
+
+@app.get("/health")
+def health():
+    return {"ok": True}

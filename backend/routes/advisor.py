@@ -23,7 +23,7 @@ def get_advice(data: AdvisorRequest, db: Session = Depends(get_db)):
         
         # Veritabanına kaydet
         new_result = db_models.AnalysisResult(
-            user_id=1,
+            user_id=None,
             type="advisor",
             input_data=data.query,
             result_data=result
