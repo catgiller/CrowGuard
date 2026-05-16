@@ -27,7 +27,7 @@ YALNIZCA şu formatta geçerli bir JSON objesi döndür:
 }}
 """
     response = client.models.generate_content(
-        model="gemini-2.5-flash",
+        model="gemini-2.0-flash",
         contents=prompt,
         config={
             'response_mime_type': 'application/json'

@@ -1,0 +1,27 @@
+🛠️ PİTORESK AI - GÜNCEL BACKEND EKSİKLERİ (V2)
+
+Şu an itibariyle backend tarafında yapılması gereken kritik işlemler:
+
+1. STABİL AI BAĞLANTISI:
+------------------------
+* Kullanıcının API anahtarıyla %100 uyumlu çalışan modelin kesin olarak tespiti veya API anahtarının kısıtlamalarının (Project ID, Region vb.) kontrol edilmesi gerekiyor.
+
+2. GERÇEK VERİ ÇEKME (SCRAPING):
+--------------------------------
+* Ürün analizi şu an sadece linkin isminden çıkarım yapıyor. 'BeautifulSoup' veya 'Playwright' gibi araçlarla ürünün fiyatını ve yorumlarını gerçek zamanlı çekecek bir "Scraper" servisi eklenmeli.
+
+3. AUTH VE JWT KORUMASI:
+-------------------------
+* Analiz rotalarında şu an 'user_id=1' statik olarak kullanılıyor. Bu rotaların 'Depends(get_current_user)' ile korunması ve giriş yapan kullanıcının ID'sinin otomatik alınması şart.
+
+4. GEÇMİŞ (HISTORY) ENDPOINT'İ:
+-------------------------------
+* Veritabanına kayıtlar yapılıyor ancak frontend'in bu kayıtları listelemesi için 'GET /analysis/history' gibi bir endpoint henüz yazılmadı.
+
+5. STATİK VARLIKLAR:
+--------------------
+* Frontend'de 404 veren görsellerin (bg-ecommerce.png vb.) sunucuya yüklenmesi veya linklerinin güncellenmesi gerekiyor.
+
+6. DAHA DETAYLI PROMPT MÜHENDİSLİĞİ:
+------------------------------------
+* Gemini'den dönen JSON yanıtlarının bazen şema dışına çıkmaması için 'Response Schema' tanımlamaları SDK seviyesinde yapılmalı.

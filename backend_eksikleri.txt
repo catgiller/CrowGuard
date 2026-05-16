@@ -1,0 +1,31 @@
+🔍 PİTORESK AI - BACKEND EKSİKLERİ VE ANALİZ RAPORU
+
+1. YAPAY ZEKA (AI) ENTEGRASYON SORUNLARI
+---------------------------------------
+*   Hatalı Model İsmi: 'services/gemini_service.py', 'services/product_service.py' ve 'agents/advisor_agent.py' dosyalarında model ismi 'gemini-2.5-flash' olarak girilmiş. Google API'lerinde bu model bulunmadığı için istekler başarısız oluyor. (Doğrusu: 'gemini-1.5-flash' olmalı).
+*   Mock Veri Bağımlılığı: Ürün analizi şu an sadece link üzerinden tahmin yürütüyor, gerçek bir web scraping (veri çekme) mekanizması yok.
+*   Prompt Optimizasyonu: Gemini'ye gönderilen promptlar çok genel. Daha spesifik ve hata payı düşük promptlar yazılmalı.
+
+2. VERİTABANI VE KALICILIK (PERSISTENCE) EKSİKLERİ
+-------------------------------------------------
+*   Analiz Kayıtları: '/analyze-product' ve '/smart-advisor' rotaları üzerinden yapılan işlemler veritabanına kaydedilmiyor. 'AnalysisResult' tablosu şu an tamamen boş kalıyor.
+*   Geçmiş Özelliği: Kullanıcının dashboard'da geçmiş analizlerini görebilmesi için gerekli olan 'GET /history' gibi bir endpoint henüz yok.
+*   Veritabanı Oturumu: AI rotalarında veritabanı bağlantısı (db: Session) tanımlanmamış, bu yüzden veri yazma işlemi yapılamıyor.
+
+3. GÜVENLİK VE YETKİLENDİRME (AUTH)
+-----------------------------------
+*   Açık Rotalar: AI analiz endpointleri herkese açık. Bir saldırgan binlerce istek atarak Gemini kotanızı bitirebilir. Bu rotalar JWT (Bearer Token) ile korunmalı.
+*   User ID Eşleşmesi: Yapılan analizler hangi kullanıcıya aitse onun 'user_id'si ile kaydedilmeli. Mevcut kodda bu mantık kurulu değil.
+
+4. HATA YÖNETİMİ VE LOGLAMA
+---------------------------
+*   Global Exception Handler: Backend'de beklenmedik bir hata oluştuğunda (örn: veritabanı çökmesi, API hatası) frontend'e çok genel bir hata dönüyor. Detaylı hata mesajları ve uygun HTTP statü kodları (400, 401, 500) eksik.
+*   Yetersiz Loglama: Kritik işlemler (giriş denemeleri, AI hataları) konsola veya bir log dosyasına düzgün kaydedilmiyor.
+
+5. BAĞIMLILIKLAR (REQUIREMENTS)
+-------------------------------
+*   Requirements.txt: Dosyada 'psycopg2-binary', 'python-jose' ve 'passlib' gibi projenin çalışması için zorunlu olan paketler eksik veya sürümleri belirsiz.
+
+6. FRONTEND-BACKEND UYUMU
+-------------------------
+*   Endpoint Uyuşmazlığı: 'Smart Advisor' kısmında frontend'in beklediği JSON şeması ile backend'in 'AdvisorResponse' modeli arasında veri tipi farklılıkları olabilir, bu da dashboard'da boş ekran görülmesine yol açıyor.
