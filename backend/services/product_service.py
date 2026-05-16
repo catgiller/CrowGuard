@@ -1,11 +1,21 @@
 import json
 import os
 from google import genai
+from fastapi import HTTPException
 from models.product import ProductAnalysisResponse, PriceAnalysis, ReviewAnalysis, ReturnRisk
+import logging
+
+# Loglama ayarları
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
 def analyze_product_details(url: str) -> ProductAnalysisResponse:
+    if not os.getenv("GEMINI_API_KEY"):
+        logger.error("HATA: GEMINI_API_KEY bulunamadı!")
+        raise HTTPException(status_code=500, detail="API Anahtarı eksik!")
+
     prompt = f"""
 Sen bir E-ticaret Uzmanı Yapay Zekasın. Aşağıdaki ürün linkini analiz et ve kapsamlı bir rapor sun.
 URL: {url}
@@ -46,8 +56,9 @@ YALNIZCA şu formatta geçerli bir JSON döndür:
 }}
 """
     try:
+        logger.info(f"Gemini isteği gönderiliyor: {url}")
         response = client.models.generate_content(
-            model="gemini-2.5-flash",
+            model="gemini-2.0-flash",
             contents=prompt,
             config={
                 'response_mime_type': 'application/json'
@@ -55,8 +66,8 @@ YALNIZCA şu formatta geçerli bir JSON döndür:
         )
         
         data = json.loads(response.text)
+        logger.info("Gemini yanıtı başarıyla alındı.")
         return ProductAnalysisResponse(**data)
     except Exception as e:
-        print(f"Gemini API Hatası: {str(e)}")
-        # Kota aşımı durumunda veya hata anında boş/varsayılan bir yanıt dönelim
-        raise Exception("API kotası doldu veya bir hata oluştu. Lütfen biraz sonra tekrar deneyin.")
+        logger.error(f"Gemini API Hatası Yakalandı: {str(e)}", exc_info=True)
+        raise HTTPException(status_code=503, detail=f"AI Hatası: {str(e)}")
