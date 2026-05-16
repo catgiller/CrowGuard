@@ -16,7 +16,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Pitoresk AI — Akıllı Alışveriş Platformu",
+  title: "CrowGuard AI — Akıllı Alışveriş Platformu",
   description: "Yapay zeka destekli e-ticaret karar platformu. Sahte yorumları tespit et, fiyat takibi yap, doğru ürünü seç.",
 };
 

@@ -163,7 +163,7 @@ export default function LoginPage() {
 
         {/* Bottom subtle tag */}
         <p className="absolute bottom-8 left-10 sm:left-16 text-[10px] text-gray-500 tracking-widest uppercase">
-          © 2026 Pitoresk AI
+          © 2026 CrowGuard AI
         </p>
       </div>
 
