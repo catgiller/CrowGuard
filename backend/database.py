@@ -6,12 +6,12 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# PostgreSQL Bağlantı Bilgisi
-SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://crowguard_user:crowguard123@localhost/crowguard_db")
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./pitoresk.db")
 
-engine = create_engine(SQLALCHEMY_DATABASE_URL)
+connect_args = {"check_same_thread": False} if DATABASE_URL.startswith("sqlite") else {}
+engine = create_engine(DATABASE_URL, connect_args=connect_args)
+
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
 Base = declarative_base()
 
 def get_db():

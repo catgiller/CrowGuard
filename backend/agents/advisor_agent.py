@@ -26,11 +26,19 @@ YALNIZCA şu formatta geçerli bir JSON objesi döndür:
   ]
 }}
 """
-    response = client.models.generate_content(
-        model="gemini-2.0-flash",
-        contents=prompt,
-        config={
-            'response_mime_type': 'application/json'
-        }
-    )
+    MODELS = ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash"]
+    response = None
+    for m in MODELS:
+        try:
+            response = client.models.generate_content(
+                model=m, contents=prompt,
+                config={'response_mime_type': 'application/json'}
+            )
+            break
+        except Exception as e:
+            if "429" in str(e) or "RESOURCE_EXHAUSTED" in str(e):
+                continue
+            raise
+    if response is None:
+        raise Exception("Tüm Gemini modelleri kota dolu.")
     return json.loads(response.text)
