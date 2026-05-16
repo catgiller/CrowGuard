@@ -18,8 +18,8 @@ export function NavLogo() {
   }, [pathname]);
 
   return (
-    <Link href={href} className="flex items-center gap-3 group">
-      <Image src="/logo.png" alt="CrowGuard Logo" width={60} height={60} className="object-contain drop-shadow-2xl" />
+    <Link href={href} className="flex items-center gap-0 group">
+      <Image src="/logo.png" alt="CrowGuard Logo" width={68} height={68} className="object-contain drop-shadow-2xl" />
       
       <div className="flex flex-col -gap-1">
         <span 
@@ -31,7 +31,7 @@ export function NavLogo() {
         >
           CrowGuard
         </span>
-        <span className="text-[9px] font-bold tracking-[0.5em] text-indigo-400/70 ml-1">
+        <span className="text-[9px] font-bold tracking-[0.5em] text-indigo-400/70 ml-1 whitespace-nowrap">
           SHOPPING ASSISTANT
         </span>
       </div>
