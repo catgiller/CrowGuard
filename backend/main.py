@@ -11,7 +11,7 @@ load_dotenv()
 # Veritabanı tablolarını oluştur
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title="Pitoresk AI Backend")
+app = FastAPI(title="CrowGuard AI Backend")
 
 
 # CORS Ayarları
@@ -31,4 +31,4 @@ app.include_router(advisor.router, tags=["Advisor"])
 
 @app.get("/")
 def home():
-    return {"status": "Pitoresk AI Backend is running"}
+    return {"status": "CrowGuard AI Backend is running"}

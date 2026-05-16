@@ -24,13 +24,13 @@ export function Sidebar({ isOpen }: SidebarProps) {
 
   return (
     <motion.aside
-      animate={{ width: isOpen ? 256 : 0, opacity: isOpen ? 1 : 0 }}
+      animate={{ width: isOpen ? 280 : 0, opacity: isOpen ? 1 : 0 }}
       transition={{ type: "spring", bounce: 0, duration: 0.4 }}
       className="hidden md:flex flex-col justify-between border-r border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-[#050505] transition-colors duration-500 shrink-0 overflow-hidden"
     >
-      <div className="w-64 p-5 pt-6">
+      <div className="w-[280px] p-5 pt-6">
         {/* Logo */}
-        <div className="mb-10 pl-1">
+        <div className="mb-10 -ml-1">
           <NavLogo />
         </div>
 
@@ -60,7 +60,7 @@ export function Sidebar({ isOpen }: SidebarProps) {
       </div>
 
       {/* Bottom Actions */}
-      <div className="w-64 p-5 border-t border-gray-200 dark:border-white/10 space-y-2">
+      <div className="w-[280px] p-5 border-t border-gray-200 dark:border-white/10 space-y-2">
         <div className="flex items-center justify-between px-3 mb-2">
           <span className="text-sm font-medium text-gray-500 whitespace-nowrap">Tema</span>
           <ThemeToggle />

@@ -5,7 +5,7 @@ from jose import JWTError, jwt
 from passlib.context import CryptContext
 
 # .env'den alalım, yoksa default verelim
-SECRET_KEY = os.getenv("JWT_SECRET_KEY", "pitoresk-super-secret-key-12345")
+SECRET_KEY = os.getenv("JWT_SECRET_KEY", "crowguard-super-secret-key-12345")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24  # 1 gün
 
