@@ -8,7 +8,7 @@ import { DashboardProvider, useDashboard } from "@/contexts/dashboard-context";
 
 function DashboardShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const { user, initials, isSidebarOpen, closeSidebar } = useDashboard();
+  const { user, initials, isSidebarOpen, closeSidebar, logout } = useDashboard();
 
   useEffect(() => {
     closeSidebar();
@@ -80,12 +80,27 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
         </ul>
         <div className="sidebar-footer">
           <div className="avatar">{initials}</div>
-          <div>
+          <div style={{ flex: 1, minWidth: 0 }}>
             <div style={{ fontSize: ".875rem", fontWeight: 600, color: "var(--fg)" }}>
               {user?.name ?? "Kullanıcı"}
             </div>
             <div style={{ fontSize: ".6875rem", color: "var(--fg3)" }}>Ücretsiz Plan</div>
           </div>
+          <button
+            type="button"
+            onClick={logout}
+            style={{
+              fontSize: ".6875rem",
+              fontWeight: 600,
+              color: "var(--c3)",
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              padding: "0.25rem 0",
+            }}
+          >
+            Çıkış
+          </button>
         </div>
       </aside>
 
@@ -101,3 +116,4 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     </DashboardProvider>
   );
 }
+

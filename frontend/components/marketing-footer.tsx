@@ -5,7 +5,7 @@ export function MarketingFooter() {
   return (
     <footer className="cg-footer">
       <div className="footer-inner">
-        <BrandLogo href="/" height={40} showWordmark subLabel="Shopping Assistant" />
+        <BrandLogo href="/" height={40} showWordmark subLabel="Alışveriş Asistanı" />
 
         <ul className="footer-links">
           <li>

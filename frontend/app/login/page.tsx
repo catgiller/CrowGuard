@@ -153,7 +153,11 @@ export default function LoginPage() {
           <div className="field">
             <div className="field-meta">
               <label className="field-label" style={{ marginBottom: 0 }}>Şifre</label>
-              {isLogin && <Link href="#" className="forgot">Unuttum</Link>}
+              {isLogin && (
+                <span className="forgot" style={{ opacity: 0.5, cursor: "not-allowed" }} title="Yakında">
+                  Unuttum
+                </span>
+              )}
             </div>
             <div className="field-row">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>

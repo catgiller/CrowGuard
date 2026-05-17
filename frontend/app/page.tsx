@@ -173,7 +173,7 @@ export default function LandingPage() {
           <div className="hero-bg"></div>
           <div className="hero-content">
             <div className="hero-body">
-              <div className="hero-label anim-fade-up"><span></span> YZ Destekli Alışveriş Koruması</div>
+              <div className="hero-label anim-fade-up"><span></span> Yapay zeka destekli alışveriş koruması</div>
               <h1 className="hero-h1 anim-fade-up anim-d1">
                 Akıllıca alışveriş.<br /><em>Her zaman.</em>
               </h1>
@@ -232,7 +232,7 @@ export default function LandingPage() {
             </div>
             <h2 className="t-lg feat-h">İade<br />Tahminleme</h2>
             <p className="t-body feat-desc">Bir ürünü sepete atmadan önce iade riskini öğrenin. Geçmiş binlerce veriyi semantik olarak analiz ederek size net bir risk skoru ve kök neden raporu sunarız.</p>
-            <span className="feat-pill" style={{ color: "var(--c2)", borderColor: "rgba(241,118,40,0.3)", background: "rgba(241,118,40,0.07)" }}>Return Intelligence</span>
+            <span className="feat-pill" style={{ color: "var(--c2)", borderColor: "rgba(241,118,40,0.3)", background: "rgba(241,118,40,0.07)" }}>İade Zekâsı</span>
           </div>
           <div className="feat-mock">
             <div className="mock">
@@ -261,7 +261,7 @@ export default function LandingPage() {
             </div>
             <h2 className="t-lg feat-h">Stratejik<br />Fiyat Radarı</h2>
             <p className="t-body feat-desc">Fiyat karşılaştırmanın ötesine geçin. AI, fiyatın değerini sorgular — AL, BEKLE ya da ALTERNATİF önerir. Net. Veriye dayalı. Anında.</p>
-            <span className="feat-pill" style={{ color: "var(--c3)", borderColor: "rgba(213,51,42,0.3)", background: "rgba(213,51,42,0.07)" }}>Price Guard</span>
+            <span className="feat-pill" style={{ color: "var(--c3)", borderColor: "rgba(213,51,42,0.3)", background: "rgba(213,51,42,0.07)" }}>Fiyat Radarı</span>
           </div>
           <div className="feat-mock">
             <div className="mock">
@@ -292,7 +292,7 @@ export default function LandingPage() {
             </div>
             <h2 className="t-lg feat-h">Güven ve<br />Şeffaflık</h2>
             <p className="t-body feat-desc">4.8 yıldızlı ürün aslında 3.2 mi? Yorumların dil örüntüsünü, geliş hızını ve hesap profillerini analiz ederek gerçek güven skorunu ortaya çıkarırız.</p>
-            <span className="feat-pill" style={{ color: "var(--c4)", borderColor: "rgba(210,96,165,0.3)", background: "rgba(210,96,165,0.07)" }}>Integrity Radar</span>
+            <span className="feat-pill" style={{ color: "var(--c4)", borderColor: "rgba(210,96,165,0.3)", background: "rgba(210,96,165,0.07)" }}>Güven Radarı</span>
           </div>
           <div className="feat-mock">
             <div className="mock">
@@ -337,7 +337,7 @@ export default function LandingPage() {
             </div>
             <h2 className="t-lg feat-h">Çok Ajanlı<br />Akıllı Danışman</h2>
             <p className="t-body feat-desc">Ne aradığınızı tam bilmiyorsanız sorun değil. Bütçenizi ve ihtiyacınızı doğal dilde anlatın — Gemini tabanlı AI sistemi en optimize ürünleri sizin için bulur.</p>
-            <span className="feat-pill" style={{ color: "var(--c6)", borderColor: "rgba(162,31,101,0.3)", background: "rgba(162,31,101,0.07)" }}>Multi-Agent Advisor</span>
+            <span className="feat-pill" style={{ color: "var(--c6)", borderColor: "rgba(162,31,101,0.3)", background: "rgba(162,31,101,0.07)" }}>Akıllı Danışman</span>
           </div>
           <div className="feat-mock">
             <div className="mock">
@@ -373,7 +373,7 @@ export default function LandingPage() {
           <div className="cta-footer-bar">
             <div>
               <div className="footer-logo-name" style={{ textAlign: "left" }}>CrowGuard</div>
-              <div className="footer-logo-sub">Shopping Assistant</div>
+              <div className="footer-logo-sub">Alışveriş Asistanı</div>
             </div>
             <ul className="cta-footer-links">
               <li><Link href="/about">Hakkında</Link></li>

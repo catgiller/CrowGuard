@@ -1,15 +1,19 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { AdvisorRecommendations } from "@/components/advisor-recommendations";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { MenuButton } from "@/components/menu-button";
 import { useDashboard } from "@/contexts/dashboard-context";
+import { ApiError } from "@/lib/api";
+import { askSmartAdvisor } from "@/lib/advisor";
+import type { RecommendedProduct } from "@/lib/advisor";
 
 interface Message {
   id: string;
-  type: 'user' | 'bot';
-  text: string;
-  isHtml?: boolean;
+  type: "user" | "bot";
+  text?: string;
+  recommendations?: RecommendedProduct[];
 }
 
 export default function SmartAdvisorPage() {
@@ -26,60 +30,45 @@ export default function SmartAdvisorPage() {
     }
   }, [messages, isTyping]);
 
-  const botReply = (query: string) => {
-    const q = query.toLowerCase();
-    if (q.includes('çadır') || q.includes('kamp')) {
-      return `Kamp çadırı için 3 seçenek analiz ettim — fiyat/performans odaklı:
-      <div class="result-cards">
-        <a href="/dashboard/product-analysis" class="rcard"><span class="rcard-num">01</span><span class="rcard-icon">⛺</span><div class="rcard-info"><div class="rcard-name">Vanguard Pro 2+1 Kamp Seti</div><div class="rcard-meta"><span class="rbadge rb-al">AL</span><span>⭐ 4.6 Gerçek</span><span>%9 İade</span><span>Trendyol</span></div></div><span class="rcard-price">₺1.850</span></a>
-        <a href="/dashboard/product-analysis" class="rcard"><span class="rcard-num">02</span><span class="rcard-icon">⛺</span><div class="rcard-info"><div class="rcard-name">Naturehike Cloud-Up 2</div><div class="rcard-meta"><span class="rbadge rb-al">AL</span><span>⭐ 4.4 Gerçek</span><span>%11 İade</span><span>Amazon</span></div></div><span class="rcard-price">₺1.990</span></a>
-        <a href="/dashboard/product-analysis" class="rcard"><span class="rcard-num">03</span><span class="rcard-icon">⛺</span><div class="rcard-info"><div class="rcard-name">Decathlon MH100 Kamp Seti</div><div class="rcard-meta"><span class="rbadge rb-al">AL</span><span>⭐ 4.2 Gerçek</span><span>%7 İade</span><span>Hepsiburada</span></div></div><span class="rcard-price">₺1.650</span></a>
-      </div>`;
-    }
-    if (q.includes('kulaklık') || q.includes('headphone')) {
-      return `Spor için en iyi kablosuz kulaklıklar:
-      <div class="result-cards">
-        <a href="/dashboard/product-analysis" class="rcard"><span class="rcard-num">01</span><span class="rcard-icon">🎧</span><div class="rcard-info"><div class="rcard-name">Jabra Elite 8 Active</div><div class="rcard-meta"><span class="rbadge rb-al">AL</span><span>⭐ 4.5 Gerçek</span><span>%8 İade</span><span>Amazon</span></div></div><span class="rcard-price">₺4.200</span></a>
-        <a href="/dashboard/product-analysis" class="rcard"><span class="rcard-num">02</span><span class="rcard-icon">🎧</span><div class="rcard-info"><div class="rcard-name">Sony WF-1000XM5</div><div class="rcard-meta"><span class="rbadge rb-bk">BEKLE</span><span>⭐ 4.3 Gerçek</span><span>%12 İade</span><span>Trendyol</span></div></div><span class="rcard-price">₺5.499</span></a>
-        <a href="/dashboard/product-analysis" class="rcard"><span class="rcard-num">03</span><span class="rcard-icon">🎧</span><div class="rcard-info"><div class="rcard-name">Anker Soundcore Sport X20</div><div class="rcard-meta"><span class="rbadge rb-al">AL</span><span>⭐ 4.1 Gerçek</span><span>%6 İade</span><span>Hepsiburada</span></div></div><span class="rcard-price">₺1.850</span></a>
-      </div>`;
-    }
-    if (q.includes('süpürge') || q.includes('robot')) {
-      return `Orta bütçe robot süpürgeler — iyi fiyat/performans:
-      <div class="result-cards">
-        <a href="/dashboard/product-analysis" class="rcard"><span class="rcard-num">01</span><span class="rcard-icon">🤖</span><div class="rcard-info"><div class="rcard-name">Xiaomi Robot Vacuum E10</div><div class="rcard-meta"><span class="rbadge rb-al">AL</span><span>⭐ 4.2 Gerçek</span><span>%11 İade</span><span>Trendyol</span></div></div><span class="rcard-price">₺4.999</span></a>
-        <a href="/dashboard/product-analysis" class="rcard"><span class="rcard-num">02</span><span class="rcard-icon">🤖</span><div class="rcard-info"><div class="rcard-name">Roborock Q5 Pro</div><div class="rcard-meta"><span class="rbadge rb-bk">BEKLE</span><span>⭐ 4.5 Gerçek</span><span>%8 İade</span><span>Amazon</span></div></div><span class="rcard-price">₺8.499</span></a>
-        <a href="/dashboard/product-analysis" class="rcard"><span class="rcard-num">03</span><span class="rcard-icon">🤖</span><div class="rcard-info"><div class="rcard-name">Ecovacs Deebot N10</div><div class="rcard-meta"><span class="rbadge rb-al">AL</span><span>⭐ 4.0 Gerçek</span><span>%14 İade</span><span>Hepsiburada</span></div></div><span class="rcard-price">₺5.899</span></a>
-      </div>`;
-    }
-    return `Sorgunuzu analiz ettim. İşte önerilerim:
-      <div class="result-cards">
-        <a href="/dashboard/product-analysis" class="rcard"><span class="rcard-num">01</span><span class="rcard-icon">🛍️</span><div class="rcard-info"><div class="rcard-name">En İyi Fiyat/Performans Seçeneği</div><div class="rcard-meta"><span class="rbadge rb-al">AL</span><span>⭐ 4.4 Gerçek</span><span>%10 İade</span><span>Trendyol</span></div></div><span class="rcard-price">₺1.299</span></a>
-        <a href="/dashboard/product-analysis" class="rcard"><span class="rcard-num">02</span><span class="rcard-icon">🛍️</span><div class="rcard-info"><div class="rcard-name">Premium Seçenek</div><div class="rcard-meta"><span class="rbadge rb-bk">BEKLE</span><span>⭐ 4.2 Gerçek</span><span>%15 İade</span><span>Amazon</span></div></div><span class="rcard-price">₺2.499</span></a>
-      </div>`;
-  };
-
-  const sendMsg = (textOverride?: string) => {
+  const sendMsg = async (textOverride?: string) => {
     const text = textOverride || input.trim();
-    if (!text) return;
-    
-    setMessages(prev => [...prev, { id: Math.random().toString(), type: 'user', text }]);
+    if (!text || isTyping) return;
+
+    setMessages((prev) => [...prev, { id: crypto.randomUUID(), type: "user", text }]);
     setInput("");
     if (textareaRef.current) {
-      textareaRef.current.style.height = 'auto';
+      textareaRef.current.style.height = "auto";
     }
-    
+
     setIsTyping(true);
-    setTimeout(() => {
+    try {
+      const { recommendations } = await askSmartAdvisor(text);
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: crypto.randomUUID(),
+          type: "bot",
+          text:
+            recommendations.length > 0
+              ? "İhtiyacınıza göre şu ürünleri öneriyorum:"
+              : "Şu an net bir öneri üretemedim; sorunuzu biraz daha detaylandırabilir misiniz?",
+          recommendations,
+        },
+      ]);
+    } catch (err) {
+      const message =
+        err instanceof ApiError
+          ? err.message
+          : "Asistan yanıt veremedi. Backend çalışıyor mu?";
+      setMessages((prev) => [
+        ...prev,
+        { id: crypto.randomUUID(), type: "bot", text: message },
+      ]);
+    } finally {
       setIsTyping(false);
-      setMessages(prev => [...prev, { 
-        id: Math.random().toString(), 
-        type: 'bot', 
-        text: botReply(text),
-        isHtml: true
-      }]);
-    }, 1500);
+    }
   };
+
 
   const clearChat = () => setMessages([]);
 
@@ -176,11 +165,10 @@ export default function SmartAdvisorPage() {
             <div className={`msg-av ${m.type === 'user' ? 'usr' : 'bot'}`}>
               {m.type === 'user' ? initials : '🪶'}
             </div>
-            {m.isHtml ? (
-              <div className={`bubble ${m.type}`} dangerouslySetInnerHTML={{ __html: m.text }} />
-            ) : (
-              <div className={`bubble ${m.type}`}>{m.text}</div>
-            )}
+            <div className={`bubble ${m.type}`}>
+              {m.text}
+              {m.recommendations && <AdvisorRecommendations items={m.recommendations} />}
+            </div>
           </div>
         ))}
 
