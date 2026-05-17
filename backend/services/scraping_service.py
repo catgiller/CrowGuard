@@ -67,16 +67,12 @@ def detect_site(url: str) -> str:
     domain = urlparse(url).netloc.lower()
     if "trendyol" in domain:
         return "Trendyol"
-    if "hepsiburada" in domain:
-        return "Hepsiburada"
-    if "amazon" in domain:
-        return "Amazon"
     if "n11" in domain:
         return "N11"
-    if "gittigidiyor" in domain:
-        return "GittiGidiyor"
     if "ciceksepeti" in domain:
         return "ÇiçekSepeti"
+    if "akakce" in domain:
+        return "Akakçe"
     return "E-ticaret"
 
 
@@ -214,113 +210,136 @@ def _extract_trendyol(soup: BeautifulSoup, url: str) -> Optional[ScrapedProduct]
     return None
 
 
+def _extract_akakce(soup: BeautifulSoup, url: str) -> Optional[ScrapedProduct]:
+    for script in soup.find_all("script", type="application/ld+json"):
+        try:
+            data = json.loads(script.string or "")
+            if data.get("@type") != "ProductGroup":
+                continue
+
+            name = data.get("name", "").strip()
+            if not name:
+                continue
+
+            brand = ""
+            if isinstance(data.get("brand"), dict):
+                brand = data["brand"].get("name", "")
+
+            image_url = ""
+            imgs = data.get("image", [])
+            if isinstance(imgs, list) and imgs:
+                image_url = imgs[0].get("contentUrl", "") if isinstance(imgs[0], dict) else imgs[0]
+            elif isinstance(imgs, str):
+                image_url = imgs
+
+            price = None
+            offers = data.get("offers", {})
+            if isinstance(offers, dict):
+                lp = offers.get("lowPrice")
+                if lp:
+                    price = str(lp)
+
+            rating = None
+            review_count = None
+            agg = data.get("aggregateRating", {})
+            if agg:
+                rv = agg.get("ratingValue")
+                rating = str(rv) if rv else None
+                rc = agg.get("reviewCount") or agg.get("ratingCount")
+                review_count = int(rc) if rc else None
+
+            if not review_count:
+                m = re.search(r"(\d+)\s*yorum", soup.get_text(), re.I)
+                if m:
+                    review_count = int(m.group(1))
+
+            description = data.get("description", "")
+
+            return ScrapedProduct(
+                url=url,
+                title=name,
+                price=price,
+                description=description[:600] if description else None,
+                rating=rating,
+                review_count=review_count,
+                image_url=image_url or None,
+                brand=brand or None,
+                site_name="Akakçe",
+            )
+        except Exception:
+            continue
+    return None
+
+
+def _try_extractors(soup: BeautifulSoup, url: str, site: str) -> Optional[ScrapedProduct]:
+    product = _extract_json_ld(soup, url, site)
+    if product and product.is_valid():
+        return product
+
+    if "trendyol" in url.lower():
+        product = _extract_trendyol(soup, url)
+        if product and product.is_valid():
+            return product
+
+    if "akakce" in url.lower():
+        product = _extract_akakce(soup, url)
+        if product and product.is_valid():
+            return product
+
+    product = _extract_meta_tags(soup, url, site)
+    if product and product.is_valid():
+        return product
+
+    return None
+
+
 def _scrape_httpx(url: str) -> Optional[ScrapedProduct]:
     try:
         with httpx.Client(timeout=15, follow_redirects=True) as client:
             resp = client.get(url, headers=HEADERS)
-            if resp.status_code == 403:
-                logger.warning(f"HTTP 403 (bot koruması) — Playwright'a düşüyor: {url}")
-                return None
             if resp.status_code != 200:
-                logger.warning(f"HTTP {resp.status_code} for {url}")
+                logger.warning(f"httpx HTTP {resp.status_code} for {url}")
                 return None
-
             soup = BeautifulSoup(resp.text, "lxml")
-            site = detect_site(url)
-
-            # 1. JSON-LD (most reliable)
-            product = _extract_json_ld(soup, url, site)
-            if product and product.is_valid():
-                return product
-
-            # 2. Site-specific extraction
-            if "trendyol" in url.lower():
-                product = _extract_trendyol(soup, url)
-                if product and product.is_valid():
-                    return product
-
-            # 3. OG meta tags fallback
-            product = _extract_meta_tags(soup, url, site)
-            if product and product.is_valid():
-                return product
-
+            return _try_extractors(soup, url, detect_site(url))
     except Exception as e:
         logger.error(f"httpx scrape error for {url}: {e}")
     return None
 
 
-async def _scrape_playwright(url: str) -> Optional[ScrapedProduct]:
+def _scrape_curl_cffi(url: str) -> Optional[ScrapedProduct]:
+    """Chrome TLS fingerprint'i taklit eder — Cloudflare korumalarını aşar."""
     try:
-        from playwright.async_api import async_playwright
+        from curl_cffi import requests as curl_requests
+        session = curl_requests.Session(impersonate="chrome124")
+        resp = session.get(
+            url,
+            headers={
+                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+                "Accept-Language": "tr-TR,tr;q=0.9,en-US;q=0.8",
+                "Referer": "https://www.google.com/",
+            },
+            timeout=20,
+        )
+        if resp.status_code != 200:
+            logger.warning(f"curl_cffi HTTP {resp.status_code} for {url}")
+            return None
 
-        async with async_playwright() as p:
-            browser = await p.chromium.launch(
-                headless=True,
-                args=[
-                    "--no-sandbox",
-                    "--disable-dev-shm-usage",
-                    "--disable-gpu",
-                    "--disable-blink-features=AutomationControlled",
-                ],
-            )
-            ctx = await browser.new_context(
-                user_agent=HEADERS["User-Agent"],
-                locale="tr-TR",
-                viewport={"width": 1280, "height": 800},
-                java_script_enabled=True,
-                extra_http_headers={
-                    "Accept-Language": "tr-TR,tr;q=0.9",
-                    "Referer": "https://www.google.com/",
-                },
-            )
-            # navigator.webdriver gizle
-            await ctx.add_init_script(
-                "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})"
-            )
-            page = await ctx.new_page()
-            await page.goto(url, wait_until="domcontentloaded", timeout=35000)
-            # Sayfanın yüklenmesi için bekle (Hepsiburada, Trendyol JS-heavy)
-            await page.wait_for_timeout(3500)
-
-            html = await page.content()
-            await browser.close()
-
-        soup = BeautifulSoup(html, "lxml")
-        site = detect_site(url)
-
-        product = _extract_json_ld(soup, url, site)
-        if product and product.is_valid():
-            return product
-
-        if "trendyol" in url.lower():
-            product = _extract_trendyol(soup, url)
-            if product and product.is_valid():
-                return product
-
-        product = _extract_meta_tags(soup, url, site)
-        if product and product.is_valid():
-            return product
-
+        soup = BeautifulSoup(resp.text, "lxml")
+        return _try_extractors(soup, url, detect_site(url))
     except ImportError:
-        logger.warning("Playwright not installed")
+        logger.warning("curl_cffi not installed")
     except Exception as e:
-        logger.error(f"Playwright error for {url}: {e}")
+        logger.error(f"curl_cffi error for {url}: {e}")
     return None
 
 
 def _extract_title_from_url(url: str) -> Optional[str]:
     path = urlparse(url).path
-    # Hepsiburada: /ürün-adı-p-ÜRÜNKODU
-    hb_match = re.search(r"/(.+?)-p-[A-Z0-9]+$", path)
-    if hb_match:
-        slug = hb_match.group(1)
-        return slug.replace("-", " ").title()
-    # Trendyol: /marka/ürün-adı-p-12345
     ty_match = re.search(r"/[^/]+/(.+?)-p-\d+", path)
     if ty_match:
         slug = ty_match.group(1)
         return slug.replace("-", " ").title()
-    # Genel: son path segment
     last = path.rstrip("/").split("/")[-1]
     if last and len(last) > 5:
         return last.replace("-", " ").replace("_", " ").title()
@@ -329,22 +348,21 @@ def _extract_title_from_url(url: str) -> Optional[str]:
 
 async def scrape_product(url: str) -> ScrapedProduct:
     """
-    1. httpx (hızlı)
-    2. Playwright (JS-heavy / bot-korumalı siteler)
-    3. URL slug fallback (her iki yöntem de başarısız olursa)
+    1. httpx (Trendyol, N11, ÇiçekSepeti — JSON-LD/JS state)
+    2. curl_cffi (Akakçe — Cloudflare TLS bypass)
+    3. URL slug fallback
     """
     product = _scrape_httpx(url)
     if product and product.is_valid():
         logger.info(f"httpx scrape OK: {url}")
         return product
 
-    logger.info(f"Playwright fallback: {url}")
-    product = await _scrape_playwright(url)
+    logger.info(f"curl_cffi fallback: {url}")
+    product = _scrape_curl_cffi(url)
     if product and product.is_valid():
-        logger.info(f"Playwright scrape OK: {url}")
+        logger.info(f"curl_cffi scrape OK: {url}")
         return product
 
-    # Son çare: URL'den ürün adı çıkar
     title_from_url = _extract_title_from_url(url)
     if title_from_url:
         logger.info(f"URL slug fallback: {title_from_url}")

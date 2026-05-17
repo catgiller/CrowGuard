@@ -40,5 +40,5 @@ YALNIZCA şu formatta geçerli bir JSON objesi döndür:
                 continue
             raise
     if response is None:
-        raise Exception("Tüm Gemini modelleri kota dolu.")
+        raise Exception("Gemini API kotası doldu. Lütfen birkaç dakika bekleyip tekrar deneyin.")
     return json.loads(response.text)

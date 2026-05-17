@@ -6,46 +6,104 @@ from google import genai
 from fastapi import HTTPException
 from models.product import ProductAnalysisResponse
 from services.scraping_service import scrape_product, ScrapedProduct
+from services.price_algorithm import build_price_history, compute_price_signal
 
 logger = logging.getLogger(__name__)
 
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
+MODELS = ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash"]
+
+SUPPORTED_SITES = {"trendyol"}
+
+UNSUPPORTED_SITES = {
+    "hepsiburada": "Hepsiburada şu an bot koruması nedeniyle desteklenmiyor.",
+    "amazon":      "Amazon şu an desteklenmiyor.",
+}
+
+
+def _is_url(text: str) -> bool:
+    t = text.strip().lower()
+    return t.startswith(("http://", "https://", "www."))
+
+
+def _parse_price(price_str: str) -> float:
+    """
+    Türkçe (1.350,00) ve İngilizce (1,350.00) fiyat formatlarını doğru parse eder.
+    Trendyol JS state'inden gelen "350.0" gibi float string'leri de düzgün işler.
+    """
+    s = re.sub(r"[₺TL€$\s]", "", price_str.strip())
+    if not s:
+        return 0.0
+
+    has_dot = "." in s
+    has_comma = "," in s
+
+    if has_dot and has_comma:
+        if s.rfind(".") > s.rfind(","):
+            s = s.replace(",", "")
+        else:
+            s = s.replace(".", "").replace(",", ".")
+    elif has_comma and not has_dot:
+        after_comma = s.split(",")[-1]
+        if len(after_comma) == 3:
+            s = s.replace(",", "")
+        else:
+            s = s.replace(",", ".")
+    elif has_dot and not has_comma:
+        after_dot = s.split(".")[-1]
+        if len(after_dot) == 3 and s.replace(".", "").isdigit():
+            s = s.replace(".", "")
+
+    try:
+        return float(s)
+    except ValueError:
+        return 0.0
+
 
 def _build_prompt(scraped: ScrapedProduct) -> str:
     product_text = scraped.to_prompt_text()
+    has_real_reviews = bool(scraped.review_count)
+
+    if has_real_reviews:
+        review_instruction = (
+            "3. Yorum analizi: Verilen yorum sayısını esas al. "
+            "fake_percentage ve trust_score tahmini yap."
+        )
+    else:
+        review_instruction = (
+            "3. Yorum analizi: Yorum verisi YOK. "
+            "fake_percentage ve trust_score için kategori ortalamasını yaz. "
+            "ai_comment'te yorum istatistiği YAZMA."
+        )
+
     return f"""
-Sen bir E-ticaret Uzmanı Yapay Zekasın. Aşağıdaki ürün verilerini analiz et ve kapsamlı bir rapor oluştur.
+Sen bir E-ticaret Uzmanı Yapay Zekasın.
 
 --- ÜRÜN BİLGİLERİ ---
 {product_text}
 --- ÜRÜN BİLGİLERİ SONU ---
 
-Şunları analiz et:
-1. Fiyat değerlendirmesi: Piyasa ortalamasına göre şu an almak mantıklı mı? (AL / BEKLE / ALT)
-   - "AL": Fiyat uygun veya iyi fırsat
-   - "BEKLE": Fiyat yüksek, indirim beklenmeli
-   - "ALT": Fiyat ortalamanın altında, çok iyi fırsat
-2. Son 3 aya ait temsili fiyat geçmişi (gerçekçi tahminler üret)
-3. Kısa uzman AI yorumu (2-3 cümle, samimi ve yardımcı ol)
-4. Yorum güvenilirlik analizi: Sahte yorum oranı tahmini ve genel güven skoru
-5. İade riski: Ürün kategorisine ve açıklamasına göre iade olasılığı
+Görevler:
+1. ai_comment: Bu ürün hakkında 2-3 cümle değerlendirme. Fiyat kararı YAZMA (algoritma verecek).
+2. average_price: Bu ürün kategorisinin Türkiye piyasasındaki ORTALAMA fiyatı (float, TL).
+   Gerçekçi ol — piyasa araştırması yap, tahmin değil.
+{review_instruction}
+4. İade riski: Ürün kategorisine göre olasılık ve nedenler.
 
-SADECE aşağıdaki JSON formatında yanıt ver, başka hiçbir şey yazma:
+ZORUNLU KURALLAR:
+- "total_reviews" alanını 0 olarak bırak, sistem dolduracak.
+- Fiyat tavsiyesi (AL/BEKLE) YAZMA — sadece average_price ver, karar algoritma verecek.
+- average_price sıfır veya boş bırakma.
+
+SADECE şu JSON formatında yanıt ver:
 {{
   "product_name": "{scraped.title}",
   "store_name": "{scraped.site_name}",
   "store_url": "",
   "image_url": "{scraped.image_url or ''}",
   "ai_comment": "string",
-  "price_analysis": {{
-    "current": 0.0,
-    "average": 0.0,
-    "recommendation": "AL"
-  }},
-  "price_history": [
-    {{"date": "YYYY-MM-DD", "price": 0.0}}
-  ],
+  "average_price": 0.0,
   "review_analysis": {{
     "total_reviews": 0,
     "fake_percentage": 0,
@@ -59,71 +117,212 @@ SADECE aşağıdaki JSON formatında yanıt ver, başka hiçbir şey yazma:
 """
 
 
-async def analyze_product_details(url: str) -> ProductAnalysisResponse:
-    if not os.getenv("GEMINI_API_KEY"):
-        raise HTTPException(status_code=500, detail="GEMINI_API_KEY eksik!")
+def _build_name_prompt(product_name: str) -> str:
+    return f"""
+Sen bir E-ticaret Uzmanı Yapay Zekasın.
+Kullanıcı ürün linki yerine ürün adı girdi: "{product_name}"
 
-    # 1. Gerçek veriyi scrape et
-    logger.info(f"Scraping başlatılıyor: {url}")
-    scraped = await scrape_product(url)
+Görevler:
+1. ai_comment: Bu ürün kategorisi hakkında 2-3 cümle genel değerlendirme.
+   Gerçek fiyat verisi olmadığından fiyat karşılaştırması yapma.
+   Güçlü ve zayıf yönlerini belirt.
+2. average_price: Türkiye piyasasındaki ORTALAMA fiyat (float, TL). Gerçekçi ol.
+3. Yorum analizi: Bu ürün kategorisinin genel güvenilirliği için tahmin yap.
+4. İade riski: Ürün kategorisine göre olasılık ve nedenler.
 
-    if not scraped.is_valid():
-        logger.warning(f"Scraping başarısız, URL ile devam ediliyor: {url}")
-        # Scraping başarısız olursa yalnızca URL ile minimal analiz yap
-        from dataclasses import replace
-        scraped = replace(scraped, title=f"Ürün ({url[:50]}...)" if len(url) > 50 else f"Ürün ({url})")
+ZORUNLU KURALLAR:
+- "total_reviews" alanını 0 olarak bırak.
+- average_price sıfır bırakma.
 
-    # 2. Temiz ve yapılandırılmış prompt gönder — HTML ASLA GÖNDERİLMEZ
-    prompt = _build_prompt(scraped)
+SADECE şu JSON formatında yanıt ver:
+{{
+  "product_name": "{product_name}",
+  "store_name": "Genel Piyasa",
+  "store_url": "",
+  "image_url": "",
+  "ai_comment": "string",
+  "average_price": 0.0,
+  "review_analysis": {{
+    "total_reviews": 0,
+    "fake_percentage": 0,
+    "trust_score": 0
+  }},
+  "return_risk": {{
+    "percentage": 0,
+    "reasons": ["string"]
+  }}
+}}
+"""
 
-    # Model öncelik sırası — kota dolunca bir sonrakine geç
-    MODELS = ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash"]
 
-    last_error = None
-    response = None
+async def _analyze_by_name(product_name: str, db) -> ProductAnalysisResponse:
+    prompt = _build_name_prompt(product_name)
+    raw = None
     for model_name in MODELS:
         try:
-            logger.info(f"Gemini isteği: model={model_name}, ürün={scraped.title}")
-            response = client.models.generate_content(
+            resp = client.models.generate_content(
                 model=model_name,
                 contents=prompt,
                 config={"response_mime_type": "application/json"},
             )
+            raw = resp.text
             break
         except Exception as e:
-            err_str = str(e)
-            if "429" in err_str or "RESOURCE_EXHAUSTED" in err_str:
-                logger.warning(f"{model_name} kota doldu, sonraki modele geçiliyor...")
-                last_error = e
-                continue
-            raise
+            logger.warning(f"{model_name} başarısız: {type(e).__name__}: {str(e)[:80]}")
+            continue
 
-    if response is None:
-        raise Exception(f"Tüm Gemini modelleri kota dolu. {last_error}")
+    if raw is None:
+        raise HTTPException(status_code=503, detail="Gemini servisi geçici olarak kullanılamıyor.")
 
     try:
+        raw = raw.strip()
+        if raw.startswith("```"):
+            raw = re.sub(r"^```(?:json)?\n?", "", raw)
+            raw = re.sub(r"\n?```$", "", raw)
+        data = json.loads(raw)
 
-        raw = response.text.strip()
-        # Bazen Gemini ```json ... ``` wrapper döndürebilir
+        average = float(data.get("average_price") or 0.0)
+        # Gerçek fiyat yok — ortalamayı göster, karar verilemez
+        price_history, _ = build_price_history(product_name, average, db)
+
+        return ProductAnalysisResponse(
+            product_name=data.get("product_name", product_name),
+            store_name="Genel Piyasa",
+            store_url="",
+            image_url="",
+            ai_comment=data.get("ai_comment", ""),
+            price_analysis={
+                "current": average,
+                "average": average,
+                "recommendation": "BEKLE",
+                "confidence": "SYNTHETIC",
+                "trend": "STABIL",
+                "trend_pct": 0.0,
+            },
+            price_history=price_history,
+            review_analysis={
+                "total_reviews": 0,
+                "fake_percentage": data["review_analysis"].get("fake_percentage", 0),
+                "trust_score": data["review_analysis"].get("trust_score", 0),
+            },
+            return_risk=data.get("return_risk", {"percentage": 0, "reasons": []}),
+        )
+    except Exception as e:
+        logger.error(f"Ürün adı analiz hatası: {e}", exc_info=True)
+        raise HTTPException(status_code=503, detail=f"AI Hatası: {str(e)}")
+
+
+async def analyze_product_details(url: str, db) -> ProductAnalysisResponse:
+    if not os.getenv("GEMINI_API_KEY"):
+        raise HTTPException(status_code=500, detail="GEMINI_API_KEY eksik!")
+
+    # Ürün adı girişi — scraping yok, Gemini ile kategori analizi
+    if not _is_url(url):
+        return await _analyze_by_name(url.strip(), db)
+
+    url_lower = url.lower()
+    for unsupported, message in UNSUPPORTED_SITES.items():
+        if unsupported in url_lower:
+            raise HTTPException(status_code=422, detail=f"{message} Lütfen Trendyol linki deneyin.")
+
+    if not any(site in url_lower for site in SUPPORTED_SITES):
+        raise HTTPException(
+            status_code=422,
+            detail="Bu site henüz desteklenmiyor. Şu an sadece Trendyol destekleniyor.",
+        )
+
+    logger.warning(f"Scraping başlıyor: {url}")
+    scraped = await scrape_product(url)
+    logger.warning(f"Scraping sonucu: title={scraped.title!r} price={scraped.price!r} valid={scraped.is_valid()}")
+
+    if not scraped.is_valid() or not scraped.price:
+        raise HTTPException(
+            status_code=503,
+            detail="Bu ürün için fiyat verisi alınamadı. Lütfen farklı bir ürün deneyin.",
+        )
+
+    prompt = _build_prompt(scraped)
+    raw = None
+
+    for model_name in MODELS:
+        try:
+            logger.warning(f"Gemini: {model_name}")
+            resp = client.models.generate_content(
+                model=model_name,
+                contents=prompt,
+                config={"response_mime_type": "application/json"},
+            )
+            raw = resp.text
+            break
+        except Exception as e:
+            logger.warning(f"{model_name} başarısız: {type(e).__name__}: {str(e)[:80]}")
+            continue
+
+    if raw is None:
+        raise HTTPException(
+            status_code=503,
+            detail="Gemini servisi geçici olarak kullanılamıyor. Lütfen birkaç dakika sonra tekrar deneyin.",
+        )
+
+    try:
+        raw = raw.strip()
         if raw.startswith("```"):
             raw = re.sub(r"^```(?:json)?\n?", "", raw)
             raw = re.sub(r"\n?```$", "", raw)
 
         data = json.loads(raw)
 
-        # Scraping'den gelen gerçek veriyle zenginleştir
-        if scraped.image_url and not data.get("image_url"):
+        # Gerçek scraping verisiyle ZORLA yaz
+        if scraped.image_url:
             data["image_url"] = scraped.image_url
-        if scraped.price and not data["price_analysis"].get("current"):
+
+        real_price = 0.0
+        if scraped.price:
+            parsed = _parse_price(scraped.price)
+            if parsed > 0:
+                real_price = parsed
+
+        average = float(data.get("average_price") or 0.0)
+
+        # Algoritma karar veriyor — Gemini değil
+        price_history, confidence = build_price_history(url, real_price, db)
+        signal = compute_price_signal(real_price, price_history, average, confidence)
+
+        # Gerçek yorum sayısı ve trust score
+        total_reviews = scraped.review_count or 0
+        trust_score = data["review_analysis"].get("trust_score", 0)
+        if scraped.rating:
             try:
-                clean = scraped.price.replace(".", "").replace(",", ".")
-                data["price_analysis"]["current"] = float(clean)
+                trust_score = min(100, int(float(scraped.rating) * 20))
             except Exception:
                 pass
 
-        logger.info("Gemini analizi başarılı.")
-        return ProductAnalysisResponse(**data)
+        result = {
+            "product_name": data.get("product_name", scraped.title),
+            "store_name": data.get("store_name", scraped.site_name),
+            "store_url": "",
+            "image_url": data.get("image_url", ""),
+            "ai_comment": data.get("ai_comment", ""),
+            "price_analysis": {
+                "current": real_price,
+                "average": signal.weighted_average,
+                "recommendation": signal.recommendation,
+                "confidence": signal.confidence,
+                "trend": signal.trend,
+                "trend_pct": signal.trend_pct,
+            },
+            "price_history": price_history,
+            "review_analysis": {
+                "total_reviews": total_reviews,
+                "fake_percentage": data["review_analysis"].get("fake_percentage", 0),
+                "trust_score": trust_score,
+            },
+            "return_risk": data.get("return_risk", {"percentage": 0, "reasons": []}),
+        }
+
+        logger.info(f"Analiz tamamlandı. Fiyat: {real_price} / Ortalama: {signal.weighted_average:.2f} / Karar: {signal.recommendation} / Güven: {signal.confidence} / Trend: {signal.trend}")
+        return ProductAnalysisResponse(**result)
 
     except Exception as e:
-        logger.error(f"Gemini hatası: {e}", exc_info=True)
+        logger.error(f"Parse hatası: {e}", exc_info=True)
         raise HTTPException(status_code=503, detail=f"AI Hatası: {str(e)}")

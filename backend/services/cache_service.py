@@ -5,6 +5,7 @@ from typing import Optional
 from sqlalchemy.orm import Session
 from models.db_models import AnalysisResult
 from services.scraping_service import EXTRACTION_VERSION
+from database import SessionLocal
 
 logger = logging.getLogger(__name__)
 
@@ -59,3 +60,20 @@ def set_cache(
     db.refresh(entry)
     logger.info(f"Cache SET (TTL={ttl_hours}h): {cache_key[:12]}...")
     return entry
+
+
+def set_cache_background(
+    url: str,
+    cache_key: str,
+    result_data: dict,
+    user_id: Optional[int] = None,
+    ttl_hours: int = CACHE_TTL_HOURS,
+) -> None:
+    """BackgroundTask için — kendi session'ını açar, request session'ına bağlı değil."""
+    db = SessionLocal()
+    try:
+        set_cache(db, url, cache_key, result_data, user_id, ttl_hours)
+    except Exception as e:
+        logger.error(f"Cache yazma hatası: {e}")
+    finally:
+        db.close()

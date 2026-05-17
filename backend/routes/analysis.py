@@ -5,7 +5,7 @@ from models import db_models
 from models.product import ReviewInput, ProductAnalysisRequest, ProductAnalysisResponse
 from services.gemini_service import analyze_review
 from services.product_service import analyze_product_details
-from services.cache_service import make_cache_key, get_cached, set_cache
+from services.cache_service import make_cache_key, get_cached, set_cache_background
 from auth.dependencies import get_current_user_optional
 
 router = APIRouter()
@@ -48,7 +48,7 @@ async def analyze_product(
 
     # 2. Scrape + AI analiz
     try:
-        result = await analyze_product_details(url)
+        result = await analyze_product_details(url, db)
     except HTTPException:
         raise
     except Exception as e:
@@ -58,8 +58,7 @@ async def analyze_product(
 
     # 3. Cache'e yaz (background'da — kullanıcıyı beklettirme)
     background_tasks.add_task(
-        set_cache,
-        db=db,
+        set_cache_background,
         url=url,
         cache_key=cache_key,
         result_data=result_dict,
