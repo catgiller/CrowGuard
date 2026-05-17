@@ -1,9 +1,21 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { AdvisorRecommendations } from "@/components/advisor-recommendations";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { MenuButton } from "@/components/menu-button";
 import { useDashboard } from "@/contexts/dashboard-context";
+<<<<<<< HEAD
+import { ApiError } from "@/lib/api";
+import { askSmartAdvisor } from "@/lib/advisor";
+import type { RecommendedProduct } from "@/lib/advisor";
+
+interface Message {
+  id: string;
+  type: "user" | "bot";
+  text?: string;
+  recommendations?: RecommendedProduct[];
+=======
 import { apiFetch } from "@/lib/api";
 
 interface RecommendedProduct {
@@ -81,6 +93,7 @@ function RecommendationCards({ recs }: { recs: RecommendedProduct[] }) {
       </div>
     </div>
   );
+>>>>>>> be11c6c71733a4b3308be051b7ddedd378e46fcb
 }
 
 export default function SmartAdvisorPage() {
@@ -101,6 +114,38 @@ export default function SmartAdvisorPage() {
     const text = textOverride || input.trim();
     if (!text || isTyping) return;
 
+<<<<<<< HEAD
+    setMessages((prev) => [...prev, { id: crypto.randomUUID(), type: "user", text }]);
+    setInput("");
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+    }
+
+    setIsTyping(true);
+    try {
+      const { recommendations } = await askSmartAdvisor(text);
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: crypto.randomUUID(),
+          type: "bot",
+          text:
+            recommendations.length > 0
+              ? "İhtiyacınıza göre şu ürünleri öneriyorum:"
+              : "Şu an net bir öneri üretemedim; sorunuzu biraz daha detaylandırabilir misiniz?",
+          recommendations,
+        },
+      ]);
+    } catch (err) {
+      const message =
+        err instanceof ApiError
+          ? err.message
+          : "Asistan yanıt veremedi. Backend çalışıyor mu?";
+      setMessages((prev) => [
+        ...prev,
+        { id: crypto.randomUUID(), type: "bot", text: message },
+      ]);
+=======
     setMessages(prev => [...prev, { id: Math.random().toString(), type: 'user', text }]);
     setInput("");
     if (textareaRef.current) textareaRef.current.style.height = 'auto';
@@ -122,10 +167,12 @@ export default function SmartAdvisorPage() {
         type: 'bot',
         error: 'Asistan şu an çok yoğun, lütfen biraz sonra tekrar deneyin.',
       }]);
+>>>>>>> be11c6c71733a4b3308be051b7ddedd378e46fcb
     } finally {
       setIsTyping(false);
     }
   };
+
 
   const clearChat = () => setMessages([]);
 
@@ -227,9 +274,14 @@ export default function SmartAdvisorPage() {
               {m.type === 'user' ? initials : '🪶'}
             </div>
             <div className={`bubble ${m.type}`}>
+<<<<<<< HEAD
+              {m.text}
+              {m.recommendations && <AdvisorRecommendations items={m.recommendations} />}
+=======
               {m.type === 'user' && m.text}
               {m.type === 'bot' && m.recommendations && <RecommendationCards recs={m.recommendations} />}
               {m.type === 'bot' && m.error && <span style={{ color: 'var(--c2)' }}>{m.error}</span>}
+>>>>>>> be11c6c71733a4b3308be051b7ddedd378e46fcb
             </div>
           </div>
         ))}
