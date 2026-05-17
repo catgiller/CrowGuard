@@ -16,7 +16,7 @@ export function BrandLogo({
   height = 42,
   showWordmark = true,
   className,
-  subLabel = "Shopping Assistant",
+  subLabel = "Alışveriş Asistanı",
   variant = "nav",
   onClick,
 }: BrandLogoProps) {
