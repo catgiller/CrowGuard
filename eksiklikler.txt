@@ -1,0 +1,80 @@
+# CrowGuard / Pitoresk — Eksiklikler ve Yapılacaklar
+
+Analiz tarihi: 2026-05-17  
+Kapsam: Proje geneli taranmıştır; **frontend/** içinde düzeltilebilen maddeler işaretlidir.
+
+---
+
+## FRONTEND — Düzeltildi (bu oturumda)
+
+- [x] **Font tutarsızlığı:** `layout.tsx` Inter/Playfair kullanıyordu, `globals.css` Manrope/DM Sans/Crimson Text bekliyordu → `next/font` ile Manrope + DM Sans + Crimson Text tek kaynaktan yükleniyor; CSS değişkenleri hizalandı.
+- [x] **Çift font yüklemesi:** Google Fonts `@import` kaldırıldı (performans + FOUT riski azaltıldı).
+- [x] **Logo:** Eski inline SVG yerine `frontend/public/logo.png` (yeni marka görseli) kullanılıyor; `BrandLogo` bileşeni eklendi.
+- [x] **Nav tekrarı:** Ana sayfa kendi nav’ını kopyalamak yerine `MarketingNav` kullanıyor.
+- [x] **Footer estetiği:** `MarketingFooter` indigo/Playfair Tailwind stilinden çıkarılıp tasarım sistemi (`cg-footer`, gradient marka) ile uyumlu hale getirildi.
+- [x] **Landing inline fontlar:** Problem slaytındaki `DM Sans` / `Crimson Text` inline stilleri kaldırıldı; `--ff-logo` kullanılıyor.
+- [x] **Giriş sayfası dil:** "Tekrar Hoşgeldiniz" → "Tekrar hoş geldiniz"; başlık büyük/küçük harf tutarlılığı.
+- [x] **Geçmiş sayfası UI:** Dashboard topbar + tasarım token’ları ile uyumlu boş durum (önceden gri Tailwind “yabancı” görünüm).
+
+---
+
+## FRONTEND — Yapılacaklar
+
+### Dil ve içerik
+- [ ] **Karışık TR/EN arayüz:** Özellik rozetleri ve bazı etiketler İngilizce ("Return Intelligence", "Price Guard", "Multi-Agent Advisor", "Shopping Assistant") — kullanıcı diline göre TR karşılıkları veya tutarlı bilingual strateji belirlenmeli.
+- [ ] **"YZ" kısaltması:** Hero’da "YZ Destekli" — hedef kitle için "Yapay zeka destekli" daha anlaşılır olabilir.
+- [ ] **İletişim formu:** Gönderim yalnızca `setTimeout` mock; gerçek API/e-posta entegrasyonu yok — kullanıcıya başarı mesajı yanıltıcı olabilir.
+- [ ] **Şifremi unuttum:** `/login` içinde `href="#"` — sayfa veya akış yok.
+
+### İşlev
+- [ ] **Ürün analizi:** Tamamen mock veri; `lib/api.ts` ile backend analiz uçları bağlanmamış.
+- [ ] **Akıllı asistan:** Kural tabanlı mock yanıtlar + `dangerouslySetInnerHTML`; `/advisor` API ve streaming yok.
+- [ ] **Dashboard istatistikleri / geçmiş:** Sabit demo veriler; gerçek kullanıcı geçmişi API’den gelmiyor.
+- [ ] **Hızlı arama (dashboard):** Input değeri analiz sayfasına aktarılmıyor; "Analiz Et" yalnızca route değiştiriyor.
+- [ ] **Plan toggle (Ücretsiz/Pro):** Yalnızca UI demo; ödeme/abonelik backend’i yok.
+- [ ] **Çıkış (sidebar footer):** Layout sidebar’ında çıkış yok; yalnızca üst barda — tutarlılık için sidebar’a `logout` eklenebilir.
+- [ ] **Ölü kod:** `components/sidebar.tsx` (Framer Motion) hiç import edilmiyor; `dashboard/layout.tsx` kendi sidebar’ını kullanıyor — silinmeli veya birleştirilmeli.
+- [ ] **`.env.example`:** `NEXT_PUBLIC_API_URL` dokümantasyonu ve örnek değer kontrol edilmeli (geliştirici kurulumu).
+
+### Estetik ve UX
+- [ ] **Inline `<style>` blokları:** Birçok sayfada büyük `dangerouslySetInnerHTML` CSS — modüler CSS/Tailwind veya paylaşılan modüllere taşınmalı (bakım zorluğu).
+- [ ] **`my designs/` klasörü:** Eski HTML prototipleri repo içinde; canlı uygulamayla çift kaynak — arşivlenmeli veya `.gitignore`.
+- [ ] **Erişilebilirlik:** Landing dot-nav butonları dinamik oluşturuluyor; klavye odağı / `aria-current` iyileştirilebilir. Mock kartlarda gerçek ürün görselleri yok.
+- [ ] **Profil sayfası:** Kontrol edilmeli — dashboard ile aynı chrome ve font sistemi kullanıyor mu?
+
+### Teknik borç
+- [ ] **Lint:** `lint_output.txt` boş; `npm run lint` CI’da çalıştırılmalı.
+- [ ] **Bağımlılıklar:** `recharts`, `framer-motion` kısmen kullanılıyor / ölü import riski — bundle gözden geçirilmeli.
+
+---
+
+## DIŞ — Yalnızca kayıt (frontend dışı, dokunulmadı)
+
+### Marka ve repo
+- [ ] **Repo adı vs ürün:** Klasör `Pitoresk`, uygulama markası `CrowGuard` — README kök dizinde yalnızca "# CrowGuard"; ürün adı stratejisi netleştirilmeli.
+- [ ] **Backend API başlığı:** `main.py` FastAPI title `"Pitoresk AI Backend"` — frontend ile marka uyumsuzluğu.
+
+### Backend
+- [ ] **CORS:** Yalnızca localhost origin’leri; production domain eklenmeli.
+- [ ] **Veritabanı:** `pitoresk.db` repoda veya yerel — migration/seed stratejisi, `.gitignore` kontrolü.
+- [ ] **`.env.example`:** Backend kökünde; Gemini/API anahtarları için kurulum rehberi README’de eksik olabilir.
+- [ ] **Test kapsamı:** `test_main.py` var; auth/analiz/advisor için entegrasyon testleri genişletilmeli.
+
+### Altyapı ve dokümantasyon
+- [ ] **`start.sh`:** Tek komutla frontend+backend başlatma — Windows (PowerShell) için karşılığı yok.
+- [ ] **`docs/`:** `implementation_plan.md`, `api_contract.md` — frontend mock’lar ile sözleşme senkron mu kontrol edilmeli.
+- [ ] **Kök README:** Tek satır; kurulum, ortam değişkenleri, mimari özeti yok.
+
+### Güvenlik / uyumluluk
+- [ ] **Gizlilik & koşullar:** Metinler statik; KVKK/GDPR için hukuki gözden geçirme gerekir (içerik hukuk ekibine).
+- [ ] **Rate limiting:** Backend’de SlowAPI var; frontend hata mesajları buna göre test edilmeli.
+
+---
+
+## Özet öncelik (öneri)
+
+1. Backend API ↔ dashboard (analiz, geçmiş, asistan)  
+2. TR/EN dil politikası + kullanıcıya dönük metinler  
+3. CSS mimarisi (inline style → paylaşılan modüller)  
+4. Ölü kod ve `my designs/` temizliği  
+5. Production CORS, README, marka isimlendirme

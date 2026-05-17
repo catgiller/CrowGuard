@@ -1,17 +1,53 @@
+"use client";
+
 import { History } from "lucide-react";
+import { MenuButton } from "@/components/menu-button";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function HistoryPage() {
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center bg-white dark:bg-[#0a0a0a] transition-colors duration-500">
-      <div className="flex flex-col items-center gap-4 text-center">
-        <div className="p-4 bg-gray-100 dark:bg-white/5 rounded-2xl">
-          <History className="h-7 w-7 text-gray-400 dark:text-gray-600" />
+    <>
+      <div className="dash-topbar">
+        <MenuButton />
+        <span className="topbar-title">Geçmiş</span>
+        <div style={{ marginLeft: "auto", display: "flex", gap: ".75rem", alignItems: "center" }}>
+          <ThemeToggle />
         </div>
-        <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Geçmiş Aramalar</h2>
-        <p className="text-gray-400 dark:text-gray-600 text-sm font-light max-w-xs">
-          Yaptığınız aramalar burada görünecek. Henüz bir arama yapılmadı.
-        </p>
       </div>
-    </div>
+
+      <div className="dash-content" style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <div style={{ textAlign: "center", maxWidth: "20rem" }}>
+          <div
+            style={{
+              width: 56,
+              height: 56,
+              borderRadius: "var(--r-lg)",
+              background: "var(--bg2)",
+              border: "1px solid var(--border)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              margin: "0 auto 1rem",
+            }}
+          >
+            <History style={{ width: 28, height: 28, color: "var(--fg3)" }} />
+          </div>
+          <h2
+            style={{
+              fontFamily: "var(--ff-d)",
+              fontSize: "1.125rem",
+              fontWeight: 700,
+              color: "var(--fg)",
+              marginBottom: "0.5rem",
+            }}
+          >
+            Geçmiş aramalar
+          </h2>
+          <p style={{ fontSize: "0.875rem", color: "var(--fg3)", lineHeight: 1.6 }}>
+            Yaptığınız aramalar burada görünecek. Henüz bir arama yapılmadı.
+          </p>
+        </div>
+      </div>
+    </>
   );
 }
