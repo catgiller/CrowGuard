@@ -30,6 +30,8 @@ app.add_middleware(
         "http://localhost:5173",
         "http://127.0.0.1:3000",
         "https://pitoresk.vercel.app",
+        "https://pitoresk.tech",
+        "https://www.pitoresk.tech",
     ],
     allow_origin_regex=r"https://pitoresk.*\.vercel\.app",
     allow_credentials=True,
