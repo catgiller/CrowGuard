@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import List
 
 class ReviewInput(BaseModel):
     review: str
@@ -11,7 +11,10 @@ class ProductAnalysisRequest(BaseModel):
 class PriceAnalysis(BaseModel):
     current: float
     average: float
-    recommendation: str  # "AL", "BEKLE" veya "ALT"
+    recommendation: str   # AL | BEKLE | ALT | PAHALI
+    confidence: str = "SYNTHETIC"   # REAL | MIXED | SYNTHETIC
+    trend: str = "STABIL"           # DUSUYOR | YUKSELIYOR | STABIL
+    trend_pct: float = 0.0
 
 class PriceHistory(BaseModel):
     date: str
