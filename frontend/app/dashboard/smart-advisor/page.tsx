@@ -4,12 +4,83 @@ import { useState, useRef, useEffect } from "react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { MenuButton } from "@/components/menu-button";
 import { useDashboard } from "@/contexts/dashboard-context";
+import { apiFetch } from "@/lib/api";
+
+interface RecommendedProduct {
+  name: string;
+  price: number;
+  reason: string;
+  confidence: number;
+  trendyol_url: string;
+  akakce_url: string;
+  google_shopping_url: string;
+  trend_direction: string;
+  trend_score: number;
+  youtube_video_count: number;
+  youtube_latest_url: string;
+}
+
+interface AdvisorResponse {
+  recommendations: RecommendedProduct[];
+}
 
 interface Message {
   id: string;
   type: 'user' | 'bot';
-  text: string;
-  isHtml?: boolean;
+  text?: string;
+  recommendations?: RecommendedProduct[];
+  error?: string;
+}
+
+function confidenceBadge(confidence: number) {
+  if (confidence >= 80) return { cls: 'rb-al', label: 'AL' };
+  if (confidence >= 55) return { cls: 'rb-bk', label: 'BEKLE' };
+  return { cls: 'rb-alt', label: 'ARAŞTIR' };
+}
+
+function trendLabel(direction: string) {
+  if (direction === 'YUKSELIYOR') return '↑ Trend Yüksek';
+  if (direction === 'DUSUYOR') return '↓ Trend Düşük';
+  return '→ Stabil';
+}
+
+function RecommendationCards({ recs }: { recs: RecommendedProduct[] }) {
+  const icons = ['🛍️','💡','⭐'];
+  return (
+    <div>
+      <p style={{ fontSize: '0.875rem', color: 'var(--fg2)', marginBottom: '0.75rem' }}>
+        {recs.length} öneri bulundu — AI destekli analiz:
+      </p>
+      <div className="result-cards">
+        {recs.map((r, i) => {
+          const badge = confidenceBadge(r.confidence);
+          return (
+            <div key={i} className="rcard rcard-real">
+              <span className="rcard-num">0{i + 1}</span>
+              <span className="rcard-icon">{icons[i] || '🛍️'}</span>
+              <div className="rcard-info">
+                <div className="rcard-name">{r.name}</div>
+                <div className="rcard-meta">
+                  <span className={`rbadge ${badge.cls}`}>{badge.label}</span>
+                  <span>%{r.confidence} güven</span>
+                  {r.trend_score > 0 && <span>{trendLabel(r.trend_direction)}</span>}
+                  {r.youtube_video_count > 0 && <span>▶ {r.youtube_video_count} video</span>}
+                </div>
+                <div className="rcard-reason">{r.reason}</div>
+                <div className="rcard-links">
+                  {r.trendyol_url && <a href={r.trendyol_url} target="_blank" rel="noopener noreferrer" className="rcard-link">Trendyol</a>}
+                  {r.akakce_url && <a href={r.akakce_url} target="_blank" rel="noopener noreferrer" className="rcard-link">Akakçe</a>}
+                  {r.google_shopping_url && <a href={r.google_shopping_url} target="_blank" rel="noopener noreferrer" className="rcard-link">Google</a>}
+                  {r.youtube_latest_url && <a href={r.youtube_latest_url} target="_blank" rel="noopener noreferrer" className="rcard-link">YouTube</a>}
+                </div>
+              </div>
+              <span className="rcard-price">₺{r.price.toLocaleString('tr-TR')}</span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
 }
 
 export default function SmartAdvisorPage() {
@@ -26,59 +97,34 @@ export default function SmartAdvisorPage() {
     }
   }, [messages, isTyping]);
 
-  const botReply = (query: string) => {
-    const q = query.toLowerCase();
-    if (q.includes('çadır') || q.includes('kamp')) {
-      return `Kamp çadırı için 3 seçenek analiz ettim — fiyat/performans odaklı:
-      <div class="result-cards">
-        <a href="/dashboard/product-analysis" class="rcard"><span class="rcard-num">01</span><span class="rcard-icon">⛺</span><div class="rcard-info"><div class="rcard-name">Vanguard Pro 2+1 Kamp Seti</div><div class="rcard-meta"><span class="rbadge rb-al">AL</span><span>⭐ 4.6 Gerçek</span><span>%9 İade</span><span>Trendyol</span></div></div><span class="rcard-price">₺1.850</span></a>
-        <a href="/dashboard/product-analysis" class="rcard"><span class="rcard-num">02</span><span class="rcard-icon">⛺</span><div class="rcard-info"><div class="rcard-name">Naturehike Cloud-Up 2</div><div class="rcard-meta"><span class="rbadge rb-al">AL</span><span>⭐ 4.4 Gerçek</span><span>%11 İade</span><span>Amazon</span></div></div><span class="rcard-price">₺1.990</span></a>
-        <a href="/dashboard/product-analysis" class="rcard"><span class="rcard-num">03</span><span class="rcard-icon">⛺</span><div class="rcard-info"><div class="rcard-name">Decathlon MH100 Kamp Seti</div><div class="rcard-meta"><span class="rbadge rb-al">AL</span><span>⭐ 4.2 Gerçek</span><span>%7 İade</span><span>Hepsiburada</span></div></div><span class="rcard-price">₺1.650</span></a>
-      </div>`;
-    }
-    if (q.includes('kulaklık') || q.includes('headphone')) {
-      return `Spor için en iyi kablosuz kulaklıklar:
-      <div class="result-cards">
-        <a href="/dashboard/product-analysis" class="rcard"><span class="rcard-num">01</span><span class="rcard-icon">🎧</span><div class="rcard-info"><div class="rcard-name">Jabra Elite 8 Active</div><div class="rcard-meta"><span class="rbadge rb-al">AL</span><span>⭐ 4.5 Gerçek</span><span>%8 İade</span><span>Amazon</span></div></div><span class="rcard-price">₺4.200</span></a>
-        <a href="/dashboard/product-analysis" class="rcard"><span class="rcard-num">02</span><span class="rcard-icon">🎧</span><div class="rcard-info"><div class="rcard-name">Sony WF-1000XM5</div><div class="rcard-meta"><span class="rbadge rb-bk">BEKLE</span><span>⭐ 4.3 Gerçek</span><span>%12 İade</span><span>Trendyol</span></div></div><span class="rcard-price">₺5.499</span></a>
-        <a href="/dashboard/product-analysis" class="rcard"><span class="rcard-num">03</span><span class="rcard-icon">🎧</span><div class="rcard-info"><div class="rcard-name">Anker Soundcore Sport X20</div><div class="rcard-meta"><span class="rbadge rb-al">AL</span><span>⭐ 4.1 Gerçek</span><span>%6 İade</span><span>Hepsiburada</span></div></div><span class="rcard-price">₺1.850</span></a>
-      </div>`;
-    }
-    if (q.includes('süpürge') || q.includes('robot')) {
-      return `Orta bütçe robot süpürgeler — iyi fiyat/performans:
-      <div class="result-cards">
-        <a href="/dashboard/product-analysis" class="rcard"><span class="rcard-num">01</span><span class="rcard-icon">🤖</span><div class="rcard-info"><div class="rcard-name">Xiaomi Robot Vacuum E10</div><div class="rcard-meta"><span class="rbadge rb-al">AL</span><span>⭐ 4.2 Gerçek</span><span>%11 İade</span><span>Trendyol</span></div></div><span class="rcard-price">₺4.999</span></a>
-        <a href="/dashboard/product-analysis" class="rcard"><span class="rcard-num">02</span><span class="rcard-icon">🤖</span><div class="rcard-info"><div class="rcard-name">Roborock Q5 Pro</div><div class="rcard-meta"><span class="rbadge rb-bk">BEKLE</span><span>⭐ 4.5 Gerçek</span><span>%8 İade</span><span>Amazon</span></div></div><span class="rcard-price">₺8.499</span></a>
-        <a href="/dashboard/product-analysis" class="rcard"><span class="rcard-num">03</span><span class="rcard-icon">🤖</span><div class="rcard-info"><div class="rcard-name">Ecovacs Deebot N10</div><div class="rcard-meta"><span class="rbadge rb-al">AL</span><span>⭐ 4.0 Gerçek</span><span>%14 İade</span><span>Hepsiburada</span></div></div><span class="rcard-price">₺5.899</span></a>
-      </div>`;
-    }
-    return `Sorgunuzu analiz ettim. İşte önerilerim:
-      <div class="result-cards">
-        <a href="/dashboard/product-analysis" class="rcard"><span class="rcard-num">01</span><span class="rcard-icon">🛍️</span><div class="rcard-info"><div class="rcard-name">En İyi Fiyat/Performans Seçeneği</div><div class="rcard-meta"><span class="rbadge rb-al">AL</span><span>⭐ 4.4 Gerçek</span><span>%10 İade</span><span>Trendyol</span></div></div><span class="rcard-price">₺1.299</span></a>
-        <a href="/dashboard/product-analysis" class="rcard"><span class="rcard-num">02</span><span class="rcard-icon">🛍️</span><div class="rcard-info"><div class="rcard-name">Premium Seçenek</div><div class="rcard-meta"><span class="rbadge rb-bk">BEKLE</span><span>⭐ 4.2 Gerçek</span><span>%15 İade</span><span>Amazon</span></div></div><span class="rcard-price">₺2.499</span></a>
-      </div>`;
-  };
-
-  const sendMsg = (textOverride?: string) => {
+  const sendMsg = async (textOverride?: string) => {
     const text = textOverride || input.trim();
-    if (!text) return;
-    
+    if (!text || isTyping) return;
+
     setMessages(prev => [...prev, { id: Math.random().toString(), type: 'user', text }]);
     setInput("");
-    if (textareaRef.current) {
-      textareaRef.current.style.height = 'auto';
-    }
-    
+    if (textareaRef.current) textareaRef.current.style.height = 'auto';
+
     setIsTyping(true);
-    setTimeout(() => {
-      setIsTyping(false);
-      setMessages(prev => [...prev, { 
-        id: Math.random().toString(), 
-        type: 'bot', 
-        text: botReply(text),
-        isHtml: true
+    try {
+      const data = await apiFetch<AdvisorResponse>("/smart-advisor", {
+        method: "POST",
+        body: JSON.stringify({ query: text }),
+      });
+      setMessages(prev => [...prev, {
+        id: Math.random().toString(),
+        type: 'bot',
+        recommendations: data.recommendations,
       }]);
-    }, 1500);
+    } catch {
+      setMessages(prev => [...prev, {
+        id: Math.random().toString(),
+        type: 'bot',
+        error: 'Asistan şu an çok yoğun, lütfen biraz sonra tekrar deneyin.',
+      }]);
+    } finally {
+      setIsTyping(false);
+    }
   };
 
   const clearChat = () => setMessages([]);
@@ -118,14 +164,18 @@ export default function SmartAdvisorPage() {
         .bubble.user { background: var(--grad); color: #fff; border-radius: 18px 18px 4px 18px; }
         .bubble.bot { background: var(--bg2); color: var(--fg); border: 1px solid var(--border); border-radius: 18px 18px 18px 4px; }
         .result-cards { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.875rem; }
-        .rcard { display: flex; align-items: center; gap: 0.75rem; background: var(--bg3); border: 1px solid var(--border); border-radius: 14px; padding: 0.75rem 0.875rem; text-decoration: none; transition: background 0.2s, border-color 0.2s; cursor: pointer; }
+        .rcard { display: flex; align-items: flex-start; gap: 0.75rem; background: var(--bg3); border: 1px solid var(--border); border-radius: 14px; padding: 0.75rem 0.875rem; text-decoration: none; transition: background 0.2s, border-color 0.2s; }
         .rcard:hover { background: var(--card); border-color: var(--c5); }
-        .rcard-num { font-family: var(--ff-d); font-size: 0.875rem; font-weight: 800; color: var(--fg3); width: 18px; flex-shrink: 0; }
-        .rcard-icon { font-size: 1.25rem; flex-shrink: 0; }
+        .rcard-num { font-family: var(--ff-d); font-size: 0.875rem; font-weight: 800; color: var(--fg3); width: 18px; flex-shrink: 0; padding-top: 2px; }
+        .rcard-icon { font-size: 1.25rem; flex-shrink: 0; padding-top: 2px; }
         .rcard-info { flex: 1; min-width: 0; }
-        .rcard-name { font-size: 0.875rem; font-weight: 600; color: var(--fg); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .rcard-meta { font-size: 0.6875rem; color: var(--fg3); margin-top: 0.125rem; display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
-        .rcard-price { font-size: 0.9rem; font-weight: 700; color: var(--fg); flex-shrink: 0; }
+        .rcard-name { font-size: 0.875rem; font-weight: 600; color: var(--fg); }
+        .rcard-meta { font-size: 0.6875rem; color: var(--fg3); margin-top: 0.25rem; display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
+        .rcard-reason { font-size: 0.775rem; color: var(--fg2); margin-top: 0.375rem; line-height: 1.5; }
+        .rcard-links { display: flex; gap: 0.375rem; margin-top: 0.5rem; flex-wrap: wrap; }
+        .rcard-link { font-size: 0.7rem; font-weight: 600; color: var(--c5); text-decoration: none; padding: 0.2em 0.6em; border: 1px solid var(--c5); border-radius: var(--r-full); opacity: 0.8; transition: opacity 0.15s; }
+        .rcard-link:hover { opacity: 1; }
+        .rcard-price { font-size: 0.9rem; font-weight: 700; color: var(--fg); flex-shrink: 0; white-space: nowrap; }
         .rbadge { display: inline-flex; padding: 0.15em 0.5em; border-radius: var(--r-full); font-size: 0.5rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
         .rb-al  { background: rgba(22,163,74,0.15);  color: #16a34a; }
         .rb-bk  { background: rgba(241,118,40,0.15); color: var(--c2); }
@@ -176,11 +226,11 @@ export default function SmartAdvisorPage() {
             <div className={`msg-av ${m.type === 'user' ? 'usr' : 'bot'}`}>
               {m.type === 'user' ? initials : '🪶'}
             </div>
-            {m.isHtml ? (
-              <div className={`bubble ${m.type}`} dangerouslySetInnerHTML={{ __html: m.text }} />
-            ) : (
-              <div className={`bubble ${m.type}`}>{m.text}</div>
-            )}
+            <div className={`bubble ${m.type}`}>
+              {m.type === 'user' && m.text}
+              {m.type === 'bot' && m.recommendations && <RecommendationCards recs={m.recommendations} />}
+              {m.type === 'bot' && m.error && <span style={{ color: 'var(--c2)' }}>{m.error}</span>}
+            </div>
           </div>
         ))}
 
