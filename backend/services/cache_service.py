@@ -19,7 +19,7 @@ def make_cache_key(url: str) -> str:
 
 
 def get_cached(db: Session, cache_key: str) -> Optional[dict]:
-    now = datetime.datetime.utcnow()
+    now = datetime.datetime.now(datetime.timezone.utc)
     entry = (
         db.query(AnalysisResult)
         .filter(
@@ -45,7 +45,7 @@ def set_cache(
     user_id: Optional[int] = None,
     ttl_hours: int = CACHE_TTL_HOURS,
 ) -> AnalysisResult:
-    now = datetime.datetime.utcnow()
+    now = datetime.datetime.now(datetime.timezone.utc)
     entry = AnalysisResult(
         user_id=user_id,
         type="product",

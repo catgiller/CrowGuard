@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { fetchAnalysisHistory, type HistoryItem } from "@/lib/analysis";
+import { getToken } from "@/lib/auth";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { MenuButton } from "@/components/menu-button";
 import { useDashboard } from "@/contexts/dashboard-context";
@@ -11,7 +13,17 @@ export default function DashboardPage() {
   const [isPro, setIsPro] = useState(false);
   const [greeting, setGreeting] = useState("");
   const [icon, setIcon] = useState("");
+  const [quickQuery, setQuickQuery] = useState("");
+  const [recentHistory, setRecentHistory] = useState<HistoryItem[]>([]);
   const firstName = user?.name?.split(/\s+/)[0] ?? "Kullanıcı";
+
+  useEffect(() => {
+    const token = getToken();
+    if (!token) return;
+    fetchAnalysisHistory(token)
+      .then((items) => setRecentHistory(items.slice(0, 3)))
+      .catch(() => setRecentHistory([]));
+  }, []);
 
   useEffect(() => {
     const hr = new Date().getHours();
@@ -75,8 +87,22 @@ export default function DashboardPage() {
         {/* Quick search */}
         <div className="quick-search">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-          <input type="text" placeholder="Ürün linki veya isim girin ve analiz et..." />
-          <Link href="/dashboard/product-analysis" style={{ padding: ".5em 1em", background: "var(--grad)", color: "#fff", borderRadius: "var(--r-full)", fontSize: ".75rem", fontWeight: 700, textDecoration: "none", flexShrink: 0, whiteSpace: "nowrap" }}>Analiz Et</Link>
+          <input
+            type="text"
+            value={quickQuery}
+            onChange={(e) => setQuickQuery(e.target.value)}
+            placeholder="Ürün linki yapıştırın (Trendyol, Hepsiburada…)"
+          />
+          <Link
+            href={
+              quickQuery.trim()
+                ? `/dashboard/product-analysis?url=${encodeURIComponent(quickQuery.trim())}`
+                : "/dashboard/product-analysis"
+            }
+            style={{ padding: ".5em 1em", background: "var(--grad)", color: "#fff", borderRadius: "var(--r-full)", fontSize: ".75rem", fontWeight: 700, textDecoration: "none", flexShrink: 0, whiteSpace: "nowrap" }}
+          >
+            Analiz Et
+          </Link>
         </div>
 
         {/* Action cards */}
@@ -127,35 +153,29 @@ export default function DashboardPage() {
         <div>
           <div className="section-head">
             <span className="section-title">Son Aramalar</span>
-            <Link href="#" className="section-action">Tümünü Gör →</Link>
+            <Link href="/dashboard/history" className="section-action">Tümünü Gör →</Link>
           </div>
           <div className="history-list">
-            <Link href="/dashboard/product-analysis" className="history-item">
-              <div className="history-icon">👟</div>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div className="history-name">Nike Air Force 1 &apos;07 Beyaz</div>
-                <div className="history-meta">Trendyol · 2 saat önce</div>
-              </div>
-              <span className="verdict v-bk">Bekle</span>
-            </Link>
-            <Link href="/dashboard/product-analysis" className="history-item">
-              <div className="history-icon">💻</div>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div className="history-name">MacBook Air M3 13&quot;</div>
-                <div className="history-meta">Apple · Dün</div>
-              </div>
-              <span className="verdict v-bk">Bekle</span>
-            </Link>
-            <Link href="/dashboard/product-analysis" className="history-item">
-              <div className="history-icon">🤖</div>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div className="history-name">Xiaomi Mi Robot Süpürge</div>
-                <div className="history-meta">Hepsiburada · 3 gün önce</div>
-              </div>
-              <span className="verdict v-al">Al</span>
-            </Link>
-            {/* locked item (free) */}
-            {!isPro && (
+            {recentHistory.length > 0 ? (
+              recentHistory.map((item) => (
+                <Link
+                  key={item.id}
+                  href={`/dashboard/product-analysis?url=${encodeURIComponent(item.url)}`}
+                  className="history-item"
+                >
+                  <div className="history-icon">🔗</div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div className="history-name">{item.product_name || "Ürün analizi"}</div>
+                    <div className="history-meta">{item.store_name || "Analiz"}</div>
+                  </div>
+                </Link>
+              ))
+            ) : (
+              <p style={{ fontSize: "0.8125rem", color: "var(--fg3)", padding: "0.5rem 0" }}>
+                Henüz kayıtlı analiz yok. Bir ürün linki ile başlayın.
+              </p>
+            )}
+            {!isPro && recentHistory.length > 0 && (
               <div className="history-locked">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
                 Pro hesabıyla tüm geçmişe erişin
