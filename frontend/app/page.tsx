@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { MarketingNav } from "@/components/marketing-nav";
 
 export default function LandingPage() {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -103,8 +103,8 @@ export default function LandingPage() {
         .stats { display: flex; gap: clamp(2rem,6vw,5rem); justify-content: center; flex-wrap: wrap; }
         .stat-num { font-family: var(--ff-d); font-weight: 800; font-size: clamp(3rem, 6vw, 6rem); line-height: 1; background: var(--grad-h); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
         .stat-lbl { font-size: 0.8125rem; color: var(--fg3); font-weight: 500; margin-top: 0.5rem; max-width: 140px; line-height: 1.45; }
-        .problem-coda { margin-top: 3.5rem; font-family: var(--ff-d); font-size: clamp(1.1rem,2vw,1.5rem); font-weight: 600; color: var(--fg); }
-        .problem-coda .mark { color: var(--c3); }
+        .problem-coda { margin-top: 3.5rem; font-family: var(--ff-logo); font-size: clamp(1.1rem,2vw,1.5rem); font-weight: 600; color: var(--fg); }
+        .problem-coda .mark { color: var(--c3); font-family: var(--ff-logo); }
         .feat-slide { display: flex; align-items: center; background: var(--bg); padding: 0 clamp(1rem,4vw,3.5rem); padding-top: var(--nav-h); gap: clamp(2rem,5vw,6rem); }
         .feat-slide.rev { flex-direction: row-reverse; }
         .feat-text { flex: 1; min-width: 0; }
@@ -162,38 +162,7 @@ export default function LandingPage() {
         .cta-footer-links a:hover { color: var(--c2); }
       `}} />
 
-      <nav className="site-nav">
-        <Link href="/" className="nav-logo">
-          <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" width="36" height="36" className="mr-2 shrink-0">
-            <defs>
-              <linearGradient id="logoGrad" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
-                <stop offset="0%"   stopColor="#f89957" />
-                <stop offset="30%"  stopColor="#f17628" />
-                <stop offset="55%"  stopColor="#d5332a" />
-                <stop offset="80%"  stopColor="#d260a5" />
-                <stop offset="100%" stopColor="#a21f65" />
-              </linearGradient>
-            </defs>
-            <path d="M18 3L5 8v10c0 7.4 5.6 13.4 13 15 7.4-1.6 13-7.6 13-15V8L18 3z" fill="url(#logoGrad)" opacity="0.15"/>
-            <path d="M18 3L5 8v10c0 7.4 5.6 13.4 13 15 7.4-1.6 13-7.6 13-15V8L18 3z" stroke="url(#logoGrad)" strokeWidth="1.5" fill="none"/>
-            <path d="M12 20c0-3.3 2.7-6 6-6 1.6 0 3 .6 4.1 1.6L24 14l-1.5 3H24l-2 2.5c.3.6.5 1.3.5 2 0 3.3-2.7 6-6 6s-6-2.7-6-6z" fill="url(#logoGrad)"/>
-            <circle cx="20" cy="19" r="1" fill="white" opacity="0.9"/>
-          </svg>
-          <div className="nav-logo-wrap">
-            <span className="nav-logo-name">CrowGuard</span>
-            <span className="nav-logo-sub">Shopping Assistant</span>
-          </div>
-        </Link>
-        <div className="nav-links">
-          <Link href="/about" className="nav-link hide-sm">Hakkında</Link>
-          <Link href="/pricing" className="nav-link hide-sm">Fiyatlar</Link>
-          <Link href="/faq" className="nav-link hide-sm">SSS</Link>
-          <Link href="/contact" className="nav-link hide-sm">İletişim</Link>
-          <ThemeToggle />
-          <Link href="/login" className="nav-link hide-sm">Giriş Yap</Link>
-          <Link href="/login" className="btn btn-grad btn-sm">Ücretsiz Başla</Link>
-        </div>
-      </nav>
+      <MarketingNav />
 
       <nav className="dot-nav" ref={dotNavRef} aria-label="Sayfa navigasyonu"></nav>
 
@@ -226,7 +195,7 @@ export default function LandingPage() {
         </section>
 
         {/* SLIDE 1 */}
-        <section className="slide problem-slide" data-slide="1" style={{ fontFamily: 'DM Sans' }}>
+        <section className="slide problem-slide" data-slide="1">
           <div className="problem-inner">
             <p className="section-label">Problem</p>
             <h2 className="t-xl problem-h anim-fade-up">
@@ -249,8 +218,8 @@ export default function LandingPage() {
                 <p className="stat-lbl">daha akıllı kararlar ile iade oranı düşüyor</p>
               </div>
             </div>
-            <p className="problem-coda anim-fade-up anim-d4" style={{ fontFamily: "Crimson Text" }}>
-              <span className="mark" style={{ fontFamily: "Crimson Text" }}>CrowGuard AI</span> bu kaosu sona erdirmek için burada.
+            <p className="problem-coda anim-fade-up anim-d4">
+              <span className="mark">CrowGuard AI</span> bu kaosu sona erdirmek için burada.
             </p>
           </div>
         </section>

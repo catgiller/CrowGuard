@@ -1,9 +1,9 @@
 /* ═══════════════════════════════════════════════════
    CrowGuard AI — Shared Design System
    Palette: #f89957 → #f17628 → #d5332a → #d260a5 → #a21f65
-   Fonts: Manrope (display) + DM Sans (body)
+   Fonts: Manrope (display) + DM Sans (body) + Crimson Text (logo)
+   Loaded via next/font in app/layout.tsx
 ═══════════════════════════════════════════════════ */
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap');
 
 @import "tailwindcss";
 
@@ -35,9 +35,9 @@
   --card-b: rgba(120,70,90,0.07);
   --shadow: 0 4px 24px rgba(162,31,101,0.08);
 
-  --ff-d: 'Manrope', sans-serif;
-  --ff-b: 'DM Sans', sans-serif;
-  --ff-logo: 'Crimson Text', serif;
+  --ff-d: var(--font-manrope), system-ui, sans-serif;
+  --ff-b: var(--font-dm-sans), system-ui, sans-serif;
+  --ff-logo: var(--font-crimson), Georgia, serif;
 
   --r-sm: 8px;
   --r-md: 14px;
