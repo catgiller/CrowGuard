@@ -7,6 +7,8 @@ from fastapi import HTTPException
 from models.product import ProductAnalysisResponse
 from services.scraping_service import scrape_product, ScrapedProduct
 from services.price_algorithm import build_price_history, compute_price_signal
+from services.trends_service import get_product_trend
+from services.youtube_service import get_youtube_stats
 
 logger = logging.getLogger(__name__)
 
@@ -182,8 +184,10 @@ async def _analyze_by_name(product_name: str, db) -> ProductAnalysisResponse:
         data = json.loads(raw)
 
         average = float(data.get("average_price") or 0.0)
-        # Gerçek fiyat yok — ortalamayı göster, karar verilemez
         price_history, _ = build_price_history(product_name, average, db)
+
+        trend = get_product_trend(product_name)
+        yt = get_youtube_stats(product_name)
 
         return ProductAnalysisResponse(
             product_name=data.get("product_name", product_name),
@@ -196,7 +200,7 @@ async def _analyze_by_name(product_name: str, db) -> ProductAnalysisResponse:
                 "average": average,
                 "recommendation": "BEKLE",
                 "confidence": "SYNTHETIC",
-                "trend": "STABIL",
+                "trend": trend["direction"],
                 "trend_pct": 0.0,
             },
             price_history=price_history,
@@ -206,6 +210,8 @@ async def _analyze_by_name(product_name: str, db) -> ProductAnalysisResponse:
                 "trust_score": data["review_analysis"].get("trust_score", 0),
             },
             return_risk=data.get("return_risk", {"percentage": 0, "reasons": []}),
+            google_trend=trend,
+            youtube_stats=yt,
         )
     except Exception as e:
         logger.error(f"Ürün adı analiz hatası: {e}", exc_info=True)
@@ -297,6 +303,9 @@ async def analyze_product_details(url: str, db) -> ProductAnalysisResponse:
             except Exception:
                 pass
 
+        trend = get_product_trend(scraped.title)
+        yt = get_youtube_stats(scraped.title)
+
         result = {
             "product_name": data.get("product_name", scraped.title),
             "store_name": data.get("store_name", scraped.site_name),
@@ -318,9 +327,11 @@ async def analyze_product_details(url: str, db) -> ProductAnalysisResponse:
                 "trust_score": trust_score,
             },
             "return_risk": data.get("return_risk", {"percentage": 0, "reasons": []}),
+            "google_trend": trend,
+            "youtube_stats": yt,
         }
 
-        logger.info(f"Analiz tamamlandı. Fiyat: {real_price} / Ortalama: {signal.weighted_average:.2f} / Karar: {signal.recommendation} / Güven: {signal.confidence} / Trend: {signal.trend}")
+        logger.info(f"Analiz tamamlandı. Fiyat: {real_price} / Ortalama: {signal.weighted_average:.2f} / Karar: {signal.recommendation} / Güven: {signal.confidence} / Trend: {signal.trend} / YT: {yt['video_count']} video")
         return ProductAnalysisResponse(**result)
 
     except Exception as e:
