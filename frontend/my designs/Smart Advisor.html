@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="tr" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Akıllı Asistan — CrowGuard AI</title>
+<link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+body { display: flex; height: 100dvh; overflow: hidden; }
+
+/* ── Sidebar (same as other pages) ── */
+.sidebar { width: 240px; flex-shrink: 0; background: var(--bg2); border-right: 1px solid var(--border); display: flex; flex-direction: column; padding: 1.5rem 1rem; z-index: 50; transition: transform 0.3s; }
+@media (max-width: 900px) { .sidebar { position: fixed; inset: 0; right: auto; transform: translateX(-100%); width: 260px; } .sidebar.open { transform: translateX(0); box-shadow: 8px 0 40px rgba(0,0,0,0.4); } }
+.sidebar-logo { display: flex; align-items: center; gap: 0.35rem; margin-bottom: 2rem; padding: 0 0.5rem; text-decoration: none; }
+.sidebar-logo img { height: 36px; }
+.sidebar-logo-name { font-family: 'Crimson Text', serif; font-size: 1.3rem; font-weight: 700; background: var(--grad-h); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.sidebar-section { font-size: 0.5625rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg3); padding: 0 0.75rem; margin-bottom: 0.375rem; }
+.sidebar-nav { list-style: none; display: flex; flex-direction: column; gap: 0.125rem; flex: 1; }
+.nav-item a { display: flex; align-items: center; gap: 0.625rem; padding: 0.625rem 0.75rem; border-radius: var(--r-md); font-size: 0.875rem; font-weight: 500; color: var(--fg2); text-decoration: none; transition: all 0.2s; }
+.nav-item a:hover { background: var(--bg3); color: var(--fg); }
+.nav-item.active a { background: var(--bg3); color: var(--fg); font-weight: 600; }
+.nav-item a svg { width: 17px; height: 17px; flex-shrink: 0; }
+.sidebar-footer { padding-top: 1.25rem; border-top: 1px solid var(--border); display: flex; align-items: center; gap: 0.625rem; }
+.avatar { width: 34px; height: 34px; border-radius: 50%; background: var(--grad); display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; color: #fff; flex-shrink: 0; }
+.overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 40; display: none; }
+.overlay.open { display: block; }
+.menu-btn { display: none; }
+@media (max-width: 900px) { .menu-btn { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 10px; background: var(--bg2); border: 1px solid var(--border); color: var(--fg2); } .menu-btn svg { width: 18px; height: 18px; } }
+
+/* ── Chat layout ── */
+.dash-main { flex: 1; display: flex; flex-direction: column; background: var(--bg); min-width: 0; overflow: hidden; }
+.dash-topbar { height: 60px; border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 clamp(1.25rem, 3vw, 2rem); flex-shrink: 0; background: var(--bg); gap: 0.75rem; }
+.topbar-title { font-family: var(--ff-d); font-size: 1.0625rem; font-weight: 700; color: var(--fg); }
+
+/* Chat area — no gap at bottom */
+.chat-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: clamp(1rem, 2vw, 1.5rem) clamp(1rem, 3vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.125rem;
+  /* no extra bottom padding — input bar handles it */
+}
+.chat-area::-webkit-scrollbar { width: 4px; }
+
+/* Welcome state (centered) */
+.chat-welcome { display: flex; flex-direction: column; align-items: center; text-align: center; margin: auto; padding: 1rem; max-width: 480px; }
+.welcome-icon { width: 60px; height: 60px; border-radius: 18px; background: var(--grad); display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; }
+.welcome-icon svg { width: 30px; height: 30px; color: #fff; }
+.chat-welcome h2 { font-family: var(--ff-d); font-size: 1.5rem; font-weight: 700; color: var(--fg); margin-bottom: 0.5rem; }
+.chat-welcome p { font-size: 0.9rem; color: var(--fg3); line-height: 1.65; margin-bottom: 1.5rem; }
+.suggestions { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
+.sug-chip { padding: 0.45em 0.875em; border-radius: var(--r-full); font-size: 0.8125rem; border: 1.5px solid var(--border); color: var(--fg2); cursor: pointer; background: transparent; font-family: var(--ff-b); transition: all 0.2s; }
+.sug-chip:hover { border-color: var(--c4); color: var(--fg); background: rgba(210,96,165,0.07); }
+
+/* Messages */
+.msg-row { display: flex; gap: 0.625rem; align-items: flex-end; max-width: 760px; }
+.msg-row.user { flex-direction: row-reverse; margin-left: auto; }
+.msg-av { width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; }
+.msg-av.bot { background: var(--grad); color: #fff; }
+.msg-av.usr { background: var(--bg3); color: var(--fg2); font-size: 0.6875rem; }
+.bubble { padding: 0.8rem 1.0625rem; border-radius: 18px; font-size: 0.9rem; line-height: 1.65; max-width: 540px; }
+.bubble.user { background: var(--grad); color: #fff; border-radius: 18px 18px 4px 18px; }
+.bubble.bot { background: var(--bg2); color: var(--fg); border: 1px solid var(--border); border-radius: 18px 18px 18px 4px; }
+
+/* Product result cards (shown inside bot bubble) */
+.result-cards { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.875rem; }
+.rcard { display: flex; align-items: center; gap: 0.75rem; background: var(--bg3); border: 1px solid var(--border); border-radius: 14px; padding: 0.75rem 0.875rem; text-decoration: none; transition: background 0.2s, border-color 0.2s; cursor: pointer; }
+.rcard:hover { background: var(--card); border-color: var(--c5); }
+.rcard-num { font-family: var(--ff-d); font-size: 0.875rem; font-weight: 800; color: var(--fg3); width: 18px; flex-shrink: 0; }
+.rcard-icon { font-size: 1.25rem; flex-shrink: 0; }
+.rcard-info { flex: 1; min-width: 0; }
+.rcard-name { font-size: 0.875rem; font-weight: 600; color: var(--fg); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rcard-meta { font-size: 0.6875rem; color: var(--fg3); margin-top: 0.125rem; display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
+.rcard-price { font-size: 0.9rem; font-weight: 700; color: var(--fg); flex-shrink: 0; }
+.rbadge { display: inline-flex; padding: 0.15em 0.5em; border-radius: var(--r-full); font-size: 0.5rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
+.rb-al  { background: rgba(22,163,74,0.15);  color: #16a34a; }
+.rb-bk  { background: rgba(241,118,40,0.15); color: var(--c2); }
+.rb-alt { background: rgba(162,31,101,0.15); color: var(--c6); }
+
+/* Typing indicator */
+.typing { display: flex; align-items: center; gap: 4px; padding: 0.8rem 1.0625rem; background: var(--bg2); border: 1px solid var(--border); border-radius: 18px 18px 18px 4px; width: fit-content; }
+.typing span { width: 6px; height: 6px; border-radius: 50%; background: var(--fg3); animation: bounce 1.2s ease infinite; }
+.typing span:nth-child(2) { animation-delay: 0.2s; }
+.typing span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes bounce { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-6px)} }
+
+/* Input bar — flush at bottom, no extra spacing */
+.input-bar { border-top: 1px solid var(--border); padding: 0.875rem clamp(1rem, 3vw, 2rem); background: var(--bg); flex-shrink: 0; }
+.input-inner { display: flex; gap: 0.625rem; align-items: flex-end; max-width: 760px; margin: 0 auto; background: var(--bg2); border: 1.5px solid var(--border); border-radius: 16px; padding: 0.625rem 0.625rem 0.625rem 1.125rem; transition: border-color 0.2s, box-shadow 0.2s; }
+.input-inner:focus-within { border-color: var(--c5); box-shadow: 0 0 0 3px rgba(181,86,144,0.1); }
+.input-inner textarea { flex: 1; background: transparent; border: none; outline: none; font-family: var(--ff-b); font-size: 0.9375rem; color: var(--fg); resize: none; max-height: 120px; line-height: 1.5; padding: 0.25rem 0; }
+.input-inner textarea::placeholder { color: var(--fg3); }
+.send-btn { width: 38px; height: 38px; border-radius: 11px; background: var(--grad); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: opacity 0.2s, transform 0.2s; }
+.send-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+.send-btn svg { width: 17px; height: 17px; color: #fff; }
+</style>
+</head>
+<body>
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+  <a href="Landing Page.html" class="sidebar-logo"><img src="assets/logo.svg" alt="CrowGuard"><span class="sidebar-logo-name">CrowGuard</span></a>
+  <p class="sidebar-section">Araçlar</p>
+  <ul class="sidebar-nav">
+    <li class="nav-item"><a href="Dashboard.html"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Ana Sayfa</a></li>
+    <li class="nav-item"><a href="Product Analysis.html"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>Ürün Analizi</a></li>
+    <li class="nav-item active"><a href="Smart Advisor.html"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>Akıllı Asistan</a></li>
+    <li class="nav-item"><a href="#"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Geçmiş</a></li>
+    <li class="nav-item"><a href="#"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3"/></svg>Profil</a></li>
+  </ul>
+  <div class="sidebar-footer"><div class="avatar">NA</div><div><div style="font-size:.875rem;font-weight:600;color:var(--fg)">Nazife Atlas</div><div style="font-size:.6875rem;color:var(--fg3)">Ücretsiz Plan</div></div></div>
+</aside>
+
+<div class="dash-main">
+  <div class="dash-topbar">
+    <button class="menu-btn" onclick="openSidebar()"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    <span class="topbar-title">Akıllı Asistan</span>
+    <div style="margin-left:auto;display:flex;gap:.75rem;align-items:center">
+      <button onclick="clearChat()" style="font-size:.8125rem;color:var(--fg3);font-family:var(--ff-b);background:none;border:none;cursor:pointer;font-weight:500">Temizle</button>
+      <button class="theme-btn" id="themeBtn"><svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg><svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+    </div>
+  </div>
+
+  <div class="chat-area" id="chatArea">
+    <div class="chat-welcome" id="welcomeScreen">
+      <div class="welcome-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+      </div>
+      <h2>Ne arıyorsunuz?</h2>
+      <p>Bütçenizi, ihtiyacınızı ve tercihlerinizi anlatın — en uygun ürünleri analiz ederek önerelim.</p>
+      <div class="suggestions">
+        <button class="sug-chip" onclick="suggest(this)">Hafta sonu kamp için çadır, ~2000₺</button>
+        <button class="sug-chip" onclick="suggest(this)">Sevgilime teknoloji hediyesi, 800₺</button>
+        <button class="sug-chip" onclick="suggest(this)">Spor için kablosuz kulaklık öner</button>
+        <button class="sug-chip" onclick="suggest(this)">Mutfak için robot süpürge, orta bütçe</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="input-bar">
+    <div class="input-inner">
+      <textarea id="chatInput" placeholder="İhtiyacınızı ve bütçenizi yazın..." rows="1" onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+      <button class="send-btn" onclick="sendMsg()">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+if (localStorage.getItem('cg-theme') === 'light') document.documentElement.classList.remove('dark');
+document.getElementById('themeBtn').addEventListener('click', () => { const d = document.documentElement.classList.toggle('dark'); localStorage.setItem('cg-theme', d ? 'dark' : 'light'); });
+function openSidebar() { document.getElementById('sidebar').classList.add('open'); document.getElementById('overlay').classList.add('open'); }
+function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('overlay').classList.remove('open'); }
+function autoResize(el) { el.style.height = 'auto'; el.style.height = Math.min(el.scrollHeight, 120) + 'px'; }
+function handleKey(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMsg(); } }
+function suggest(btn) { document.getElementById('chatInput').value = btn.textContent; sendMsg(); }
+
+const chatArea = document.getElementById('chatArea');
+
+function addMsg(html, type) {
+  document.getElementById('welcomeScreen')?.remove();
+  const row = document.createElement('div');
+  row.className = 'msg-row' + (type === 'user' ? ' user' : '');
+  const av = document.createElement('div');
+  av.className = 'msg-av ' + (type === 'user' ? 'usr' : 'bot');
+  av.textContent = type === 'user' ? 'NA' : '🪶';
+  const bub = document.createElement('div');
+  bub.className = 'bubble ' + type;
+  bub.innerHTML = html;
+  row.appendChild(av);
+  row.appendChild(bub);
+  chatArea.appendChild(row);
+  chatArea.scrollTop = chatArea.scrollHeight;
+}
+
+function addTyping() {
+  const row = document.createElement('div');
+  row.className = 'msg-row';
+  row.innerHTML = '<div class="msg-av bot">🪶</div><div class="typing"><span></span><span></span><span></span></div>';
+  chatArea.appendChild(row);
+  chatArea.scrollTop = chatArea.scrollHeight;
+  return row;
+}
+
+/* Canned responses with product cards */
+function botReply(query) {
+  const q = query.toLowerCase();
+  if (q.includes('çadır') || q.includes('kamp')) {
+    return `Kamp çadırı için 3 seçenek analiz ettim — fiyat/performans odaklı:
+    <div class="result-cards">
+      <a href="Product Analysis.html" class="rcard"><span class="rcard-num">01</span><span class="rcard-icon">⛺</span><div class="rcard-info"><div class="rcard-name">Vanguard Pro 2+1 Kamp Seti</div><div class="rcard-meta"><span class="rbadge rb-al">AL</span><span>⭐ 4.6 Gerçek</span><span>%9 İade</span><span>Trendyol</span></div></div><span class="rcard-price">₺1.850</span></a>
+      <a href="Product Analysis.html" class="rcard"><span class="rcard-num">02</span><span class="rcard-icon">⛺</span><div class="rcard-info"><div class="rcard-name">Naturehike Cloud-Up 2</div><div class="rcard-meta"><span class="rbadge rb-al">AL</span><span>⭐ 4.4 Gerçek</span><span>%11 İade</span><span>Amazon</span></div></div><span class="rcard-price">₺1.990</span></a>
+      <a href="Product Analysis.html" class="rcard"><span class="rcard-num">03</span><span class="rcard-icon">⛺</span><div class="rcard-info"><div class="rcard-name">Decathlon MH100 Kamp Seti</div><div class="rcard-meta"><span class="rbadge rb-al">AL</span><span>⭐ 4.2 Gerçek</span><span>%7 İade</span><span>Hepsiburada</span></div></div><span class="rcard-price">₺1.650</span></a>
+    </div>`;
+  }
+  if (q.includes('kulaklık') || q.includes('headphone')) {
+    return `Spor için en iyi kablosuz kulaklıklar:
+    <div class="result-cards">
+      <a href="Product Analysis.html" class="rcard"><span class="rcard-num">01</span><span class="rcard-icon">🎧</span><div class="rcard-info"><div class="rcard-name">Jabra Elite 8 Active</div><div class="rcard-meta"><span class="rbadge rb-al">AL</span><span>⭐ 4.5 Gerçek</span><span>%8 İade</span><span>Amazon</span></div></div><span class="rcard-price">₺4.200</span></a>
+      <a href="Product Analysis.html" class="rcard"><span class="rcard-num">02</span><span class="rcard-icon">🎧</span><div class="rcard-info"><div class="rcard-name">Sony WF-1000XM5</div><div class="rcard-meta"><span class="rbadge rb-bk">BEKLE</span><span>⭐ 4.3 Gerçek</span><span>%12 İade</span><span>Trendyol</span></div></div><span class="rcard-price">₺5.499</span></a>
+      <a href="Product Analysis.html" class="rcard"><span class="rcard-num">03</span><span class="rcard-icon">🎧</span><div class="rcard-info"><div class="rcard-name">Anker Soundcore Sport X20</div><div class="rcard-meta"><span class="rbadge rb-al">AL</span><span>⭐ 4.1 Gerçek</span><span>%6 İade</span><span>Hepsiburada</span></div></div><span class="rcard-price">₺1.850</span></a>
+    </div>`;
+  }
+  if (q.includes('süpürge') || q.includes('robot')) {
+    return `Orta bütçe robot süpürgeler — iyi fiyat/performans:
+    <div class="result-cards">
+      <a href="Product Analysis.html" class="rcard"><span class="rcard-num">01</span><span class="rcard-icon">🤖</span><div class="rcard-info"><div class="rcard-name">Xiaomi Robot Vacuum E10</div><div class="rcard-meta"><span class="rbadge rb-al">AL</span><span>⭐ 4.2 Gerçek</span><span>%11 İade</span><span>Trendyol</span></div></div><span class="rcard-price">₺4.999</span></a>
+      <a href="Product Analysis.html" class="rcard"><span class="rcard-num">02</span><span class="rcard-icon">🤖</span><div class="rcard-info"><div class="rcard-name">Roborock Q5 Pro</div><div class="rcard-meta"><span class="rbadge rb-bk">BEKLE</span><span>⭐ 4.5 Gerçek</span><span>%8 İade</span><span>Amazon</span></div></div><span class="rcard-price">₺8.499</span></a>
+      <a href="Product Analysis.html" class="rcard"><span class="rcard-num">03</span><span class="rcard-icon">🤖</span><div class="rcard-info"><div class="rcard-name">Ecovacs Deebot N10</div><div class="rcard-meta"><span class="rbadge rb-al">AL</span><span>⭐ 4.0 Gerçek</span><span>%14 İade</span><span>Hepsiburada</span></div></div><span class="rcard-price">₺5.899</span></a>
+    </div>`;
+  }
+  /* Generic response */
+  return `Sorgunuzu analiz ettim. İşte önerilerim:
+    <div class="result-cards">
+      <a href="Product Analysis.html" class="rcard"><span class="rcard-num">01</span><span class="rcard-icon">🛍️</span><div class="rcard-info"><div class="rcard-name">En İyi Fiyat/Performans Seçeneği</div><div class="rcard-meta"><span class="rbadge rb-al">AL</span><span>⭐ 4.4 Gerçek</span><span>%10 İade</span><span>Trendyol</span></div></div><span class="rcard-price">₺1.299</span></a>
+      <a href="Product Analysis.html" class="rcard"><span class="rcard-num">02</span><span class="rcard-icon">🛍️</span><div class="rcard-info"><div class="rcard-name">Premium Seçenek</div><div class="rcard-meta"><span class="rbadge rb-bk">BEKLE</span><span>⭐ 4.2 Gerçek</span><span>%15 İade</span><span>Amazon</span></div></div><span class="rcard-price">₺2.499</span></a>
+    </div>`;
+}
+
+function sendMsg() {
+  const inp = document.getElementById('chatInput');
+  const text = inp.value.trim();
+  if (!text) return;
+  inp.value = ''; inp.style.height = 'auto';
+  addMsg(text, 'user');
+  const typing = addTyping();
+  setTimeout(() => { typing.remove(); addMsg(botReply(text), 'bot'); }, 1500);
+}
+
+function clearChat() { location.reload(); }
+</script>
+</body>
+</html>

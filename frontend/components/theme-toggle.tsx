@@ -1,30 +1,31 @@
 "use client";
 
-import * as React from "react";
-import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 export function ThemeToggle() {
   const { theme, setTheme, systemTheme } = useTheme();
-  const [mounted, setMounted] = React.useState(false);
+  const [mounted, setMounted] = useState(false);
 
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
+  useEffect(() => { setMounted(true); }, []);
 
   if (!mounted) return null;
 
-  const currentTheme = theme === "system" ? systemTheme : theme;
+  const isDark = (theme === "system" ? systemTheme : theme) === "dark";
 
   return (
     <button
-      onClick={() => setTheme(currentTheme === "light" ? "dark" : "light")}
-      className="relative flex items-center justify-center p-2.5 rounded-full hover:bg-white/10 transition-colors"
+      className="theme-btn"
+      onClick={() => setTheme(isDark ? "light" : "dark")}
       aria-label="Temayı Değiştir"
     >
-      <Sun className="h-4 w-4 rotate-0 scale-100 transition-all duration-300 dark:-rotate-90 dark:scale-0 text-gray-800 dark:text-white" />
-      <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all duration-300 dark:rotate-0 dark:scale-100 text-gray-800 dark:text-white" />
-      <span className="sr-only">Temayı Değiştir</span>
+      <svg className="icon-sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+        <circle cx="12" cy="12" r="5"/>
+        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+      </svg>
+      <svg className="icon-moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
     </button>
   );
 }

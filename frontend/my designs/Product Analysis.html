@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="tr" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ürün Analizi — CrowGuard AI</title>
+<link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+body { display: flex; height: 100dvh; overflow: hidden; }
+
+/* ── Sidebar ── */
+.sidebar { width: 240px; flex-shrink: 0; background: var(--bg2); border-right: 1px solid var(--border); display: flex; flex-direction: column; padding: 1.5rem 1rem; z-index: 50; transition: transform 0.3s; }
+@media (max-width: 900px) { .sidebar { position: fixed; inset: 0; right: auto; transform: translateX(-100%); width: 260px; } .sidebar.open { transform: translateX(0); box-shadow: 8px 0 40px rgba(0,0,0,0.4); } }
+.sidebar-logo { display: flex; align-items: center; gap: 0.35rem; margin-bottom: 2rem; padding: 0 0.5rem; text-decoration: none; }
+.sidebar-logo img { height: 36px; }
+.sidebar-logo-name { font-family: 'Crimson Text', serif; font-size: 1.3rem; font-weight: 700; background: var(--grad-h); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.sidebar-section { font-size: 0.5625rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg3); padding: 0 0.75rem; margin-bottom: 0.375rem; }
+.sidebar-nav { list-style: none; display: flex; flex-direction: column; gap: 0.125rem; flex: 1; }
+.nav-item a { display: flex; align-items: center; gap: 0.625rem; padding: 0.625rem 0.75rem; border-radius: var(--r-md); font-size: 0.875rem; font-weight: 500; color: var(--fg2); text-decoration: none; transition: all 0.2s; }
+.nav-item a:hover { background: var(--bg3); color: var(--fg); }
+.nav-item.active a { background: var(--bg3); color: var(--fg); font-weight: 600; }
+.nav-item a svg { width: 17px; height: 17px; flex-shrink: 0; }
+.sidebar-footer { padding-top: 1.25rem; border-top: 1px solid var(--border); display: flex; align-items: center; gap: 0.625rem; }
+.avatar { width: 34px; height: 34px; border-radius: 50%; background: var(--grad); display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; color: #fff; flex-shrink: 0; }
+.overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 40; display: none; }
+.overlay.open { display: block; }
+.menu-btn { display: none; }
+@media (max-width: 900px) { .menu-btn { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 10px; background: var(--bg2); border: 1px solid var(--border); color: var(--fg2); } .menu-btn svg { width: 18px; height: 18px; } }
+
+/* ── Main ── */
+.dash-main { flex: 1; display: flex; flex-direction: column; background: var(--bg); min-width: 0; overflow: hidden; }
+.dash-topbar { height: 60px; border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 clamp(1.25rem, 3vw, 2rem); flex-shrink: 0; background: var(--bg); gap: 0.75rem; }
+.topbar-title { font-family: var(--ff-d); font-size: 1.0625rem; font-weight: 700; color: var(--fg); }
+
+/* ══ STATE 1: Search screen ══ */
+.search-screen { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; text-align: center; }
+.search-headline { font-family: var(--ff-d); font-size: clamp(1.75rem, 4vw, 2.75rem); font-weight: 800; color: var(--fg); margin-bottom: 0.625rem; line-height: 1.2; }
+.search-headline em { font-style: normal; background: var(--grad-h); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.search-sub { font-size: 0.9375rem; color: var(--fg3); margin-bottom: 1.75rem; max-width: 480px; line-height: 1.6; }
+.search-box { width: 100%; max-width: 580px; background: var(--bg2); border: 1.5px solid var(--border); border-radius: 16px; display: flex; align-items: center; gap: 0.625rem; padding: 0.625rem 0.625rem 0.625rem 1.125rem; transition: border-color 0.2s, box-shadow 0.2s; }
+.search-box:focus-within { border-color: var(--c4); box-shadow: 0 0 0 3px rgba(210,96,165,0.1); }
+.search-box input { flex: 1; background: transparent; border: none; outline: none; font-family: var(--ff-b); font-size: 0.9375rem; color: var(--fg); padding: 0.25rem 0; min-width: 0; }
+.search-box input::placeholder { color: var(--fg3); }
+.search-go { background: var(--grad); color: #fff; border: none; cursor: pointer; border-radius: 12px; padding: 0.625rem 1.25rem; font-family: var(--ff-b); font-size: 0.875rem; font-weight: 700; flex-shrink: 0; transition: opacity 0.2s, transform 0.2s; }
+.search-go:hover { opacity: 0.88; transform: translateY(-1px); }
+.chip-row { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-top: 1.25rem; max-width: 580px; }
+.chip { padding: 0.4em 0.875em; border-radius: var(--r-full); font-size: 0.8125rem; border: 1.5px solid var(--border); color: var(--fg2); cursor: pointer; background: transparent; font-family: var(--ff-b); transition: all 0.2s; }
+.chip:hover { border-color: var(--c4); color: var(--fg); background: rgba(210,96,165,0.07); }
+
+/* ══ STATE 2: Results — split view ══ */
+.results-screen { flex: 1; display: none; overflow: hidden; }
+.results-screen.active { display: flex; }
+
+/* Left: platform card list */
+.cards-panel { width: 340px; flex-shrink: 0; border-right: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; }
+@media (max-width: 860px) { .cards-panel { width: 100%; border-right: none; } }
+.compact-search { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); display: flex; gap: 0.5rem; align-items: center; flex-shrink: 0; }
+.compact-search input { flex: 1; background: var(--bg2); border: 1.5px solid var(--border); border-radius: var(--r-full); padding: 0.5rem 0.875rem; font-family: var(--ff-b); font-size: 0.8125rem; color: var(--fg); outline: none; transition: border-color 0.2s; min-width: 0; }
+.compact-search input:focus { border-color: var(--c4); }
+.compact-search button { background: var(--grad); color: #fff; border: none; cursor: pointer; border-radius: var(--r-full); padding: 0.5rem 1rem; font-family: var(--ff-b); font-size: 0.8125rem; font-weight: 700; flex-shrink: 0; white-space: nowrap; }
+.cards-list { flex: 1; overflow-y: auto; }
+.cards-label { padding: 0.75rem 1rem 0.375rem; font-size: 0.5625rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg3); }
+
+/* Platform card */
+.pcard { padding: 1rem 1.125rem; border-bottom: 1px solid var(--border); cursor: pointer; transition: background 0.15s; display: flex; flex-direction: column; gap: 0.5rem; border-left: 3px solid transparent; }
+.pcard:hover { background: var(--bg2); }
+.pcard.selected { background: var(--bg2); border-left-color: var(--c3); }
+.pcard-top { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
+.pcard-platform { display: flex; align-items: center; gap: 0.375rem; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--fg3); }
+.pdot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.pcard-price { font-family: var(--ff-d); font-size: 1rem; font-weight: 800; color: var(--fg); }
+.pcard-name { font-size: 0.875rem; font-weight: 600; color: var(--fg); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pcard-bottom { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+.vbadge { display: inline-flex; align-items: center; gap: 0.2rem; padding: 0.18em 0.55em; border-radius: var(--r-full); font-size: 0.5625rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; flex-shrink: 0; }
+.v-al  { background: rgba(22,163,74,0.12);  color: #16a34a; }
+.v-bk  { background: rgba(241,118,40,0.12); color: var(--c2); }
+.v-alt { background: rgba(162,31,101,0.12); color: var(--c6); }
+.pcard-stats { display: flex; align-items: center; gap: 0.625rem; }
+.pcard-stat { font-size: 0.6875rem; color: var(--fg3); font-weight: 500; white-space: nowrap; }
+.pcard-arrow { margin-left: auto; color: var(--fg3); font-size: 0.8125rem; transition: transform 0.2s, color 0.2s; }
+.pcard:hover .pcard-arrow, .pcard.selected .pcard-arrow { transform: translateX(3px); color: var(--c2); }
+
+/* Right: detail panel */
+.detail-panel { flex: 1; overflow-y: auto; display: flex; flex-direction: column; }
+@media (max-width: 860px) { .detail-panel { display: none; } }
+.detail-empty { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--fg3); text-align: center; padding: 2rem; }
+.detail-empty svg { width: 40px; height: 40px; opacity: 0.25; margin-bottom: 0.875rem; }
+.detail-empty p { font-size: 0.9rem; }
+.detail-content { padding: clamp(1.25rem, 2.5vw, 1.75rem); display: flex; flex-direction: column; gap: 1rem; }
+.detail-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+.detail-name { font-family: var(--ff-d); font-size: 1.25rem; font-weight: 700; color: var(--fg); margin-bottom: 0.25rem; }
+.detail-meta { font-size: 0.8125rem; color: var(--fg3); }
+.verdict-lg { display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.4em 1em; border-radius: var(--r-full); font-size: 0.6875rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; flex-shrink: 0; }
+.metrics-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+.metric-box { background: var(--bg2); border-radius: var(--r-md); padding: 0.875rem; }
+.mlabel { font-size: 0.5625rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg3); margin-bottom: 0.375rem; }
+.mval { font-family: var(--ff-d); font-size: 1.375rem; font-weight: 800; color: var(--fg); line-height: 1; }
+.mhint { font-size: 0.6875rem; color: var(--fg3); margin-top: 0.25rem; line-height: 1.4; }
+.card-block { background: var(--card); border: 1px solid var(--card-b); border-radius: var(--r-lg); padding: 1rem 1.125rem; }
+.block-title { font-family: var(--ff-d); font-size: 0.875rem; font-weight: 700; color: var(--fg); margin-bottom: 0.75rem; }
+.risk-track { height: 7px; background: var(--bg3); border-radius: 4px; overflow: hidden; margin: 0.5rem 0; }
+.risk-fill { height: 100%; border-radius: 4px; background: var(--grad); }
+.reason-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+.reason-item { display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.8125rem; color: var(--fg2); line-height: 1.5; }
+.rdot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 0.375rem; }
+.price-bars { display: flex; align-items: flex-end; gap: 3px; height: 36px; }
+.pbar { flex: 1; border-radius: 3px 3px 0 0; background: var(--bg3); }
+.pbar.hi { background: var(--grad); }
+.alt-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 0; border-bottom: 1px solid var(--border); }
+.alt-item:last-child { border-bottom: none; }
+.alt-n { font-family: var(--ff-d); font-size: 0.8125rem; font-weight: 800; color: var(--fg3); width: 16px; flex-shrink: 0; }
+.alt-nm { font-size: 0.8125rem; font-weight: 600; color: var(--fg); flex: 1; }
+.alt-p { font-size: 0.8125rem; font-weight: 700; color: #16a34a; }
+.trust-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.75rem; }
+.trust-score { text-align: center; }
+.ts-num { font-family: var(--ff-d); font-size: 1.75rem; font-weight: 800; line-height: 1; }
+.ts-lbl { font-size: 0.6875rem; color: var(--fg3); }
+.tag-row { display: flex; flex-wrap: wrap; gap: 0.375rem; margin-top: 0.75rem; }
+.ttag { font-size: 0.5625rem; font-weight: 800; padding: 0.25em 0.625em; border-radius: 5px; letter-spacing: 0.04em; }
+</style>
+</head>
+<body>
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+  <a href="Landing Page.html" class="sidebar-logo"><img src="assets/logo.svg" alt="CrowGuard"><span class="sidebar-logo-name">CrowGuard</span></a>
+  <p class="sidebar-section">Araçlar</p>
+  <ul class="sidebar-nav">
+    <li class="nav-item"><a href="Dashboard.html"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Ana Sayfa</a></li>
+    <li class="nav-item active"><a href="Product Analysis.html"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>Ürün Analizi</a></li>
+    <li class="nav-item"><a href="Smart Advisor.html"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>Akıllı Asistan</a></li>
+    <li class="nav-item"><a href="#"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Geçmiş</a></li>
+    <li class="nav-item"><a href="#"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3"/></svg>Profil</a></li>
+  </ul>
+  <div class="sidebar-footer"><div class="avatar">NA</div><div><div style="font-size:.875rem;font-weight:600;color:var(--fg)">Nazife Atlas</div><div style="font-size:.6875rem;color:var(--fg3)">Ücretsiz Plan</div></div></div>
+</aside>
+
+<div class="dash-main">
+  <div class="dash-topbar">
+    <button class="menu-btn" onclick="openSidebar()"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    <span class="topbar-title">Ürün Analizi</span>
+    <div style="margin-left:auto;display:flex;gap:.75rem;align-items:center">
+      <button class="theme-btn" id="themeBtn"><svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg><svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+    </div>
+  </div>
+
+  <!-- STATE 1: Empty search -->
+  <div class="search-screen" id="searchScreen">
+    <h1 class="search-headline">Hangi ürünü <em>analiz edelim?</em></h1>
+    <p class="search-sub">Ürün adı, link veya model numarası — Trendyol, Amazon ve Hepsiburada aynı anda taranır.</p>
+    <div class="search-box">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;color:var(--fg3);flex-shrink:0"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input id="mainSearch" placeholder="Nike Air Force 1, trendyol.com/..." onkeydown="if(event.key==='Enter')doSearch()">
+      <button class="search-go" onclick="doSearch()">Analiz Et</button>
+    </div>
+    <div class="chip-row">
+      <button class="chip" onclick="quickSearch('Nike Air Force 1')">Nike Air Force 1</button>
+      <button class="chip" onclick="quickSearch('MacBook Air M3')">MacBook Air M3</button>
+      <button class="chip" onclick="quickSearch('Dyson V15')">Dyson V15</button>
+      <button class="chip" onclick="quickSearch('Samsung Galaxy S25')">Samsung Galaxy S25</button>
+    </div>
+  </div>
+
+  <!-- STATE 2: Results — split view -->
+  <div class="results-screen" id="resultsScreen">
+    <!-- LEFT: cards -->
+    <div class="cards-panel">
+      <div class="compact-search">
+        <input id="compactInput" onkeydown="if(event.key==='Enter')doSearch()">
+        <button onclick="doSearch()">Ara</button>
+      </div>
+      <div class="cards-list" id="cardsList"></div>
+    </div>
+
+    <!-- RIGHT: detail -->
+    <div class="detail-panel" id="detailPanel">
+      <div class="detail-empty" id="detailEmpty">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        <p>Detayları görmek için<br>bir platform seçin</p>
+      </div>
+      <div class="detail-content" id="detailContent" style="display:none"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* Theme */
+if (localStorage.getItem('cg-theme') === 'light') document.documentElement.classList.remove('dark');
+document.getElementById('themeBtn').addEventListener('click', () => { const d = document.documentElement.classList.toggle('dark'); localStorage.setItem('cg-theme', d ? 'dark' : 'light'); });
+function openSidebar() { document.getElementById('sidebar').classList.add('open'); document.getElementById('overlay').classList.add('open'); }
+function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('overlay').classList.remove('open'); }
+
+/* Platform data */
+const platforms = [
+  { id: 't', name: 'Trendyol', dot: '#f27a1a', price: '₺3.299', priceNum: 3299, verdict: 'bk', score: 3.4, realScore: 2.8, returns: 78, alts: 2, priceTrend: '+%18', fakeRate: 42, reasons: ['Kalıbı dar — 1 numara büyük önerilir', 'Renk görsellerde daha parlak (%34 alıcı)', 'Taban malzemesi beklentinin altında'] },
+  { id: 'a', name: 'Amazon TR', dot: '#ff9900', price: '₺3.150', priceNum: 3150, verdict: 'bk', score: 4.1, realScore: 3.5, returns: 62, alts: 1, priceTrend: '+%12', fakeRate: 28, reasons: ['Kalıbı standart boyutun biraz dar tarafında', 'Uzun teslimat süresi şikayeti var'] },
+  { id: 'h', name: 'Hepsiburada', dot: '#ff6000', price: '₺2.999', priceNum: 2999, verdict: 'al', score: 3.8, realScore: 3.6, returns: 45, alts: 3, priceTrend: '-%4', fakeRate: 15, reasons: ['Numara genellikle standart uyumlu', 'Teslimat hızlı ve güvenilir'] },
+];
+
+const alts = [
+  { name: 'Adidas Stan Smith Beyaz', price: '₺2.650', score: '4.5' },
+  { name: 'New Balance 327', price: '₺2.899', score: '4.3' },
+  { name: 'Vans Old Skool Pro', price: '₺2.499', score: '4.4' },
+];
+
+let currentQuery = '';
+let selectedId = null;
+
+function doSearch() {
+  const q = (document.getElementById('mainSearch') || document.getElementById('compactInput')).value.trim()
+    || document.getElementById('compactInput').value.trim();
+  const val = document.getElementById('mainSearch')?.value.trim() || document.getElementById('compactInput').value.trim();
+  if (!val) return;
+  currentQuery = val;
+  document.getElementById('compactInput').value = val;
+  document.getElementById('searchScreen').style.display = 'none';
+  document.getElementById('resultsScreen').classList.add('active');
+  renderCards();
+  selectCard(platforms[0].id);
+}
+
+function quickSearch(q) {
+  document.getElementById('mainSearch').value = q;
+  doSearch();
+}
+
+function verdictLabel(v) {
+  if (v === 'al') return 'AL';
+  if (v === 'bk') return 'BEKLE';
+  return 'ALTERNATİF';
+}
+
+function renderCards() {
+  const list = document.getElementById('cardsList');
+  list.innerHTML = `<p class="cards-label">"${currentQuery}" için sonuçlar</p>`;
+  platforms.forEach(p => {
+    const card = document.createElement('div');
+    card.className = 'pcard' + (p.id === selectedId ? ' selected' : '');
+    card.id = 'card-' + p.id;
+    card.onclick = () => selectCard(p.id);
+    card.innerHTML = `
+      <div class="pcard-top">
+        <span class="pcard-platform"><span class="pdot" style="background:${p.dot}"></span>${p.name}</span>
+        <span class="pcard-price">${p.price}</span>
+      </div>
+      <div class="pcard-name">${currentQuery}</div>
+      <div class="pcard-bottom">
+        <span class="vbadge v-${p.verdict}">${verdictLabel(p.verdict)}</span>
+        <div class="pcard-stats">
+          <span class="pcard-stat">⭐ ${p.realScore} güven</span>
+          <span class="pcard-stat">%${p.returns} iade</span>
+        </div>
+        <span class="pcard-arrow">→</span>
+      </div>`;
+    list.appendChild(card);
+  });
+}
+
+function selectCard(id) {
+  selectedId = id;
+  document.querySelectorAll('.pcard').forEach(c => c.classList.toggle('selected', c.id === 'card-' + id));
+  const p = platforms.find(x => x.id === id);
+  document.getElementById('detailEmpty').style.display = 'none';
+  const dc = document.getElementById('detailContent');
+  dc.style.display = 'flex';
+
+  dc.innerHTML = `
+    <div class="detail-head">
+      <div>
+        <div class="detail-name">${currentQuery}</div>
+        <div class="detail-meta">${p.name} · Spor Ayakkabı</div>
+      </div>
+      <span class="verdict-lg v-${p.verdict}">${verdictLabel(p.verdict)}</span>
+    </div>
+    <div class="metrics-row">
+      <div class="metric-box"><div class="mlabel">Güncel Fiyat</div><div class="mval" style="color:var(--c3)">${p.price}</div><div class="mhint">Tarihi ort. ${p.priceTrend}</div></div>
+      <div class="metric-box"><div class="mlabel">Güven Skoru</div><div class="mval" style="color:var(--c4)">${p.realScore}<span style="font-size:.875rem;color:var(--fg3)">/5</span></div><div class="mhint">%${p.fakeRate} yorum şüpheli</div></div>
+      <div class="metric-box"><div class="mlabel">İade Riski</div><div class="mval" style="color:var(--c2)">%${p.returns}</div><div class="mhint">${p.returns > 60 ? 'Yüksek' : p.returns > 35 ? 'Orta' : 'Düşük'} risk</div></div>
+    </div>
+
+    <div class="card-block">
+      <div class="block-title">Fiyat Geçmişi (6 ay)</div>
+      <div class="price-bars">
+        ${[55,48,62,50,45,58,52,65,55,48,68,100].map((h,i) => `<div class="pbar ${i===11?'hi':''}" style="height:${h}%"></div>`).join('')}
+      </div>
+      <div style="display:flex;justify-content:space-between;margin-top:.375rem;font-size:.625rem;color:var(--fg3)"><span>Kas 2025</span><span>May 2026</span></div>
+    </div>
+
+    <div class="card-block">
+      <div class="block-title">İade Risk Analizi — %${p.returns}</div>
+      <div class="risk-track"><div class="risk-fill" style="width:${p.returns}%"></div></div>
+      <ul class="reason-list" style="margin-top:.75rem">
+        ${p.reasons.map((r,i) => `<li class="reason-item"><div class="rdot" style="background:${['var(--c2)','var(--c3)','var(--c4)'][i%3]}"></div>${r}</li>`).join('')}
+      </ul>
+    </div>
+
+    <div class="card-block">
+      <div class="block-title">Güven Analizi</div>
+      <div class="trust-row">
+        <div class="trust-score"><div class="ts-num" style="color:var(--fg3)">${p.score}</div><div class="ts-lbl">Görünen</div></div>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;color:var(--fg3)"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        <div class="trust-score"><div class="ts-num" style="color:var(--c4)">${p.realScore}</div><div class="ts-lbl">Gerçek</div></div>
+        <div style="flex:1"></div>
+        <div style="font-size:.8125rem;font-weight:700;color:var(--c3)">%${p.fakeRate} şüpheli yorum</div>
+      </div>
+      <div class="tag-row">
+        <span class="ttag" style="background:rgba(213,51,42,.1);color:var(--c3)">Toplu Hesap</span>
+        <span class="ttag" style="background:rgba(210,96,165,.1);color:var(--c4)">Dil Tekrarı</span>
+        <span class="ttag" style="background:rgba(241,118,40,.1);color:var(--c2)">Hızlı Yorum</span>
+      </div>
+    </div>
+
+    <div class="card-block">
+      <div class="block-title">Akıllı Alternatifler</div>
+      ${alts.map((a,i) => `<div class="alt-item"><span class="alt-n">0${i+1}</span><span class="alt-nm">${a.name}</span><span style="font-size:.6875rem;color:var(--fg3)">⭐${a.score}</span><span class="alt-p">${a.price}</span></div>`).join('')}
+    </div>`;
+}
+</script>
+</body>
+</html>

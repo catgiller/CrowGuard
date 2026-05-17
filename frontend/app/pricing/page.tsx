@@ -1,220 +1,159 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { Check, Zap, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { MarketingNav } from "@/components/marketing-nav";
 import { MarketingFooter } from "@/components/marketing-footer";
 
-const plans = [
-  {
-    name: "Ücretsiz",
-    price: { monthly: 0, yearly: 0 },
-    desc: "Başlamak için her şey.",
-    accent: "#6b7280",
-    cta: "Hemen Başla",
-    ctaHref: "/login",
-    featured: false,
-    features: [
-      "Günlük 5 ürün analizi",
-      "Sahte yorum tespiti",
-      "Fiyat karşılaştırması",
-      "İade riski skoru",
-      "Akıllı Asistan (3 sorgu/gün)",
-    ],
-    missing: [
-      "Sınırsız analiz",
-      "Fiyat alarm bildirimleri",
-      "Geçmiş arama geçmişi",
-      "Öncelikli destek",
-    ],
-  },
-  {
-    name: "Pro",
-    price: { monthly: 79, yearly: 59 },
-    desc: "Alışverişi ciddiye alanlar için.",
-    accent: "#6366f1",
-    cta: "Pro'ya Geç",
-    ctaHref: "/login",
-    featured: true,
-    features: [
-      "Sınırsız ürün analizi",
-      "Sahte yorum tespiti",
-      "Fiyat karşılaştırması",
-      "İade riski skoru",
-      "Sınırsız Akıllı Asistan",
-      "Fiyat alarm bildirimleri",
-      "Geçmiş arama geçmişi",
-      "Öncelikli e-posta desteği",
-    ],
-    missing: [],
-  },
-  {
-    name: "Kurumsal",
-    price: { monthly: null, yearly: null },
-    desc: "Büyük ekipler ve özel entegrasyonlar.",
-    accent: "#a855f7",
-    cta: "Bize Ulaşın",
-    ctaHref: "/contact",
-    featured: false,
-    features: [
-      "Pro'daki her şey",
-      "API erişimi",
-      "Özel entegrasyon desteği",
-      "Takım hesabı yönetimi",
-      "SLA garantisi",
-      "Özel fiyatlandırma",
-    ],
-    missing: [],
-  },
-];
-
-const fallIn = (delay = 0) => ({
-  initial: { opacity: 0, y: 24 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: { duration: 0.65, delay, ease: [0.22, 1, 0.36, 1] as const },
-});
+const CheckOn = () => (
+  <div className="check-icon on">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>
+  </div>
+);
+const CheckOff = () => (
+  <div className="check-icon off">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>
+  </div>
+);
 
 export default function PricingPage() {
   const [yearly, setYearly] = useState(false);
 
   return (
-    <main className="min-h-screen bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white transition-colors duration-500">
+    <main style={{ minHeight: "100dvh", display: "flex", flexDirection: "column" }}>
+      <style dangerouslySetInnerHTML={{__html:`
+        .pricing-wrap { max-width: 1100px; margin: 0 auto; padding: 0 clamp(1rem,4vw,3.5rem); }
+        .billing-toggle { display: inline-flex; align-items: center; gap: 0; background: var(--bg2); border: 1.5px solid var(--border); border-radius: var(--r-full); padding: 4px; }
+        .billing-btn { padding: 0.5em 1.25em; border-radius: var(--r-full); font-size: 0.875rem; font-weight: 600; cursor: pointer; border: none; background: transparent; color: var(--fg3); transition: all 0.2s; font-family: var(--ff-b); }
+        .billing-btn.active { background: var(--bg); color: var(--fg); box-shadow: 0 1px 4px rgba(0,0,0,0.15); }
+        .save-badge { display: inline-flex; align-items: center; padding: 0.2em 0.625em; border-radius: var(--r-full); font-size: 0.625rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; background: rgba(22,163,74,0.12); color: #16a34a; border: 1px solid rgba(22,163,74,0.25); margin-left: 0.375rem; }
+        .plans-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; align-items: start; }
+        @media (max-width: 860px) { .plans-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; } }
+        .plan-card { background: var(--card); border: 1.5px solid var(--card-b); border-radius: var(--r-xl); padding: 2rem; transition: all 0.3s; position: relative; overflow: hidden; }
+        .plan-card:hover { border-color: var(--border); box-shadow: var(--shadow); }
+        .plan-card.featured { border-color: transparent; }
+        .plan-card.featured::before { content:''; position:absolute; inset:0; border-radius: var(--r-xl); border: 1.5px solid transparent; background: var(--grad) border-box; -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0); -webkit-mask-composite: destination-out; mask-composite: exclude; pointer-events:none; }
+        .plan-card.featured::after { content:''; position:absolute; top:0; left:0; right:0; height:3px; background: var(--grad); border-radius: var(--r-xl) var(--r-xl) 0 0; }
+        .popular-badge { position: absolute; top: 1.25rem; right: 1.25rem; display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.3em 0.75em; border-radius: var(--r-full); font-size: 0.625rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; background: var(--grad); color: #fff; }
+        .popular-badge svg { width: 10px; height: 10px; }
+        .plan-name { font-size: 0.6875rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 0.375rem; }
+        .plan-desc { font-size: 0.875rem; color: var(--fg3); margin-bottom: 1.5rem; }
+        .plan-price { font-family: var(--ff-d); font-size: clamp(2.25rem,4vw,3rem); font-weight: 800; color: var(--fg); line-height: 1; margin-bottom: 0.25rem; }
+        .plan-price sup { font-size: 1.25rem; font-weight: 700; vertical-align: super; }
+        .plan-period { font-size: 0.8125rem; color: var(--fg3); margin-bottom: 0.5rem; }
+        .plan-annual { font-size: 0.75rem; color: var(--fg3); margin-bottom: 1.5rem; min-height: 1.2em; }
+        .plan-cta { width: 100%; padding: 0.85em; border-radius: var(--r-full); font-family: var(--ff-b); font-size: 0.9375rem; font-weight: 700; text-align: center; text-decoration: none; display: block; transition: all 0.2s; margin-bottom: 1.75rem; border: none; cursor: pointer; }
+        .plan-cta.solid { background: var(--fg); color: var(--bg); }
+        .plan-cta.solid:hover { opacity: 0.88; }
+        .plan-cta.grad { background: var(--grad); color: #fff; box-shadow: 0 4px 18px rgba(213,51,42,.25); }
+        .plan-cta.grad:hover { box-shadow: 0 8px 28px rgba(213,51,42,.35); transform: translateY(-1px); }
+        .plan-cta.outline { background: transparent; color: var(--fg2); border: 1.5px solid var(--border); }
+        .plan-cta.outline:hover { border-color: var(--c5); color: var(--fg); }
+        .features-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+        .feature-item { display: flex; align-items: flex-start; gap: 0.625rem; font-size: 0.875rem; color: var(--fg2); line-height: 1.45; }
+        .feature-item.missing { color: var(--fg3); text-decoration: line-through; opacity: 0.6; }
+        .check-icon { width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+        .check-icon.on { background: var(--grad); }
+        .check-icon.off { background: var(--bg3); }
+        .check-icon svg { width: 10px; height: 10px; color: #fff; }
+        .check-icon.off svg { color: var(--fg3); }
+        .faq-strip { margin-top: 3rem; text-align: center; padding: clamp(2rem,4vw,3rem); background: var(--bg2); border: 1px solid var(--border); border-radius: var(--r-xl); }
+      `}}/>
+
       <MarketingNav />
 
-      {/* Hero */}
-      <section className="pt-24 pb-14 px-6 sm:px-14 max-w-4xl mx-auto text-center">
-        <motion.div {...fallIn(0)}>
-          <p className="text-[11px] uppercase tracking-widest text-gray-400 mb-5">Fiyatlandırma</p>
-          <h1 className="text-4xl sm:text-5xl font-semibold text-black dark:text-white mb-6 leading-tight" style={{ fontFamily: "var(--font-playfair)" }}>
-            Cüzdanınıza uygun,
-            <br />
-            <span className="italic font-normal text-gray-400 dark:text-gray-500">kararlarınız paha biçilemez.</span>
-          </h1>
-          <p className="text-gray-500 font-light max-w-md mx-auto mb-10">
-            Küçük başlayın, büyüdükçe yükseltin. Kredi kartı gerektirmez.
-          </p>
+      <div style={{ flex: 1, paddingTop: "calc(var(--nav-h) + 3rem)" }}>
+        <div className="pricing-wrap">
 
-          {/* Toggle */}
-          <div className="inline-flex items-center gap-3 bg-gray-100 dark:bg-white/5 rounded-full p-1">
-            <button
-              onClick={() => setYearly(false)}
-              className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${!yearly ? "bg-white dark:bg-white/10 text-gray-900 dark:text-white shadow-sm" : "text-gray-500"}`}
-            >
-              Aylık
-            </button>
-            <button
-              onClick={() => setYearly(true)}
-              className={`px-5 py-2 rounded-full text-sm font-medium transition-all flex items-center gap-2 ${yearly ? "bg-white dark:bg-white/10 text-gray-900 dark:text-white shadow-sm" : "text-gray-500"}`}
-            >
-              Yıllık
-              <span className="text-[10px] bg-emerald-100 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 px-2 py-0.5 rounded-full font-semibold">
-                %25 indirim
-              </span>
-            </button>
+          {/* Hero */}
+          <div style={{ textAlign: "center", marginBottom: "3rem" }}>
+            <p className="section-label">Fiyatlandırma</p>
+            <h1 className="t-xl" style={{ color: "var(--fg)", marginBottom: "1rem" }}>
+              Cüzdanınıza uygun,<br /><em style={{ fontStyle: "italic", fontWeight: 400, color: "var(--fg3)" }}>kararlarınız paha biçilemez.</em>
+            </h1>
+            <p className="t-body t-muted" style={{ maxWidth: "420px", margin: "0 auto 2rem" }}>Küçük başlayın, büyüdükçe yükseltin. Kredi kartı gerektirmez.</p>
+
+            <div className="billing-toggle">
+              <button className={`billing-btn${!yearly ? " active" : ""}`} onClick={() => setYearly(false)}>Aylık</button>
+              <button className={`billing-btn${yearly ? " active" : ""}`} onClick={() => setYearly(true)}>
+                Yıllık <span className="save-badge">%25 Tasarruf</span>
+              </button>
+            </div>
           </div>
-        </motion.div>
-      </section>
 
-      {/* Plans */}
-      <section className="px-6 sm:px-14 pb-24 max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
-          {plans.map((plan, i) => (
-            <motion.div
-              key={plan.name}
-              {...fallIn(i * 0.1)}
-              className={`relative rounded-2xl border overflow-hidden transition-all duration-300 ${
-                plan.featured
-                  ? "border-indigo-400/40 dark:border-indigo-500/40 shadow-[0_0_40px_rgba(99,102,241,0.12)]"
-                  : "border-gray-100 dark:border-white/10"
-              }`}
-            >
-              {/* Featured badge */}
-              {plan.featured && (
-                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-indigo-500 via-sky-400 to-purple-500" />
-              )}
-              {plan.featured && (
-                <div className="absolute top-4 right-4">
-                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-indigo-500/10 text-indigo-500 dark:text-indigo-400 border border-indigo-400/20 uppercase tracking-wider">
-                    <Zap className="h-3 w-3" /> Popüler
-                  </span>
-                </div>
-              )}
+          {/* Plans */}
+          <div className="plans-grid">
+            {/* Free */}
+            <div className="plan-card">
+              <p className="plan-name" style={{ color: "var(--fg3)" }}>Ücretsiz</p>
+              <p className="plan-desc">Başlamak için her şey.</p>
+              <div className="plan-price">Ücretsiz</div>
+              <p className="plan-period">&nbsp;</p>
+              <p className="plan-annual">&nbsp;</p>
+              <Link href="/login" className="plan-cta solid">Hemen Başla</Link>
+              <ul className="features-list">
+                <li className="feature-item"><CheckOn />Günlük 5 ürün analizi</li>
+                <li className="feature-item"><CheckOn />Sahte yorum tespiti</li>
+                <li className="feature-item"><CheckOn />Fiyat karşılaştırması</li>
+                <li className="feature-item"><CheckOn />İade riski skoru</li>
+                <li className="feature-item"><CheckOn />Akıllı Asistan (3 sorgu/gün)</li>
+                <li className="feature-item missing"><CheckOff />Sınırsız analiz</li>
+                <li className="feature-item missing"><CheckOff />Fiyat alarm bildirimleri</li>
+              </ul>
+            </div>
 
-              <div className={`p-7 ${plan.featured ? "bg-white dark:bg-[#0d0d0d]" : "bg-gray-50 dark:bg-white/[0.02]"}`}>
-                {/* Header */}
-                <div className="mb-6">
-                  <p className="text-xs uppercase tracking-widest font-semibold mb-1" style={{ color: plan.accent }}>{plan.name}</p>
-                  <p className="text-sm text-gray-500 font-light">{plan.desc}</p>
-                </div>
+            {/* Pro */}
+            <div className="plan-card featured">
+              <span className="popular-badge">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                Popüler
+              </span>
+              <p className="plan-name" style={{ background: "var(--grad-h)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Pro</p>
+              <p className="plan-desc">Alışverişi ciddiye alanlar için.</p>
+              <div className="plan-price"><sup>₺</sup>{yearly ? "59" : "79"}</div>
+              <p className="plan-period">/ay</p>
+              <p className="plan-annual">{yearly ? "Yıllık ₺708 faturalandırılır" : " "}</p>
+              <Link href="/login" className="plan-cta grad">Pro&apos;ya Geç</Link>
+              <ul className="features-list">
+                <li className="feature-item"><CheckOn />Sınırsız ürün analizi</li>
+                <li className="feature-item"><CheckOn />Sahte yorum tespiti</li>
+                <li className="feature-item"><CheckOn />Fiyat karşılaştırması + alarmlar</li>
+                <li className="feature-item"><CheckOn />İade riski skoru</li>
+                <li className="feature-item"><CheckOn />Sınırsız Akıllı Asistan</li>
+                <li className="feature-item"><CheckOn />Geçmiş arama geçmişi</li>
+                <li className="feature-item"><CheckOn />Öncelikli e-posta desteği</li>
+              </ul>
+            </div>
 
-                {/* Price */}
-                <div className="mb-8">
-                  {plan.price.monthly === null ? (
-                    <p className="text-4xl font-semibold text-gray-900 dark:text-white" style={{ fontFamily: "var(--font-playfair)" }}>
-                      Özel
-                    </p>
-                  ) : plan.price.monthly === 0 ? (
-                    <p className="text-4xl font-semibold text-gray-900 dark:text-white" style={{ fontFamily: "var(--font-playfair)" }}>
-                      Ücretsiz
-                    </p>
-                  ) : (
-                    <div className="flex items-end gap-1">
-                      <p className="text-4xl font-semibold text-gray-900 dark:text-white" style={{ fontFamily: "var(--font-playfair)" }}>
-                        ₺{yearly ? plan.price.yearly : plan.price.monthly}
-                      </p>
-                      <span className="text-gray-400 text-sm mb-1.5">/ay</span>
-                    </div>
-                  )}
-                  {yearly && plan.price.yearly !== null && plan.price.yearly !== 0 && (
-                    <p className="text-xs text-gray-400 mt-1">Yıllık ₺{(plan.price.yearly! * 12).toLocaleString("tr-TR")} faturalandırılır</p>
-                  )}
-                </div>
+            {/* Enterprise */}
+            <div className="plan-card">
+              <p className="plan-name" style={{ color: "var(--c5)" }}>Kurumsal</p>
+              <p className="plan-desc">Büyük ekipler ve özel entegrasyonlar.</p>
+              <div className="plan-price">Özel</div>
+              <p className="plan-period">&nbsp;</p>
+              <p className="plan-annual">&nbsp;</p>
+              <Link href="/contact" className="plan-cta outline">Bize Ulaşın</Link>
+              <ul className="features-list">
+                <li className="feature-item"><CheckOn />Pro&apos;daki her şey</li>
+                <li className="feature-item"><CheckOn />API erişimi</li>
+                <li className="feature-item"><CheckOn />Özel entegrasyon desteği</li>
+                <li className="feature-item"><CheckOn />Takım hesabı yönetimi</li>
+                <li className="feature-item"><CheckOn />SLA garantisi</li>
+                <li className="feature-item"><CheckOn />Özel fiyatlandırma</li>
+              </ul>
+            </div>
+          </div>
 
-                {/* CTA */}
-                <Link
-                  href={plan.ctaHref}
-                  className={`flex items-center justify-center gap-2 w-full py-3 rounded-xl text-sm font-semibold transition-all mb-8 group ${
-                    plan.featured
-                      ? "bg-indigo-600 text-white hover:bg-indigo-700"
-                      : "bg-gray-900 dark:bg-white text-white dark:text-black hover:bg-gray-700 dark:hover:bg-gray-100"
-                  }`}
-                >
-                  {plan.cta}
-                  <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
-                </Link>
-
-                {/* Features */}
-                <ul className="space-y-3">
-                  {plan.features.map((f) => (
-                    <li key={f} className="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
-                      <Check className="h-4 w-4 shrink-0 mt-0.5" style={{ color: plan.accent }} />
-                      {f}
-                    </li>
-                  ))}
-                  {plan.missing.map((f) => (
-                    <li key={f} className="flex items-start gap-3 text-sm text-gray-400 line-through">
-                      <Check className="h-4 w-4 shrink-0 mt-0.5 opacity-30" />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </motion.div>
-          ))}
+          {/* FAQ strip */}
+          <div className="faq-strip" style={{ marginBottom: "4rem" }}>
+            <p style={{ fontSize: ".8125rem", color: "var(--fg3)" }}>Tüm planlar 14 günlük ücretsiz deneme içerir. İstediğiniz zaman iptal edebilirsiniz. Sorularınız mı var?</p>
+            <Link href="/faq" style={{ fontSize: ".875rem", fontWeight: 700, color: "var(--c2)", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: ".375rem", marginTop: ".625rem" }}>
+              SSS&apos;ye bakın
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5" style={{ width: "14px", height: "14px" }}><path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+            </Link>
+          </div>
         </div>
-
-        {/* Bottom note */}
-        <motion.p {...fallIn(0.4)} className="text-center text-sm text-gray-400 font-light mt-10">
-          Tüm planlar 14 günlük ücretsiz deneme içerir. İstediğiniz zaman iptal edebilirsiniz.{" "}
-          <Link href="/faq" className="text-indigo-500 hover:text-indigo-600 transition-colors underline underline-offset-4">
-            SSS
-          </Link>
-          'ye bakın.
-        </motion.p>
-      </section>
+      </div>
 
       <MarketingFooter />
     </main>
