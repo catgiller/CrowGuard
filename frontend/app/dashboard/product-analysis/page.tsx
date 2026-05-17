@@ -1,351 +1,339 @@
 "use client";
 
-import { useState } from "react";
-import {
-  Search, ArrowLeft, ArrowRight, Loader2, AlertTriangle,
-  Star, ShoppingBag, TrendingDown, BarChart2, CheckCircle, XCircle, Clock
-} from "lucide-react";
-import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useCallback } from "react";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { MenuButton } from "@/components/menu-button";
 
-interface ProductAnalysisResult {
-  product_name: string;
-  price_analysis: {
-    current: number;
-    average: number;
-    recommendation: "AL" | "BEKLE" | "ALT";
-  };
-  review_analysis: {
-    total_reviews: number;
-    fake_percentage: number;
-    trust_score: number;
-  };
-  return_risk: {
-    percentage: number;
-    reasons: string[];
-  };
+const platformsData = [
+  { id: 't', name: 'Trendyol', dot: '#f27a1a', price: '₺3.299', priceNum: 3299, verdict: 'bk', score: 3.4, realScore: 2.8, returns: 78, alts: 2, priceTrend: '+%18', fakeRate: 42, reasons: ['Kalıbı dar — 1 numara büyük önerilir', 'Renk görsellerde daha parlak (%34 alıcı)', 'Taban malzemesi beklentinin altında'] },
+  { id: 'a', name: 'Amazon TR', dot: '#ff9900', price: '₺3.150', priceNum: 3150, verdict: 'bk', score: 4.1, realScore: 3.5, returns: 62, alts: 1, priceTrend: '+%12', fakeRate: 28, reasons: ['Kalıbı standart boyutun biraz dar tarafında', 'Uzun teslimat süresi şikayeti var'] },
+  { id: 'h', name: 'Hepsiburada', dot: '#ff6000', price: '₺2.999', priceNum: 2999, verdict: 'al', score: 3.8, realScore: 3.6, returns: 45, alts: 3, priceTrend: '-%4', fakeRate: 15, reasons: ['Numara genellikle standart uyumlu', 'Teslimat hızlı ve güvenilir'] },
+];
+
+const altsData = [
+  { name: 'Adidas Stan Smith Beyaz', price: '₺2.650', score: '4.5' },
+  { name: 'New Balance 327', price: '₺2.899', score: '4.3' },
+  { name: 'Vans Old Skool Pro', price: '₺2.499', score: '4.4' },
+];
+
+type Platform = (typeof platformsData)[number];
+
+function verdictLabel(v: string) {
+  if (v === "al") return "AL";
+  if (v === "bk") return "BEKLE";
+  return "ALTERNATİF";
 }
 
-const BADGE_CONFIG = {
-  AL: { label: "AL", color: "bg-emerald-500 text-white" },
-  BEKLE: { label: "BEKLE", color: "bg-amber-500 text-white" },
-  ALT: { label: "ALTERNATİF", color: "bg-blue-500 text-white" },
-};
+function isMobileViewport() {
+  return typeof window !== "undefined" && window.matchMedia("(max-width: 860px)").matches;
+}
+
+function ProductDetail({
+  query,
+  platform,
+}: {
+  query: string;
+  platform: Platform;
+}) {
+  return (
+    <div className="detail-content">
+      <div className="detail-head">
+        <div>
+          <div className="detail-name">{query}</div>
+          <div className="detail-meta">{platform.name} · Spor Ayakkabı</div>
+        </div>
+        <span className={`verdict-lg v-${platform.verdict}`}>{verdictLabel(platform.verdict)}</span>
+      </div>
+      <div className="metrics-row">
+        <div className="metric-box">
+          <div className="mlabel">Güncel Fiyat</div>
+          <div className="mval" style={{ color: "var(--c3)" }}>{platform.price}</div>
+          <div className="mhint">Tarihi ort. {platform.priceTrend}</div>
+        </div>
+        <div className="metric-box">
+          <div className="mlabel">Güven Skoru</div>
+          <div className="mval" style={{ color: "var(--c4)" }}>
+            {platform.realScore}
+            <span style={{ fontSize: ".875rem", color: "var(--fg3)" }}>/5</span>
+          </div>
+          <div className="mhint">%{platform.fakeRate} yorum şüpheli</div>
+        </div>
+        <div className="metric-box">
+          <div className="mlabel">İade Riski</div>
+          <div className="mval" style={{ color: "var(--c2)" }}>%{platform.returns}</div>
+          <div className="mhint">
+            {platform.returns > 60 ? "Yüksek" : platform.returns > 35 ? "Orta" : "Düşük"} risk
+          </div>
+        </div>
+      </div>
+      <div className="card-block">
+        <div className="block-title">Fiyat Geçmişi (6 ay)</div>
+        <div className="price-bars">
+          {[55, 48, 62, 50, 45, 58, 52, 65, 55, 48, 68, 100].map((h, i) => (
+            <div key={i} className={`pbar ${i === 11 ? "hi" : ""}`} style={{ height: `${h}%` }} />
+          ))}
+        </div>
+        <div style={{ display: "flex", justifyContent: "space-between", marginTop: ".375rem", fontSize: ".625rem", color: "var(--fg3)" }}>
+          <span>Kas 2025</span>
+          <span>May 2026</span>
+        </div>
+      </div>
+      <div className="card-block">
+        <div className="block-title">İade Risk Analizi — %{platform.returns}</div>
+        <div className="risk-track">
+          <div className="risk-fill" style={{ width: `${platform.returns}%` }} />
+        </div>
+        <ul className="reason-list" style={{ marginTop: ".75rem" }}>
+          {platform.reasons.map((r, i) => (
+            <li key={i} className="reason-item">
+              <div className="rdot" style={{ background: ["var(--c2)", "var(--c3)", "var(--c4)"][i % 3] }} />
+              {r}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="card-block">
+        <div className="block-title">Güven Analizi</div>
+        <div className="trust-row">
+          <div className="trust-score">
+            <div className="ts-num" style={{ color: "var(--fg3)" }}>{platform.score}</div>
+            <div className="ts-lbl">Görünen</div>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" style={{ width: 18, height: 18, color: "var(--fg3)" }}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
+          <div className="trust-score">
+            <div className="ts-num" style={{ color: "var(--c4)" }}>{platform.realScore}</div>
+            <div className="ts-lbl">Gerçek</div>
+          </div>
+          <div style={{ flex: 1 }} />
+          <div style={{ fontSize: ".8125rem", fontWeight: 700, color: "var(--c3)" }}>
+            %{platform.fakeRate} şüpheli yorum
+          </div>
+        </div>
+        <div className="tag-row">
+          <span className="ttag" style={{ background: "rgba(213,51,42,.1)", color: "var(--c3)" }}>Toplu Hesap</span>
+          <span className="ttag" style={{ background: "rgba(210,96,165,.1)", color: "var(--c4)" }}>Dil Tekrarı</span>
+          <span className="ttag" style={{ background: "rgba(241,118,40,.1)", color: "var(--c2)" }}>Hızlı Yorum</span>
+        </div>
+      </div>
+      <div className="card-block">
+        <div className="block-title">Akıllı Alternatifler</div>
+        {altsData.map((a, i) => (
+          <div key={i} className="alt-item">
+            <span className="alt-n">0{i + 1}</span>
+            <span className="alt-nm">{a.name}</span>
+            <span style={{ fontSize: ".6875rem", color: "var(--fg3)" }}>⭐{a.score}</span>
+            <span className="alt-p">{a.price}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export default function ProductAnalysisPage() {
   const [query, setQuery] = useState("");
-  const [result, setResult] = useState<ProductAnalysisResult | null>(null);
-  const [detail, setDetail] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [isSearching, setIsSearching] = useState(false);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [mobileDetailOpen, setMobileDetailOpen] = useState(false);
 
-  const analyze = async () => {
-    if (!query.trim()) return;
-    setLoading(true);
-    setError(null);
-    setResult(null);
-    setDetail(false);
-
-    try {
-      const response = await fetch("http://127.0.0.1:8000/analyze-product", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ url: query.trim() }),
-      });
-      if (!response.ok) throw new Error(`Hata: ${response.status}`);
-      const data: ProductAnalysisResult = await response.json();
-      setResult(data);
-    } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : "Bağlantı hatası.");
-    } finally {
-      setLoading(false);
-    }
+  const doSearch = (q: string) => {
+    if (!q.trim()) return;
+    setQuery(q);
+    setIsSearching(true);
+    setSelectedId(platformsData[0].id);
+    setMobileDetailOpen(false);
   };
 
-  const badge = result ? BADGE_CONFIG[result.price_analysis.recommendation] : null;
-  const isFake = result ? result.review_analysis.fake_percentage > 50 : false;
-  const trustScore = result ? result.review_analysis.trust_score : 0;
+  const selectPlatform = useCallback((id: string) => {
+    setSelectedId(id);
+    if (isMobileViewport()) setMobileDetailOpen(true);
+  }, []);
+
+  const selectedPlatform = platformsData.find((p) => p.id === selectedId);
 
   return (
-    <div className="p-8 max-w-3xl mx-auto w-full">
+    <>
+      <style dangerouslySetInnerHTML={{__html:`
+        .search-screen { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; text-align: center; }
+        .search-headline { font-family: var(--ff-d); font-size: clamp(1.75rem, 4vw, 2.75rem); font-weight: 800; color: var(--fg); margin-bottom: 0.625rem; line-height: 1.2; }
+        .search-headline em { font-style: normal; background: var(--grad-h); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .search-sub { font-size: 0.9375rem; color: var(--fg3); margin-bottom: 1.75rem; max-width: 480px; line-height: 1.6; }
+        .search-box { width: 100%; max-width: 580px; background: var(--bg2); border: 1.5px solid var(--border); border-radius: 16px; display: flex; align-items: center; gap: 0.625rem; padding: 0.625rem 0.625rem 0.625rem 1.125rem; transition: border-color 0.2s, box-shadow 0.2s; }
+        .search-box:focus-within { border-color: var(--c4); box-shadow: 0 0 0 3px rgba(210,96,165,0.1); }
+        .search-box input { flex: 1; background: transparent; border: none; outline: none; font-family: var(--ff-b); font-size: 0.9375rem; color: var(--fg); padding: 0.25rem 0; min-width: 0; }
+        .search-box input::placeholder { color: var(--fg3); }
+        .search-go { background: var(--grad); color: #fff; border: none; cursor: pointer; border-radius: 12px; padding: 0.625rem 1.25rem; font-family: var(--ff-b); font-size: 0.875rem; font-weight: 700; flex-shrink: 0; transition: opacity 0.2s, transform 0.2s; }
+        .search-go:hover { opacity: 0.88; transform: translateY(-1px); }
+        .chip-row { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-top: 1.25rem; max-width: 580px; }
+        .chip { padding: 0.4em 0.875em; border-radius: var(--r-full); font-size: 0.8125rem; border: 1.5px solid var(--border); color: var(--fg2); cursor: pointer; background: transparent; font-family: var(--ff-b); transition: all 0.2s; }
+        .chip:hover { border-color: var(--c4); color: var(--fg); background: rgba(210,96,165,0.07); }
+        .results-screen { flex: 1; display: flex; overflow: hidden; }
+        .cards-panel { width: 340px; flex-shrink: 0; border-right: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; }
+        @media (max-width: 860px) { .cards-panel { width: 100%; border-right: none; } }
+        .compact-search { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); display: flex; gap: 0.5rem; align-items: center; flex-shrink: 0; }
+        .compact-search input { flex: 1; background: var(--bg2); border: 1.5px solid var(--border); border-radius: var(--r-full); padding: 0.5rem 0.875rem; font-family: var(--ff-b); font-size: 0.8125rem; color: var(--fg); outline: none; transition: border-color 0.2s; min-width: 0; }
+        .compact-search input:focus { border-color: var(--c4); }
+        .compact-search button { background: var(--grad); color: #fff; border: none; cursor: pointer; border-radius: var(--r-full); padding: 0.5rem 1rem; font-family: var(--ff-b); font-size: 0.8125rem; font-weight: 700; flex-shrink: 0; white-space: nowrap; }
+        .cards-list { flex: 1; overflow-y: auto; }
+        .cards-label { padding: 0.75rem 1rem 0.375rem; font-size: 0.5625rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg3); }
+        .pcard { padding: 1rem 1.125rem; border-bottom: 1px solid var(--border); cursor: pointer; transition: background 0.15s; display: flex; flex-direction: column; gap: 0.5rem; border-left: 3px solid transparent; }
+        .pcard:hover { background: var(--bg2); }
+        .pcard.selected { background: var(--bg2); border-left-color: var(--c3); }
+        .pcard-top { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
+        .pcard-platform { display: flex; align-items: center; gap: 0.375rem; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--fg3); }
+        .pdot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+        .pcard-price { font-family: var(--ff-d); font-size: 1rem; font-weight: 800; color: var(--fg); }
+        .pcard-name { font-size: 0.875rem; font-weight: 600; color: var(--fg); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .pcard-bottom { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+        .vbadge { display: inline-flex; align-items: center; gap: 0.2rem; padding: 0.18em 0.55em; border-radius: var(--r-full); font-size: 0.5625rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; flex-shrink: 0; }
+        .v-al  { background: rgba(22,163,74,0.12);  color: #16a34a; }
+        .v-bk  { background: rgba(241,118,40,0.12); color: var(--c2); }
+        .v-alt { background: rgba(162,31,101,0.12); color: var(--c6); }
+        .pcard-stats { display: flex; align-items: center; gap: 0.625rem; }
+        .pcard-stat { font-size: 0.6875rem; color: var(--fg3); font-weight: 500; white-space: nowrap; }
+        .pcard-arrow { margin-left: auto; color: var(--fg3); font-size: 0.8125rem; transition: transform 0.2s, color 0.2s; }
+        .pcard:hover .pcard-arrow, .pcard.selected .pcard-arrow { transform: translateX(3px); color: var(--c2); }
+        .detail-panel { flex: 1; overflow-y: auto; display: flex; flex-direction: column; }
+        @media (max-width: 860px) { .detail-panel { display: none; } }
+        .detail-empty { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--fg3); text-align: center; padding: 2rem; }
+        .detail-empty svg { width: 40px; height: 40px; opacity: 0.25; margin-bottom: 0.875rem; }
+        .detail-empty p { font-size: 0.9rem; }
+        .detail-content { padding: clamp(1.25rem, 2.5vw, 1.75rem); display: flex; flex-direction: column; gap: 1rem; }
+        .detail-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+        .detail-name { font-family: var(--ff-d); font-size: 1.25rem; font-weight: 700; color: var(--fg); margin-bottom: 0.25rem; }
+        .detail-meta { font-size: 0.8125rem; color: var(--fg3); }
+        .verdict-lg { display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.4em 1em; border-radius: var(--r-full); font-size: 0.6875rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; flex-shrink: 0; }
+        .metrics-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+        .metric-box { background: var(--bg2); border-radius: var(--r-md); padding: 0.875rem; }
+        .mlabel { font-size: 0.5625rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg3); margin-bottom: 0.375rem; }
+        .mval { font-family: var(--ff-d); font-size: 1.375rem; font-weight: 800; color: var(--fg); line-height: 1; }
+        .mhint { font-size: 0.6875rem; color: var(--fg3); margin-top: 0.25rem; line-height: 1.4; }
+        .card-block { background: var(--card); border: 1px solid var(--card-b); border-radius: var(--r-lg); padding: 1rem 1.125rem; }
+        .block-title { font-family: var(--ff-d); font-size: 0.875rem; font-weight: 700; color: var(--fg); margin-bottom: 0.75rem; }
+        .risk-track { height: 7px; background: var(--bg3); border-radius: 4px; overflow: hidden; margin: 0.5rem 0; }
+        .risk-fill { height: 100%; border-radius: 4px; background: var(--grad); }
+        .reason-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+        .reason-item { display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.8125rem; color: var(--fg2); line-height: 1.5; }
+        .rdot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 0.375rem; }
+        .price-bars { display: flex; align-items: flex-end; gap: 3px; height: 36px; }
+        .pbar { flex: 1; border-radius: 3px 3px 0 0; background: var(--bg3); }
+        .pbar.hi { background: var(--grad); }
+        .alt-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 0; border-bottom: 1px solid var(--border); }
+        .alt-item:last-child { border-bottom: none; }
+        .alt-n { font-family: var(--ff-d); font-size: 0.8125rem; font-weight: 800; color: var(--fg3); width: 16px; flex-shrink: 0; }
+        .alt-nm { font-size: 0.8125rem; font-weight: 600; color: var(--fg); flex: 1; }
+        .alt-p { font-size: 0.8125rem; font-weight: 700; color: #16a34a; }
+        .trust-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.75rem; }
+        .trust-score { text-align: center; }
+        .ts-num { font-family: var(--ff-d); font-size: 1.75rem; font-weight: 800; line-height: 1; }
+        .ts-lbl { font-size: 0.6875rem; color: var(--fg3); }
+        .tag-row { display: flex; flex-wrap: wrap; gap: 0.375rem; margin-top: 0.75rem; }
+        .ttag { font-size: 0.5625rem; font-weight: 800; padding: 0.25em 0.625em; border-radius: 5px; letter-spacing: 0.04em; }
+        @media (max-width: 520px) { .metrics-row { grid-template-columns: 1fr; } }
+        .detail-sheet-backdrop { display: none; }
+        @media (max-width: 860px) {
+          .detail-sheet-backdrop { display: block; position: fixed; inset: 0; z-index: 60; background: rgba(0,0,0,0.5); backdrop-filter: blur(2px); }
+          .detail-sheet { position: fixed; left: 0; right: 0; bottom: 0; z-index: 70; max-height: 88dvh; background: var(--bg); border-radius: var(--r-xl) var(--r-xl) 0 0; border-top: 1px solid var(--border); transform: translateY(100%); transition: transform 0.28s cubic-bezier(0.22,1,0.36,1); display: flex; flex-direction: column; }
+          .detail-sheet.open { transform: translateY(0); }
+          .detail-sheet-handle { flex-shrink: 0; padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+          .detail-sheet-body { flex: 1; overflow-y: auto; }
+          .detail-sheet-close { width: 36px; height: 36px; border-radius: var(--r-md); background: var(--bg2); border: 1.5px solid var(--border); color: var(--fg2); cursor: pointer; font-size: 1.25rem; line-height: 1; }
+        }
+      `}}/>
 
-      {/* Back */}
-      {detail ? (
-        <button
-          onClick={() => setDetail(false)}
-          className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white mb-8 transition-colors group"
-        >
-          <ArrowLeft className="h-4 w-4 group-hover:-translate-x-0.5 transition-transform" />
-          Geri
-        </button>
+      <div className="dash-topbar">
+        <MenuButton />
+        <span className="topbar-title">Ürün Analizi</span>
+        <div style={{ marginLeft: "auto", display: "flex", gap: ".75rem", alignItems: "center" }}>
+          <ThemeToggle />
+        </div>
+      </div>
+
+      {!isSearching ? (
+        <div className="search-screen">
+          <h1 className="search-headline">Hangi ürünü <em>analiz edelim?</em></h1>
+          <p className="search-sub">Ürün adı, link veya model numarası — Trendyol, Amazon ve Hepsiburada aynı anda taranır.</p>
+          <div className="search-box">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" style={{ width: "18px", height: "18px", color: "var(--fg3)", flexShrink: 0 }}><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            <input 
+              value={query}
+              onChange={e => setQuery(e.target.value)}
+              placeholder="Nike Air Force 1, trendyol.com/..." 
+              onKeyDown={e => e.key === 'Enter' && doSearch(query)}
+            />
+            <button className="search-go" onClick={() => doSearch(query)}>Analiz Et</button>
+          </div>
+          <div className="chip-row">
+            <button className="chip" onClick={() => doSearch('Nike Air Force 1')}>Nike Air Force 1</button>
+            <button className="chip" onClick={() => doSearch('MacBook Air M3')}>MacBook Air M3</button>
+            <button className="chip" onClick={() => doSearch('Dyson V15')}>Dyson V15</button>
+            <button className="chip" onClick={() => doSearch('Samsung Galaxy S25')}>Samsung Galaxy S25</button>
+          </div>
+        </div>
       ) : (
-        <Link href="/dashboard" className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white mb-8 transition-colors group">
-          <ArrowLeft className="h-4 w-4 group-hover:-translate-x-0.5 transition-transform" />
-          Geri Dön
-        </Link>
-      )}
-
-      {!detail && (
-        <>
-          {/* Header */}
-          <div className="mb-10">
-            <h1
-              className="text-4xl font-semibold tracking-tight mb-2 bg-gradient-to-br from-indigo-500 via-sky-400 to-cyan-400 bg-clip-text text-transparent"
-              style={{ fontFamily: "var(--font-playfair)" }}
-            >
-              Ürün Analizi
-            </h1>
-            <p className="text-gray-500 dark:text-gray-400 text-sm">
-              Ürün linki ya da isim girin. Fiyat, sahte yorum ve iade riskini analiz et.
-            </p>
-          </div>
-
-          {/* Input */}
-          <div className="border border-gray-200 dark:border-white/10 rounded-2xl p-4 bg-white dark:bg-[#111] shadow-sm mb-6">
-            <div className="flex gap-3">
-              <div className="flex-1 flex items-center gap-3 bg-gray-50 dark:bg-white/5 rounded-xl px-4 py-3">
-                <Search className="h-4 w-4 text-gray-400 shrink-0" />
-                <input
-                  type="text"
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && analyze()}
-                  placeholder="Ürün linki veya isim..."
-                  className="flex-1 bg-transparent border-none focus:outline-none text-sm text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-600"
-                />
-              </div>
-              <button
-                onClick={analyze}
-                disabled={loading || !query.trim()}
-                className="px-5 py-3 rounded-xl text-sm font-semibold text-white disabled:opacity-40 transition-all hover:opacity-90 active:scale-95 shrink-0"
-                style={{ background: "linear-gradient(135deg, #6366f1, #38bdf8)" }}
-              >
-                {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : "Analiz Et"}
-              </button>
+        <div className="results-screen">
+          {/* LEFT: cards */}
+          <div className="cards-panel">
+            <div className="compact-search">
+              <input 
+                value={query}
+                onChange={e => setQuery(e.target.value)}
+                onKeyDown={e => e.key === 'Enter' && doSearch(query)}
+              />
+              <button onClick={() => doSearch(query)}>Ara</button>
             </div>
-          </div>
-
-          {/* Error */}
-          <AnimatePresence>
-            {error && (
-              <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
-                className="flex items-start gap-3 p-4 bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/20 rounded-xl text-red-500 text-sm mb-6"
-              >
-                <AlertTriangle className="h-4 w-4 shrink-0 mt-0.5" />
-                {error}
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          {/* Result Card */}
-          <AnimatePresence>
-            {result && badge && (
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="border border-gray-200 dark:border-white/10 rounded-2xl overflow-hidden bg-white dark:bg-[#111] shadow-sm cursor-pointer hover:border-indigo-400/30 transition-colors"
-                onClick={() => setDetail(true)}
-              >
-                {/* Card row */}
-                <div className="p-5 flex items-center gap-5">
-                  {/* Product icon placeholder */}
-                  <div className="w-14 h-14 rounded-xl bg-gray-100 dark:bg-white/5 flex items-center justify-center shrink-0">
-                    <ShoppingBag className="h-6 w-6 text-gray-400" />
+            <div className="cards-list">
+              <p className="cards-label">&quot;{query}&quot; için sonuçlar</p>
+              {platformsData.map(p => (
+                <div key={p.id} className={`pcard ${selectedId === p.id ? 'selected' : ''}`} onClick={() => selectPlatform(p.id)}>
+                  <div className="pcard-top">
+                    <span className="pcard-platform"><span className="pdot" style={{ background: p.dot }}></span>{p.name}</span>
+                    <span className="pcard-price">{p.price}</span>
                   </div>
-
-                  {/* Info */}
-                  <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-gray-900 dark:text-white truncate mb-1">
-                      {result.product_name}
-                    </p>
-                    <div className="flex items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
-                      <span className="font-medium text-gray-900 dark:text-white">
-                        {result.price_analysis.current.toLocaleString("tr-TR")} ₺
-                      </span>
-                      <span className="flex items-center gap-0.5">
-                        {[1, 2, 3, 4, 5].map((s) => (
-                          <Star key={s} className={`h-3 w-3 ${s <= Math.round(trustScore / 20) ? "text-amber-400 fill-amber-400" : "text-gray-300"}`} />
-                        ))}
-                      </span>
-                      <span>{result.review_analysis.total_reviews} yorum</span>
+                  <div className="pcard-name">{query}</div>
+                  <div className="pcard-bottom">
+                    <span className={`vbadge v-${p.verdict}`}>{verdictLabel(p.verdict)}</span>
+                    <div className="pcard-stats">
+                      <span className="pcard-stat">⭐ {p.realScore} güven</span>
+                      <span className="pcard-stat">%{p.returns} iade</span>
                     </div>
-                  </div>
-
-                  {/* 3 Badges */}
-                  <div className="flex flex-col items-end gap-1.5 shrink-0">
-                    {/* 1. Öneri */}
-                    <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold ${badge.color}`}>
-                      {result.price_analysis.recommendation === "ALT" ? "ALTERNATİF" : result.price_analysis.recommendation}
-                    </span>
-                    {/* 2. Sahte Yorum — yalnızca %50 üzerinde */}
-                    {isFake && (
-                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-red-100 dark:bg-red-500/15 text-red-600 dark:text-red-400">
-                        <XCircle className="h-3 w-3" />
-                        Sahte Yorum %{result.review_analysis.fake_percentage}
-                      </span>
-                    )}
-                    {/* 3. İade Oranı */}
-                    <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold ${
-                      result.return_risk.percentage > 50
-                        ? "bg-orange-100 dark:bg-orange-500/15 text-orange-600 dark:text-orange-400"
-                        : "bg-gray-100 dark:bg-white/10 text-gray-500 dark:text-gray-400"
-                    }`}>
-                      <AlertTriangle className="h-3 w-3" />
-                      İade %{result.return_risk.percentage}
-                    </span>
+                    <span className="pcard-arrow">→</span>
                   </div>
                 </div>
-
-                {/* Bottom hint */}
-                <div className="px-5 py-3 border-t border-gray-100 dark:border-white/5 flex items-center justify-between text-xs text-gray-400">
-                  <span>Detayları görmek için tıkla</span>
-                  <ArrowRight className="h-3.5 w-3.5" />
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          {/* Empty state */}
-          {!result && !loading && !error && (
-            <div className="text-center text-gray-300 dark:text-gray-700 border border-dashed border-gray-200 dark:border-white/[0.06] rounded-2xl p-16">
-              <BarChart2 className="h-7 w-7 mx-auto mb-3 opacity-50" />
-              <p className="text-sm">Analiz sonuçları burada görünecek.</p>
+              ))}
             </div>
+          </div>
+
+          {/* RIGHT: detail */}
+          <div className="detail-panel">
+            {!selectedPlatform ? (
+              <div className="detail-empty">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                <p>Detayları görmek için<br/>bir platform seçin</p>
+              </div>
+            ) : (
+              <ProductDetail query={query} platform={selectedPlatform} />
+            )}
+          </div>
+
+          {mobileDetailOpen && selectedPlatform && (
+            <>
+              <div className="detail-sheet-backdrop" onClick={() => setMobileDetailOpen(false)} aria-hidden="true" />
+              <div className="detail-sheet open" role="dialog" aria-modal="true" aria-label="Ürün analiz detayı">
+                <div className="detail-sheet-handle">
+                  <span style={{ fontFamily: "var(--ff-d)", fontWeight: 700, fontSize: ".9375rem", color: "var(--fg)" }}>{selectedPlatform.name}</span>
+                  <button type="button" className="detail-sheet-close" aria-label="Kapat" onClick={() => setMobileDetailOpen(false)}>×</button>
+                </div>
+                <div className="detail-sheet-body">
+                  <ProductDetail query={query} platform={selectedPlatform} />
+                </div>
+              </div>
+            </>
           )}
-        </>
+        </div>
       )}
-
-      {/* ───── DETAIL VIEW ───── */}
-      <AnimatePresence>
-        {detail && result && badge && (
-          <motion.div initial={{ opacity: 0, x: 16 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0 }}>
-
-            {/* Product header */}
-            <div className="flex gap-5 mb-8">
-              <div className="w-20 h-20 rounded-2xl bg-gray-100 dark:bg-white/5 flex items-center justify-center shrink-0">
-                <ShoppingBag className="h-8 w-8 text-gray-400" />
-              </div>
-              <div>
-                <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-1">{result.product_name}</h2>
-                <div className="flex items-center gap-3 text-sm text-gray-500">
-                  <span className="text-lg font-bold text-gray-900 dark:text-white">
-                    {result.price_analysis.current.toLocaleString("tr-TR")} ₺
-                  </span>
-                  <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${badge.color}`}>
-                    {result.price_analysis.recommendation}
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* AI Yorumu */}
-            <div className="border border-indigo-200 dark:border-indigo-500/20 rounded-2xl p-5 mb-5 bg-indigo-50 dark:bg-indigo-500/5">
-              <p className="text-xs uppercase tracking-widest text-indigo-400 mb-2 font-semibold">AI Yorumu</p>
-              <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
-                Ortalama piyasa fiyatı <strong>{result.price_analysis.average.toLocaleString("tr-TR")} ₺</strong> olan bu ürün şu an{" "}
-                <strong>{result.price_analysis.current > result.price_analysis.average ? "ortalama üzerinde" : "ortalama altında"}</strong> fiyatlandırılmış.{" "}
-                Yorumların <strong>%{result.review_analysis.fake_percentage}</strong>'i sahte görünüyor, güven skoru <strong>%{result.review_analysis.trust_score}</strong>.{" "}
-                İade riski <strong>%{result.return_risk.percentage}</strong> seviyesinde.
-              </p>
-            </div>
-
-            {/* Scores grid */}
-            <div className="grid grid-cols-3 gap-4 mb-5">
-              <div className="border border-gray-200 dark:border-white/10 rounded-2xl p-4 text-center bg-white dark:bg-[#111]">
-                <p className="text-2xl font-bold text-gray-900 dark:text-white mb-1">%{result.review_analysis.trust_score}</p>
-                <p className="text-xs text-gray-500">Güven Skoru</p>
-              </div>
-              <div className="border border-gray-200 dark:border-white/10 rounded-2xl p-4 text-center bg-white dark:bg-[#111]">
-                <p className="text-2xl font-bold text-red-500 mb-1">%{result.review_analysis.fake_percentage}</p>
-                <p className="text-xs text-gray-500">Sahte Yorum</p>
-              </div>
-              <div className="border border-gray-200 dark:border-white/10 rounded-2xl p-4 text-center bg-white dark:bg-[#111]">
-                <p className="text-2xl font-bold text-amber-500 mb-1">%{result.return_risk.percentage}</p>
-                <p className="text-xs text-gray-500">İade Riski</p>
-              </div>
-            </div>
-
-            {/* Price comparison */}
-            <div className="border border-gray-200 dark:border-white/10 rounded-2xl p-5 mb-5 bg-white dark:bg-[#111]">
-              <p className="text-xs uppercase tracking-widest text-gray-400 mb-4 font-semibold flex items-center gap-2">
-                <TrendingDown className="h-3.5 w-3.5" /> Fiyat Karşılaştırması
-              </p>
-              <div className="flex items-end gap-6">
-                <div>
-                  <p className="text-xs text-gray-400 mb-1">Şu anki fiyat</p>
-                  <p className="text-2xl font-bold text-gray-900 dark:text-white">{result.price_analysis.current.toLocaleString("tr-TR")} ₺</p>
-                </div>
-                <div>
-                  <p className="text-xs text-gray-400 mb-1">Ortalama fiyat</p>
-                  <p className="text-2xl font-bold text-gray-400">{result.price_analysis.average.toLocaleString("tr-TR")} ₺</p>
-                </div>
-              </div>
-              {/* Simple bar visualization */}
-              <div className="mt-4 space-y-2">
-                <div className="flex items-center gap-3">
-                  <span className="text-xs text-gray-400 w-20">Şu an</span>
-                  <div className="flex-1 h-2 bg-gray-100 dark:bg-white/5 rounded-full overflow-hidden">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      animate={{ width: `${Math.min((result.price_analysis.current / (result.price_analysis.average * 1.5)) * 100, 100)}%` }}
-                      transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-                      className={`h-full rounded-full ${result.price_analysis.current > result.price_analysis.average ? "bg-red-400" : "bg-emerald-400"}`}
-                    />
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="text-xs text-gray-400 w-20">Ortalama</span>
-                  <div className="flex-1 h-2 bg-gray-100 dark:bg-white/5 rounded-full overflow-hidden">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      animate={{ width: `${Math.min((result.price_analysis.average / (result.price_analysis.average * 1.5)) * 100, 100)}%` }}
-                      transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
-                      className="h-full rounded-full bg-gray-400"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Return risk reasons */}
-            {result.return_risk.reasons.length > 0 && (
-              <div className="border border-gray-200 dark:border-white/10 rounded-2xl p-5 mb-5 bg-white dark:bg-[#111]">
-                <p className="text-xs uppercase tracking-widest text-gray-400 mb-3 font-semibold">İade Risk Nedenleri</p>
-                <ul className="space-y-2">
-                  {result.return_risk.reasons.map((r, i) => (
-                    <li key={i} className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-300">
-                      <AlertTriangle className="h-3.5 w-3.5 text-amber-400 shrink-0 mt-0.5" />
-                      {r}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
-            {/* CTA Buttons */}
-            <div className="flex gap-3">
-              <a
-                href={query.startsWith("http") ? query : "#"}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 text-center py-3 rounded-xl text-sm font-semibold text-white transition-all hover:opacity-90"
-                style={{ background: "linear-gradient(135deg, #6366f1, #38bdf8)" }}
-              >
-                <ShoppingBag className="h-4 w-4 inline mr-2" />
-                Mağazaya Git
-              </a>
-              <button
-                onClick={() => setDetail(false)}
-                className="flex-1 py-3 rounded-xl text-sm font-semibold border border-gray-200 dark:border-white/10 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors"
-              >
-                Alternatif Göster
-              </button>
-            </div>
-
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-    </div>
+    </>
   );
 }

@@ -1,131 +1,139 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { Mail, Send, ExternalLink, Loader2, CheckCircle } from "lucide-react";
 import { MarketingNav } from "@/components/marketing-nav";
 import { MarketingFooter } from "@/components/marketing-footer";
 
-const fallIn = (delay = 0) => ({
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.65, delay, ease: [0.22, 1, 0.36, 1] as const },
-});
-
 export default function ContactPage() {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
-  const [status, setStatus] = useState<"idle" | "loading" | "sent">("idle");
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.name || !form.email || !form.message) return;
-    setStatus("loading");
-    setTimeout(() => setStatus("sent"), 1200);
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      setSubmitted(true);
+    }, 1200);
   };
 
   return (
-    <main className="min-h-screen bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white transition-colors duration-500">
+    <main style={{ minHeight: "100dvh", display: "flex", flexDirection: "column" }}>
+      <style dangerouslySetInnerHTML={{__html:`
+        .contact-page-wrap { max-width: 960px; margin: 0 auto; padding: 0 clamp(1rem,4vw,3.5rem); }
+        .contact-grid { display: grid; grid-template-columns: 5fr 7fr; gap: 1.5rem; }
+        @media (max-width: 700px) { .contact-grid { grid-template-columns: 1fr; } }
+        .info-card { background: var(--card); border: 1.5px solid var(--card-b); border-radius: var(--r-lg); padding: 1.5rem; }
+        .info-icon { width: 42px; height: 42px; border-radius: 13px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+        .info-icon svg { width: 20px; height: 20px; }
+        .info-label { font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg3); margin-bottom: 0.375rem; }
+        .info-value { font-size: 0.9375rem; font-weight: 600; color: var(--fg); text-decoration: none; transition: color 0.2s; display: block; }
+        .info-value:hover { color: var(--c2); }
+        .info-note { font-size: 0.8125rem; color: var(--fg3); margin-top: 0.375rem; }
+        .form-card { background: var(--card); border: 1.5px solid var(--card-b); border-radius: var(--r-xl); padding: 2rem; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        @media (max-width: 480px) { .form-grid { grid-template-columns: 1fr; } }
+        .cfield { display: flex; flex-direction: column; gap: 0.5rem; }
+        .cfield label { font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg3); }
+        .success-state { text-align: center; padding: 3rem 2rem; }
+        .success-icon { width: 56px; height: 56px; border-radius: 50%; background: rgba(22,163,74,0.12); border: 1.5px solid rgba(22,163,74,0.25); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem; }
+        .success-icon svg { width: 26px; height: 26px; color: #16a34a; }
+        .success-state h3 { font-family: var(--ff-d); font-size: 1.375rem; font-weight: 700; color: var(--fg); margin-bottom: 0.5rem; }
+        .success-state p { font-size: 0.9rem; color: var(--fg3); }
+      `}}/>
+
       <MarketingNav />
 
-      {/* Hero */}
-      <section className="pt-24 pb-16 px-6 sm:px-14 max-w-4xl mx-auto text-center">
-        <motion.div {...fallIn(0)}>
-          <p className="text-[11px] uppercase tracking-widest text-gray-400 mb-5">İletişim</p>
-          <h1 className="text-4xl sm:text-5xl font-semibold text-black dark:text-white mb-6 leading-tight" style={{ fontFamily: "var(--font-playfair)" }}>
-            Bir şey mi sormak
-            <br />
-            <span className="italic font-normal text-gray-400 dark:text-gray-500">istiyorsunuz?</span>
-          </h1>
-          <p className="text-gray-500 font-light max-w-md mx-auto">
-            Geri bildirim, iş birliği teklifi ya da teknik bir soru — ne olursa olsun dinliyoruz.
-          </p>
-        </motion.div>
-      </section>
+      <main style={{ flex: 1, paddingTop: "calc(var(--nav-h) + 3.5rem)", paddingBottom: "5rem" }}>
+        <div className="contact-page-wrap">
 
-      {/* Content */}
-      <section className="px-6 sm:px-14 pb-24 max-w-4xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
+          {/* Hero */}
+          <div style={{ textAlign: "center", marginBottom: "3rem" }}>
+            <p className="section-label">İletişim</p>
+            <h1 className="t-xl" style={{ color: "var(--fg)", marginBottom: "1rem" }}>
+              Bir şey mi sormak<br /><em style={{ fontStyle: "italic", fontWeight: 400, color: "var(--fg3)" }}>istiyorsunuz?</em>
+            </h1>
+            <p className="t-body t-muted" style={{ maxWidth: "400px", margin: "0 auto" }}>
+              Geri bildirim, iş birliği teklifi ya da teknik soru — her konuda dinliyoruz.
+            </p>
+          </div>
 
-          {/* Info */}
-          <motion.div {...fallIn(0.1)} className="md:col-span-2 space-y-5">
-            <div className="border border-gray-100 dark:border-white/10 rounded-2xl p-6 bg-gray-50 dark:bg-white/[0.02]">
-              <div className="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-500/10 flex items-center justify-center mb-4">
-                <Mail className="h-5 w-5 text-indigo-500" />
+          <div className="contact-grid">
+            {/* Info */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "0.875rem" }}>
+              <div className="info-card">
+                <div className="info-icon" style={{ background: "rgba(241,118,40,0.1)" }}>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#f17628" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                </div>
+                <div className="info-label">E-Posta</div>
+                <a href="mailto:hello@crowguard.ai" className="info-value">hello@crowguard.ai</a>
+                <p className="info-note">Genellikle 24 saat içinde yanıt veriyoruz.</p>
               </div>
-              <p className="text-xs uppercase tracking-widest text-gray-400 mb-1">E-Posta</p>
-              <a href="mailto:hello@crowguard.ai" className="text-sm font-medium text-gray-900 dark:text-white hover:text-indigo-500 transition-colors">
-                hello@crowguard.ai
-              </a>
-              <p className="text-xs text-gray-400 mt-2 font-light">Genellikle 24 saat içinde yanıt veriyoruz.</p>
+
+              <div className="info-card">
+                <div className="info-icon" style={{ background: "rgba(162,31,101,0.1)" }}>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#a21f65" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                </div>
+                <div className="info-label">GitHub</div>
+                <a href="https://github.com/crowguard-ai" target="_blank" rel="noopener" className="info-value">github.com/crowguard-ai</a>
+                <p className="info-note">Hata bildirimi için Issues kullanabilirsiniz.</p>
+              </div>
+
+              <div className="info-card">
+                <div style={{ fontSize: "1.5rem", marginBottom: "0.75rem" }}>🪶</div>
+                <div style={{ fontFamily: "var(--ff-d)", fontSize: "1rem", fontWeight: 700, color: "var(--fg)", marginBottom: "0.375rem" }}>Proje hakkında</div>
+                <p style={{ fontSize: "0.8125rem", color: "var(--fg3)", lineHeight: 1.6 }}>İki kişilik bir ekibiz. Her mesaj bize direkt ulaşır — bürokratik filtre yok.</p>
+              </div>
             </div>
 
-            <div className="border border-gray-100 dark:border-white/10 rounded-2xl p-6 bg-gray-50 dark:bg-white/[0.02]">
-              <div className="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/5 flex items-center justify-center mb-4">
-                <ExternalLink className="h-5 w-5 text-gray-500" />
-              </div>
-              <p className="text-xs uppercase tracking-widest text-gray-400 mb-1">GitHub</p>
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-gray-900 dark:text-white hover:text-indigo-500 transition-colors">
-                github.com/crowguard-ai
-              </a>
-              <p className="text-xs text-gray-400 mt-2 font-light">Hata bildirimi için Issues kullanabilirsiniz.</p>
+            {/* Form */}
+            <div className="form-card">
+              {submitted ? (
+                <div className="success-state">
+                  <div className="success-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>
+                  </div>
+                  <h3>Mesajınız ulaştı.</h3>
+                  <p>En kısa sürede geri döneceğiz.</p>
+                </div>
+              ) : (
+                <>
+                  <h3 style={{ fontFamily: "var(--ff-d)", fontSize: "1.25rem", fontWeight: 700, color: "var(--fg)", marginBottom: "1.5rem" }}>Mesaj Gönderin</h3>
+                  <form onSubmit={handleSubmit}>
+                    <div className="form-grid" style={{ marginBottom: "1rem" }}>
+                      <div className="cfield">
+                        <label>Ad Soyad</label>
+                        <input type="text" className="cg-input" placeholder="Adınız Soyadınız" required />
+                      </div>
+                      <div className="cfield">
+                        <label>E-Posta</label>
+                        <input type="email" className="cg-input" placeholder="isim@ornek.com" required />
+                      </div>
+                    </div>
+                    <div className="cfield" style={{ marginBottom: "1rem" }}>
+                      <label>Konu</label>
+                      <input type="text" className="cg-input" placeholder="Ne hakkında konuşmak istiyorsunuz?" />
+                    </div>
+                    <div className="cfield" style={{ marginBottom: "1.5rem" }}>
+                      <label>Mesajınız</label>
+                      <textarea className="cg-input" placeholder="Mesajınızı buraya yazın..." rows={5} required />
+                    </div>
+                    <button
+                      type="submit"
+                      className="btn btn-grad"
+                      disabled={loading}
+                      style={{ width: "100%", justifyContent: "center", opacity: loading ? 0.7 : 1 }}
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" style={{ width: "16px", height: "16px" }}><path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+                      {loading ? "Gönderiliyor..." : "Gönder"}
+                    </button>
+                  </form>
+                </>
+              )}
             </div>
-          </motion.div>
-
-          {/* Form */}
-          <motion.div {...fallIn(0.15)} className="md:col-span-3">
-            {status === "sent" ? (
-              <div className="h-full flex flex-col items-center justify-center text-center border border-gray-100 dark:border-white/10 rounded-2xl p-12 bg-gray-50 dark:bg-white/[0.02]">
-                <CheckCircle className="h-10 w-10 text-emerald-500 mb-4" />
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Mesajınız ulaştı.</h3>
-                <p className="text-sm text-gray-500 font-light">En kısa sürede geri döneceğiz.</p>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="border border-gray-100 dark:border-white/10 rounded-2xl p-8 bg-gray-50 dark:bg-white/[0.02] space-y-5">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <div>
-                    <label className="block text-[11px] uppercase tracking-widest text-gray-500 mb-2">Ad Soyad</label>
-                    <input
-                      type="text"
-                      value={form.name}
-                      onChange={(e) => setForm({ ...form, name: e.target.value })}
-                      placeholder="Adınız Soyadınız"
-                      className="w-full bg-white dark:bg-black/20 border border-gray-200 dark:border-white/10 rounded-xl px-4 py-3 text-sm text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-400/30 focus:border-indigo-400 transition-all"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-[11px] uppercase tracking-widest text-gray-500 mb-2">E-Posta</label>
-                    <input
-                      type="email"
-                      value={form.email}
-                      onChange={(e) => setForm({ ...form, email: e.target.value })}
-                      placeholder="isim@ornek.com"
-                      className="w-full bg-white dark:bg-black/20 border border-gray-200 dark:border-white/10 rounded-xl px-4 py-3 text-sm text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-400/30 focus:border-indigo-400 transition-all"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <label className="block text-[11px] uppercase tracking-widest text-gray-500 mb-2">Mesajınız</label>
-                  <textarea
-                    value={form.message}
-                    onChange={(e) => setForm({ ...form, message: e.target.value })}
-                    placeholder="Ne söylemek istiyorsunuz?"
-                    rows={6}
-                    className="w-full bg-white dark:bg-black/20 border border-gray-200 dark:border-white/10 rounded-xl px-4 py-3 text-sm text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-400/30 focus:border-indigo-400 transition-all resize-none"
-                  />
-                </div>
-                <button
-                  type="submit"
-                  disabled={status === "loading" || !form.name || !form.email || !form.message}
-                  className="flex items-center gap-2 bg-gray-900 dark:bg-white text-white dark:text-black px-7 py-3 rounded-full font-medium text-sm tracking-wide hover:bg-gray-700 dark:hover:bg-gray-100 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
-                >
-                  {status === "loading" ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
-                  {status === "loading" ? "Gönderiliyor..." : "Gönder"}
-                </button>
-              </form>
-            )}
-          </motion.div>
+          </div>
         </div>
-      </section>
+      </main>
 
       <MarketingFooter />
     </main>

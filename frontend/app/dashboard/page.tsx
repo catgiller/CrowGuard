@@ -1,188 +1,181 @@
 "use client";
 
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { Search, Sparkles, ArrowRight } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useRef } from "react";
+import Link from "next/link";
+import { useState, useEffect } from "react";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { MenuButton } from "@/components/menu-button";
+import { useDashboard } from "@/contexts/dashboard-context";
 
-/* ── floating orb ── */
-function Orb({ style }: { style: React.CSSProperties }) {
-  return (
-    <div
-      className="pointer-events-none absolute rounded-full blur-3xl opacity-[0.18] dark:opacity-[0.12]"
-      style={style}
-    />
-  );
-}
-
-
-
-/* ── plain CTA button ── */
-function CtaBtn({
-  onClick,
-  color,
-  gradient,
-  label,
-}: {
-  onClick: () => void;
-  color: string;
-  gradient: string;
-  label: string;
-}) {
-  return (
-    <button
-      onClick={onClick}
-      className={`group relative inline-flex w-fit items-center gap-2.5 text-sm font-semibold tracking-widest uppercase cursor-pointer ${color}`}
-    >
-      <span>{label}</span>
-      <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
-      <span
-        className="absolute -bottom-1 left-0 h-px w-0 group-hover:w-full transition-all duration-500 ease-out"
-        style={{ background: gradient }}
-      />
-    </button>
-  );
-}
-
-/* ── panel hover tilt ── */
-function TiltPanel({
-  children,
-  delay,
-}: {
-  children: React.ReactNode;
-  delay: number;
-}) {
-  const ref = useRef<HTMLDivElement>(null);
-  const rx = useMotionValue(0);
-  const ry = useMotionValue(0);
-  const srx = useSpring(rx, { stiffness: 200, damping: 20 });
-  const sry = useSpring(ry, { stiffness: 200, damping: 20 });
-  const rotateX = useTransform(srx, [-1, 1], ["4deg", "-4deg"]);
-  const rotateY = useTransform(sry, [-1, 1], ["-4deg", "4deg"]);
-
-  const onMove = (e: React.MouseEvent) => {
-    const rect = ref.current!.getBoundingClientRect();
-    rx.set((e.clientY - rect.top) / rect.height - 0.5);
-    ry.set((e.clientX - rect.left) / rect.width - 0.5);
-  };
-  const onLeave = () => { rx.set(0); ry.set(0); };
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 28 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.65, delay, ease: [0.22, 1, 0.36, 1] }}
-      style={{ rotateX, rotateY, perspective: 800 }}
-      onMouseMove={onMove}
-      onMouseLeave={onLeave}
-      className="relative flex-1 flex flex-col px-10 lg:px-14 group/panel"
-    >
-      <div className="relative z-10 flex flex-col">
-        {children}
-      </div>
-    </motion.div>
-  );
-}
-
-/* ════════════════════════════════════════ */
 export default function DashboardPage() {
-  const router = useRouter();
+  const { user, logout } = useDashboard();
+  const [isPro, setIsPro] = useState(false);
+  const [greeting, setGreeting] = useState("");
+  const [icon, setIcon] = useState("");
+  const firstName = user?.name?.split(/\s+/)[0] ?? "Kullanıcı";
+
+  useEffect(() => {
+    const hr = new Date().getHours();
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setGreeting(hr < 12 ? 'Günaydın' : hr < 18 ? 'İyi günler' : 'İyi akşamlar');
+     
+    setIcon(hr < 12 ? '☀️' : hr < 18 ? '🌤️' : '🌙');
+  }, []);
 
   return (
-    <div className="relative w-full h-full flex flex-col items-center justify-center bg-white dark:bg-[#0a0a0a] transition-colors duration-500 px-4 overflow-hidden">
+    <>
+      {/* Topbar */}
+      <div className="dash-topbar">
+        {/* Menu btn is handled via a global state or ignored since we moved sidebar to layout. 
+            For now just a visual button. */}
+        <MenuButton />
 
-      {/* ── background orbs ── */}
-      <Orb style={{ width: 520, height: 520, top: "-15%", left: "-12%", background: "#6366f1" }} />
-      <Orb style={{ width: 480, height: 480, bottom: "-18%", right: "-10%", background: "#a855f7" }} />
-      <Orb style={{ width: 300, height: 300, top: "25%", right: "20%", background: "#38bdf8" }} />
-
-      {/* ── Heading ── */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        className="text-center mb-16 select-none pointer-events-none"
-      >
-        <motion.p
-          initial={{ opacity: 0, letterSpacing: "0.15em" }}
-          animate={{ opacity: 1, letterSpacing: "0.35em" }}
-          transition={{ duration: 0.9, delay: 0.15 }}
-          className="text-[11px] uppercase text-gray-400 dark:text-gray-600 mb-3 font-semibold"
-        >
-          CrowGuard AI
-        </motion.p>
-
-        <h1
-          className="text-5xl md:text-7xl lg:text-8xl font-semibold text-gray-900 dark:text-white/85 tracking-tight"
-          style={{ fontFamily: "var(--font-playfair)" }}
-        >
-          Bugün ne{" "}
-          <span className="bg-gradient-to-r from-sky-400 via-indigo-500 to-pink-500 bg-clip-text text-transparent">
-            keşfediyoruz?
-          </span>
-        </h1>
-      </motion.div>
-
-      {/* ── Panels Row ── */}
-      <div className="relative w-full max-w-5xl flex flex-col md:flex-row gap-0">
-
-        {/* LEFT — Ürün Analizi */}
-        <TiltPanel
-          delay={0.25}
-        >
-          <div className="mb-4">
-            <Search className="h-7 w-7 text-indigo-500 dark:text-indigo-400" />
-          </div>
-            <h2
-              className="text-4xl md:text-5xl font-semibold tracking-tight mb-4 bg-gradient-to-br from-indigo-500 via-sky-400 to-cyan-400 bg-clip-text text-transparent"
-              style={{ fontFamily: "var(--font-playfair)" }}
-            >
-              Ürün Analizi
-            </h2>
-            <p className="text-gray-500 dark:text-gray-400 text-base font-light leading-relaxed mb-8 max-w-xs">
-              Ürün linki ya da isim girin. Fiyat geçmişini, sahte yorum riskini ve en ucuz alternatifleri saniyeler içinde görün.
-            </p>
-            <CtaBtn
-              onClick={() => router.push("/dashboard/product-analysis")}
-              color="text-indigo-500 dark:text-indigo-400"
-              gradient="linear-gradient(90deg, #6366f1, #38bdf8)"
-              label="Analize Başla"
-            />
-        </TiltPanel>
-
-        {/* CENTER — YA DA */}
-        <div className="hidden md:flex items-center justify-center px-6 shrink-0">
-          <span className="text-[11px] font-bold tracking-[0.3em] uppercase bg-gradient-to-r from-sky-400 via-indigo-500 to-pink-500 bg-clip-text text-transparent select-none">
-            ya da
-          </span>
+        {/* Plan toggle (demo) */}
+        <div className="plan-toggle" title="Demo: plan değiştir">
+          <button className={`plan-btn ${!isPro ? 'active' : ''}`} onClick={() => setIsPro(false)}>Ücretsiz</button>
+          <button className={`plan-btn pro ${isPro ? 'active' : ''}`} onClick={() => setIsPro(true)}>Pro</button>
         </div>
 
-        {/* RIGHT — Akıllı Asistan */}
-        <TiltPanel
-          delay={0.35}
-        >
-          <div className="mb-4">
-            <Sparkles className="h-7 w-7 text-violet-500 dark:text-violet-400" />
-          </div>
-            <h2
-              className="text-4xl md:text-5xl font-semibold tracking-tight mb-4 bg-gradient-to-br from-violet-500 via-purple-400 to-pink-400 bg-clip-text text-transparent"
-              style={{ fontFamily: "var(--font-playfair)" }}
-            >
-              Akıllı Asistan
-            </h2>
-            <p className="text-gray-500 dark:text-gray-400 text-base font-light leading-relaxed mb-8 max-w-xs">
-              Ne aradığınızı tam bilmiyorsanız sorun değil. Bütçenizi ve ihtiyacınızı anlatın; yapay zeka en uygun ürünleri bulsun.
+        <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginLeft: "auto" }}>
+          <ThemeToggle />
+          <button type="button" onClick={logout} style={{ fontSize: ".8125rem", color: "var(--fg3)", background: "none", border: "none", cursor: "pointer", fontWeight: 500, fontFamily: "var(--ff-b)" }}>Çıkış</button>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="dash-content">
+        {/* Welcome */}
+        <div className="welcome-row">
+          <div>
+            <h1 className="welcome-greeting">{greeting}, <span>{firstName}</span> {icon}</h1>
+            <p className="welcome-sub">
+              {isPro
+                ? "Pro hesabınızla sınırsız analiz yapabilirsiniz. Hoş geldiniz!"
+                : "Bugün 3 analizin kaldı — pişmanlıksız alışveriş için hazır mısın?"}
             </p>
-            <CtaBtn
-              onClick={() => router.push("/dashboard/smart-advisor")}
-              color="text-violet-500 dark:text-violet-400"
-              gradient="linear-gradient(90deg, #7c3aed, #ec4899)"
-              label="Asistana Danış"
-            />
-        </TiltPanel>
+          </div>
+          <div>
+            {/* Free: usage card */}
+            {!isPro && (
+              <div className="usage-card">
+                <div className="usage-label"><span>Günlük Kullanım</span><strong>2 / 5</strong></div>
+                <div className="usage-track"><div className="usage-fill" style={{ width: "40%" }}></div></div>
+                <p className="usage-hint">3 analizin kaldı. Sınırsız için Pro&apos;ya geç.</p>
+              </div>
+            )}
+            {/* Pro badge */}
+            {isPro && (
+              <div className="pro-badge">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                Pro · Sınırsız
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Quick search */}
+        <div className="quick-search">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          <input type="text" placeholder="Ürün linki veya isim girin ve analiz et..." />
+          <Link href="/dashboard/product-analysis" style={{ padding: ".5em 1em", background: "var(--grad)", color: "#fff", borderRadius: "var(--r-full)", fontSize: ".75rem", fontWeight: 700, textDecoration: "none", flexShrink: 0, whiteSpace: "nowrap" }}>Analiz Et</Link>
+        </div>
+
+        {/* Action cards */}
+        <div className="action-grid">
+          <Link href="/dashboard/product-analysis" className="action-card">
+            <div className="action-icon" style={{ background: "rgba(241,118,40,0.12)" }}>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#f17628" strokeWidth="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            </div>
+            <div className="action-title">Ürün Analizi</div>
+            <p className="action-desc">Fiyat geçmişi, sahte yorum tespiti, iade riski — tek linkle tüm analiz.</p>
+            <span className="action-cta" style={{ color: "var(--c2)" }}>Analize Başla <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></span>
+          </Link>
+          <Link href="/dashboard/smart-advisor" className="action-card">
+            <div className="action-icon" style={{ background: "rgba(162,31,101,0.12)" }}>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#a21f65" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+            </div>
+            <div className="action-title">Akıllı Asistan</div>
+            <p className="action-desc">Ne aradığınızı bilmiyorsanız sorun değil — bütçenizi söyleyin, AI bulsun.</p>
+            <span className="action-cta" style={{ color: "var(--c6)" }}>Asistana Danış <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></span>
+          </Link>
+        </div>
+
+        {/* Stats */}
+        <div className="stats-row">
+          <div className="stat-card">
+            <div className="stat-val">{isPro ? '47' : '12'}</div>
+            <div className="stat-lbl">Toplam Analiz</div>
+            <div className="stat-trend trend-up">↑ Bu ay</div>
+          </div>
+          <div className="stat-card">
+            <div className="stat-val">3.8<span style={{ fontSize: "1rem", color: "var(--fg3)" }}>⭐</span></div>
+            <div className="stat-lbl">Ort. Güven Skoru</div>
+            <div className="stat-trend trend-up" style={{ color: "var(--c2)" }}>Gerçek skor</div>
+          </div>
+          <div className="stat-card">
+            <div className="stat-val" style={{ background: "var(--grad-h)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>₺2.8K</div>
+            <div className="stat-lbl">Potansiyel Tasarruf</div>
+            <div className="stat-trend trend-up">↑ Doğru kararlar</div>
+          </div>
+          <div className="stat-card">
+            <div className="stat-val">8</div>
+            <div className="stat-lbl">Bulunan Alternatif</div>
+            <div className="stat-trend" style={{ color: "var(--fg3)" }}>Daha iyi seçenekler</div>
+          </div>
+        </div>
+
+        {/* Recent History */}
+        <div>
+          <div className="section-head">
+            <span className="section-title">Son Aramalar</span>
+            <Link href="#" className="section-action">Tümünü Gör →</Link>
+          </div>
+          <div className="history-list">
+            <Link href="/dashboard/product-analysis" className="history-item">
+              <div className="history-icon">👟</div>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div className="history-name">Nike Air Force 1 &apos;07 Beyaz</div>
+                <div className="history-meta">Trendyol · 2 saat önce</div>
+              </div>
+              <span className="verdict v-bk">Bekle</span>
+            </Link>
+            <Link href="/dashboard/product-analysis" className="history-item">
+              <div className="history-icon">💻</div>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div className="history-name">MacBook Air M3 13&quot;</div>
+                <div className="history-meta">Apple · Dün</div>
+              </div>
+              <span className="verdict v-bk">Bekle</span>
+            </Link>
+            <Link href="/dashboard/product-analysis" className="history-item">
+              <div className="history-icon">🤖</div>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div className="history-name">Xiaomi Mi Robot Süpürge</div>
+                <div className="history-meta">Hepsiburada · 3 gün önce</div>
+              </div>
+              <span className="verdict v-al">Al</span>
+            </Link>
+            {/* locked item (free) */}
+            {!isPro && (
+              <div className="history-locked">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                Pro hesabıyla tüm geçmişe erişin
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Upgrade banner (free only) */}
+        {!isPro && (
+          <div className="upgrade-banner">
+            <div>
+              <div className="upgrade-title">Sınırsız analize geçin</div>
+              <p className="upgrade-sub">Günlük 5 limitini kaldırın, fiyat alarmları, tam geçmiş ve öncelikli destek.</p>
+            </div>
+            <Link href="/pricing" className="upgrade-btn">Pro&apos;ya Geç →</Link>
+          </div>
+        )}
 
       </div>
-    </div>
+    </>
   );
 }
