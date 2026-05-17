@@ -33,6 +33,11 @@ def register(user: UserCreate, db: Session = Depends(get_db)):
     db.refresh(new_user)
     return {"message": "Kayıt başarılı", "user_id": new_user.id}
 
+@router.get("/users")
+def list_users(db: Session = Depends(get_db)):
+    users = db.query(db_models.User).all()
+    return [{"id": u.id, "name": u.name, "email": u.email} for u in users]
+
 @router.post("/login")
 def login(user: UserLogin, db: Session = Depends(get_db)):
     db_user = db.query(db_models.User).filter(db_models.User.email == user.email).first()
