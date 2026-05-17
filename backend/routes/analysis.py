@@ -54,7 +54,7 @@ async def analyze_product(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Analiz hatası: {str(e)}")
 
-    result_dict = result.dict()
+    result_dict = result.model_dump()
 
     # 3. Cache'e yaz (background'da — kullanıcıyı beklettirme)
     background_tasks.add_task(

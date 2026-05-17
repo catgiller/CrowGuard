@@ -5,6 +5,7 @@ import { AdvisorRecommendations } from "@/components/advisor-recommendations";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { MenuButton } from "@/components/menu-button";
 import { useDashboard } from "@/contexts/dashboard-context";
+<<<<<<< HEAD
 import { ApiError } from "@/lib/api";
 import { askSmartAdvisor } from "@/lib/advisor";
 import type { RecommendedProduct } from "@/lib/advisor";
@@ -14,6 +15,85 @@ interface Message {
   type: "user" | "bot";
   text?: string;
   recommendations?: RecommendedProduct[];
+=======
+import { apiFetch } from "@/lib/api";
+
+interface RecommendedProduct {
+  name: string;
+  price: number;
+  reason: string;
+  confidence: number;
+  trendyol_url: string;
+  akakce_url: string;
+  google_shopping_url: string;
+  trend_direction: string;
+  trend_score: number;
+  youtube_video_count: number;
+  youtube_latest_url: string;
+}
+
+interface AdvisorResponse {
+  recommendations: RecommendedProduct[];
+}
+
+interface Message {
+  id: string;
+  type: 'user' | 'bot';
+  text?: string;
+  recommendations?: RecommendedProduct[];
+  error?: string;
+}
+
+function confidenceBadge(confidence: number) {
+  if (confidence >= 80) return { cls: 'rb-al', label: 'AL' };
+  if (confidence >= 55) return { cls: 'rb-bk', label: 'BEKLE' };
+  return { cls: 'rb-alt', label: 'ARAŞTIR' };
+}
+
+function trendLabel(direction: string) {
+  if (direction === 'YUKSELIYOR') return '↑ Trend Yüksek';
+  if (direction === 'DUSUYOR') return '↓ Trend Düşük';
+  return '→ Stabil';
+}
+
+function RecommendationCards({ recs }: { recs: RecommendedProduct[] }) {
+  const icons = ['🛍️','💡','⭐'];
+  return (
+    <div>
+      <p style={{ fontSize: '0.875rem', color: 'var(--fg2)', marginBottom: '0.75rem' }}>
+        {recs.length} öneri bulundu — AI destekli analiz:
+      </p>
+      <div className="result-cards">
+        {recs.map((r, i) => {
+          const badge = confidenceBadge(r.confidence);
+          return (
+            <div key={i} className="rcard rcard-real">
+              <span className="rcard-num">0{i + 1}</span>
+              <span className="rcard-icon">{icons[i] || '🛍️'}</span>
+              <div className="rcard-info">
+                <div className="rcard-name">{r.name}</div>
+                <div className="rcard-meta">
+                  <span className={`rbadge ${badge.cls}`}>{badge.label}</span>
+                  <span>%{r.confidence} güven</span>
+                  {r.trend_score > 0 && <span>{trendLabel(r.trend_direction)}</span>}
+                  {r.youtube_video_count > 0 && <span>▶ {r.youtube_video_count} video</span>}
+                </div>
+                <div className="rcard-reason">{r.reason}</div>
+                <div className="rcard-links">
+                  {r.trendyol_url && <a href={r.trendyol_url} target="_blank" rel="noopener noreferrer" className="rcard-link">Trendyol</a>}
+                  {r.akakce_url && <a href={r.akakce_url} target="_blank" rel="noopener noreferrer" className="rcard-link">Akakçe</a>}
+                  {r.google_shopping_url && <a href={r.google_shopping_url} target="_blank" rel="noopener noreferrer" className="rcard-link">Google</a>}
+                  {r.youtube_latest_url && <a href={r.youtube_latest_url} target="_blank" rel="noopener noreferrer" className="rcard-link">YouTube</a>}
+                </div>
+              </div>
+              <span className="rcard-price">₺{r.price.toLocaleString('tr-TR')}</span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+>>>>>>> be11c6c71733a4b3308be051b7ddedd378e46fcb
 }
 
 export default function SmartAdvisorPage() {
@@ -34,6 +114,7 @@ export default function SmartAdvisorPage() {
     const text = textOverride || input.trim();
     if (!text || isTyping) return;
 
+<<<<<<< HEAD
     setMessages((prev) => [...prev, { id: crypto.randomUUID(), type: "user", text }]);
     setInput("");
     if (textareaRef.current) {
@@ -64,6 +145,29 @@ export default function SmartAdvisorPage() {
         ...prev,
         { id: crypto.randomUUID(), type: "bot", text: message },
       ]);
+=======
+    setMessages(prev => [...prev, { id: Math.random().toString(), type: 'user', text }]);
+    setInput("");
+    if (textareaRef.current) textareaRef.current.style.height = 'auto';
+
+    setIsTyping(true);
+    try {
+      const data = await apiFetch<AdvisorResponse>("/smart-advisor", {
+        method: "POST",
+        body: JSON.stringify({ query: text }),
+      });
+      setMessages(prev => [...prev, {
+        id: Math.random().toString(),
+        type: 'bot',
+        recommendations: data.recommendations,
+      }]);
+    } catch {
+      setMessages(prev => [...prev, {
+        id: Math.random().toString(),
+        type: 'bot',
+        error: 'Asistan şu an çok yoğun, lütfen biraz sonra tekrar deneyin.',
+      }]);
+>>>>>>> be11c6c71733a4b3308be051b7ddedd378e46fcb
     } finally {
       setIsTyping(false);
     }
@@ -107,14 +211,18 @@ export default function SmartAdvisorPage() {
         .bubble.user { background: var(--grad); color: #fff; border-radius: 18px 18px 4px 18px; }
         .bubble.bot { background: var(--bg2); color: var(--fg); border: 1px solid var(--border); border-radius: 18px 18px 18px 4px; }
         .result-cards { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.875rem; }
-        .rcard { display: flex; align-items: center; gap: 0.75rem; background: var(--bg3); border: 1px solid var(--border); border-radius: 14px; padding: 0.75rem 0.875rem; text-decoration: none; transition: background 0.2s, border-color 0.2s; cursor: pointer; }
+        .rcard { display: flex; align-items: flex-start; gap: 0.75rem; background: var(--bg3); border: 1px solid var(--border); border-radius: 14px; padding: 0.75rem 0.875rem; text-decoration: none; transition: background 0.2s, border-color 0.2s; }
         .rcard:hover { background: var(--card); border-color: var(--c5); }
-        .rcard-num { font-family: var(--ff-d); font-size: 0.875rem; font-weight: 800; color: var(--fg3); width: 18px; flex-shrink: 0; }
-        .rcard-icon { font-size: 1.25rem; flex-shrink: 0; }
+        .rcard-num { font-family: var(--ff-d); font-size: 0.875rem; font-weight: 800; color: var(--fg3); width: 18px; flex-shrink: 0; padding-top: 2px; }
+        .rcard-icon { font-size: 1.25rem; flex-shrink: 0; padding-top: 2px; }
         .rcard-info { flex: 1; min-width: 0; }
-        .rcard-name { font-size: 0.875rem; font-weight: 600; color: var(--fg); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .rcard-meta { font-size: 0.6875rem; color: var(--fg3); margin-top: 0.125rem; display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
-        .rcard-price { font-size: 0.9rem; font-weight: 700; color: var(--fg); flex-shrink: 0; }
+        .rcard-name { font-size: 0.875rem; font-weight: 600; color: var(--fg); }
+        .rcard-meta { font-size: 0.6875rem; color: var(--fg3); margin-top: 0.25rem; display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
+        .rcard-reason { font-size: 0.775rem; color: var(--fg2); margin-top: 0.375rem; line-height: 1.5; }
+        .rcard-links { display: flex; gap: 0.375rem; margin-top: 0.5rem; flex-wrap: wrap; }
+        .rcard-link { font-size: 0.7rem; font-weight: 600; color: var(--c5); text-decoration: none; padding: 0.2em 0.6em; border: 1px solid var(--c5); border-radius: var(--r-full); opacity: 0.8; transition: opacity 0.15s; }
+        .rcard-link:hover { opacity: 1; }
+        .rcard-price { font-size: 0.9rem; font-weight: 700; color: var(--fg); flex-shrink: 0; white-space: nowrap; }
         .rbadge { display: inline-flex; padding: 0.15em 0.5em; border-radius: var(--r-full); font-size: 0.5rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
         .rb-al  { background: rgba(22,163,74,0.15);  color: #16a34a; }
         .rb-bk  { background: rgba(241,118,40,0.15); color: var(--c2); }
@@ -166,8 +274,14 @@ export default function SmartAdvisorPage() {
               {m.type === 'user' ? initials : '🪶'}
             </div>
             <div className={`bubble ${m.type}`}>
+<<<<<<< HEAD
               {m.text}
               {m.recommendations && <AdvisorRecommendations items={m.recommendations} />}
+=======
+              {m.type === 'user' && m.text}
+              {m.type === 'bot' && m.recommendations && <RecommendationCards recs={m.recommendations} />}
+              {m.type === 'bot' && m.error && <span style={{ color: 'var(--c2)' }}>{m.error}</span>}
+>>>>>>> be11c6c71733a4b3308be051b7ddedd378e46fcb
             </div>
           </div>
         ))}
