@@ -6,7 +6,8 @@
       "Bash(npm remove *)",
       "Bash(npx next *)",
       "Bash(del \"C:\\\\Users\\\\aizaw\\\\Pitoresk\\\\frontend\\\\app\\\\favicon.ico\")",
-      "mcp__Claude_in_Chrome__tabs_context_mcp"
+      "mcp__Claude_in_Chrome__tabs_context_mcp",
+      "PowerShell(New-Item -ItemType Directory -Path \"C:\\\\Users\\\\aizaw\\\\carsila\\\\lib\" -Force)"
     ]
   }
 }
