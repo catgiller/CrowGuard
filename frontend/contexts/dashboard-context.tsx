@@ -25,6 +25,8 @@ type DashboardContextValue = {
   closeSidebar: () => void;
   logout: () => void;
   authReady: boolean;
+  isPro: boolean;
+  setIsPro: (v: boolean) => void;
 };
 
 const DashboardContext = createContext<DashboardContextValue | null>(null);
@@ -34,6 +36,7 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [user, setUser] = useState<AuthUser | null>(null);
   const [authReady, setAuthReady] = useState(false);
+  const [isPro, setIsPro] = useState(false);
 
   useEffect(() => {
     const token = getToken();
@@ -43,7 +46,8 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
     }
     setUser(getUser());
     setAuthReady(true);
-  }, [router]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const openSidebar = useCallback(() => setSidebarOpen(true), []);
   const closeSidebar = useCallback(() => setSidebarOpen(false), []);
@@ -62,8 +66,10 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
       closeSidebar,
       logout,
       authReady,
+      isPro,
+      setIsPro,
     }),
-    [user, isSidebarOpen, openSidebar, closeSidebar, logout, authReady]
+    [user, isSidebarOpen, openSidebar, closeSidebar, logout, authReady, isPro]
   );
 
   if (!authReady) {

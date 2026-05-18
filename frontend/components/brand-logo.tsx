@@ -44,6 +44,7 @@ export function BrandLogo({
         width={height}
         height={height}
         priority
+        unoptimized
         style={{ height, width: "auto" }}
         className="shrink-0"
       />

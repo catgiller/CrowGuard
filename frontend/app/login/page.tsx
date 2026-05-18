@@ -21,6 +21,8 @@ export default function LoginPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [acceptTerms, setAcceptTerms] = useState(false);
+  const [acceptPrivacy, setAcceptPrivacy] = useState(false);
 
   useEffect(() => {
     if (getToken()) router.replace("/dashboard");
@@ -68,7 +70,7 @@ export default function LoginPage() {
         html:not(.dark) .login-card { background: rgba(253,250,247,0.88); border-color: rgba(120,70,90,0.10); }
         .card-logo { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem; }
         .card-logo-name { font-family: var(--ff-logo); font-size: 1.25rem; font-weight: 700; background: var(--grad-h); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .card-heading { font-family: var(--ff-d); font-size: clamp(1.75rem,4vw,2.25rem); font-weight: 800; line-height: 1.2; background: var(--grad-h); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.375rem; }
+        .card-heading { font-family: var(--ff-d); font-size: clamp(1.75rem,4vw,2.25rem); font-weight: 800; line-height: 1.2; background: var(--grad-h); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-top: 0; margin-bottom: 0.375rem; }
         .card-sub { font-size: 0.875rem; color: rgba(255,255,255,0.38); margin-bottom: 2rem; font-weight: 400; }
         html:not(.dark) .card-sub { color: var(--fg3); }
         .field { margin-bottom: 1.5rem; }
@@ -104,6 +106,16 @@ export default function LoginPage() {
         .card-copy { text-align: center; margin-top: 1.5rem; font-size: 0.5625rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.18); }
         html:not(.dark) .card-copy { color: var(--fg3); }
         .form-error { margin-bottom: 1rem; padding: 0.75rem 1rem; border-radius: var(--r-md); font-size: 0.8125rem; line-height: 1.5; background: rgba(213,51,42,0.12); border: 1px solid rgba(213,51,42,0.25); color: var(--c3); }
+        .consent-wrap { overflow: hidden; max-height: 0; transition: max-height 0.35s ease, opacity 0.3s ease; opacity: 0; }
+        .consent-wrap.open { max-height: 120px; opacity: 1; margin-bottom: 1.25rem; }
+        .consent-item { display: flex; align-items: flex-start; gap: 0.625rem; margin-bottom: 0.625rem; }
+        .consent-item:last-child { margin-bottom: 0; }
+        .consent-item input[type="checkbox"] { width: 15px; height: 15px; flex-shrink: 0; margin-top: 2px; accent-color: var(--c2); cursor: pointer; }
+        .consent-item label { font-size: 0.8125rem; color: rgba(255,255,255,0.5); line-height: 1.5; cursor: pointer; }
+        html:not(.dark) .consent-item label { color: var(--fg3); }
+        .consent-item label a { color: rgba(255,255,255,0.7); text-decoration: underline; text-underline-offset: 2px; transition: color 0.2s; }
+        html:not(.dark) .consent-item label a { color: var(--fg2); }
+        .consent-item label a:hover { color: var(--c2); }
       `}}/>
 
       {/* Floating orbs */}
@@ -154,8 +166,8 @@ export default function LoginPage() {
             <div className="field-meta">
               <label className="field-label" style={{ marginBottom: 0 }}>Şifre</label>
               {isLogin && (
-                <span className="forgot" style={{ opacity: 0.5, cursor: "not-allowed" }} title="Yakında">
-                  Unuttum
+                <span className="forgot" style={{ opacity: 0.4, cursor: "default" }} title="Bu özellik yakında eklenecek">
+                  Yakında
                 </span>
               )}
             </div>
@@ -165,8 +177,36 @@ export default function LoginPage() {
             </div>
           </div>
 
-          <button type="submit" className="submit-btn" disabled={isLoading}>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14"/></svg>
+          {/* Consent checkboxes (register only) */}
+          <div className={`consent-wrap${!isLogin ? " open" : ""}`}>
+            <div className="consent-item">
+              <input
+                type="checkbox"
+                id="accept-terms"
+                checked={acceptTerms}
+                onChange={(e) => setAcceptTerms(e.target.checked)}
+                required={!isLogin}
+              />
+              <label htmlFor="accept-terms">
+                <Link href="/terms" target="_blank">Kullanım Koşulları</Link>&apos;nı okudum ve kabul ediyorum.
+              </label>
+            </div>
+            <div className="consent-item">
+              <input
+                type="checkbox"
+                id="accept-privacy"
+                checked={acceptPrivacy}
+                onChange={(e) => setAcceptPrivacy(e.target.checked)}
+                required={!isLogin}
+              />
+              <label htmlFor="accept-privacy">
+                <Link href="/privacy" target="_blank">Gizlilik Politikası</Link>&apos;nı okudum ve kabul ediyorum.
+              </label>
+            </div>
+          </div>
+
+          <button type="submit" className="submit-btn" disabled={isLoading || (!isLogin && (!acceptTerms || !acceptPrivacy))}>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
             {isLogin ? "Giriş Yap" : "Kayıt Ol"}
           </button>
         </form>

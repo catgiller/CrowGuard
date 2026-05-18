@@ -84,7 +84,7 @@ function RecommendationCards({ recs }: { recs: RecommendedProduct[] }) {
 }
 
 export default function SmartAdvisorPage() {
-  const { initials } = useDashboard();
+  const { initials, isPro } = useDashboard();
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
@@ -203,6 +203,13 @@ export default function SmartAdvisorPage() {
           <ThemeToggle />
         </div>
       </div>
+
+      {!isPro && (
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", padding: "0.5rem 1.25rem", background: "rgba(241,118,40,0.07)", borderBottom: "1px solid rgba(241,118,40,0.15)", fontSize: "0.75rem", color: "var(--c2)", fontWeight: 600 }}>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" style={{ width: "14px", height: "14px", flexShrink: 0 }}><path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          Ücretsiz planda günlük <strong style={{ margin: "0 0.2em" }}>3 sorgu</strong> hakkınız bulunmaktadır. Sınırsız kullanım için Pro&apos;ya geçin.
+        </div>
+      )}
 
       <div className="chat-area" ref={chatAreaRef}>
         {messages.length === 0 && (

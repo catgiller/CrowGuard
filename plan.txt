@@ -1,0 +1,79 @@
+# CrowGuard AI — Frontend Düzeltme Planı
+# Tarih: 18 Mayıs 2026
+# Toplam: 32 madde
+
+========================================
+⚡ KRİTİK + KOLAY (~15 dk)
+========================================
+
+#1  contact/page.tsx — iç içe <main> etiketini <div> yap
+#3  İki "Çıkış" butonundan birini kaldır (topbar'daki)
+#5  Giriş butonundaki sol ok ikonunu düzelt (→ yönünde olmalı)
+
+========================================
+🔴 KRİTİK + ORTA (~2 saat)
+========================================
+
+#2  Logout butonu çalışmıyor — kök neden tespit ve düzelt
+#6  Dashboard hardcoded istatistikleri maskele ya da gerçeğe bağla
+#7  Sidebar plan bilgisini context'e taşı, topbar ile senkronize et
+
+========================================
+🔴 KRİTİK + ZOR (~1.5 saat)
+========================================
+
+#4  Mobil hamburger menü — yeni component + overlay
+
+========================================
+🟠 ÖNEMLİ + KOLAY (~45 dk)
+========================================
+
+#8  "EŞ" → "ES" baş harfi düzelt (about/page.tsx:143)
+#9  Framer Motion'ı tech tag'den ve bio metninden sil (about/page.tsx:138,163)
+#10 About sayfasındaki GitHub linklerini düzelt ya da kaldır
+#12 Geçmiş listesine AL / BEKLE verdict badge ekle
+#14 CTA footer'a "Koşullar" linki ekle (page.tsx:378)
+#15 "14 günlük deneme" bilgisini plan kartlarına taşı (pricing/page.tsx:149)
+#16 E-posta ve GitHub linklerine "yakında aktif" notu ekle
+#18 "Şifremi Unuttum" görünümünü / metnini düzelt
+#20 Favicon'a CrowGuard logosunu ata (app/layout.tsx)
+
+========================================
+🟠 ÖNEMLİ + ORTA (~2 saat)
+========================================
+
+#11 Profil sayfasına içerik ekle (plan, üyelik tarihi, analiz sayısı)
+#13 Plan toggle'ı diğer dashboard sayfalarına taşı
+#17 İletişim formunu mailto: ile gerçeğe yaklaştır
+#19 Pricing "Pro'ya Geç" → "Erken Erişim / Bildirim Al" akışına dönüştür
+
+========================================
+🟡 İYİLEŞTİRME + KOLAY (~45 dk)
+========================================
+
+#22 about, privacy, terms → "use client" kaldır
+#23 history/page.tsx lucide-react → inline SVG ile değiştir
+#25 Login kartındaki çift margin'i düzelt
+#27 Özel 404 sayfası oluştur
+#28 Open Graph meta tag'lerini layout.tsx'e ekle
+#29 framer-motion paketini kaldır (npm remove)
+#30 recharts paketini kaldır (npm remove)
+#32 my designs/ klasörünü .gitignore'a al
+
+========================================
+🟡 İYİLEŞTİRME + ORTA/ZOR
+========================================
+
+#21 "Sınırsız Akıllı Asistan" iddiasını kaldır ya da backend ile eşle
+#24 Hero bölümünü light modda temaya tepkili yap
+#26 Landing'e sosyal kanıt bölümü ekle
+#31 lucide-react tamamen inline SVG'ye geçir (#23 ile birleşir)
+
+========================================
+GÜN AKIŞI
+========================================
+
+Sabah  → #1 #3 #5 (15 dk) → #2 #6 #7 (2 saat)
+Öğle   → #4 hamburger menü (1.5 saat) → #8–20 kolay önemliler (45 dk)
+İkindi → #11 #13 #17 #19 (2 saat)
+Akşam  → #22–32 kolay iyileştirmeler (45 dk) → kalanlar kapasiteye göre

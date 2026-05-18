@@ -113,7 +113,8 @@ export default function PricingPage() {
               <div className="plan-price"><sup>₺</sup>{yearly ? "59" : "79"}</div>
               <p className="plan-period">/ay</p>
               <p className="plan-annual">{yearly ? "Yıllık ₺708 faturalandırılır" : " "}</p>
-              <Link href="/login" className="plan-cta grad">Pro&apos;ya Geç</Link>
+              <Link href="/login" className="plan-cta grad">Erken Erişim Al</Link>
+              <p style={{ fontSize: "0.6875rem", color: "var(--fg3)", textAlign: "center", marginBottom: "0.5rem" }}>14 gün ücretsiz dene · Kredi kartı gerekmez</p>
               <ul className="features-list">
                 <li className="feature-item"><CheckOn />Sınırsız ürün analizi</li>
                 <li className="feature-item"><CheckOn />Sahte yorum tespiti</li>
