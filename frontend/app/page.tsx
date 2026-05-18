@@ -14,7 +14,7 @@ export default function LandingPage() {
     if (!root || !dotNav) return;
 
     const sections = root.querySelectorAll('.slide');
-    
+
     // Clear and build dots
     dotNav.innerHTML = '';
     sections.forEach((_, i) => {
@@ -43,7 +43,7 @@ export default function LandingPage() {
         const suf = htmlEl.dataset.suffix || '';
         let startTime: number | null = null;
         const dur = 1400;
-        
+
         const step = (ts: number) => {
           if (!startTime) startTime = ts;
           const p = Math.min((ts - startTime) / dur, 1);
@@ -73,7 +73,8 @@ export default function LandingPage() {
 
   return (
     <>
-      <style dangerouslySetInnerHTML={{ __html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         .snap-root { position: fixed; inset: 0; overflow-y: scroll; scroll-snap-type: y mandatory; scrollbar-width: none; }
         .snap-root::-webkit-scrollbar { display: none; }
         .slide { height: 100dvh; scroll-snap-align: start; position: relative; overflow: hidden; }
@@ -185,7 +186,7 @@ export default function LandingPage() {
       <nav className="dot-nav" ref={dotNavRef} aria-label="Sayfa navigasyonu"></nav>
 
       <main className="snap-root" ref={rootRef}>
-        
+
         {/* SLIDE 0 */}
         <section className="slide" data-slide="0">
           <div className="hero-bg"></div>
@@ -207,7 +208,7 @@ export default function LandingPage() {
               </div>
             </div>
             <div className="hero-scroll" role="presentation">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
             </div>
           </div>
         </section>
@@ -225,19 +226,19 @@ export default function LandingPage() {
             <div className="stats">
               <div className="anim-fade-up anim-d1">
                 <div className="stat-num" data-count="67" data-suffix="%">0%</div>
-                <p className="stat-lbl">tüketici çevrimiçi yorumlara güvenme konusunda kararsız</p>
+                <p className="stat-lbl">tüketici sahte yorumların güvenilirliği azalttığını düşünüyor</p>
               </div>
               <div className="anim-fade-up anim-d2">
                 <div className="stat-num" data-count="31" data-suffix="%">0%</div>
-                <p className="stat-lbl">e-ticaret iadesi yanlış satın alma kararından kaynaklanıyor</p>
+                <p className="stat-lbl">e-ticaret iadesi beklenti ile ürün arasındaki farktan kaynaklanıyor</p>
               </div>
               <div className="anim-fade-up anim-d3">
-                <div className="stat-num" data-count="4" data-suffix="x">0x</div>
-                <p className="stat-lbl">daha akıllı kararlar ile iade oranı düşüyor</p>
+                <div className="stat-num" data-count="30" data-suffix="%">0%</div>
+                <p className="stat-lbl">iade oranı, doğru bilgi ve AI araçlarıyla azaltılabiliyor</p>
               </div>
             </div>
             <p className="problem-coda anim-fade-up anim-d4">
-              <span className="mark">CrowGuard AI</span> bu kaosu sona erdirmek için burada.
+              <span className="mark">CrowGuard</span> bu kaosu sona erdirmek için burada.
             </p>
           </div>
         </section>
@@ -246,7 +247,7 @@ export default function LandingPage() {
         <section className="slide feat-slide" data-slide="2">
           <div className="feat-text">
             <div className="feat-icon" style={{ background: "rgba(248,153,87,0.12)" }}>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#f17628" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M16 15v-1a4 4 0 00-4-4H8m0 0l3 3m-3-3l3-3m9 14V5a2 2 0 00-2-2H6a2 2 0 00-2 2v16l4-2 4 2 4-2 4 2z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#f17628" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M16 15v-1a4 4 0 00-4-4H8m0 0l3 3m-3-3l3-3m9 14V5a2 2 0 00-2-2H6a2 2 0 00-2 2v16l4-2 4 2 4-2 4 2z" /></svg>
             </div>
             <h2 className="t-lg feat-h">İade<br />Tahminleme</h2>
             <p className="t-body feat-desc">Bir ürünü sepete atmadan önce iade riskini öğrenin. Geçmiş binlerce veriyi semantik olarak analiz ederek size net bir risk skoru ve kök neden raporu sunarız.</p>
@@ -256,7 +257,7 @@ export default function LandingPage() {
             <div className="mock">
               <div className="mock-header">
                 <div className="mock-icon" style={{ background: "rgba(241,118,40,0.12)" }}>
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#f17628" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M9 21V9"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#f17628" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="3" /><path d="M3 9h18M9 21V9" /></svg>
                 </div>
                 <div><div className="mock-title">Nike Air Force 1 &apos;07</div><div className="mock-sub">Trendyol · Spor Ayakkabı</div></div>
               </div>
@@ -275,7 +276,7 @@ export default function LandingPage() {
         <section className="slide feat-slide rev" data-slide="3">
           <div className="feat-text">
             <div className="feat-icon" style={{ background: "rgba(213,51,42,0.10)" }}>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#d5332a" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A2 2 0 013 12V7a4 4 0 014-4z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#d5332a" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A2 2 0 013 12V7a4 4 0 014-4z" /></svg>
             </div>
             <h2 className="t-lg feat-h">Stratejik<br />Fiyat Radarı</h2>
             <p className="t-body feat-desc">Fiyat karşılaştırmanın ötesine geçin. AI, fiyatın değerini sorgular — AL, BEKLE ya da ALTERNATİF önerir. Net. Veriye dayalı. Anında.</p>
@@ -285,7 +286,7 @@ export default function LandingPage() {
             <div className="mock">
               <div className="mock-header">
                 <div className="mock-icon" style={{ background: "rgba(213,51,42,0.10)" }}>
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#d5332a" strokeWidth="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#d5332a" strokeWidth="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17" /><polyline points="16 7 22 7 22 13" /></svg>
                 </div>
                 <div><div className="mock-title">MacBook Air M3 13&quot;</div><div className="mock-sub">Apple · Laptop</div></div>
               </div>
@@ -306,7 +307,7 @@ export default function LandingPage() {
         <section className="slide feat-slide" data-slide="4">
           <div className="feat-text">
             <div className="feat-icon" style={{ background: "rgba(210,96,165,0.10)" }}>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#d260a5" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#d260a5" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
             </div>
             <h2 className="t-lg feat-h">Güven ve<br />Şeffaflık</h2>
             <p className="t-body feat-desc">4.8 yıldızlı ürün aslında 3.2 mi? Yorumların dil örüntüsünü, geliş hızını ve hesap profillerini analiz ederek gerçek güven skorunu ortaya çıkarırız.</p>
@@ -316,7 +317,7 @@ export default function LandingPage() {
             <div className="mock">
               <div className="mock-header">
                 <div className="mock-icon" style={{ background: "rgba(210,96,165,0.10)" }}>
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#d260a5" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#d260a5" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" /></svg>
                 </div>
                 <div><div className="mock-title">Xiaomi Mi Robot Süpürge</div><div className="mock-sub">Hepsiburada · Ev Aletleri</div></div>
               </div>
@@ -351,7 +352,7 @@ export default function LandingPage() {
         <section className="slide feat-slide rev" data-slide="5">
           <div className="feat-text">
             <div className="feat-icon" style={{ background: "rgba(162,31,101,0.10)" }}>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#a21f65" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#a21f65" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
             </div>
             <h2 className="t-lg feat-h">Çok Ajanlı<br />Akıllı Danışman</h2>
             <p className="t-body feat-desc">Ne aradığınızı tam bilmiyorsanız sorun değil. Bütçenizi ve ihtiyacınızı doğal dilde anlatın — Gemini tabanlı AI sistemi en optimize ürünleri sizin için bulur.</p>
@@ -443,7 +444,7 @@ export default function LandingPage() {
               <li><Link href="/privacy">Gizlilik</Link></li>
               <li><Link href="/terms">Kullanım Koşulları</Link></li>
             </ul>
-            <span className="footer-copy">© 2026 CrowGuard AI</span>
+            <span className="footer-copy">© 2026 CrowGuard</span>
           </div>
         </section>
       </main>

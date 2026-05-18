@@ -1,4 +1,4 @@
-# CrowGuard AI — Frontend Düzeltme Planı
+# CrowGuard — Frontend Düzeltme Planı
 # Tarih: 18 Mayıs 2026
 # Toplam: 32 madde
 

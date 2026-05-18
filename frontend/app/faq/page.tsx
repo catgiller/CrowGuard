@@ -6,7 +6,7 @@ import { MarketingNav } from "@/components/marketing-nav";
 import { MarketingFooter } from "@/components/marketing-footer";
 
 const faqs = [
-  { q: "CrowGuard AI nedir?", a: "CrowGuard AI, yapay zeka destekli bir alışveriş karar platformudur. Bir ürün linki veya isim girdiğinizde; fiyat geçmişini analiz eder, yorumların ne kadarının sahte olduğunu tespit eder ve o ürünü iade etme riskinizi hesaplar. Amacımız tek bir şey: pişmanlık yaşamadan alışveriş yapmanıza yardımcı olmak." },
+  { q: "CrowGuard nedir?", a: "CrowGuard, yapay zeka destekli bir alışveriş karar platformudur. Bir ürün linki veya isim girdiğinizde; fiyat geçmişini analiz eder, yorumların ne kadarının sahte olduğunu tespit eder ve o ürünü iade etme riskinizi hesaplar. Amacımız tek bir şey: pişmanlık yaşamadan alışveriş yapmanıza yardımcı olmak." },
   { q: "Hangi e-ticaret platformlarını destekliyor?", a: "Şu an Trendyol, Amazon Türkiye ve Hepsiburada'daki ürünleri analiz edebiliyoruz. Ürün linkini yapıştırmanız yeterli; sistem gerisini halleder. Desteklenen platform listesi büyümeye devam ediyor." },
   { q: "Sahte yorum tespiti nasıl çalışıyor?", a: "AI modelimiz yorum dilini, hesap oluşturma tarihlerini, satın alma doğrulamalarını ve yorum zaman örüntülerini analiz eder. Gerçek bir insan yorumu ile otomatik üretilmiş yorum arasındaki farkı istatistiksel olarak tespit ederek size bir güven skoru sunar." },
   { q: "Fiyat analizi neye göre yapılıyor?", a: "Ürünün geçmiş fiyat verilerini toplayıp mevcut fiyatıyla karşılaştırıyoruz. Şu an piyasa ortalamasının üzerinde mi, altında mı? Kampanya dönemi mi yaklaşıyor? Bu sorulara göre AL, BEKLE ya da ALTERNATİF önerisi sunuyoruz." },
@@ -23,7 +23,8 @@ export default function FAQPage() {
 
   return (
     <main style={{ minHeight: "100dvh", display: "flex", flexDirection: "column" }}>
-      <style dangerouslySetInnerHTML={{__html:`
+      <style dangerouslySetInnerHTML={{
+        __html: `
         .faq-page-wrap { max-width: 760px; margin: 0 auto; padding: 0 clamp(1rem,4vw,3.5rem); }
         .faq-list { display: flex; flex-direction: column; gap: 0.625rem; }
         .faq-item { background: var(--card); border: 1.5px solid var(--card-b); border-radius: var(--r-lg); overflow: hidden; transition: border-color 0.25s; }
@@ -39,7 +40,7 @@ export default function FAQPage() {
         .contact-strip { margin-top: 2.5rem; background: var(--card); border: 1.5px solid var(--card-b); border-radius: var(--r-xl); padding: 2rem; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
         .contact-strip h3 { font-family: var(--ff-d); font-size: 1.125rem; font-weight: 700; color: var(--fg); margin-bottom: 0.25rem; }
         .contact-strip p { font-size: 0.875rem; color: var(--fg3); }
-      `}}/>
+      `}} />
 
       <MarketingNav />
 
@@ -57,7 +58,7 @@ export default function FAQPage() {
               <div key={i} className={`faq-item${openIndex === i ? " open" : ""}`}>
                 <button className="faq-btn" onClick={() => toggle(i)}>
                   <span className="faq-q">{faq.q}</span>
-                  <svg className="faq-chevron" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                  <svg className="faq-chevron" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
                 </button>
                 <div className="faq-body">
                   <p className="faq-a">{faq.a}</p>

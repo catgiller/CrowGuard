@@ -23,7 +23,7 @@ const crimson = Crimson_Text({
 });
 
 export const metadata: Metadata = {
-  title: "CrowGuard AI — Akıllı Alışveriş Platformu",
+  title: "CrowGuard — Akıllı Alışveriş Platformu",
   description:
     "Yapay zeka destekli e-ticaret karar platformu. Sahte yorumları tespit et, fiyat takibi yap, doğru ürünü seç.",
   icons: {
@@ -31,17 +31,17 @@ export const metadata: Metadata = {
     apple: "/logo.png",
   },
   openGraph: {
-    title: "CrowGuard AI — Akıllı Alışveriş Platformu",
+    title: "CrowGuard — Akıllı Alışveriş Platformu",
     description:
       "Yapay zeka destekli e-ticaret karar platformu. Sahte yorumları tespit et, fiyat takibi yap, doğru ürünü seç.",
     url: "https://crowguard.ai",
-    siteName: "CrowGuard AI",
+    siteName: "CrowGuard",
     images: [
       {
         url: "/logo.png",
         width: 512,
         height: 512,
-        alt: "CrowGuard AI",
+        alt: "CrowGuard",
       },
     ],
     locale: "tr_TR",
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary",
-    title: "CrowGuard AI — Akıllı Alışveriş Platformu",
+    title: "CrowGuard — Akıllı Alışveriş Platformu",
     description:
       "Yapay zeka destekli e-ticaret karar platformu. Sahte yorumları tespit et, fiyat takibi yap, doğru ürünü seç.",
     images: ["/logo.png"],
