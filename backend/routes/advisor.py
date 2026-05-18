@@ -8,7 +8,7 @@ from agents.advisor_agent import run_advisor_agent
 router = APIRouter()
 
 @router.post("/smart-advisor", response_model=AdvisorResponse)
-def get_advice(data: AdvisorRequest, db: Session = Depends(get_db)):
+async def get_advice(data: AdvisorRequest, db: Session = Depends(get_db)):
     # Önce cache kontrolü
     existing_advice = db.query(db_models.AnalysisResult).filter(
         db_models.AnalysisResult.input_data == data.query,
@@ -19,7 +19,7 @@ def get_advice(data: AdvisorRequest, db: Session = Depends(get_db)):
         return existing_advice.result_data
 
     try:
-        result = run_advisor_agent(data.query)
+        result = await run_advisor_agent(data.query)
         
         # Veritabanına kaydet
         new_result = db_models.AnalysisResult(
