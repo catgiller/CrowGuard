@@ -17,8 +17,8 @@ export type Product = {
   description: string;
   features: string[];
   images: string[];
-  prices: { carsila: number; shoprill: number };
-  stock: { carsila: number; shoprill: number };
+  prices: { carsila: number; shopgrill: number };
+  stock: { carsila: number; shopgrill: number };
   rating: number;
   reviewCount: number;
   badge: string;

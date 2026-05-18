@@ -8,11 +8,11 @@ import { useState } from "react";
 export default function ProductCard({ product }: { product: Product }) {
   const { addItem } = useCart();
   const [added, setAdded] = useState(false);
-  const discount = Math.round(((product.prices.shoprill - product.prices.carsila) / product.prices.shoprill) * 100);
+  const discount = Math.round(((product.prices.shopgrill - product.prices.carsila) / product.prices.shopgrill) * 100);
 
   function handleAdd(e: React.MouseEvent) {
     e.preventDefault();
-    addItem({ id: product.id, slug: product.slug, name: product.name, price: product.prices.shoprill, image: product.images[0] });
+    addItem({ id: product.id, slug: product.slug, name: product.name, price: product.prices.shopgrill, image: product.images[0] });
     setAdded(true);
     setTimeout(() => setAdded(false), 1500);
   }
@@ -42,7 +42,7 @@ export default function ProductCard({ product }: { product: Product }) {
             <span className="text-xs ml-1" style={{ color: "var(--text-muted)" }}>({product.reviewCount})</span>
           </div>
           <div className="flex items-baseline gap-2 mb-3">
-            <span className="text-base font-black" style={{ color: "var(--navy)" }}>{formatPrice(product.prices.shoprill)}</span>
+            <span className="text-base font-black" style={{ color: "var(--navy)" }}>{formatPrice(product.prices.shopgrill)}</span>
             {discount > 0 && <span className="text-xs line-through" style={{ color: "var(--text-muted)" }}>{formatPrice(product.prices.carsila + Math.round(product.prices.carsila * 0.1))}</span>}
           </div>
           <button onClick={handleAdd} className="w-full py-2 rounded-xl text-sm font-bold transition-all active:scale-95 text-white" style={{ backgroundColor: added ? "#16a34a" : "var(--navy)" }}>

@@ -27,13 +27,13 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     try {
-      const saved = localStorage.getItem("shoprill-cart");
+      const saved = localStorage.getItem("shopgrill-cart");
       if (saved) setItems(JSON.parse(saved));
     } catch {}
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("shoprill-cart", JSON.stringify(items));
+    localStorage.setItem("shopgrill-cart", JSON.stringify(items));
   }, [items]);
 
   const addItem = (newItem: Omit<CartItem, "quantity">) => {
