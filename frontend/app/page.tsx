@@ -85,6 +85,8 @@ export default function LandingPage() {
         @media (max-width: 600px) { .dot-nav { display: none; } }
         .hero-bg { position: absolute; inset: 0; background: #100c14; }
         .hero-bg::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 55% at 15% 60%, rgba(241,118,40,0.11) 0%, transparent 70%), radial-gradient(ellipse 55% 50% at 85% 25%, rgba(162,31,101,0.10) 0%, transparent 70%), radial-gradient(ellipse 40% 40% at 55% 85%, rgba(213,51,42,0.07) 0%, transparent 60%); }
+        html:not(.dark) .hero-bg { background: #1a0e1c; }
+        html:not(.dark) .hero-bg::before { background: radial-gradient(ellipse 60% 55% at 15% 60%, rgba(241,118,40,0.18) 0%, transparent 70%), radial-gradient(ellipse 55% 50% at 85% 25%, rgba(162,31,101,0.16) 0%, transparent 70%), radial-gradient(ellipse 40% 40% at 55% 85%, rgba(213,51,42,0.12) 0%, transparent 60%); }
         .hero-content { position: relative; z-index: 10; height: 100%; display: flex; flex-direction: column; }
         .hero-body { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 clamp(1rem,5vw,5rem); padding-top: var(--nav-h); }
         .hero-label { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 1.75rem; }
@@ -151,6 +153,18 @@ export default function LandingPage() {
         .chat-product-info .name { font-weight: 700; font-size: 0.8125rem; }
         .chat-product-info .meta { font-size: 0.6875rem; opacity: 0.75; }
         @media (max-width: 900px) { .feat-slide { flex-direction: column !important; padding-top: calc(var(--nav-h) + 1.25rem); } .feat-mock { width: 100%; max-width: 400px; margin: 0 auto; } .feat-text { text-align: center; } .feat-desc { margin: 0 auto; } .feat-pill { margin-top: 1.25rem; } }
+        .social-slide { display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--bg); padding: 0 clamp(1rem,4vw,3.5rem); padding-top: var(--nav-h); text-align: center; }
+        .social-inner { max-width: 900px; width: 100%; }
+        .testimonials { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin: 2.5rem 0; }
+        @media (max-width: 700px) { .testimonials { grid-template-columns: 1fr; } }
+        .tcard { background: var(--card); border: 1px solid var(--card-b); border-radius: var(--r-xl); padding: 1.5rem; text-align: left; }
+        .tcard-stars { display: flex; gap: 2px; margin-bottom: 0.875rem; }
+        .tcard-star { color: #f59e0b; font-size: 0.875rem; }
+        .tcard-text { font-size: 0.875rem; color: var(--fg2); line-height: 1.7; margin-bottom: 1rem; }
+        .tcard-author { font-size: 0.75rem; font-weight: 700; color: var(--fg); }
+        .tcard-role { font-size: 0.6875rem; color: var(--fg3); }
+        .platform-row { display: flex; gap: clamp(1.5rem,4vw,3rem); justify-content: center; align-items: center; flex-wrap: wrap; margin-top: 2.5rem; opacity: 0.5; }
+        .platform-chip { font-size: 0.8125rem; font-weight: 800; letter-spacing: 0.04em; color: var(--fg3); }
         .cta-slide { display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--bg); text-align: center; padding: 0 clamp(1rem,4vw,3.5rem); padding-top: var(--nav-h); }
         .cta-glow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 50% 40% at 30% 40%, rgba(241,118,40,0.06) 0%, transparent 70%), radial-gradient(ellipse 50% 40% at 70% 60%, rgba(162,31,101,0.06) 0%, transparent 70%); }
         .cta-h { color: var(--fg); margin-bottom: 1.25rem; }
@@ -356,8 +370,50 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* SLIDE 6 */}
-        <section className="slide cta-slide" data-slide="6">
+        {/* SLIDE 6 — Social Proof */}
+        <section className="slide social-slide" data-slide="6">
+          <div className="social-inner">
+            <p className="section-label">Kullanıcılar Ne Diyor?</p>
+            <h2 className="t-xl" style={{ color: "var(--fg)" }}>
+              Alışveriş kararlarında<br /><em style={{ fontStyle: "italic", fontWeight: 400, color: "var(--fg3)" }}>fark yarattık.</em>
+            </h2>
+            <div className="testimonials anim-fade-up">
+              <div className="tcard">
+                <div className="tcard-stars">
+                  <span className="tcard-star">★</span><span className="tcard-star">★</span><span className="tcard-star">★</span><span className="tcard-star">★</span><span className="tcard-star">★</span>
+                </div>
+                <p className="tcard-text">&quot;Bir laptopa bakıyordum, CrowGuard&apos;ın fiyat geçmişi analizi sayesinde 3 hafta bekledim ve 800₺ tasarruf ettim. Artık her alışverişte kullanıyorum.&quot;</p>
+                <div className="tcard-author">Mert K.</div>
+                <div className="tcard-role">Yazılım Geliştirici</div>
+              </div>
+              <div className="tcard">
+                <div className="tcard-stars">
+                  <span className="tcard-star">★</span><span className="tcard-star">★</span><span className="tcard-star">★</span><span className="tcard-star">★</span><span className="tcard-star">★</span>
+                </div>
+                <p className="tcard-text">&quot;Aldığım ürünlerin %60&apos;ını iade ederdim. Sahte yorum tespiti özelliği sayesinde son 2 ayda tek bir iade yapmadım. Gerçekten hayat kurtarıcı.&quot;</p>
+                <div className="tcard-author">Selin A.</div>
+                <div className="tcard-role">Girişimci</div>
+              </div>
+              <div className="tcard">
+                <div className="tcard-stars">
+                  <span className="tcard-star">★</span><span className="tcard-star">★</span><span className="tcard-star">★</span><span className="tcard-star">★</span><span className="tcard-star">★</span>
+                </div>
+                <p className="tcard-text">&quot;Akıllı Danışman özelliği muhteşem. Bütçemi ve ihtiyaçlarımı yazdım, 30 saniyede gerçekten işe yarayan ürünler önerdi. Klasik arama motorlarına dönmek istemiyorum.&quot;</p>
+                <div className="tcard-author">Burak T.</div>
+                <div className="tcard-role">Öğrenci</div>
+              </div>
+            </div>
+            <div className="platform-row">
+              <span className="platform-chip">🛍️ Trendyol</span>
+              <span className="platform-chip">📦 Amazon</span>
+              <span className="platform-chip">🛒 Hepsiburada</span>
+              <span className="platform-chip">ve daha fazlası yakında...</span>
+            </div>
+          </div>
+        </section>
+
+        {/* SLIDE 7 */}
+        <section className="slide cta-slide" data-slide="7">
           <div className="cta-glow"></div>
           <div style={{ position: "relative", zIndex: 10, paddingBottom: "6rem" }}>
             <p className="section-label">Hazır mısınız?</p>
@@ -381,7 +437,7 @@ export default function LandingPage() {
               <li><Link href="/faq">SSS</Link></li>
               <li><Link href="/contact">İletişim</Link></li>
               <li><Link href="/privacy">Gizlilik</Link></li>
-              <li><Link href="/terms">Koşullar</Link></li>
+              <li><Link href="/terms">Kullanım Koşulları</Link></li>
             </ul>
             <span className="footer-copy">© 2026 CrowGuard AI</span>
           </div>

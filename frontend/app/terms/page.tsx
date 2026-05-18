@@ -1,5 +1,3 @@
-"use client";
-
 import { MarketingNav } from "@/components/marketing-nav";
 import { MarketingFooter } from "@/components/marketing-footer";
 

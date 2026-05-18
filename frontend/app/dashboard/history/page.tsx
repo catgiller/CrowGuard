@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { History } from "lucide-react";
 import { MenuButton } from "@/components/menu-button";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { ApiError } from "@/lib/api";
@@ -21,6 +20,30 @@ function formatWhen(iso: string | null) {
   } catch {
     return "";
   }
+}
+
+function storeIcon(storeName: string | null) {
+  if (!storeName) return "🔗";
+  const s = storeName.toLowerCase();
+  if (s.includes("trendyol")) return "🛍️";
+  if (s.includes("hepsiburada")) return "🛒";
+  if (s.includes("amazon")) return "📦";
+  return "🔗";
+}
+
+function HistoryIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth="2"
+      style={{ width: 28, height: 28, color: "var(--fg3)", margin: "0 auto 1rem", display: "block" }}
+    >
+      <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+  );
 }
 
 export default function HistoryPage() {
@@ -59,12 +82,12 @@ export default function HistoryPage() {
           <p style={{ color: "var(--fg3)", fontSize: "0.875rem" }}>Yükleniyor…</p>
         ) : error ? (
           <div style={{ textAlign: "center", maxWidth: "20rem", margin: "2rem auto" }}>
-            <History style={{ width: 28, height: 28, color: "var(--fg3)", margin: "0 auto 1rem" }} />
+            <HistoryIcon />
             <p style={{ color: "var(--c3)", fontSize: "0.875rem" }}>{error}</p>
           </div>
         ) : items.length === 0 ? (
           <div style={{ textAlign: "center", maxWidth: "20rem", margin: "2rem auto" }}>
-            <History style={{ width: 28, height: 28, color: "var(--fg3)", margin: "0 auto 1rem" }} />
+            <HistoryIcon />
             <h2 style={{ fontFamily: "var(--ff-d)", fontSize: "1.125rem", fontWeight: 700, color: "var(--fg)", marginBottom: "0.5rem" }}>
               Geçmiş aramalar
             </h2>
@@ -83,7 +106,7 @@ export default function HistoryPage() {
                 href={`/dashboard/product-analysis?url=${encodeURIComponent(item.url)}`}
                 className="history-item"
               >
-                <div className="history-icon">🔗</div>
+                <div className="history-icon">{storeIcon(item.store_name)}</div>
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div className="history-name">{item.product_name || "Ürün analizi"}</div>
                   <div className="history-meta">
@@ -99,4 +122,3 @@ export default function HistoryPage() {
     </>
   );
 }
-

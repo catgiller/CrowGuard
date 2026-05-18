@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import { MarketingNav } from "@/components/marketing-nav";
 import { MarketingFooter } from "@/components/marketing-footer";
@@ -129,20 +127,14 @@ export default function AboutPage() {
               <div className="team-card">
                 <div className="team-top">
                   <div className="team-avatar" style={{ background: "rgba(248,153,87,0.15)", color: "var(--c1)" }}>NA</div>
-                  <a href="https://github.com" target="_blank" rel="noopener" className="ext-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-                  </a>
                 </div>
                 <div className="team-name">Nazife Atlas</div>
                 <div className="team-role">Frontend Developer</div>
-                <p className="team-bio">Kullanıcının ekrana ilk baktığı andan itibaren ne hissedeceğini düşünerek tasarladı. React, Next.js ve Framer Motion ile hem hızlı hem de estetik bir deneyim inşa etti. Arayüzün her animasyonu, her geçişi — Nazife&apos;nin detaycı bakışının ürünü.</p>
+                <p className="team-bio">Kullanıcının ekrana ilk baktığı andan itibaren ne hissedeceğini düşünerek tasarladı. React ve Next.js ile hem hızlı hem de estetik bir deneyim inşa etti. Arayüzün her detayı — Nazife&apos;nin titiz bakışının ürünü.</p>
               </div>
               <div className="team-card">
                 <div className="team-top">
-                  <div className="team-avatar" style={{ background: "rgba(162,31,101,0.15)", color: "var(--c5)" }}>EŞ</div>
-                  <a href="https://github.com" target="_blank" rel="noopener" className="ext-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-                  </a>
+                  <div className="team-avatar" style={{ background: "rgba(162,31,101,0.15)", color: "var(--c5)" }}>ES</div>
                 </div>
                 <div className="team-name">Ervanur Şahin</div>
                 <div className="team-role">Backend Developer</div>
@@ -160,7 +152,7 @@ export default function AboutPage() {
                 <span className="tech-tag frontend">Next.js 16 <span className="cat">Frontend</span></span>
                 <span className="tech-tag frontend">TypeScript <span className="cat">Frontend</span></span>
                 <span className="tech-tag frontend">Tailwind CSS <span className="cat">Frontend</span></span>
-                <span className="tech-tag frontend">Framer Motion <span className="cat">Frontend</span></span>
+
                 <span className="tech-tag backend">FastAPI <span className="cat">Backend</span></span>
                 <span className="tech-tag backend">SQLite <span className="cat">Backend</span></span>
                 <span className="tech-tag ai">LangGraph <span className="cat">AI</span></span>

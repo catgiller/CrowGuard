@@ -8,13 +8,20 @@ export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const form = e.currentTarget;
+    const name = (form.elements.namedItem("name") as HTMLInputElement)?.value ?? "";
+    const email = (form.elements.namedItem("email") as HTMLInputElement)?.value ?? "";
+    const subject = (form.elements.namedItem("subject") as HTMLInputElement)?.value ?? "";
+    const message = (form.elements.namedItem("message") as HTMLTextAreaElement)?.value ?? "";
+    const body = `Ad: ${name}%0AKonu: ${subject}%0A%0A${message}`;
+    window.location.href = `mailto:hello@crowguard.ai?subject=${encodeURIComponent(subject || "İletişim")}&body=${body}`;
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
       setSubmitted(true);
-    }, 1200);
+    }, 600);
   };
 
   return (
@@ -44,7 +51,7 @@ export default function ContactPage() {
 
       <MarketingNav />
 
-      <main style={{ flex: 1, paddingTop: "calc(var(--nav-h) + 3.5rem)", paddingBottom: "5rem" }}>
+      <div style={{ flex: 1, paddingTop: "calc(var(--nav-h) + 3.5rem)", paddingBottom: "5rem" }}>
         <div className="contact-page-wrap">
 
           {/* Hero */}
@@ -66,8 +73,8 @@ export default function ContactPage() {
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#f17628" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                 </div>
                 <div className="info-label">E-Posta</div>
-                <a href="mailto:hello@crowguard.ai" className="info-value">hello@crowguard.ai</a>
-                <p className="info-note">Genellikle 24 saat içinde yanıt veriyoruz.</p>
+                <span className="info-value">hello@crowguard.ai</span>
+                <p className="info-note">Adres yakında aktif olacak. Şimdilik formu kullanabilirsiniz.</p>
               </div>
 
               <div className="info-card">
@@ -75,8 +82,8 @@ export default function ContactPage() {
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#a21f65" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
                 </div>
                 <div className="info-label">GitHub</div>
-                <a href="https://github.com/crowguard-ai" target="_blank" rel="noopener" className="info-value">github.com/crowguard-ai</a>
-                <p className="info-note">Hata bildirimi için Issues kullanabilirsiniz.</p>
+                <span className="info-value">github.com/crowguard-ai</span>
+                <p className="info-note">Repo yakında yayınlanacak.</p>
               </div>
 
               <div className="info-card">
@@ -103,20 +110,20 @@ export default function ContactPage() {
                     <div className="form-grid" style={{ marginBottom: "1rem" }}>
                       <div className="cfield">
                         <label>Ad Soyad</label>
-                        <input type="text" className="cg-input" placeholder="Adınız Soyadınız" required />
+                        <input type="text" name="name" className="cg-input" placeholder="Adınız Soyadınız" required />
                       </div>
                       <div className="cfield">
                         <label>E-Posta</label>
-                        <input type="email" className="cg-input" placeholder="isim@ornek.com" required />
+                        <input type="email" name="email" className="cg-input" placeholder="isim@ornek.com" required />
                       </div>
                     </div>
                     <div className="cfield" style={{ marginBottom: "1rem" }}>
                       <label>Konu</label>
-                      <input type="text" className="cg-input" placeholder="Ne hakkında konuşmak istiyorsunuz?" />
+                      <input type="text" name="subject" className="cg-input" placeholder="Ne hakkında konuşmak istiyorsunuz?" />
                     </div>
                     <div className="cfield" style={{ marginBottom: "1.5rem" }}>
                       <label>Mesajınız</label>
-                      <textarea className="cg-input" placeholder="Mesajınızı buraya yazın..." rows={5} required />
+                      <textarea name="message" className="cg-input" placeholder="Mesajınızı buraya yazın..." rows={5} required />
                     </div>
                     <button
                       type="submit"
@@ -133,7 +140,7 @@ export default function ContactPage() {
             </div>
           </div>
         </div>
-      </main>
+      </div>
 
       <MarketingFooter />
     </main>

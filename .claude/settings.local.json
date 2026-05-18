@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\aizaw\\\\Pitoresk\\\\frontend\\\\app\" -Recurse | Where-Object { !$_.PSIsContainer } | ForEach-Object { $_.FullName.Replace\\(\"C:\\\\Users\\\\aizaw\\\\Pitoresk\\\\frontend\\\\\", \"\"\\) })",
+      "Read(//mnt/c/Users/aizaw/Pitoresk/frontend/**)",
+      "Bash(npm remove *)",
+      "Bash(npx next *)"
+    ]
+  }
+}

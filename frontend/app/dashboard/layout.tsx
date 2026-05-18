@@ -8,7 +8,7 @@ import { DashboardProvider, useDashboard } from "@/contexts/dashboard-context";
 
 function DashboardShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const { user, initials, isSidebarOpen, closeSidebar, logout } = useDashboard();
+  const { user, initials, isSidebarOpen, closeSidebar, logout, isPro, setIsPro } = useDashboard();
 
   useEffect(() => {
     closeSidebar();
@@ -78,13 +78,23 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
             </Link>
           </li>
         </ul>
+        {/* Plan toggle */}
+        <div style={{ padding: "0.625rem 0.875rem 0" }}>
+          <div className="plan-toggle" style={{ width: "100%" }} title="Plan değiştir (demo)">
+            <button className={`plan-btn ${!isPro ? "active" : ""}`} style={{ flex: 1 }} onClick={() => setIsPro(false)}>Ücretsiz</button>
+            <button className={`plan-btn pro ${isPro ? "active" : ""}`} style={{ flex: 1 }} onClick={() => setIsPro(true)}>Pro</button>
+          </div>
+        </div>
+
         <div className="sidebar-footer">
           <div className="avatar">{initials}</div>
           <div style={{ flex: 1, minWidth: 0 }}>
             <div style={{ fontSize: ".875rem", fontWeight: 600, color: "var(--fg)" }}>
               {user?.name ?? "Kullanıcı"}
             </div>
-            <div style={{ fontSize: ".6875rem", color: "var(--fg3)" }}>Ücretsiz Plan</div>
+            <div style={{ fontSize: ".6875rem", color: isPro ? "var(--c4)" : "var(--fg3)" }}>
+              {isPro ? "Pro Plan" : "Ücretsiz Plan"}
+            </div>
           </div>
           <button
             type="button"

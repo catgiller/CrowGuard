@@ -26,6 +26,34 @@ export const metadata: Metadata = {
   title: "CrowGuard AI — Akıllı Alışveriş Platformu",
   description:
     "Yapay zeka destekli e-ticaret karar platformu. Sahte yorumları tespit et, fiyat takibi yap, doğru ürünü seç.",
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png",
+  },
+  openGraph: {
+    title: "CrowGuard AI — Akıllı Alışveriş Platformu",
+    description:
+      "Yapay zeka destekli e-ticaret karar platformu. Sahte yorumları tespit et, fiyat takibi yap, doğru ürünü seç.",
+    url: "https://crowguard.ai",
+    siteName: "CrowGuard AI",
+    images: [
+      {
+        url: "/logo.png",
+        width: 512,
+        height: 512,
+        alt: "CrowGuard AI",
+      },
+    ],
+    locale: "tr_TR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "CrowGuard AI — Akıllı Alışveriş Platformu",
+    description:
+      "Yapay zeka destekli e-ticaret karar platformu. Sahte yorumları tespit et, fiyat takibi yap, doğru ürünü seç.",
+    images: ["/logo.png"],
+  },
 };
 
 export default function RootLayout({

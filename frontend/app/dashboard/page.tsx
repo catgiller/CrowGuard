@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fetchAnalysisHistory, type HistoryItem } from "@/lib/analysis";
 import { getToken } from "@/lib/auth";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -9,19 +9,22 @@ import { MenuButton } from "@/components/menu-button";
 import { useDashboard } from "@/contexts/dashboard-context";
 
 export default function DashboardPage() {
-  const { user, logout } = useDashboard();
-  const [isPro, setIsPro] = useState(false);
+  const { user, isPro, setIsPro } = useDashboard();
   const [greeting, setGreeting] = useState("");
   const [icon, setIcon] = useState("");
   const [quickQuery, setQuickQuery] = useState("");
   const [recentHistory, setRecentHistory] = useState<HistoryItem[]>([]);
+  const [totalAnalysis, setTotalAnalysis] = useState<number | null>(null);
   const firstName = user?.name?.split(/\s+/)[0] ?? "Kullanıcı";
 
   useEffect(() => {
     const token = getToken();
     if (!token) return;
     fetchAnalysisHistory(token)
-      .then((items) => setRecentHistory(items.slice(0, 3)))
+      .then((items) => {
+        setTotalAnalysis(items.length);
+        setRecentHistory(items.slice(0, 3));
+      })
       .catch(() => setRecentHistory([]));
   }, []);
 
@@ -49,7 +52,6 @@ export default function DashboardPage() {
 
         <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginLeft: "auto" }}>
           <ThemeToggle />
-          <button type="button" onClick={logout} style={{ fontSize: ".8125rem", color: "var(--fg3)", background: "none", border: "none", cursor: "pointer", fontWeight: 500, fontFamily: "var(--ff-b)" }}>Çıkış</button>
         </div>
       </div>
 
@@ -128,24 +130,24 @@ export default function DashboardPage() {
         {/* Stats */}
         <div className="stats-row">
           <div className="stat-card">
-            <div className="stat-val">{isPro ? '47' : '12'}</div>
+            <div className="stat-val">{totalAnalysis ?? "—"}</div>
             <div className="stat-lbl">Toplam Analiz</div>
-            <div className="stat-trend trend-up">↑ Bu ay</div>
+            <div className="stat-trend" style={{ color: "var(--fg3)" }}>Tüm zamanlar</div>
           </div>
           <div className="stat-card">
-            <div className="stat-val">3.8<span style={{ fontSize: "1rem", color: "var(--fg3)" }}>⭐</span></div>
+            <div className="stat-val" style={{ color: "var(--fg3)", fontSize: "1.125rem", marginTop: "0.25rem" }}>Yakında</div>
             <div className="stat-lbl">Ort. Güven Skoru</div>
-            <div className="stat-trend trend-up" style={{ color: "var(--c2)" }}>Gerçek skor</div>
+            <div className="stat-trend" style={{ color: "var(--fg3)" }}>Hesaplanıyor</div>
           </div>
           <div className="stat-card">
-            <div className="stat-val" style={{ background: "var(--grad-h)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>₺2.8K</div>
+            <div className="stat-val" style={{ color: "var(--fg3)", fontSize: "1.125rem", marginTop: "0.25rem" }}>Yakında</div>
             <div className="stat-lbl">Potansiyel Tasarruf</div>
-            <div className="stat-trend trend-up">↑ Doğru kararlar</div>
+            <div className="stat-trend" style={{ color: "var(--fg3)" }}>Hesaplanıyor</div>
           </div>
           <div className="stat-card">
-            <div className="stat-val">8</div>
+            <div className="stat-val" style={{ color: "var(--fg3)", fontSize: "1.125rem", marginTop: "0.25rem" }}>Yakında</div>
             <div className="stat-lbl">Bulunan Alternatif</div>
-            <div className="stat-trend" style={{ color: "var(--fg3)" }}>Daha iyi seçenekler</div>
+            <div className="stat-trend" style={{ color: "var(--fg3)" }}>Hesaplanıyor</div>
           </div>
         </div>
 

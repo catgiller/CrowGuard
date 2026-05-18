@@ -68,7 +68,7 @@ export default function LoginPage() {
         html:not(.dark) .login-card { background: rgba(253,250,247,0.88); border-color: rgba(120,70,90,0.10); }
         .card-logo { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem; }
         .card-logo-name { font-family: var(--ff-logo); font-size: 1.25rem; font-weight: 700; background: var(--grad-h); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .card-heading { font-family: var(--ff-d); font-size: clamp(1.75rem,4vw,2.25rem); font-weight: 800; line-height: 1.2; background: var(--grad-h); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.375rem; }
+        .card-heading { font-family: var(--ff-d); font-size: clamp(1.75rem,4vw,2.25rem); font-weight: 800; line-height: 1.2; background: var(--grad-h); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-top: 0; margin-bottom: 0.375rem; }
         .card-sub { font-size: 0.875rem; color: rgba(255,255,255,0.38); margin-bottom: 2rem; font-weight: 400; }
         html:not(.dark) .card-sub { color: var(--fg3); }
         .field { margin-bottom: 1.5rem; }
@@ -154,8 +154,8 @@ export default function LoginPage() {
             <div className="field-meta">
               <label className="field-label" style={{ marginBottom: 0 }}>Şifre</label>
               {isLogin && (
-                <span className="forgot" style={{ opacity: 0.5, cursor: "not-allowed" }} title="Yakında">
-                  Unuttum
+                <span className="forgot" style={{ opacity: 0.4, cursor: "default" }} title="Bu özellik yakında eklenecek">
+                  Yakında
                 </span>
               )}
             </div>
@@ -166,7 +166,7 @@ export default function LoginPage() {
           </div>
 
           <button type="submit" className="submit-btn" disabled={isLoading}>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
             {isLogin ? "Giriş Yap" : "Kayıt Ol"}
           </button>
         </form>
