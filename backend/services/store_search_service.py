@@ -6,7 +6,7 @@ logger = logging.getLogger(__name__)
 
 STORES = {
     "shopgrill": "https://shopgrill.store",
-    "carsila": "https://corsila.store",
+    "carsila": "https://carsila.store",
 }
 
 
