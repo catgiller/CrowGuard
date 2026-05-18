@@ -1,0 +1,975 @@
+[
+  {
+    "id": 1,
+    "slug": "samsung-galaxy-a55-5g",
+    "name": "Samsung Galaxy A55 5G 128GB",
+    "brand": "Samsung",
+    "category": "Elektronik",
+    "subcategory": "Telefon",
+    "description": "Samsung Galaxy A55, güçlü Exynos 1480 işlemcisi, 50MP ana kamera ve 5000mAh piliyle günlük kullanımda üstün performans sunar. IP67 su ve toz geçirmezlik sertifikası.",
+    "features": ["6.6 inç Super AMOLED ekran", "50MP + 12MP + 5MP üçlü kamera", "5000mAh batarya", "IP67 su geçirmezlik", "5G desteği", "128GB dahili depolama"],
+    "images": [
+      "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=600&q=80",
+      "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600&q=80",
+      "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=600&q=80"
+    ],
+    "prices": { "carsila": 12999, "shoprill": 13450 },
+    "stock": { "carsila": 47, "shoprill": 23 },
+    "rating": 4.4,
+    "reviewCount": 312,
+    "badge": "Çok Satan",
+    "starRatings": [5,5,4,5,4,5,3,5,4,5,4,4,5,4,3],
+    "reviews": [
+      { "author": "Mehmet A.", "stars": 5, "date": "2026-04-12", "text": "Kamerasından çok memnunum, özellikle gece modunda fotoğraflar harika çıkıyor. Pil ömrü de beklediğimden iyi." },
+      { "author": "Selin K.", "stars": 4, "date": "2026-03-28", "text": "Genel olarak çok iyi bir telefon. Tek şikayetim şarj adaptörü kutudan çıkmıyor. Ama telefonun kendisi süper." },
+      { "author": "Burak T.", "stars": 5, "date": "2026-03-15", "text": "İki aydır kullanıyorum, hiçbir sorun yaşamadım. 5G hızı gerçekten etkileyici." },
+      { "author": "Ayşe D.", "stars": 3, "date": "2026-02-20", "text": "Telefon iyi ama bu fiyata biraz pahalı gibi geldi bana. Yine de kaliteli bir ürün." },
+      { "author": "Emre Y.", "stars": 5, "date": "2026-02-08", "text": "Önceki telefonum A32'ydi, bu çok daha hızlı. Satın almaktan pişman olmadım kesinlikle." }
+    ]
+  },
+  {
+    "id": 2,
+    "slug": "sony-wh-1000xm5-kulaklik",
+    "name": "Sony WH-1000XM5 Kablosuz Kulaklık",
+    "brand": "Sony",
+    "category": "Elektronik",
+    "subcategory": "Kulaklık",
+    "description": "Sektörün en iyi gürültü engelleme teknolojisiyle donatılmış Sony WH-1000XM5, 30 saate kadar pil ömrü ve kristal netliğinde ses kalitesi sunar.",
+    "features": ["Lider gürültü engelleme", "30 saat pil ömrü", "Çoklu nokta bağlantı", "360 Reality Audio", "USB-C şarj", "Katlanabilir tasarım"],
+    "images": [
+      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80",
+      "https://images.unsplash.com/photo-1484704849700-f032a568e944?w=600&q=80",
+      "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=600&q=80"
+    ],
+    "prices": { "carsila": 8799, "shoprill": 9200 },
+    "stock": { "carsila": 18, "shoprill": 31 },
+    "rating": 4.8,
+    "reviewCount": 547,
+    "badge": "En Beğenilen",
+    "starRatings": [5,5,5,5,4,5,5,5,4,5,5,5,4,5,5],
+    "reviews": [
+      { "author": "Can Ö.", "stars": 5, "date": "2026-04-20", "text": "Hayatımda kullandığım en iyi kulaklık. Gürültü engelleme o kadar güçlü ki ofiste tamamen izole olabiliyorum." },
+      { "author": "Zeynep M.", "stars": 5, "date": "2026-04-05", "text": "Uçuşta denedim, motor sesini tamamen kesiyor. Ses kalitesi muhteşem, bas sesi derin." },
+      { "author": "Okan S.", "stars": 4, "date": "2026-03-22", "text": "Mükemmel kulaklık. Sadece kasa biraz ucuz plastik hissettiriyor ama ses kalitesi tartışmasız en iyi." },
+      { "author": "Deniz B.", "stars": 5, "date": "2026-03-10", "text": "Fiyatı yüksek ama değer. Bir kez alıyorsunuz ve yıllarca kullanıyorsunuz. Kesinlikle tavsiye ederim." },
+      { "author": "Fatma G.", "stars": 5, "date": "2026-02-28", "text": "Çalışırken müzik dinlemek için aldım, tamamen odaklanmamı sağlıyor. Pil ömrü gerçekten 30 saat tutuyor." },
+      { "author": "Alp K.", "stars": 4, "date": "2026-02-15", "text": "XM4 kullanıyordum, bu çok daha hafif ve ses kalitesi biraz daha iyi. Tavsiye ederim." }
+    ]
+  },
+  {
+    "id": 3,
+    "slug": "apple-ipad-10-nesil-wifi",
+    "name": "Apple iPad 10. Nesil 64GB WiFi",
+    "brand": "Apple",
+    "category": "Elektronik",
+    "subcategory": "Tablet",
+    "description": "Apple A14 Bionic çipi ile güçlendirilmiş iPad, 10.9 inç Liquid Retina ekranı, 12MP geniş açı kamerası ve tüm gün süren pil ömrüyle üretkenliğinizi artırır.",
+    "features": ["10.9 inç Liquid Retina ekran", "A14 Bionic çip", "12MP arka / 12MP ultrawide ön kamera", "USB-C bağlantı noktası", "WiFi 6 desteği", "iPadOS 17"],
+    "images": [
+      "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600&q=80",
+      "https://images.unsplash.com/photo-1588702547919-26089e690ecc?w=600&q=80",
+      "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&q=80"
+    ],
+    "prices": { "carsila": 16499, "shoprill": 17250 },
+    "stock": { "carsila": 12, "shoprill": 8 },
+    "rating": 4.6,
+    "reviewCount": 228,
+    "badge": "İndirim",
+    "starRatings": [5,4,5,5,4,4,5,5,3,4,5,4,5],
+    "reviews": [
+      { "author": "Arda N.", "stars": 5, "date": "2026-04-18", "text": "Çizim için aldım, Apple Pencil ile birlikte harika çalışıyor. Ekran kalitesi olağanüstü." },
+      { "author": "Seda Ç.", "stars": 4, "date": "2026-04-02", "text": "Film izlemek ve okumak için mükemmel. Hafif, ince, ekran çok net. Biraz pahalı ama kaliteli." },
+      { "author": "Tuna K.", "stars": 5, "date": "2026-03-18", "text": "Çocuğum için aldım, eğitim uygulamalarıyla harika. Hız konusunda hiç sorun yok." },
+      { "author": "Pelin A.", "stars": 4, "date": "2026-03-05", "text": "İş toplantılarında not almak için kullanıyorum. Magic Keyboard ile laptop gibi kullanılıyor." }
+    ]
+  },
+  {
+    "id": 4,
+    "slug": "xiaomi-smart-band-8-pro",
+    "name": "Xiaomi Smart Band 8 Pro Akıllı Bileklik",
+    "brand": "Xiaomi",
+    "category": "Elektronik",
+    "subcategory": "Akıllı Saat",
+    "description": "Xiaomi Smart Band 8 Pro, AMOLED ekranı, GPS desteği ve kapsamlı sağlık takip özellikleriyle günlük aktivitelerinizi ve sağlığınızı izler.",
+    "features": ["1.74 inç AMOLED ekran", "Yerleşik GPS", "150+ spor modu", "Kalp ritmi ve SpO2 takibi", "14 gün pil ömrü", "5ATM su geçirmezlik"],
+    "images": [
+      "https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=600&q=80",
+      "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600&q=80",
+      "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&q=80"
+    ],
+    "prices": { "carsila": 1799, "shoprill": 1950 },
+    "stock": { "carsila": 84, "shoprill": 56 },
+    "rating": 4.3,
+    "reviewCount": 891,
+    "badge": "Çok Satan",
+    "starRatings": [4,5,4,4,3,5,4,4,5,4,3,4,5,4,4],
+    "reviews": [
+      { "author": "Kaan Y.", "stars": 4, "date": "2026-04-25", "text": "GPS özelliği koşularda çok işe yarıyor. Ekran açık havada bile net görünüyor. Fiyat-performans şampiyonu." },
+      { "author": "Melis T.", "stars": 5, "date": "2026-04-10", "text": "Uyku takibi çok detaylı, kalp ritmi sürekli ölçüyor. Bu fiyata bu özellikler inanılmaz." },
+      { "author": "Bora A.", "stars": 3, "date": "2026-03-25", "text": "Genel olarak iyi ama bildirim yönetimi biraz kötü. Türkçe karakter desteği de eksik." },
+      { "author": "Gül E.", "stars": 5, "date": "2026-03-12", "text": "Spor için mükemmel. Yüzerken bile takıyorum, hiç sorun çıkarmadı. Pil ömrü gerçekten çok iyi." }
+    ]
+  },
+  {
+    "id": 5,
+    "slug": "anker-powercore-20000-powerbank",
+    "name": "Anker PowerCore 20000mAh Powerbank",
+    "brand": "Anker",
+    "category": "Elektronik",
+    "subcategory": "Powerbank",
+    "description": "20000mAh kapasiteli Anker PowerCore, iPhone'u 5 kez, Android'i 4 kez tam şarj eder. PowerIQ teknolojisiyle her cihaza optimum hız sağlar.",
+    "features": ["20000mAh kapasite", "PowerIQ teknolojisi", "USB-C giriş/çıkış", "Çift USB-A çıkış", "LED gösterge", "Uçuşa uygun"],
+    "images": [
+      "https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=600&q=80",
+      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80",
+      "https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=600&q=80"
+    ],
+    "prices": { "carsila": 899, "shoprill": 979 },
+    "stock": { "carsila": 120, "shoprill": 75 },
+    "rating": 4.7,
+    "reviewCount": 1243,
+    "badge": "Çok Satan",
+    "starRatings": [5,5,4,5,5,5,4,5,5,4,5,5,5,4,5],
+    "reviews": [
+      { "author": "Orhan D.", "stars": 5, "date": "2026-04-22", "text": "Seyahatlerde vazgeçilmezim oldu. Telefonumu 4-5 kez şarj ediyor, kalitesi Anker garantili." },
+      { "author": "Naz Ş.", "stars": 5, "date": "2026-04-08", "text": "Hafif ve şarj hızı iyi. Türkiye'de pek bilinmez ama Anker gerçekten kaliteli marka." },
+      { "author": "Yiğit K.", "stars": 4, "date": "2026-03-20", "text": "Kapasitesi tam olarak verilen değere yakın. Küçük bir eleştiri: kendi şarjı biraz yavaş." }
+    ]
+  },
+  {
+    "id": 6,
+    "slug": "delonghi-magnifica-evo-kahve",
+    "name": "DeLonghi Magnifica Evo Otomatik Kahve Makinesi",
+    "brand": "DeLonghi",
+    "category": "Ev & Yaşam",
+    "subcategory": "Kahve Makinesi",
+    "description": "DeLonghi Magnifica Evo, bütün kahve çekirdeklerini öğüterek her seferinde taze ve mükemmel espresso hazırlar. 15 bar pompa basıncı ve yerleşik süt köpürtücüsü ile.",
+    "features": ["Yerleşik çekirdek öğütücü", "15 bar pompa basıncı", "Otomatik temizlik programı", "6 farklı içecek seçeneği", "Ayarlanabilir öğütme inceliği", "1.8L su haznesi"],
+    "images": [
+      "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80",
+      "https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?w=600&q=80",
+      "https://images.unsplash.com/photo-1541167760496-1628856ab772?w=600&q=80"
+    ],
+    "prices": { "carsila": 18999, "shoprill": 19800 },
+    "stock": { "carsila": 9, "shoprill": 14 },
+    "rating": 4.5,
+    "reviewCount": 167,
+    "badge": "Premium",
+    "starRatings": [5,5,4,5,5,4,4,5,5,4,5,4],
+    "reviews": [
+      { "author": "Serpil A.", "stars": 5, "date": "2026-04-15", "text": "Kafedeki kahve kalitesini evde yakaladım. Öğütme sesi biraz var ama sabah ritüelimin parçası oldu." },
+      { "author": "Murat B.", "stars": 5, "date": "2026-03-30", "text": "İtalya'da kullandıktan sonra aldım, beklentimi karşılıyor. Temizliği kolay, kahvesi lezzetli." },
+      { "author": "Ceren K.", "stars": 4, "date": "2026-03-10", "text": "Pahalı ama yatırım değer. Artık dışarıdan kahve almıyorum, ayda 500 TL tasarruf ettim." }
+    ]
+  },
+  {
+    "id": 7,
+    "slug": "philips-blender-hr2221",
+    "name": "Philips HR2221 Blender Seti",
+    "brand": "Philips",
+    "category": "Ev & Yaşam",
+    "subcategory": "Blender",
+    "description": "Philips HR2221, 600W motor gücü ve ProMix teknolojisiyle smoothie, çorba ve sos hazırlamayı kolaylaştırır. Bulaşık makinesinde yıkanabilir parçaları ile temizliği pratik.",
+    "features": ["600W motor gücü", "ProMix teknolojisi", "2 hız + darbe modu", "1.5L BPA-free sürahi", "Bulaşık makinesinde yıkanabilir", "2 yıl garanti"],
+    "images": [
+      "https://images.unsplash.com/photo-1570197788417-0e82375c9371?w=600&q=80",
+      "https://images.unsplash.com/photo-1617196034183-421b4040ed20?w=600&q=80",
+      "https://images.unsplash.com/photo-1606914709789-d0adfe01efb5?w=600&q=80"
+    ],
+    "prices": { "carsila": 1299, "shoprill": 1390 },
+    "stock": { "carsila": 63, "shoprill": 41 },
+    "rating": 4.2,
+    "reviewCount": 428,
+    "badge": "İndirim",
+    "starRatings": [4,4,5,3,4,4,5,4,4,3,5,4,4],
+    "reviews": [
+      { "author": "Hande Y.", "stars": 4, "date": "2026-04-19", "text": "Her sabah smoothie yapıyorum, sorunsuz çalışıyor. Gürültü seviyesi kabul edilebilir." },
+      { "author": "Volkan T.", "stars": 5, "date": "2026-04-03", "text": "Çorba ve smoothie için ideal. Temizlemesi çok kolay, parçaları bulaşık makinesine atıyorsunuz." },
+      { "author": "Beyza A.", "stars": 3, "date": "2026-03-17", "text": "Fiyat-performans iyi ama plastik kalitesi biraz düşük hissettiriyor. İşlevsel olarak sorun yok." }
+    ]
+  },
+  {
+    "id": 8,
+    "slug": "bambu-elyaf-yastik-seti-2li",
+    "name": "Bambu Elyaf Yastık Seti 2'li 50x70",
+    "brand": "HomeGold",
+    "category": "Ev & Yaşam",
+    "subcategory": "Uyku",
+    "description": "Bambu elyafından üretilmiş anti-bakteriyel ve nefes alan yastık seti. Orta sertlikte dolgu, boyun ve baş desteği için ideal ergonomik yapı.",
+    "features": ["Bambu elyaf kaplama", "Anti-bakteriyel yapı", "50x70cm standard ölçü", "Yıkanabilir", "Orta sertlik dolgu", "2 adet"],
+    "images": [
+      "https://images.unsplash.com/photo-1631157769375-3de04cc48c28?w=600&q=80",
+      "https://images.unsplash.com/photo-1540518614846-7eded433c457?w=600&q=80",
+      "https://images.unsplash.com/photo-1592789705501-f9ae4278a9f9?w=600&q=80"
+    ],
+    "prices": { "carsila": 549, "shoprill": 599 },
+    "stock": { "carsila": 200, "shoprill": 155 },
+    "rating": 4.1,
+    "reviewCount": 634,
+    "badge": "Çok Satan",
+    "starRatings": [4,4,3,4,5,4,4,3,4,4,5,3,4,4],
+    "reviews": [
+      { "author": "Nilay Ö.", "stars": 4, "date": "2026-04-24", "text": "Fiyatına göre çok iyi. Bambu kılıfı gerçekten nefes aldırıyor, terleme yapmıyor." },
+      { "author": "Tamer K.", "stars": 5, "date": "2026-04-09", "text": "Boyun ağrım vardı, bu yastıkla geçti. Sertliği tam benim istediğim gibi." },
+      { "author": "Aslı P.", "stars": 3, "date": "2026-03-26", "text": "İyi yastık ama bir süre sonra biraz çöküyor. Yıkandıktan sonra kabartmak gerekiyor." }
+    ]
+  },
+  {
+    "id": 9,
+    "slug": "philips-hue-akilli-ampul-e27",
+    "name": "Philips Hue White & Color E27 Akıllı Ampul",
+    "brand": "Philips",
+    "category": "Ev & Yaşam",
+    "subcategory": "Aydınlatma",
+    "description": "16 milyon renk seçeneği ve akıllı ev entegrasyonuyla evinizin atmosferini istediğiniz gibi özelleştirin. Alexa, Google Home ve Siri ile uyumlu.",
+    "features": ["16 milyon renk", "Alexa & Google Home uyumlu", "Uygulama ile uzaktan kontrol", "Zamanlama özelliği", "75W muadili 9W", "25.000 saat ömür"],
+    "images": [
+      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80",
+      "https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=600&q=80",
+      "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=600&q=80"
+    ],
+    "prices": { "carsila": 699, "shoprill": 749 },
+    "stock": { "carsila": 88, "shoprill": 62 },
+    "rating": 4.6,
+    "reviewCount": 312,
+    "badge": "Yeni",
+    "starRatings": [5,5,4,5,5,4,5,5,4,5,4,5],
+    "reviews": [
+      { "author": "Serhan D.", "stars": 5, "date": "2026-04-21", "text": "Evimde 6 tane var, harika. Google Home ile entegrasyon mükemmel çalışıyor, sesle kontrol ediyorum." },
+      { "author": "Irem B.", "stars": 5, "date": "2026-04-06", "text": "Gece okurken sarı tona, film izlerken turuncu ambiyansa çekiyorum. Müthiş bir ürün." },
+      { "author": "Fuat Y.", "stars": 4, "date": "2026-03-23", "text": "Uygulama biraz stabil değil bazen ama ampulün kendisi harika. Işık kalitesi çok iyi." }
+    ]
+  },
+  {
+    "id": 10,
+    "slug": "modern-geometrik-salon-hali-160x230",
+    "name": "Modern Geometrik Desen Salon Halısı 160x230",
+    "brand": "Artım Home",
+    "category": "Ev & Yaşam",
+    "subcategory": "Halı",
+    "description": "Polipropilen iplikten dokunmuş, solmayan renkleriyle modern geometrik desenli salon halısı. Kolay temizleme ve kaymaz alt yapı ile güvenli kullanım.",
+    "features": ["160x230cm boyut", "Polipropilen iplik", "Kaymaz alt", "Solmaz boyar madde", "Kolay temizleme", "Yerli üretim"],
+    "images": [
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80",
+      "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80",
+      "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=600&q=80"
+    ],
+    "prices": { "carsila": 2199, "shoprill": 2450 },
+    "stock": { "carsila": 35, "shoprill": 19 },
+    "rating": 4.3,
+    "reviewCount": 189,
+    "badge": "Yerli Üretim",
+    "starRatings": [4,5,4,4,3,4,5,4,4,5,4,3],
+    "reviews": [
+      { "author": "Güneş A.", "stars": 4, "date": "2026-04-17", "text": "Rengi fotoğraftaki gibi, desen çok şık. Kare metre başına fiyat çok uygun." },
+      { "author": "Tolga M.", "stars": 5, "date": "2026-04-01", "text": "Kalitesi fiyatının çok üzerinde. Yerli üretim olması ayrı bir artı." },
+      { "author": "Elif S.", "stars": 3, "date": "2026-03-14", "text": "Halı güzel ama fotoğraftaki renk biraz daha canlıydı. Yine de beğendim." }
+    ]
+  },
+  {
+    "id": 11,
+    "slug": "columbia-trek-sweatshirt",
+    "name": "Columbia Sportswear Trek Sweatshirt Unisex",
+    "brand": "Columbia",
+    "category": "Giyim",
+    "subcategory": "Sweatshirt",
+    "description": "Columbia'nın klasik Trek serisi sweatshirt, %80 pamuk %20 polyester karışımıyla hem konforlu hem dayanıklı. Hem spor hem günlük kullanım için ideal.",
+    "features": ["%80 pamuk %20 polyester", "Fırçalanmış iç yüzey", "Kanguru cep", "Ribana yaka/kol/etek", "Makine yıkama uyumlu", "S-XXL beden aralığı"],
+    "images": [
+      "https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=600&q=80",
+      "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=600&q=80",
+      "https://images.unsplash.com/photo-1578587018452-892bacefd3f2?w=600&q=80"
+    ],
+    "prices": { "carsila": 1299, "shoprill": 1399 },
+    "stock": { "carsila": 92, "shoprill": 67 },
+    "rating": 4.4,
+    "reviewCount": 503,
+    "badge": "Çok Satan",
+    "starRatings": [5,4,5,4,4,5,4,5,4,5,4,4,5],
+    "reviews": [
+      { "author": "Berk Y.", "stars": 5, "date": "2026-04-23", "text": "Kumaşı çok kaliteli, yıkamadan çıkmıyor. Unisex kesimi tam oturuyor. Tavsiye ederim." },
+      { "author": "Aylin D.", "stars": 4, "date": "2026-04-07", "text": "Kış için biraz ince kalıyor ama ilkbahar-sonbahar mükemmel. Renk seçenekleri de güzel." },
+      { "author": "Umut T.", "stars": 5, "date": "2026-03-24", "text": "Üçüncü siparişim bu ürünü. Her sezon rengi değişik alıyorum, hiç pişman olmadım." }
+    ]
+  },
+  {
+    "id": 12,
+    "slug": "nike-air-max-270-spor-ayakkabi",
+    "name": "Nike Air Max 270 Erkek Spor Ayakkabı",
+    "brand": "Nike",
+    "category": "Giyim",
+    "subcategory": "Ayakkabı",
+    "description": "Nike Air Max tarihinin en büyük hava yastığına sahip 270, günlük konfor için tasarlandı. Hafif örgü üst ve Max Air yastıklaması ile gün boyu rahat adımlar.",
+    "features": ["Max Air yastıklama", "Örgü üst kısım", "Rubber dış taban", "Foam orta taban", "40-46 numara aralığı", "Kauçuk taban"],
+    "images": [
+      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80",
+      "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600&q=80",
+      "https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=600&q=80"
+    ],
+    "prices": { "carsila": 4299, "shoprill": 4599 },
+    "stock": { "carsila": 28, "shoprill": 42 },
+    "rating": 4.5,
+    "reviewCount": 718,
+    "badge": "En Beğenilen",
+    "starRatings": [5,4,5,5,4,5,4,5,5,4,5,4,5],
+    "reviews": [
+      { "author": "Cem A.", "stars": 5, "date": "2026-04-20", "text": "Günde 10bin adım atıyorum, topuk ağrım yoktu bu ayakkabıyla. Tabanı gerçekten yumuşak." },
+      { "author": "Bahar K.", "stars": 4, "date": "2026-04-04", "text": "Çok şık ve rahat. Tam numara aldım, ilk gün bile sorunsuz giyebildim." },
+      { "author": "Sinan E.", "stars": 5, "date": "2026-03-21", "text": "Nike kalitesi tartışılmaz. Bu model özellikle hafifliğiyle öne çıkıyor." }
+    ]
+  },
+  {
+    "id": 13,
+    "slug": "columbia-titanium-winter-mont",
+    "name": "Columbia Titanium Omni-Heat Kışlık Mont",
+    "brand": "Columbia",
+    "category": "Giyim",
+    "subcategory": "Mont",
+    "description": "Columbia'nın Omni-Heat teknolojisi vücut ısısını yansıtarak sizi sıcak tutar. Su geçirmez dış yüzey ve çıkarılabilir kapüşonuyla dağ ve şehir kullanımına uygun.",
+    "features": ["Omni-Heat yansıtma teknolojisi", "Su geçirmez dış yüzey", "Çıkarılabilir kapüşon", "Çoklu cep", "XS-XXL beden", "Makine yıkama uyumlu"],
+    "images": [
+      "https://images.unsplash.com/photo-1544966503-7cc5ac882d5f?w=600&q=80",
+      "https://images.unsplash.com/photo-1548624313-0396c75e4b1a?w=600&q=80",
+      "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=600&q=80"
+    ],
+    "prices": { "carsila": 5499, "shoprill": 5999 },
+    "stock": { "carsila": 22, "shoprill": 16 },
+    "rating": 4.7,
+    "reviewCount": 284,
+    "badge": "Premium",
+    "starRatings": [5,5,4,5,5,5,4,5,5,4,5],
+    "reviews": [
+      { "author": "Yağmur B.", "stars": 5, "date": "2026-02-10", "text": "Kar yağarken bile üşümeden gezdim. Omni-Heat gerçekten çalışıyor, rüzgara karşı da çok iyi." },
+      { "author": "Selim D.", "stars": 5, "date": "2026-02-01", "text": "5 yıldır Columbia montu giyiyorum, bu sefer daha da iyi. Yatırım değer kesinlikle." },
+      { "author": "Lale T.", "stars": 4, "date": "2026-01-22", "text": "Güzel mont ama fiyat biraz yüksek. Omni-Heat teknolojisi gerçek ama bence sıradan polar da iş görür." }
+    ]
+  },
+  {
+    "id": 14,
+    "slug": "mango-mini-deri-omuz-canta",
+    "name": "Mango Mini Deri Omuz Çantası",
+    "brand": "Mango",
+    "category": "Giyim",
+    "subcategory": "Çanta",
+    "description": "Vegan deri kullanılarak üretilmiş şık mini omuz çantası. Ayarlanabilir kayış, manyetik kapama ve iç bölmeleriyle günlük kullanım için ideal.",
+    "features": ["Vegan deri", "Ayarlanabilir kayış", "Manyetik kapama", "İç bölme ve cep", "15x18x6cm boyut", "El yapımı dikiş"],
+    "images": [
+      "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&q=80",
+      "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&q=80",
+      "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600&q=80"
+    ],
+    "prices": { "carsila": 1899, "shoprill": 2050 },
+    "stock": { "carsila": 41, "shoprill": 29 },
+    "rating": 4.2,
+    "reviewCount": 156,
+    "badge": "Yeni",
+    "starRatings": [4,4,5,3,4,5,4,4,3,5,4],
+    "reviews": [
+      { "author": "Pınar M.", "stars": 4, "date": "2026-04-16", "text": "Küçücük ama içine çok şey giriyor. Rengi fotoğraftaki gibi, dikiş kalitesi iyi." },
+      { "author": "Dilan K.", "stars": 5, "date": "2026-03-31", "text": "Günlük kullanım için mükemmel. Telefonum, cüzdanım, anahtarım rahatça giriyor." },
+      { "author": "Ece Y.", "stars": 3, "date": "2026-03-16", "text": "Güzel çanta ama manyetik kapama biraz zayıf. Fiyatına göre deri kalitesi iyi sayılır." }
+    ]
+  },
+  {
+    "id": 15,
+    "slug": "rayban-rb3025-gunes-gozlugu",
+    "name": "Ray-Ban RB3025 Aviator Güneş Gözlüğü",
+    "brand": "Ray-Ban",
+    "category": "Giyim",
+    "subcategory": "Güneş Gözlüğü",
+    "description": "1937'den bu yana simge haline gelmiş Aviator modeli, UV400 koruması ve mineral cam lensleri ile hem şık hem koruyucu. Altın çerçeve, G-15 yeşil lens.",
+    "features": ["Mineral cam lens", "UV400 koruma", "Metal çerçeve", "Orijinal kılıf dahil", "58mm cam genişliği", "Unisex"],
+    "images": [
+      "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&q=80",
+      "https://images.unsplash.com/photo-1508296695146-257a814070b4?w=600&q=80",
+      "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600&q=80"
+    ],
+    "prices": { "carsila": 4999, "shoprill": 5299 },
+    "stock": { "carsila": 15, "shoprill": 22 },
+    "rating": 4.8,
+    "reviewCount": 392,
+    "badge": "Klasik",
+    "starRatings": [5,5,5,4,5,5,5,4,5,5,5],
+    "reviews": [
+      { "author": "Alper T.", "stars": 5, "date": "2026-04-26", "text": "Orijinal Ray-Ban kalitesi bozulmamış. Lens kalitesi ve renk filtresi mükemmel." },
+      { "author": "Seda N.", "stars": 5, "date": "2026-04-11", "text": "Yıllardır Ray-Ban kullanıyorum. Bu model her kıyafetle uyuyor, vazgeçemiyorum." },
+      { "author": "Ufuk B.", "stars": 4, "date": "2026-03-29", "text": "Çok şık ve kaliteli. Fiyat biraz yüksek ama Ray-Ban için normal. Orijinallik belgesi geliyor." }
+    ]
+  },
+  {
+    "id": 16,
+    "slug": "cerave-retinol-serum-30ml",
+    "name": "CeraVe Retinol Serum 30ml Yaşlanma Karşıtı",
+    "brand": "CeraVe",
+    "category": "Sağlık & Güzellik",
+    "subcategory": "Serum",
+    "description": "CeraVe'nin enkapsüle edilmiş retinol formülü, 3 esansiyel seramid ve hyaluronik asit ile ince çizgi ve kırışıklıkları azaltırken cilt bariyerini güçlendirir.",
+    "features": ["Enkapsüle retinol", "3 esansiyel seramid", "Hyaluronik asit", "Parfüm içermez", "Dermatolog onaylı", "30ml"],
+    "images": [
+      "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=600&q=80",
+      "https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=600&q=80",
+      "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=600&q=80"
+    ],
+    "prices": { "carsila": 499, "shoprill": 549 },
+    "stock": { "carsila": 145, "shoprill": 98 },
+    "rating": 4.5,
+    "reviewCount": 867,
+    "badge": "Dermatolog Seçimi",
+    "starRatings": [5,4,5,5,4,5,4,5,4,4,5,4,5],
+    "reviews": [
+      { "author": "Merve S.", "stars": 5, "date": "2026-04-25", "text": "2 ay kullandım, göz altı kırışıklarımda belirgin azalma var. Tahriş etmiyor, hafif kızarma bile olmadı." },
+      { "author": "Hatice A.", "stars": 4, "date": "2026-04-10", "text": "CeraVe'ye güveniyorum, bu serum da hayal kırıklığı yaratmadı. Sonuçlar yavaş ama kalıcı." },
+      { "author": "Şeyma K.", "stars": 5, "date": "2026-03-28", "text": "Hassas cilt tipim var, retinol'e başlayamıyordum. Bu formül çok uyumlu, hiç tahriş etmedi." },
+      { "author": "Ceren T.", "stars": 4, "date": "2026-03-13", "text": "Dokusunu sevdim, çabuk emiliyor. Geceleri kullanıyorum, sabah cilt gergin ve parlak oluyor." }
+    ]
+  },
+  {
+    "id": 17,
+    "slug": "gillette-labs-isitmali-tiraz-seti",
+    "name": "Gillette Labs Isıtmalı Tıraş Seti",
+    "brand": "Gillette",
+    "category": "Sağlık & Güzellik",
+    "subcategory": "Tıraş",
+    "description": "Gillette Labs, tıraş öncesi dermatolog önerilen sıcaklıkta deriyi hazırlayan ısıtma özelliğiyle benzersiz bir tıraş deneyimi sunar. 5 bıçak ve ExfoliatingBar ile.",
+    "features": ["Isıtmalı başlık teknolojisi", "5 bıçak sistemi", "ExfoliatingBar şerit", "USB şarjlı", "Manyetik şarj standı", "8 ısı seviyesi"],
+    "images": [
+      "https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&q=80",
+      "https://images.unsplash.com/photo-1621607505796-74a83f7a0c44?w=600&q=80",
+      "https://images.unsplash.com/photo-1607008829749-24e47d31e65f?w=600&q=80"
+    ],
+    "prices": { "carsila": 2499, "shoprill": 2699 },
+    "stock": { "carsila": 37, "shoprill": 25 },
+    "rating": 4.3,
+    "reviewCount": 234,
+    "badge": "Yeni Teknoloji",
+    "starRatings": [4,4,5,3,4,5,4,4,3,4,5,4],
+    "reviews": [
+      { "author": "Hakan D.", "stars": 4, "date": "2026-04-22", "text": "Isıtma özelliği gerçekten işe yarıyor, tıraş çok yumuşak oluyor. Bıçak değiştirme maliyeti biraz yüksek." },
+      { "author": "Tarık A.", "stars": 5, "date": "2026-04-07", "text": "Tatilde çantaya sığıyor, şarjı uzun süre gidiyor. Isıtma olmasa bile mükemmel bir jilet." },
+      { "author": "Emre K.", "stars": 3, "date": "2026-03-22", "text": "Isıtma özelliğini gereğinden abartılmış buldum. Normal jilet kadar yakın tıraş ediyor." }
+    ]
+  },
+  {
+    "id": 18,
+    "slug": "dyson-supersonic-sac-kurutma",
+    "name": "Dyson Supersonic Saç Kurutma Makinesi",
+    "brand": "Dyson",
+    "category": "Sağlık & Güzellik",
+    "subcategory": "Saç Bakım",
+    "description": "Dyson'ın dijital motoru saniyede 13 milyon devir yapar ve 110.000 RPM hava akışıyla saçı aşırı ısıya maruz kalmadan hızla kurutur. 5 manyetik aksesuar dahil.",
+    "features": ["Dijital V9 motor", "Akıllı ısı kontrolü", "5 manyetik aksesuar", "Sessiz çalışma", "Flyaway Attachment", "2 yıl garanti"],
+    "images": [
+      "https://images.unsplash.com/photo-1522338242992-e1a54906a8da?w=600&q=80",
+      "https://images.unsplash.com/photo-1610992015732-2449b76344bc?w=600&q=80",
+      "https://images.unsplash.com/photo-1562322140-8baeececf3df?w=600&q=80"
+    ],
+    "prices": { "carsila": 12999, "shoprill": 13750 },
+    "stock": { "carsila": 11, "shoprill": 18 },
+    "rating": 4.7,
+    "reviewCount": 445,
+    "badge": "Premium",
+    "starRatings": [5,5,4,5,5,5,4,5,5,4,5,5],
+    "reviews": [
+      { "author": "Ayla T.", "stars": 5, "date": "2026-04-19", "text": "Pahalı ama saçlarım hiç bu kadar sağlıklı görünmemişti. Fön etkisi inanılmaz, hiç kıvırcıklaşmıyor." },
+      { "author": "Rüya A.", "stars": 5, "date": "2026-04-04", "text": "Uzun ve kalın saçım var, 15 dakikada kuruyor. Sessizliği de çok iyi, bebek uyurken kullanıyorum." },
+      { "author": "Nehir K.", "stars": 4, "date": "2026-03-20", "text": "Çok kaliteli ama bu fiyat için biraz beklentileri yüksek olabiliyor. Yine de en iyi kurutuculardan biri." }
+    ]
+  },
+  {
+    "id": 19,
+    "slug": "chanel-chance-eau-tendre-edt-100ml",
+    "name": "Chanel Chance Eau Tendre EDT 100ml",
+    "brand": "Chanel",
+    "category": "Sağlık & Güzellik",
+    "subcategory": "Parfüm",
+    "description": "Chanel Chance Eau Tendre, greyfurt ve hyasint notalarının çiçeksi-meyvemsi armoniyle buluştuğu taze ve sofistike bir koku. Orta kalıcılık.",
+    "features": ["100ml EDT formülü", "Taze-çiçeksi koku ailesi", "Üst nota: Greyfurt, limon", "Orta nota: Hyasint, iris", "Alt nota: Beyaz misk, amber", "Orijinal Chanel ambalajı"],
+    "images": [
+      "https://images.unsplash.com/photo-1541643600914-78b084683702?w=600&q=80",
+      "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600&q=80",
+      "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600&q=80"
+    ],
+    "prices": { "carsila": 7499, "shoprill": 7999 },
+    "stock": { "carsila": 24, "shoprill": 17 },
+    "rating": 4.9,
+    "reviewCount": 623,
+    "badge": "En Beğenilen",
+    "starRatings": [5,5,5,5,4,5,5,5,5,4,5,5,5],
+    "reviews": [
+      { "author": "Özge M.", "stars": 5, "date": "2026-04-28", "text": "Favorim. Her ortamda iltifat alıyorum. Kalıcılığı EDT için iyi sayılır, 6-7 saat rahatlıkla tutuyor." },
+      { "author": "Sinem D.", "stars": 5, "date": "2026-04-13", "text": "Chance serisinin en güzeli bu. İlkbahar-yaz için biçilmiş kaftan. Hafif ama iz bırakıyor." },
+      { "author": "Aysun K.", "stars": 5, "date": "2026-03-30", "text": "Annem kullanıyor, ona hediye ettim. Çok mutlu oldu, çevresindeki herkes soruyor." },
+      { "author": "Büşra T.", "stars": 4, "date": "2026-03-15", "text": "Kalitesi iyi ama EDT olduğu için parfüm değil. Kış için EDP tercih edilebilir." }
+    ]
+  },
+  {
+    "id": 20,
+    "slug": "oralb-io-series-9-elektrikli-fircasi",
+    "name": "Oral-B iO Series 9 Elektrikli Diş Fırçası",
+    "brand": "Oral-B",
+    "category": "Sağlık & Güzellik",
+    "subcategory": "Ağız Bakım",
+    "description": "Oral-B iO yapay zeka teknolojisi ile dişleri nasıl fırçaladığınızı gerçek zamanlı analiz eder. Manyetik tahrikli iO teknolojisi ile profesyonel temizlik.",
+    "features": ["Yapay zeka koçluğu", "Manyetik tahrikli iO", "7 fırçalama modu", "Baskı sensörü", "Bluetooth bağlantı", "14 gün pil ömrü"],
+    "images": [
+      "https://images.unsplash.com/photo-1559591937-abc7dc4a8ca0?w=600&q=80",
+      "https://images.unsplash.com/photo-1606945741781-bae4f793a3b4?w=600&q=80",
+      "https://images.unsplash.com/photo-1612817288484-6f916006741a?w=600&q=80"
+    ],
+    "prices": { "carsila": 3499, "shoprill": 3799 },
+    "stock": { "carsila": 52, "shoprill": 38 },
+    "rating": 4.4,
+    "reviewCount": 387,
+    "badge": "Diş Hekimi Seçimi",
+    "starRatings": [5,4,5,4,4,5,4,5,4,5,4,4],
+    "reviews": [
+      { "author": "Figen A.", "stars": 5, "date": "2026-04-23", "text": "Dişçim farkı hemen fark etti. Diş taşı birikimi çok azaldı. Uygulama ile takip harika." },
+      { "author": "Cenk K.", "stars": 4, "date": "2026-04-08", "text": "Baskı sensörü çok işe yarıyor, fazla bastırmamı uyarıyor. Pil ömrü de uzun." },
+      { "author": "Reyhan S.", "stars": 5, "date": "2026-03-25", "text": "Başlangıçta neden bu kadar para ödeyelim diye düşündüm. Ama gerçekten farklı, el fırçasına dönmem mümkün değil." }
+    ]
+  },
+  {
+    "id": 21,
+    "slug": "manduka-pro-yoga-mati",
+    "name": "Manduka PRO Yoga Matı 6mm 180cm",
+    "brand": "Manduka",
+    "category": "Spor & Outdoor",
+    "subcategory": "Yoga",
+    "description": "Manduka PRO, profesyonel yoga matı standartlarını belirleyen efsanevi model. PVC içermeyen malzeme, kaymaz yüzey ve 6mm konfor kalınlığıyla ömür boyu garanti.",
+    "features": ["6mm kalınlık", "Ömür boyu garanti", "Kaymaz yüzey", "71x180cm boyut", "PVC içermez", "Kapalı gözenekli yapı (ter emmez)"],
+    "images": [
+      "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&q=80",
+      "https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?w=600&q=80",
+      "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&q=80"
+    ],
+    "prices": { "carsila": 2799, "shoprill": 3100 },
+    "stock": { "carsila": 33, "shoprill": 21 },
+    "rating": 4.8,
+    "reviewCount": 276,
+    "badge": "Profesyonel Seçim",
+    "starRatings": [5,5,5,4,5,5,5,4,5,5],
+    "reviews": [
+      { "author": "Duygu T.", "stars": 5, "date": "2026-04-21", "text": "5 yıldır kullanıyorum, hâlâ yeni gibi. Ömür boyu garantisi gerçek, bir yıpranma bile yok." },
+      { "author": "Hilal K.", "stars": 5, "date": "2026-04-06", "text": "Yoga eğitmenliği yapıyorum, öğrencilerime Manduka'yı öneriyorum. Profesyonel kalite." },
+      { "author": "Burcu Y.", "stars": 4, "date": "2026-03-23", "text": "İlk başta çok kayıyordu ama kılavuzdaki gibi tuzlu su ile yıkadıktan sonra mükemmel tuttu." }
+    ]
+  },
+  {
+    "id": 22,
+    "slug": "giro-register-mips-bisiklet-kaski",
+    "name": "Giro Register MIPS Bisiklet Kaskı",
+    "brand": "Giro",
+    "category": "Spor & Outdoor",
+    "subcategory": "Bisiklet",
+    "description": "MIPS teknolojisiyle çarpışma anında dönme kuvvetini azaltan Giro Register, 21 havalandırma kanalı ve Roc Loc 5 fit sistemi ile maksimum konfor sağlar.",
+    "features": ["MIPS koruması", "21 havalandırma kanalı", "Roc Loc 5 fit sistemi", "54-61cm ayarlanabilir", "CE EN1078 sertifikalı", "300g ağırlık"],
+    "images": [
+      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80",
+      "https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=600&q=80",
+      "https://images.unsplash.com/photo-1590080875897-f0a5d48b3e39?w=600&q=80"
+    ],
+    "prices": { "carsila": 1499, "shoprill": 1649 },
+    "stock": { "carsila": 44, "shoprill": 30 },
+    "rating": 4.5,
+    "reviewCount": 198,
+    "badge": "Güvenli Sürüş",
+    "starRatings": [5,4,5,5,4,5,4,5,4,5],
+    "reviews": [
+      { "author": "Çağlar A.", "stars": 5, "date": "2026-04-24", "text": "MIPS farkını düşmeyi yaşamadan anlayamıyorsunuz ama güven veriyor. Havalandırma mükemmel." },
+      { "author": "Koray S.", "stars": 4, "date": "2026-04-09", "text": "Fit sistemi gerçekten rahat, uzun sürüşlerde iz bırakmıyor. Renk seçenekleri de güzel." },
+      { "author": "Furkan D.", "stars": 5, "date": "2026-03-26", "text": "Bisiklet topluluğunda çok öneriliyordu, hayal kırıklığı yaratmadı. Hafif ve güvenilir." }
+    ]
+  },
+  {
+    "id": 23,
+    "slug": "myprotein-impact-whey-1kg-cikolatali",
+    "name": "Myprotein Impact Whey Protein 1kg Çikolatalı",
+    "brand": "Myprotein",
+    "category": "Spor & Outdoor",
+    "subcategory": "Beslenme",
+    "description": "Porsiyon başına 21g protein ve 4.5g BCAA içeren Myprotein Impact Whey, spor sonrası kas gelişimi ve toparlanma için ideal. Gluten içermez.",
+    "features": ["21g protein / porsiyon", "4.5g BCAA", "Gluten içermez", "40 porsiyon (1kg)", "Çikolata aroması", "Düşük şeker"],
+    "images": [
+      "https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=600&q=80",
+      "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=600&q=80",
+      "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=600&q=80"
+    ],
+    "prices": { "carsila": 899, "shoprill": 979 },
+    "stock": { "carsila": 110, "shoprill": 87 },
+    "rating": 4.3,
+    "reviewCount": 1089,
+    "badge": "Sporcunun Favorisi",
+    "starRatings": [4,5,4,4,3,5,4,4,5,4,3,5,4],
+    "reviews": [
+      { "author": "Oğuzhan K.", "stars": 4, "date": "2026-04-27", "text": "Fiyat-performans açısından çok iyi. Çözünürlüğü mükemmel, çikolata aroması gerçekçi." },
+      { "author": "Alperen T.", "stars": 5, "date": "2026-04-12", "text": "3 yıldır kullanıyorum. Kas toparlanmam belirgin şekilde hızlandı. Güvenilir marka." },
+      { "author": "Mert B.", "stars": 3, "date": "2026-03-29", "text": "Protein değeri iyi ama tad biraz yapay. Kahve veya fıstık ezmesiyle karıştırınca daha güzel oluyor." },
+      { "author": "Kürşat Y.", "stars": 5, "date": "2026-03-14", "text": "Bu fiyata 21g protein çok iyi. Midem hassas ama bunu çok iyi tolere ediyorum." }
+    ]
+  },
+  {
+    "id": 24,
+    "slug": "domyos-t520b-kosu-bandi",
+    "name": "Domyos Essential T520B Koşu Bandı",
+    "brand": "Domyos",
+    "category": "Spor & Outdoor",
+    "subcategory": "Fitness Ekipmanı",
+    "description": "Ev kullanımına uygun Domyos T520B, 1-20km/s hız aralığı, 130kg kapasitesi ve katlanabilir yapısıyla az yer kaplar. Akıllı telefon uygulamasıyla antrenman takibi.",
+    "features": ["1-20km/s hız aralığı", "0-12% eğim", "130kg max kapasitesi", "Katlanabilir", "Uygulama entegrasyonu", "Kalp ritmi sensörü"],
+    "images": [
+      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=600&q=80",
+      "https://images.unsplash.com/photo-1561214115-f2f134cc4912?w=600&q=80",
+      "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=600&q=80"
+    ],
+    "prices": { "carsila": 14999, "shoprill": 15900 },
+    "stock": { "carsila": 7, "shoprill": 11 },
+    "rating": 4.2,
+    "reviewCount": 142,
+    "badge": "Ev Sporu",
+    "starRatings": [4,4,5,3,4,4,5,4,3,4,5],
+    "reviews": [
+      { "author": "Şükran A.", "stars": 4, "date": "2026-04-14", "text": "Eve girdi, kurulumu kolaydı. Gürültü seviyesi kabul edilebilir, komşulardan şikayet gelmiyor." },
+      { "author": "Veli T.", "stars": 5, "date": "2026-03-29", "text": "Kış aylarında spor salonuna gidemeyenler için ideal. Uygulama ile antrenman programları harika." },
+      { "author": "Dilek K.", "stars": 3, "date": "2026-03-13", "text": "İyi koşu bandı ama motordan hafif ses çıkıyor. Servis geldi, normal olduğunu söyledi. İdare eder." }
+    ]
+  },
+  {
+    "id": 25,
+    "slug": "quechua-mh100-kamp-cadiri",
+    "name": "Quechua MH100 2 Kişilik Kamp Çadırı",
+    "brand": "Quechua",
+    "category": "Spor & Outdoor",
+    "subcategory": "Kamp",
+    "description": "Quechua MH100, 2 kişilik kompakt ve kurulumu kolay kamp çadırı. 2000mm su geçirmezliği, UV30+ güneş koruması ve taşıma çantasıyla her maceraya hazır.",
+    "features": ["2 kişilik kapasite", "2000mm su geçirmezliği", "UV30+ güneş koruması", "Kolay kurulum (10 dk)", "2.8kg ağırlık", "Havalandırma penceresi"],
+    "images": [
+      "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=600&q=80",
+      "https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?w=600&q=80",
+      "https://images.unsplash.com/photo-1487730116645-74489c95b41b?w=600&q=80"
+    ],
+    "prices": { "carsila": 1799, "shoprill": 1950 },
+    "stock": { "carsila": 58, "shoprill": 43 },
+    "rating": 4.4,
+    "reviewCount": 334,
+    "badge": "Outdoor Vazgeçilmezi",
+    "starRatings": [5,4,4,5,4,5,4,5,4,4,5,4],
+    "reviews": [
+      { "author": "Onur B.", "stars": 5, "date": "2026-04-29", "text": "Bolu'da yağmurda test ettim, tamamen kuru kaldım. Kurulumu gerçekten 10 dakika sürüyor." },
+      { "author": "Tuğba A.", "stars": 4, "date": "2026-04-14", "text": "İki kişi için biraz dar ama yeterli. Fiyat-performans olarak çadır kampına yeni başlayanlar için ideal." },
+      { "author": "Barış Y.", "stars": 5, "date": "2026-03-31", "text": "Yurt içinde 8 kez kullandım, hiç sorun çıkarmadı. Fermuarlar kaliteli, su geçirmezliği iyi." },
+      { "author": "Simge K.", "stars": 4, "date": "2026-03-16", "text": "Hafif ve taşıması kolay. Sabah çadır içi biraz nemlenebiliyor ama ön kapıyı açık bırakınca geçiyor." }
+    ]
+  },
+  {
+    "id": 26,
+    "slug": "vans-old-skool-charms-kadin-beyaz",
+    "name": "Vans LX Old Skool Charms Kadın Beyaz Spor Ayakkabı",
+    "brand": "Vans",
+    "category": "Giyim",
+    "subcategory": "Ayakkabı",
+    "description": "Efsanevi Vans Old Skool silüetine dekoratif charm detaylarıyla yeni bir boyut kazandırıldı. Dayanıklı kanvas ve süet üst, ikonik yan şerit ve kauçuk waffle taban ile.",
+    "features": ["Kanvas ve süet üst", "İkonik Vans yan şerit", "Charm süslemeler", "Yastıklı ayak bileği", "Kauçuk waffle taban", "36-40 numara aralığı"],
+    "images": [
+      "https://images.unsplash.com/photo-1607522370275-f6baca5d4748?w=600&q=80",
+      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80",
+      "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=600&q=80"
+    ],
+    "prices": { "carsila": 5599, "shoprill": 5999 },
+    "stock": { "carsila": 31, "shoprill": 18 },
+    "rating": 4.6,
+    "reviewCount": 87,
+    "badge": "Trend",
+    "starRatings": [5,5,4,5,4,5,4,5,5,4,5,4,5,4,5,5,4,5,4,5,5,5,4,5,5],
+    "reviews": [
+      { "author": "Zehra K.", "stars": 5, "date": "2026-04-30", "text": "Charm detayları çok tatlı, her kıyafetle uyuyor. Vans kalitesi hiç düşmemiş." },
+      { "author": "Lina B.", "stars": 4, "date": "2026-04-17", "text": "Çok şık. İlk gün biraz sıktı ama açıldı, şimdi mükemmel. Charmlar sağlam duruyor." },
+      { "author": "Sude A.", "stars": 5, "date": "2026-04-03", "text": "Arkadaşlarım çok beğendi. Beyaz rengi çok temiz duruyor, charm detayları ise müthiş." }
+    ]
+  },
+  {
+    "id": 27,
+    "slug": "volta-vb2-pro-elektrikli-bisiklet",
+    "name": "Volta VB2 Pro Katlanabilir Elektrikli Bisiklet",
+    "brand": "Volta",
+    "category": "Spor & Outdoor",
+    "subcategory": "Elektrikli Bisiklet",
+    "description": "Şehir içi ulaşım için tasarlanmış Volta VB2 Pro, 250W motor, 48V 13.5Ah lityum pil ve 55km'ye varan menziliyle akıllı ve zarif çözüm sunar. Katlanabilir tasarım.",
+    "features": ["250W motor", "48V 13.5Ah lityum pil", "30-55km menzil", "25 km/s max hız", "Mekanik disk fren", "20\" yağ lastik", "6 saat şarj süresi", "110kg taşıma kapasitesi"],
+    "images": [
+      "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=600&q=80",
+      "https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=600&q=80",
+      "https://images.unsplash.com/photo-1485965120184-e220f721d03e?w=600&q=80"
+    ],
+    "prices": { "carsila": 34990, "shoprill": 36500 },
+    "stock": { "carsila": 8, "shoprill": 5 },
+    "rating": 4.4,
+    "reviewCount": 53,
+    "badge": "Elektrikli",
+    "starRatings": [5,4,5,4,4,5,5,4,5,4,4,5,4,5,5,4,5,5,4,5,5,4,5,4,5],
+    "reviews": [
+      { "author": "Caner M.", "stars": 5, "date": "2026-05-01", "text": "İstanbul trafiğini çözdü. Her sabah işe bisikletle geliyorum, park sorunu da yok. Tıkanamazsın." },
+      { "author": "Kübra S.", "stars": 4, "date": "2026-04-19", "text": "Katlanabilmesi harika, eve taşıyorum. Menzil tam olarak söylendiği kadar, şehirde yeterli." },
+      { "author": "Fırat D.", "stars": 5, "date": "2026-04-07", "text": "Volta'nın servisi de çok iyi. Bisiklet sağlam, disk frenler güvende hissettiriyor." }
+    ]
+  },
+  {
+    "id": 28,
+    "slug": "mermaidcore-beyaz-buzgulu-y2k-crop",
+    "name": "Mermaidcore Beyaz Yıldız Detaylı Büzgülü Y2K Crop",
+    "brand": "Köstebek",
+    "category": "Giyim",
+    "subcategory": "Üst Giyim",
+    "description": "Y2K estetiğini mermaidcore trendi ile birleştiren büzgülü crop top. Beyaz yıldız nakış detayları ve kısa askılı tasarımıyla özgün bir stil yaratır.",
+    "features": ["Büzgülü tasarım", "Yıldız nakış detayı", "Kısa askılı", "Y2K/Mermaidcore stil", "XS-L beden", "30°C yıkama"],
+    "images": [
+      "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&q=80",
+      "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600&q=80",
+      "https://images.unsplash.com/photo-1485125639709-a60c3a500bf1?w=600&q=80"
+    ],
+    "prices": { "carsila": 599, "shoprill": 649 },
+    "stock": { "carsila": 42, "shoprill": 28 },
+    "rating": 4.5,
+    "reviewCount": 43,
+    "badge": "Y2K",
+    "starRatings": [5,5,4,5,4,5,5,4,5,4,5,4,5,5,4,5,4,5,5,4,5,5,4,5],
+    "reviews": [
+      { "author": "Nil T.", "stars": 5, "date": "2026-05-02", "text": "Tam istediğim gibi! Y2K estetik seviyorum, yıldız detayları da çok tatlı. Beden tablosuna göre aldım, tam oturdu." },
+      { "author": "İpek K.", "stars": 4, "date": "2026-04-21", "text": "Fotoğraftaki gibi geldi. Kumaş kalitesi fiyatına göre iyi. Hızlı kargo." },
+      { "author": "Rüveyda A.", "stars": 5, "date": "2026-04-09", "text": "Denize gitmek için aldım, kombini çok şık oldu. Tavsiye ederim!" }
+    ]
+  },
+  {
+    "id": 29,
+    "slug": "vintage-tribal-baggy-y2k-pantolon",
+    "name": "Mavi Taşlamalı Vintage Tribal Baggy Y2K Unisex Pantolon",
+    "brand": "Köstebek",
+    "category": "Giyim",
+    "subcategory": "Pantolon",
+    "description": "Taşlama işlemli mavi denim üzerine vintage tribal baskıyla hazırlanan grunge Y2K unisex baggy pantolon. Geniş paça ve rahat kalıp.",
+    "features": ["Taşlama denim", "Tribal vintage baskı", "Baggy / geniş kalıp", "Unisex kesim", "26-34 beden aralığı", "30°C yıkama"],
+    "images": [
+      "https://images.unsplash.com/photo-1542272604-787c3835535d?w=600&q=80",
+      "https://images.unsplash.com/photo-1555689502-c4b22d76c56f?w=600&q=80",
+      "https://images.unsplash.com/photo-1475178626620-a4d074967452?w=600&q=80"
+    ],
+    "prices": { "carsila": 1499, "shoprill": 1599 },
+    "stock": { "carsila": 19, "shoprill": 14 },
+    "rating": 4.3,
+    "reviewCount": 67,
+    "badge": "Vintage",
+    "starRatings": [4,5,4,4,3,5,4,4,5,4,5,4,4,5,4,4,3,5,4,4,5,4,5,4,4],
+    "reviews": [
+      { "author": "Kerem B.", "stars": 4, "date": "2026-05-01", "text": "Baskı gerçekten çok güzel, fotoğraftaki gibi. Baggy kesimi de tam istediğim gibi." },
+      { "author": "Ayça D.", "stars": 5, "date": "2026-04-18", "text": "Boyum 165, 28 beden aldım tam oturdu. Kumaş kalın ve sağlam. Çok şık." },
+      { "author": "Taha M.", "stars": 4, "date": "2026-04-05", "text": "Unisex kalıp erkekte de çok iyi durdu. Tribal desen gerçekten özgün." }
+    ]
+  },
+  {
+    "id": 30,
+    "slug": "got-house-of-dragon-tac-gumus-yuzuk",
+    "name": "Game of Thrones House of Dragon Taç Gümüş Yüzük",
+    "brand": "My Story",
+    "category": "Aksesuar",
+    "subcategory": "Yüzük",
+    "description": "Game of Thrones House of the Dragon koleksiyonundan ilham alan 925 ayar gümüş yüzük. Zirkon taşlar ve cilalı yüzeyiyle koleksiyoncular ve dizi severler için özel tasarım.",
+    "features": ["925 ayar gümüş", "Zirkon taş", "Parlak yüzey", "9-19 numara aralığı", "Pamuklu hediye kutusu", "Orijinal sertifika"],
+    "images": [
+      "https://images.unsplash.com/photo-1534043464124-3be32fe000c9?w=600&q=80",
+      "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=600&q=80",
+      "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600&q=80"
+    ],
+    "prices": { "carsila": 2152, "shoprill": 2299 },
+    "stock": { "carsila": 22, "shoprill": 17 },
+    "rating": 4.8,
+    "reviewCount": 31,
+    "badge": "Koleksiyoner",
+    "starRatings": [5,5,5,4,5,5,5,5,4,5,5,5,4,5,5,5,5,4,5,5,5,5,5,4,5],
+    "reviews": [
+      { "author": "Alara N.", "stars": 5, "date": "2026-05-03", "text": "Eşime hediye ettim, House of Dragon hayranı. Çok mutlu oldu, kalitesi gerçekten iyi." },
+      { "author": "Ege T.", "stars": 5, "date": "2026-04-22", "text": "Gümüş rengi ve taşlar tam fotoğraftaki gibi. Kutu da çok şık, hediye olarak mükemmel." },
+      { "author": "Süleyman K.", "stars": 4, "date": "2026-04-10", "text": "Güzel yüzük ama beden tablosu biraz yanıltıcı. 17 numara için 14 aldım, tam oturdu." }
+    ]
+  },
+  {
+    "id": 31,
+    "slug": "oversize-vintage-siyah-deri-ceket",
+    "name": "Moderk Oversize Vintage Erkek Siyah Deri Ceket",
+    "brand": "Moderk",
+    "category": "Giyim",
+    "subcategory": "Ceket",
+    "description": "Oversize vintage kesimli siyah suni deri ceket. Fermuarlı kapama, çift cep ve astar ile günlük şık kullanım. Grunge ve vintage kombinler için ideal.",
+    "features": ["Suni deri (vegan)", "Oversize kesim", "Fermuarlı kapama", "Çift yan cep", "Astarlı", "S-2XL beden"],
+    "images": [
+      "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=600&q=80",
+      "https://images.unsplash.com/photo-1517438476312-10d79c077509?w=600&q=80",
+      "https://images.unsplash.com/photo-1520975954732-35dd22299614?w=600&q=80"
+    ],
+    "prices": { "carsila": 986, "shoprill": 1099 },
+    "stock": { "carsila": 58, "shoprill": 44 },
+    "rating": 4.1,
+    "reviewCount": 156,
+    "badge": "Vintage",
+    "starRatings": [4,4,5,3,4,4,5,4,4,3,5,4,4,5,4,3,4,5,4,4,5,4,4,3,5],
+    "reviews": [
+      { "author": "Taner G.", "stars": 4, "date": "2026-05-04", "text": "Fiyatına göre çok iyi ceket. Oversize kesim tam beklediğim gibi. Vintage hissi yerinde." },
+      { "author": "Semih A.", "stars": 5, "date": "2026-04-20", "text": "1320 yorum var Trendyol'da neredeyse hepsi 4-5 yıldız. Ben de aynı şeyi söylüyorum, kaliteli." },
+      { "author": "Buse K.", "stars": 4, "date": "2026-04-08", "text": "Kız arkadaşım için aldım, çok beğendi. Deri kalitesi bu fiyata beklentinin üzerinde." }
+    ]
+  },
+  {
+    "id": 32,
+    "slug": "fifine-ampligame-usb-xlr-mikrofon",
+    "name": "FIFINE AmpliGame USB/XLR Dinamik Mikrofon RGB",
+    "brand": "FIFINE",
+    "category": "Elektronik",
+    "subcategory": "Mikrofon",
+    "description": "Podcast, gaming ve YouTube içerik üretimi için tasarlanmış FIFINE AmpliGame. USB ve XLR çift bağlantı, RGB aydınlatma, sessize alma düğmesi ve kulaklık jakıyla tam donanımlı.",
+    "features": ["USB & XLR çift bağlantı", "RGB aydınlatma", "Sessize alma düğmesi", "3.5mm kulaklık jakı", "Masaüstü standı dahil", "Kardioid polar desen"],
+    "images": [
+      "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=600&q=80",
+      "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=600&q=80",
+      "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=600&q=80"
+    ],
+    "prices": { "carsila": 1299, "shoprill": 1449 },
+    "stock": { "carsila": 73, "shoprill": 51 },
+    "rating": 4.5,
+    "reviewCount": 234,
+    "badge": "Gaming",
+    "starRatings": [5,4,5,5,4,5,4,5,4,5,4,5,5,4,5,4,5,5,4,5,4,5,4,5,5],
+    "reviews": [
+      { "author": "Arda K.", "stars": 5, "date": "2026-05-03", "text": "Twitch yayınlarımda ses kalitesi çok iyileşti. RGB efektleri de masa kurulumumu tamamladı." },
+      { "author": "Yusuf T.", "stars": 4, "date": "2026-04-19", "text": "USB ile direkt bilgisayara takıyorum, hiç driver yüklemeye gerek kalmadı. Ses temiz ve dolu." },
+      { "author": "Mert A.", "stars": 5, "date": "2026-04-06", "text": "Podcast kaydı için aldım. Bu fiyata hem USB hem XLR desteklemesi müthiş. Sessizleştirme düğmesi çok kullanışlı." }
+    ]
+  },
+  {
+    "id": 33,
+    "slug": "zeon-comfort-white-yonetici-koltugu",
+    "name": "Zeon Comfort White Yönetici Ofis Koltuğu",
+    "brand": "Zeon",
+    "category": "Ev & Yaşam",
+    "subcategory": "Mobilya",
+    "description": "Uzun çalışma saatlerinde konfor ve destek sağlayan Zeon Comfort White, yüksek sırtlıklı ergonomik tasarımı, ayarlanabilir kol dayama ve bel desteğiyle ofis konforu sunar.",
+    "features": ["Yüksek sırtlık", "Ayarlanabilir yükseklik", "Bel desteği", "360° döner", "Kol dayama", "Gaz kaldırmalı", "120kg kapasite"],
+    "images": [
+      "https://images.unsplash.com/photo-1611269154421-4e27233ac5c7?w=600&q=80",
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80",
+      "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=600&q=80"
+    ],
+    "prices": { "carsila": 4499, "shoprill": 4899 },
+    "stock": { "carsila": 14, "shoprill": 19 },
+    "rating": 4.3,
+    "reviewCount": 89,
+    "badge": "Ergonomik",
+    "starRatings": [4,5,4,4,3,5,4,4,5,4,4,3,5,4,4,5,4,3,4,5,4,4,5,4,4],
+    "reviews": [
+      { "author": "Gökhan Y.", "stars": 4, "date": "2026-05-02", "text": "Evden çalışıyorum, eski koltuğumdan çok daha rahat. Bel desteği sayesinde sırt ağrım azaldı." },
+      { "author": "Seda T.", "stars": 5, "date": "2026-04-17", "text": "Beyaz renk ofisimle çok uyumlu. Montajı kolaydı, yaklaşık 20 dakikada tamamladım." },
+      { "author": "Nuri K.", "stars": 3, "date": "2026-04-05", "text": "Koltuk iyi ama kollar biraz geniş, masama yaklaşırken zorlanıyorum. Tasarımı güzel." }
+    ]
+  },
+  {
+    "id": 34,
+    "slug": "xbox-wireless-controller-siyah-9nesil",
+    "name": "Microsoft Xbox Wireless Controller Siyah 9. Nesil",
+    "brand": "Microsoft",
+    "category": "Elektronik",
+    "subcategory": "Oyun",
+    "description": "Xbox 9. nesil kablosuz kumanda, geliştirilmiş parmak tutamağı, hibrit D-pad, USB-C bağlantı noktası ve Bluetooth ile PC, tablet ve akıllı telefonla uyumlu.",
+    "features": ["Bluetooth 5.0", "USB-C bağlantı", "Hibrit D-pad", "Geliştirilmiş grip yüzey", "Xbox/PC/Android/iOS uyumlu", "Türkiye garantili"],
+    "images": [
+      "https://images.unsplash.com/photo-1585620385456-4759f9b5c7d9?w=600&q=80",
+      "https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=600&q=80",
+      "https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=600&q=80"
+    ],
+    "prices": { "carsila": 2199, "shoprill": 2399 },
+    "stock": { "carsila": 62, "shoprill": 47 },
+    "rating": 4.8,
+    "reviewCount": 1847,
+    "badge": "9. Nesil",
+    "starRatings": [5,5,5,4,5,5,5,5,4,5,5,5,5,4,5],
+    "reviews": [
+      { "author": "Buğra T.", "stars": 5, "date": "2026-05-04", "text": "Xbox Series X ile aldım. Grip çok iyi, D-pad öncekine göre çok daha hassas. Bluetooth gecikmesi yok." },
+      { "author": "Furkan A.", "stars": 5, "date": "2026-04-21", "text": "PC'de de mükemmel çalışıyor. Plug & play, hiç driver yüklemedim. Ergonomi harika." },
+      { "author": "Ahmet K.", "stars": 4, "date": "2026-04-09", "text": "Kaliteli kol, USB-C gelmesi çok güzel. Sadece pil ömrü biraz kısa, 20-25 saatte bitiyor." },
+      { "author": "Can Y.", "stars": 5, "date": "2026-03-28", "text": "Şarjlı akü alıp taktım, artık sürekli şarjlı. Kol performansı tartışmasız." }
+    ]
+  },
+  {
+    "id": 35,
+    "slug": "defacto-klasik-genis-paca-pantolon",
+    "name": "DeFacto Klasik Kesim Geniş Paça Pantolon",
+    "brand": "DeFacto",
+    "category": "Giyim",
+    "subcategory": "Pantolon",
+    "description": "Günlük rahat kullanım için tasarlanmış DeFacto geniş paça pantolon. Polyester kumaş, düz kesim ve gri renk ile ofis ve günlük kombinlere uygun.",
+    "features": ["Polyester kumaş", "Geniş paça kesim", "Regular fit", "Düz desen", "28-36 beden", "Kolay ütüleme"],
+    "images": [
+      "https://images.unsplash.com/photo-1594938298603-c8148c4b4571?w=600&q=80",
+      "https://images.unsplash.com/photo-1605518216938-7c31b7b14ad0?w=600&q=80",
+      "https://images.unsplash.com/photo-1584370848010-d7fe6bc767ec?w=600&q=80"
+    ],
+    "prices": { "carsila": 779, "shoprill": 849 },
+    "stock": { "carsila": 94, "shoprill": 72 },
+    "rating": 4.2,
+    "reviewCount": 345,
+    "badge": "Çok Satan",
+    "starRatings": [4,4,5,3,4,4,5,4,4,3,5,4,4,5,4,3,4,5,4,4,5,4,4,3,4],
+    "reviews": [
+      { "author": "Tolga A.", "stars": 4, "date": "2026-05-05", "text": "Ofise giyiyorum, çok şık duruyor. Geniş paça trendi tam tutturmuş. Kumaşı iyi." },
+      { "author": "Meral B.", "stars": 5, "date": "2026-04-22", "text": "Sapma kayıtlı beden aldım, tam oturdu. DeFacto kalitesi hiç düşmemiş." },
+      { "author": "Recep S.", "stars": 3, "date": "2026-04-10", "text": "Pantolon iyi ama kemer döngüleri biraz dar. Normal kemer geçiyor ama kalın kemere girilmiyor." }
+    ]
+  },
+  {
+    "id": 36,
+    "slug": "gizrain-siyah-gabardin-oversize-ceket",
+    "name": "Gizrain Erkek Siyah Gabardin Oversize Ceket",
+    "brand": "Gizrain",
+    "category": "Giyim",
+    "subcategory": "Ceket",
+    "description": "Gabardin kumaş, oversize kalıp ve kahverengi yaka detaylıyla öne çıkan sezon ceketi. Rüzgar geçirmez yapısı ve elastik beli ile günlük şık kullanım.",
+    "features": ["%98 pamuk %2 likra gabardin", "Oversize kesim", "Kahverengi yaka detayı", "Elastik bel", "Rüzgar geçirmez", "S-XL beden"],
+    "images": [
+      "https://images.unsplash.com/photo-1617952739-3aa9f2e1e098?w=600&q=80",
+      "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=600&q=80",
+      "https://images.unsplash.com/photo-1548624313-0396c75e4b1a?w=600&q=80"
+    ],
+    "prices": { "carsila": 1025, "shoprill": 1149 },
+    "stock": { "carsila": 38, "shoprill": 26 },
+    "rating": 4.7,
+    "reviewCount": 34,
+    "badge": "Oversize",
+    "starRatings": [5,5,5,4,5,5,5,4,5,5,5,4,5,5,5,5,4,5,5,5,5,4,5,5,5],
+    "reviews": [
+      { "author": "Umut B.", "stars": 5, "date": "2026-05-05", "text": "Kalite çok iyi, gabardin kumaş hem hafif hem de dayanıklı görünüyor. Yaka detayı çok özgün." },
+      { "author": "Aziz K.", "stars": 5, "date": "2026-04-23", "text": "L beden aldım, tam oversize duruyor. Rüzgar geçirmezliği gerçekten çalışıyor." }
+    ]
+  },
+  {
+    "id": 37,
+    "slug": "modaf-kemerli-dugmeli-trencot",
+    "name": "MODAF Düğmeli Kemerli Siyah Trençkot",
+    "brand": "MODAF",
+    "category": "Giyim",
+    "subcategory": "Ceket",
+    "description": "Slim fit kesimli, düğmeli ve kemerli MODAF siyah trençkot. %70 polyester %30 pamuk karışımı, su geçirmez yüzey ve uzun boy ile her mevsim şıklığı.",
+    "features": ["%70 polyester %30 pamuk", "Slim fit", "Düğmeli kapama", "Çıkarılabilir kemer", "Su geçirmez yüzey", "S-XL beden"],
+    "images": [
+      "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=600&q=80",
+      "https://images.unsplash.com/photo-1544966503-7cc5ac882d5f?w=600&q=80",
+      "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=600&q=80"
+    ],
+    "prices": { "carsila": 789, "shoprill": 879 },
+    "stock": { "carsila": 49, "shoprill": 35 },
+    "rating": 4.3,
+    "reviewCount": 46,
+    "badge": "Slim Fit",
+    "starRatings": [4,5,4,4,3,5,4,4,5,4,4,5,4,5,4,4,3,5,4,4,5,4,5,4,4],
+    "reviews": [
+      { "author": "Hacer A.", "stars": 4, "date": "2026-05-04", "text": "Ofise ve günlüğe çok uygun. Slim fit olmasına rağmen hareketliyim. Kemer kaliteli." },
+      { "author": "Ekrem T.", "stars": 5, "date": "2026-04-22", "text": "Siyah rengi çok derin. Yağmurda da giyebildim, su geçirmezliği çalışıyor. Kesinlikle tavsiye." },
+      { "author": "Dilruba K.", "stars": 4, "date": "2026-04-10", "text": "İnce ve şık. M beden için tam uydu. Düğmeler kaliteli, geri dönmeyen tür." }
+    ]
+  }
+]
