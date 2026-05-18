@@ -85,17 +85,21 @@ export default function LandingPage() {
         @media (max-width: 600px) { .dot-nav { display: none; } }
         .hero-bg { position: absolute; inset: 0; background: #100c14; }
         .hero-bg::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 55% at 15% 60%, rgba(241,118,40,0.11) 0%, transparent 70%), radial-gradient(ellipse 55% 50% at 85% 25%, rgba(162,31,101,0.10) 0%, transparent 70%), radial-gradient(ellipse 40% 40% at 55% 85%, rgba(213,51,42,0.07) 0%, transparent 60%); }
-        html:not(.dark) .hero-bg { background: #1a0e1c; }
-        html:not(.dark) .hero-bg::before { background: radial-gradient(ellipse 60% 55% at 15% 60%, rgba(241,118,40,0.18) 0%, transparent 70%), radial-gradient(ellipse 55% 50% at 85% 25%, rgba(162,31,101,0.16) 0%, transparent 70%), radial-gradient(ellipse 40% 40% at 55% 85%, rgba(213,51,42,0.12) 0%, transparent 60%); }
+        html:not(.dark) .hero-bg { background: #fdf8f4; }
+        html:not(.dark) .hero-bg::before { background: radial-gradient(ellipse 60% 55% at 15% 60%, rgba(241,118,40,0.13) 0%, transparent 70%), radial-gradient(ellipse 55% 50% at 85% 25%, rgba(162,31,101,0.09) 0%, transparent 70%), radial-gradient(ellipse 40% 40% at 55% 85%, rgba(213,51,42,0.07) 0%, transparent 60%); }
         .hero-content { position: relative; z-index: 10; height: 100%; display: flex; flex-direction: column; }
         .hero-body { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 clamp(1rem,5vw,5rem); padding-top: var(--nav-h); }
         .hero-label { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 1.75rem; }
+        html:not(.dark) .hero-label { color: var(--fg3); }
         .hero-label span { width: 20px; height: 1.5px; background: var(--grad-h); border-radius: 1px; }
         .hero-h1 { font-family: var(--ff-d); font-weight: 800; font-size: clamp(2.75rem, 7vw + 0.5rem, 8rem); line-height: 1.07; color: #fff; margin-bottom: 1.25rem; letter-spacing: -0.02em; }
+        html:not(.dark) .hero-h1 { color: var(--fg); }
         .hero-h1 em { font-style: italic; font-weight: 700; background: var(--grad-h); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
         .hero-sub { font-size: clamp(1rem, 1.8vw, 1.25rem); font-weight: 300; color: rgba(255,255,255,0.55); max-width: 560px; line-height: 1.75; margin-bottom: 2.5rem; }
+        html:not(.dark) .hero-sub { color: var(--fg2); }
         .hero-actions { display: flex; gap: 0.875rem; flex-wrap: wrap; justify-content: center; }
         .hero-scroll { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: rgba(255,255,255,0.25); animation: float 2.8s ease-in-out infinite; }
+        html:not(.dark) .hero-scroll { color: var(--fg3); }
         .hero-scroll svg { width: 20px; height: 20px; }
         .problem-slide { display: flex; align-items: center; justify-content: center; background: var(--bg); padding: clamp(1.5rem,4vw,4rem); padding-top: calc(var(--nav-h) + 2rem); }
         .problem-inner { text-align: center; max-width: 900px; width: 100%; }
@@ -107,7 +111,7 @@ export default function LandingPage() {
         .stat-lbl { font-size: 0.8125rem; color: var(--fg3); font-weight: 500; margin-top: 0.5rem; max-width: 140px; line-height: 1.45; }
         .problem-coda { margin-top: 3.5rem; font-family: var(--ff-logo); font-size: clamp(1.1rem,2vw,1.5rem); font-weight: 600; color: var(--fg); }
         .problem-coda .mark { color: var(--c3); font-family: var(--ff-logo); }
-        .feat-slide { display: flex; align-items: center; background: var(--bg); padding: 0 clamp(1rem,4vw,3.5rem); padding-top: var(--nav-h); gap: clamp(2rem,5vw,6rem); }
+        .feat-slide { display: flex; align-items: center; background: var(--bg); padding: 0 max(clamp(1rem,4vw,3.5rem), calc(50% - 560px)); padding-top: var(--nav-h); gap: clamp(2rem,5vw,6rem); }
         .feat-slide.rev { flex-direction: row-reverse; }
         .feat-text { flex: 1; min-width: 0; }
         .feat-icon { width: clamp(40px,5vw,56px); height: clamp(40px,5vw,56px); border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; }

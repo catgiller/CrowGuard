@@ -130,6 +130,8 @@ h1, h2, h3, h4 { font-family: var(--ff-d); font-weight: 700; line-height: 1.15; 
   border: 1.5px solid rgba(255,255,255,0.2);
 }
 .btn-outline-light:hover { background: rgba(255,255,255,0.07); color: #fff; border-color: rgba(255,255,255,0.45); }
+html:not(.dark) .btn-outline-light { color: #4a3040 !important; border-color: rgba(74,48,64,0.35) !important; background: transparent !important; }
+html:not(.dark) .btn-outline-light:hover { background: rgba(74,48,64,0.06) !important; color: #2a1020 !important; border-color: rgba(74,48,64,0.6) !important; }
 
 .btn-solid {
   background: var(--fg); color: var(--bg);
