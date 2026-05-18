@@ -5,7 +5,8 @@ import { MarketingFooter } from "@/components/marketing-footer";
 export default function PrivacyPage() {
   return (
     <main style={{ minHeight: "100dvh", display: "flex", flexDirection: "column" }}>
-      <style dangerouslySetInnerHTML={{__html:`
+      <style dangerouslySetInnerHTML={{
+        __html: `
         .legal-wrap { max-width: 1000px; margin: 0 auto; padding: 0 clamp(1.5rem,5vw,4rem); }
         .legal-body { display: grid; grid-template-columns: 200px 1fr; gap: clamp(2rem,5vw,5rem); align-items: start; }
         @media (max-width: 700px) { .legal-body { grid-template-columns: 1fr; } }
@@ -24,7 +25,7 @@ export default function PrivacyPage() {
         .legal-section ul li::before { content: "—"; position: absolute; left: 0; color: var(--fg3); }
         .legal-divider { height: 1px; background: var(--border); margin-bottom: 2.75rem; }
         .legal-meta { font-size: 0.8125rem; color: var(--fg3); margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
-      `}}/>
+      `}} />
 
       <MarketingNav />
 
@@ -37,7 +38,7 @@ export default function PrivacyPage() {
               Gizlilik Politikası
             </h1>
             <p style={{ fontSize: "1rem", color: "var(--fg2)", lineHeight: 1.75, maxWidth: "560px" }}>
-              CrowGuard AI olarak hangi verileri topladığımızı, nasıl kullandığımızı ve sizi nasıl koruduğumuzu açıklar.
+              CrowGuard olarak hangi verileri topladığımızı, nasıl kullandığımızı ve sizi nasıl koruduğumuzu açıklar.
             </p>
           </div>
 
@@ -84,7 +85,7 @@ export default function PrivacyPage() {
 
               <div className="legal-section" id="cerezler">
                 <h2>Çerezler</h2>
-                <p>CrowGuard AI yalnızca işlevsel çerezler kullanır:</p>
+                <p>CrowGuard yalnızca işlevsel çerezler kullanır:</p>
                 <ul>
                   <li><strong>Oturum çerezleri:</strong> Giriş durumunuzu korumak için zorunludur.</li>
                   <li><strong>Tema tercihi:</strong> Açık/koyu mod tercihlerinizi hatırlamak için kullanılır.</li>
