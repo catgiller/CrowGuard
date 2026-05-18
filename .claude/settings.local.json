@@ -4,7 +4,9 @@
       "PowerShell(Get-ChildItem \"C:\\\\Users\\\\aizaw\\\\Pitoresk\\\\frontend\\\\app\" -Recurse | Where-Object { !$_.PSIsContainer } | ForEach-Object { $_.FullName.Replace\\(\"C:\\\\Users\\\\aizaw\\\\Pitoresk\\\\frontend\\\\\", \"\"\\) })",
       "Read(//mnt/c/Users/aizaw/Pitoresk/frontend/**)",
       "Bash(npm remove *)",
-      "Bash(npx next *)"
+      "Bash(npx next *)",
+      "Bash(del \"C:\\\\Users\\\\aizaw\\\\Pitoresk\\\\frontend\\\\app\\\\favicon.ico\")",
+      "mcp__Claude_in_Chrome__tabs_context_mcp"
     ]
   }
 }

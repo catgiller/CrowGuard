@@ -43,6 +43,7 @@ export type HistoryItem = {
   product_name: string | null;
   store_name: string | null;
   created_at: string | null;
+  verdict?: string | null;   // AL | BEKLE | ALTERNATİF — backend hazır olunca gelir
 };
 
 export function normalizeProductUrl(input: string): string | null {

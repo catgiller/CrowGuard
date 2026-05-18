@@ -114,6 +114,22 @@ export default function HistoryPage() {
                     {formatWhen(item.created_at)}
                   </div>
                 </div>
+                {item.verdict && (
+                  <span style={{
+                    fontSize: "0.5625rem", fontWeight: 800, letterSpacing: "0.08em",
+                    textTransform: "uppercase", padding: "0.2em 0.6em",
+                    borderRadius: "var(--r-full)", flexShrink: 0,
+                    ...(item.verdict.toUpperCase() === "AL" || item.verdict.toUpperCase() === "BUY"
+                      ? { background: "rgba(22,163,74,0.12)", color: "#16a34a" }
+                      : item.verdict.toUpperCase() === "BEKLE" || item.verdict.toUpperCase() === "WAIT"
+                      ? { background: "rgba(241,118,40,0.12)", color: "var(--c2)" }
+                      : { background: "rgba(162,31,101,0.12)", color: "var(--c6)" }),
+                  }}>
+                    {item.verdict.toUpperCase() === "BUY" ? "AL"
+                      : item.verdict.toUpperCase() === "WAIT" ? "BEKLE"
+                      : item.verdict}
+                  </span>
+                )}
               </Link>
             ))}
           </div>
