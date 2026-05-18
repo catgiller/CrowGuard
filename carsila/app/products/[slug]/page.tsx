@@ -28,8 +28,8 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
   const product = getProductBySlug(slug);
   if (!product) notFound();
 
-  const shopDiff = product.prices.shoprill - product.prices.carsila;
-  const discount = Math.round((shopDiff / product.prices.shoprill) * 100);
+  const shopDiff = product.prices.shopgrill - product.prices.carsila;
+  const discount = Math.round((shopDiff / product.prices.shopgrill) * 100);
   const starOnlyCount = product.reviewCount - product.reviews.length;
 
   return (
@@ -111,7 +111,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                 </span>
                 {discount > 0 && (
                   <span className="text-base line-through font-medium" style={{ color: "var(--muted)" }}>
-                    {formatPrice(product.prices.shoprill)}
+                    {formatPrice(product.prices.shopgrill)}
                   </span>
                 )}
               </div>

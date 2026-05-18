@@ -85,11 +85,11 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             <div className="mb-6">
               <div className="flex items-baseline gap-4">
                 <span data-field="price" className="text-3xl font-bold" style={{ color: "var(--navy)" }}>
-                  {formatPrice(product.prices.shoprill)}
+                  {formatPrice(product.prices.shopgrill)}
                 </span>
               </div>
               <p className="text-xs mt-2" style={{ color: "var(--text-muted)" }}>
-                KDV dahil • Stokta {product.stock.shoprill} adet
+                KDV dahil • Stokta {product.stock.shopgrill} adet
               </p>
             </div>
 
