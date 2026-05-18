@@ -81,7 +81,7 @@ export default function AboutPage() {
                 ürünler — bunları görmezden gelmek artık zorunda değilsiniz.
               </p>
               <p className="about-hero-lead">
-                Bir hackathon fikri olarak doğdu; gerçek bir ürüne dönüştü.
+                Bir hackathon projesi olarak başladı, çalışan bir ürüne dönüştü.
               </p>
             </div>
             <div className="about-hero-stat">
@@ -90,12 +90,12 @@ export default function AboutPage() {
                 <div className="hero-stat-lbl">Ürün URL'si girdikten sonra ilk analiz sonucuna ulaşma süresi</div>
               </div>
               <div className="hero-stat-card">
-                <div className="hero-stat-num">4&nbsp;ajan</div>
-                <div className="hero-stat-lbl">Aynı anda çalışan yapay zeka ajanı — fiyat, yorum, iade ve öneri</div>
+                <div className="hero-stat-num">Gemini&nbsp;AI</div>
+                <div className="hero-stat-lbl">Fiyat, yorum güvenilirliği, iade riski ve öneri — tek bir yapay zeka motoru</div>
               </div>
               <div className="hero-stat-card">
-                <div className="hero-stat-num">3&nbsp;platform</div>
-                <div className="hero-stat-lbl">Trendyol, Amazon ve Hepsiburada desteği — daha fazlası yolda</div>
+                <div className="hero-stat-num">2&nbsp;kaynak</div>
+                <div className="hero-stat-lbl">Çarşıla ve Shoprill demo mağazaları — ayrıca ürün adıyla genel arama</div>
               </div>
             </div>
           </div>
@@ -147,19 +147,19 @@ export default function AboutPage() {
               Perde arkasında ne oluyor?
             </h2>
             <p style={{ fontSize: "1rem", color: "var(--fg2)", lineHeight: 1.8, maxWidth: "640px" }}>
-              Bir ürün linki girdiğinde LangGraph tabanlı çok ajanlı sistemimiz devreye girer.
-              Dört ajan paralel olarak çalışır ve sonuçları birleştirerek tek bir karar üretir.
+              Bir ürün linki ya da ismi girdiğinde Gemini AI tabanlı analiz sistemimiz devreye girer.
+              Ürün bilgisi, fiyat verisi ve yorum analizi bir araya getirilerek tek bir karar üretilir.
             </p>
             <div className="how-row">
               <div className="how-step">
                 <div className="how-num">01 — VERİ</div>
                 <div className="how-title">Bilgi toplanır</div>
-                <p className="how-desc">Ürün bilgileri, fiyat geçmişi ve kullanıcı yorumları ilgili platformdan çekilir.</p>
+                <p className="how-desc">Ürün bilgileri, fiyat ve kullanıcı yorumları ilgili siteden çekilir. URL yerine ürün adı girilirse Gemini doğrudan analiz yapar.</p>
               </div>
               <div className="how-step">
                 <div className="how-num">02 — ANALİZ</div>
-                <div className="how-title">Ajanlar çalışır</div>
-                <p className="how-desc">Fiyat, yorum güvenilirliği ve iade riski ajanları aynı anda analiz yapar. Gemini API her birini değerlendirir.</p>
+                <div className="how-title">AI analiz eder</div>
+                <p className="how-desc">Gemini API ürünü değerlendirir; fiyat algoritması geçmiş verilere göre AL / BEKLE / ALTERNATİF önerisi üretir.</p>
               </div>
               <div className="how-step">
                 <div className="how-num">03 — KARAR</div>
@@ -178,7 +178,7 @@ export default function AboutPage() {
               Biz kimiz?
             </h2>
             <p style={{ fontSize: "1rem", color: "var(--fg2)", lineHeight: 1.8, maxWidth: "600px" }}>
-              İkimiz de yazılım geliştirici ve hayat arkadaşıyız. Bu projeyi hem birlikte
+              İkimiz de yazılım geliştirici ve okul arkadaşıyız. Bu projeyi hem birlikte
               çalışabildiğimizi görmek hem de gerçek bir şey üretmek için yaptık.
             </p>
             <div className="team-grid">
@@ -231,10 +231,10 @@ export default function AboutPage() {
             <div className="tech-row">
               <span className="tech-pill">Next.js</span>
               <span className="tech-pill">TypeScript</span>
-              <span className="tech-pill">Tailwind CSS</span>
+              <span className="tech-pill">Vanilla CSS</span>
               <span className="tech-pill">FastAPI</span>
               <span className="tech-pill">SQLite</span>
-              <span className="tech-pill">LangGraph</span>
+              <span className="tech-pill">BeautifulSoup</span>
               <span className="tech-pill">Gemini API</span>
             </div>
           </div>
