@@ -2,6 +2,7 @@ import json
 import os
 import re
 import logging
+import httpx
 from google import genai
 from fastapi import HTTPException
 from models.product import ProductAnalysisResponse
@@ -218,6 +219,119 @@ async def _analyze_by_name(product_name: str, db) -> ProductAnalysisResponse:
         raise HTTPException(status_code=503, detail=f"AI Hatası: {str(e)}")
 
 
+OWN_STORES = {
+    "shopgrill.store": "https://shopgrill.store",
+    "carsila.store": "https://carsila.store",
+}
+
+
+def _extract_slug(url: str) -> str | None:
+    m = re.search(r"/products/([^/?#]+)", url)
+    return m.group(1) if m else None
+
+
+def _detect_own_store(url: str) -> str | None:
+    for domain, base in OWN_STORES.items():
+        if domain in url:
+            return base
+    return None
+
+
+async def _analyze_own_store(url: str, db) -> ProductAnalysisResponse:
+    base = _detect_own_store(url)
+    slug = _extract_slug(url)
+    if not slug:
+        raise HTTPException(status_code=422, detail="URL'den ürün slug'ı çıkarılamadı.")
+
+    async with httpx.AsyncClient(timeout=10) as hc:
+        r1 = await hc.get(f"{base}/api/products/{slug}")
+        if r1.status_code != 200:
+            raise HTTPException(status_code=404, detail="Ürün bulunamadı.")
+        product = r1.json()
+
+        r2 = await hc.get(f"{base}/api/products/{slug}/reviews")
+        reviews_data = r2.json() if r2.status_code == 200 else {}
+
+    real_price = float(product.get("price", 0))
+    title = product.get("name", "")
+    store_name = "Shopgrill" if "shopgrill" in base else "Carsila"
+
+    scraped = ScrapedProduct(
+        url=url,
+        title=title,
+        price=str(real_price),
+        description=product.get("description", ""),
+        rating=str(product.get("rating", "")),
+        review_count=reviews_data.get("reviewCount", product.get("reviewCount", 0)),
+        image_url=product.get("images", [""])[0] if product.get("images") else "",
+        brand=product.get("brand", ""),
+        site_name=store_name,
+    )
+
+    prompt = _build_prompt(scraped)
+    raw = None
+    for model_name in MODELS:
+        try:
+            resp = client.models.generate_content(
+                model=model_name, contents=prompt,
+                config={"response_mime_type": "application/json"},
+            )
+            raw = resp.text
+            break
+        except Exception as e:
+            logger.warning(f"{model_name} başarısız: {e}")
+            continue
+
+    if raw is None:
+        raise HTTPException(status_code=503, detail="Gemini servisi geçici olarak kullanılamıyor.")
+
+    raw = raw.strip()
+    if raw.startswith("```"):
+        raw = re.sub(r"^```(?:json)?\n?", "", raw)
+        raw = re.sub(r"\n?```$", "", raw)
+    data = json.loads(raw)
+
+    average = float(data.get("average_price") or 0.0)
+    price_history, confidence = build_price_history(url, real_price, db)
+    signal = compute_price_signal(real_price, price_history, average, confidence)
+
+    total_reviews = scraped.review_count or 0
+    trust_score = data["review_analysis"].get("trust_score", 0)
+    if scraped.rating:
+        try:
+            trust_score = min(100, int(float(scraped.rating) * 20))
+        except Exception:
+            pass
+
+    trend = get_product_trend(title)
+    yt = get_youtube_stats(title)
+
+    return ProductAnalysisResponse(
+        product_name=data.get("product_name", title),
+        store_name=store_name,
+        store_url=base,
+        image_url=scraped.image_url or "",
+        ai_comment=data.get("ai_comment", ""),
+        price_analysis={
+            "current": real_price,
+            "average": signal.weighted_average,
+            "recommendation": signal.recommendation,
+            "confidence": signal.confidence,
+            "trend": signal.trend,
+            "trend_pct": signal.trend_pct,
+        },
+        price_history=price_history,
+        review_analysis={
+            "total_reviews": total_reviews,
+            "fake_percentage": data["review_analysis"].get("fake_percentage", 0),
+            "trust_score": trust_score,
+        },
+        return_risk=data.get("return_risk", {"percentage": 0, "reasons": []}),
+        google_trend=trend,
+        youtube_stats=yt,
+    )
+
+
 async def analyze_product_details(url: str, db) -> ProductAnalysisResponse:
     if not os.getenv("GEMINI_API_KEY"):
         raise HTTPException(status_code=500, detail="GEMINI_API_KEY eksik!")
@@ -236,6 +350,10 @@ async def analyze_product_details(url: str, db) -> ProductAnalysisResponse:
             status_code=422,
             detail="Bu site henüz desteklenmiyor. Şu an sadece Trendyol destekleniyor.",
         )
+
+    # Kendi mağazalarımız — scraping değil, direkt API
+    if _detect_own_store(url_lower):
+        return await _analyze_own_store(url, db)
 
     logger.warning(f"Scraping başlıyor: {url}")
     scraped = await scrape_product(url)
