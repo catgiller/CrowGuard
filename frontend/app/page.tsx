@@ -259,7 +259,7 @@ export default function LandingPage() {
                 <div className="mock-icon" style={{ background: "rgba(241,118,40,0.12)" }}>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#f17628" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="3" /><path d="M3 9h18M9 21V9" /></svg>
                 </div>
-                <div><div className="mock-title">Nike Air Force 1 &apos;07</div><div className="mock-sub">Trendyol · Spor Ayakkabı</div></div>
+                <div><div className="mock-title">Nike Air Max 270</div><div className="mock-sub">Çarşıla · Spor Ayakkabı</div></div>
               </div>
               <div className="risk-label"><span style={{ color: "var(--fg3)", fontSize: ".6875rem", fontWeight: 600 }}>İade Riski</span><span style={{ color: "var(--c3)", fontWeight: 800, fontSize: ".875rem" }}>%78 Yüksek</span></div>
               <div className="risk-bar-track"><div className="risk-bar-fill" style={{ width: "78%" }}></div></div>
@@ -288,17 +288,17 @@ export default function LandingPage() {
                 <div className="mock-icon" style={{ background: "rgba(213,51,42,0.10)" }}>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#d5332a" strokeWidth="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17" /><polyline points="16 7 22 7 22 13" /></svg>
                 </div>
-                <div><div className="mock-title">MacBook Air M3 13&quot;</div><div className="mock-sub">Apple · Laptop</div></div>
+                <div><div className="mock-title">Sony WH-1000XM5</div><div className="mock-sub">Shoprill · Kulaklık</div></div>
               </div>
               <div className="price-tabs">
                 <div className="price-tab">AL</div>
                 <div className="price-tab active-bk">BEKLE ✓</div>
                 <div className="price-tab">ALTERNATİF</div>
               </div>
-              <div className="price-row"><span className="lbl">Güncel Fiyat</span><span className="val" style={{ color: "var(--c3)" }}>₺52.999</span></div>
-              <div className="price-row"><span className="lbl">Tarihi Ortalama</span><span className="val">₺46.500</span></div>
+              <div className="price-row"><span className="lbl">Güncel Fiyat</span><span className="val" style={{ color: "var(--c3)" }}>₺9.200</span></div>
+              <div className="price-row"><span className="lbl">Tarihi Ortalama</span><span className="val">₺8.799</span></div>
               <div className="price-row"><span className="lbl">Tahmini Düşüş</span><span className="val" style={{ color: "#16a34a" }}>~3 hafta</span></div>
-              <p style={{ fontSize: ".75rem", color: "var(--fg3)", marginTop: ".875rem", lineHeight: 1.5 }}>Fiyat son kampanyadan sonra %14 şişti. Beklemek önerilir.</p>
+              <p style={{ fontSize: ".75rem", color: "var(--fg3)", marginTop: ".875rem", lineHeight: 1.5 }}>Fiyat son kampanyadan sonra %5 yükseldi. Beklemek önerilir.</p>
             </div>
           </div>
         </section>
@@ -319,7 +319,7 @@ export default function LandingPage() {
                 <div className="mock-icon" style={{ background: "rgba(210,96,165,0.10)" }}>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#d260a5" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" /></svg>
                 </div>
-                <div><div className="mock-title">Xiaomi Mi Robot Süpürge</div><div className="mock-sub">Hepsiburada · Ev Aletleri</div></div>
+                <div><div className="mock-title">DeLonghi Magnifica Evo</div><div className="mock-sub">Çarşıla · Ev & Yaşam</div></div>
               </div>
               <div style={{ marginBottom: ".875rem" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: ".375rem" }}>
@@ -375,44 +375,40 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* SLIDE 6 — Social Proof */}
+        {/* SLIDE 6 — Desteklenen Platformlar */}
         <section className="slide social-slide" data-slide="6">
           <div className="social-inner">
-            <p className="section-label">Kullanıcılar Ne Diyor?</p>
+            <p className="section-label">Desteklenen Platformlar</p>
             <h2 className="t-xl" style={{ color: "var(--fg)" }}>
-              Alışveriş kararlarında<br /><em style={{ fontStyle: "italic", fontWeight: 400, color: "var(--fg3)" }}>fark yarattık.</em>
+              Analiz edebileceğiniz<br /><em style={{ fontStyle: "italic", fontWeight: 400, color: "var(--fg3)" }}>kaynaklar.</em>
             </h2>
             <div className="testimonials anim-fade-up">
-              <div className="tcard">
-                <div className="tcard-stars">
-                  <span className="tcard-star">★</span><span className="tcard-star">★</span><span className="tcard-star">★</span><span className="tcard-star">★</span><span className="tcard-star">★</span>
+              <div className="tcard" style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", padding: "2rem 1.5rem" }}>
+                <div style={{ width: 56, height: 56, borderRadius: 14, overflow: "hidden", marginBottom: "1.25rem", boxShadow: "0 4px 16px rgba(229,93,43,0.18)" }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/carsila-icon.svg" alt="Çarşıla" width={56} height={56} />
                 </div>
-                <p className="tcard-text">&quot;Bir laptopa bakıyordum, CrowGuard&apos;ın fiyat geçmişi analizi sayesinde 3 hafta bekledim ve 800₺ tasarruf ettim. Artık her alışverişte kullanıyorum.&quot;</p>
-                <div className="tcard-author">Mert K.</div>
-                <div className="tcard-role">Yazılım Geliştirici</div>
+                <div className="tcard-author" style={{ fontSize: "1.125rem", marginBottom: "0.375rem" }}>Çarşıla</div>
+                <div className="tcard-role" style={{ marginBottom: "1rem" }}>Demo E-Ticaret Sitesi</div>
+                <p className="tcard-text" style={{ marginBottom: 0 }}>30+ ürün, 5 kategori, gerçek yorum verileri ile donatılmış test mağazası. Ürün linkini yapıştırın, CrowGuard analiz etsin.</p>
               </div>
-              <div className="tcard">
-                <div className="tcard-stars">
-                  <span className="tcard-star">★</span><span className="tcard-star">★</span><span className="tcard-star">★</span><span className="tcard-star">★</span><span className="tcard-star">★</span>
+              <div className="tcard" style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", padding: "2rem 1.5rem" }}>
+                <div style={{ width: 56, height: 56, borderRadius: 14, overflow: "hidden", marginBottom: "1.25rem", boxShadow: "0 4px 16px rgba(15,27,53,0.18)" }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/shoprill-icon.svg" alt="Shoprill" width={56} height={56} />
                 </div>
-                <p className="tcard-text">&quot;Aldığım ürünlerin %60&apos;ını iade ederdim. Sahte yorum tespiti özelliği sayesinde son 2 ayda tek bir iade yapmadım. Gerçekten hayat kurtarıcı.&quot;</p>
-                <div className="tcard-author">Selin A.</div>
-                <div className="tcard-role">Girişimci</div>
+                <div className="tcard-author" style={{ fontSize: "1.125rem", marginBottom: "0.375rem" }}>Shoprill</div>
+                <div className="tcard-role" style={{ marginBottom: "1rem" }}>Demo E-Ticaret Sitesi</div>
+                <p className="tcard-text" style={{ marginBottom: 0 }}>Premium ürün kataloğu, detaylı açıklamalar ve kullanıcı değerlendirmeleri ile gerçekçi alışveriş deneyimi.</p>
               </div>
-              <div className="tcard">
-                <div className="tcard-stars">
-                  <span className="tcard-star">★</span><span className="tcard-star">★</span><span className="tcard-star">★</span><span className="tcard-star">★</span><span className="tcard-star">★</span>
+              <div className="tcard" style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", padding: "2rem 1.5rem" }}>
+                <div style={{ width: 56, height: 56, borderRadius: 14, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1.25rem", background: "var(--grad)", boxShadow: "0 4px 16px rgba(213,51,42,0.15)" }}>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#fff" strokeWidth="2" style={{ width: 26, height: 26 }}><path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                 </div>
-                <p className="tcard-text">&quot;Akıllı Danışman özelliği muhteşem. Bütçemi ve ihtiyaçlarımı yazdım, 30 saniyede gerçekten işe yarayan ürünler önerdi. Klasik arama motorlarına dönmek istemiyorum.&quot;</p>
-                <div className="tcard-author">Burak T.</div>
-                <div className="tcard-role">Öğrenci</div>
+                <div className="tcard-author" style={{ fontSize: "1.125rem", marginBottom: "0.375rem" }}>Ürün Adı ile Arama</div>
+                <div className="tcard-role" style={{ marginBottom: "1rem" }}>Genel Piyasa Analizi</div>
+                <p className="tcard-text" style={{ marginBottom: 0 }}>Link olmadan da çalışır. Herhangi bir ürün adı girin, Gemini AI genel piyasa değerlendirmesi sunsun.</p>
               </div>
-            </div>
-            <div className="platform-row">
-              <span className="platform-chip">🛍️ Trendyol</span>
-              <span className="platform-chip">📦 Amazon</span>
-              <span className="platform-chip">🛒 Hepsiburada</span>
-              <span className="platform-chip">ve daha fazlası yakında...</span>
             </div>
           </div>
         </section>
@@ -425,7 +421,7 @@ export default function LandingPage() {
             <h2 className="t-xl cta-h" style={{ marginBottom: "1.25rem" }}>
               Pişmanlıksız alışveriş<br /><em>bugün başlıyor.</em>
             </h2>
-            <p className="t-body cta-sub">Kredi kartı gerektirmez. Ücretsiz başlayın, ihtiyaç duydukça yükseltin.</p>
+            <p className="t-body cta-sub">Hesap oluşturun, hemen analiz etmeye başlayın. Temel özellikler tamamen ücretsiz.</p>
             <div style={{ display: "flex", gap: ".875rem", justifyContent: "center", flexWrap: "wrap" }}>
               <Link href="/login" className="btn btn-grad btn-xl">Ücretsiz Başla</Link>
               <Link href="/pricing" className="btn btn-ghost btn-xl">Planları İncele</Link>

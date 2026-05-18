@@ -96,9 +96,9 @@ export default function PricingPage() {
                 <li className="feature-item"><CheckOn />Sahte yorum tespiti</li>
                 <li className="feature-item"><CheckOn />Fiyat karşılaştırması</li>
                 <li className="feature-item"><CheckOn />İade riski skoru</li>
-                <li className="feature-item"><CheckOn />Akıllı Asistan (3 sorgu/gün)</li>
+                <li className="feature-item"><CheckOn />Akıllı Asistan (Günlük 3 sorgu)</li>
                 <li className="feature-item missing"><CheckOff />Sınırsız analiz</li>
-                <li className="feature-item missing"><CheckOff />Fiyat alarm bildirimleri</li>
+                <li className="feature-item missing"><CheckOff />Fiyat alarm bildirimleri (yakında)</li>
               </ul>
             </div>
 
@@ -114,13 +114,13 @@ export default function PricingPage() {
               <p className="plan-period">/ay</p>
               <p className="plan-annual">{yearly ? "Yıllık ₺708 faturalandırılır" : " "}</p>
               <Link href="/login" className="plan-cta grad">Erken Erişim Al</Link>
-              <p style={{ fontSize: "0.6875rem", color: "var(--fg3)", textAlign: "center", marginBottom: "0.5rem" }}>14 gün ücretsiz dene · Kredi kartı gerekmez</p>
+              <p style={{ fontSize: "0.6875rem", color: "var(--fg3)", textAlign: "center", marginBottom: "0.5rem" }}>Pro planı yakında aktif olacak</p>
               <ul className="features-list">
                 <li className="feature-item"><CheckOn />Sınırsız ürün analizi</li>
                 <li className="feature-item"><CheckOn />Sahte yorum tespiti</li>
-                <li className="feature-item"><CheckOn />Fiyat karşılaştırması + alarmlar</li>
+                <li className="feature-item"><CheckOn />Fiyat karşılaştırması + alarmlar (yakında)</li>
                 <li className="feature-item"><CheckOn />İade riski skoru</li>
-                <li className="feature-item"><CheckOn />Sınırsız Akıllı Asistan</li>
+                <li className="feature-item"><CheckOn />Akıllı Asistan</li>
                 <li className="feature-item"><CheckOn />Geçmiş arama geçmişi</li>
                 <li className="feature-item"><CheckOn />Öncelikli e-posta desteği</li>
               </ul>
@@ -147,7 +147,7 @@ export default function PricingPage() {
 
           {/* FAQ strip */}
           <div className="faq-strip" style={{ marginBottom: "4rem" }}>
-            <p style={{ fontSize: ".8125rem", color: "var(--fg3)" }}>Tüm planlar 14 günlük ücretsiz deneme içerir. İstediğiniz zaman iptal edebilirsiniz. Sorularınız mı var?</p>
+            <p style={{ fontSize: ".8125rem", color: "var(--fg3)" }}>Pro planı şu an hazırlık aşamasındadır. Ücretsiz plan ile tüm temel özellikleri kullanabilirsiniz. Sorularınız mı var?</p>
             <Link href="/faq" style={{ fontSize: ".875rem", fontWeight: 700, color: "var(--c2)", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: ".375rem", marginTop: ".625rem" }}>
               SSS&apos;ye bakın
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5" style={{ width: "14px", height: "14px" }}><path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>

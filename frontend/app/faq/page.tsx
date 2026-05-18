@@ -7,12 +7,12 @@ import { MarketingFooter } from "@/components/marketing-footer";
 
 const faqs = [
   { q: "CrowGuard nedir?", a: "CrowGuard, yapay zeka destekli bir alışveriş karar platformudur. Bir ürün linki veya isim girdiğinizde; fiyat geçmişini analiz eder, yorumların ne kadarının sahte olduğunu tespit eder ve o ürünü iade etme riskinizi hesaplar. Amacımız tek bir şey: pişmanlık yaşamadan alışveriş yapmanıza yardımcı olmak." },
-  { q: "Hangi e-ticaret platformlarını destekliyor?", a: "Şu an Trendyol, Amazon Türkiye ve Hepsiburada'daki ürünleri analiz edebiliyoruz. Ürün linkini yapıştırmanız yeterli; sistem gerisini halleder. Desteklenen platform listesi büyümeye devam ediyor." },
+  { q: "Hangi e-ticaret platformlarını destekliyor?", a: "Şu an projemize özel geliştirdiğimiz Çarşıla ve Shoprill demo mağazalarındaki ürünleri tam kapsamlı analiz edebiliyoruz. Bunun yanı sıra, herhangi bir ürün adı girerek Gemini AI üzerinden genel piyasa analizi de alabilirsiniz." },
   { q: "Sahte yorum tespiti nasıl çalışıyor?", a: "AI modelimiz yorum dilini, hesap oluşturma tarihlerini, satın alma doğrulamalarını ve yorum zaman örüntülerini analiz eder. Gerçek bir insan yorumu ile otomatik üretilmiş yorum arasındaki farkı istatistiksel olarak tespit ederek size bir güven skoru sunar." },
   { q: "Fiyat analizi neye göre yapılıyor?", a: "Ürünün geçmiş fiyat verilerini toplayıp mevcut fiyatıyla karşılaştırıyoruz. Şu an piyasa ortalamasının üzerinde mi, altında mı? Kampanya dönemi mi yaklaşıyor? Bu sorulara göre AL, BEKLE ya da ALTERNATİF önerisi sunuyoruz." },
   { q: "İade riski skoru ne anlama geliyor?", a: "Her ürün kategorisinin tarihsel iade oranı ve o ürüne özgü faktörler (beden uyumu, teknik karmaşıklık, paketleme kalitesi vb.) bir araya getirilerek bir risk yüzdesi hesaplanır. %70 ve üzeri yüksek risk olarak işaretlenir." },
   { q: "Akıllı Asistan ne işe yarıyor?", a: "Doğal dilde ihtiyacınızı söylemeniz yeterli: \"Sevgilime teknoloji hediyesi, 800₺ bütçe\" gibi. Asistan bu bilgileri işleyerek size en uygun ürün önerilerini analiz raporu ile birlikte sunar." },
-  { q: "Ücretsiz mi? Ücretli plan var mı?", a: "Temel özellikler tamamen ücretsiz. Ürün analizi, sahte yorum tespiti ve fiyat karşılaştırması ücretsiz hesapla kullanılabilir. Sınırsız analiz ve fiyat alarmları için Pro planına geçilebilir." },
+  { q: "Ücretsiz mi? Ücretli plan var mı?", a: "Temel özellikler tamamen ücretsiz. Ürün analizi, sahte yorum tespiti ve fiyat karşılaştırması ücretsiz hesapla kullanılabilir. Pro planı ileride aktif edilecek olup şu an tüm özellikler ücretsiz kullanıma açıktır." },
   { q: "Verilerim güvende mi?", a: "Evet. Analiz ettiğiniz ürün verileri sunucularımızda kalıcı olarak saklanmaz. Kişisel bilgileriniz şifreli olarak tutulur ve üçüncü taraflarla paylaşılmaz." },
 ];
 
