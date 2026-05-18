@@ -16,7 +16,7 @@ client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
 MODELS = ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash"]
 
-SUPPORTED_SITES = {"trendyol", "shopgrill.store", "corsila.store"}
+SUPPORTED_SITES = {"trendyol", "shopgrill.store", "carsila.store"}
 
 UNSUPPORTED_SITES = {
     "hepsiburada": "Hepsiburada şu an bot koruması nedeniyle desteklenmiyor.",
