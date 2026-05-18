@@ -5,7 +5,8 @@ import { MarketingFooter } from "@/components/marketing-footer";
 export default function TermsPage() {
   return (
     <main style={{ minHeight: "100dvh", display: "flex", flexDirection: "column" }}>
-      <style dangerouslySetInnerHTML={{__html:`
+      <style dangerouslySetInnerHTML={{
+        __html: `
         .legal-wrap { max-width: 1000px; margin: 0 auto; padding: 0 clamp(1.5rem,5vw,4rem); }
         .legal-body { display: grid; grid-template-columns: 200px 1fr; gap: clamp(2rem,5vw,5rem); align-items: start; }
         @media (max-width: 700px) { .legal-body { grid-template-columns: 1fr; } }
@@ -24,7 +25,7 @@ export default function TermsPage() {
         .legal-section ul li::before { content: "—"; position: absolute; left: 0; color: var(--fg3); }
         .legal-divider { height: 1px; background: var(--border); margin-bottom: 2.75rem; }
         .legal-meta { font-size: 0.8125rem; color: var(--fg3); margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
-      `}}/>
+      `}} />
 
       <MarketingNav />
 
@@ -37,7 +38,7 @@ export default function TermsPage() {
               Kullanım Koşulları
             </h1>
             <p style={{ fontSize: "1rem", color: "var(--fg2)", lineHeight: 1.75, maxWidth: "560px" }}>
-              CrowGuard AI&apos;yı kullanmadan önce lütfen bu koşulları okuyunuz. Hizmeti kullanmaya devam ederek bu koşulları kabul etmiş sayılırsınız.
+              CrowGuard&apos;yı kullanmadan önce lütfen bu koşulları okuyunuz. Hizmeti kullanmaya devam ederek bu koşulları kabul etmiş sayılırsınız.
             </p>
           </div>
 
@@ -59,7 +60,7 @@ export default function TermsPage() {
 
               <div className="legal-section" id="hizmet-tanimi">
                 <h2>Hizmet tanımı</h2>
-                <p>CrowGuard AI, kullanıcıların e-ticaret platformlarındaki ürünleri daha bilinçli değerlendirmesine yardımcı olmak amacıyla yapay zeka destekli analiz sunan bir platformdur.</p>
+                <p>CrowGuard, kullanıcıların e-ticaret platformlarındaki ürünleri daha bilinçli değerlendirmesine yardımcı olmak amacıyla yapay zeka destekli analiz sunan bir platformdur.</p>
                 <p>Sunduğumuz başlıca özellikler:</p>
                 <ul>
                   <li>Fiyat analizi ve tarihsel karşılaştırma</li>
@@ -99,7 +100,7 @@ export default function TermsPage() {
 
               <div className="legal-section" id="fikri-mulkiyet">
                 <h2>Fikri mülkiyet</h2>
-                <p>CrowGuard AI platformunun tüm içeriği, tasarımı, kodu ve marka unsurları CrowGuard AI&apos;ya aittir.</p>
+                <p>CrowGuard platformunun tüm içeriği, tasarımı, kodu ve marka unsurları CrowGuard&apos;ya aittir.</p>
                 <ul>
                   <li>Kullanıcılar platforma girecekleri içeriklerden (ürün URL&apos;leri, mesajlar vb.) kendileri sorumludur.</li>
                   <li>Platform içeriğini izinsiz kopyalamak, yeniden dağıtmak veya türev çalışmalar oluşturmak yasaktır.</li>
@@ -110,7 +111,7 @@ export default function TermsPage() {
 
               <div className="legal-section" id="sorumluluk">
                 <h2>Sorumluluk reddi</h2>
-                <p>CrowGuard AI aşağıdaki konularda sorumluluk kabul etmez:</p>
+                <p>CrowGuard aşağıdaki konularda sorumluluk kabul etmez:</p>
                 <ul>
                   <li>Analiz sonuçlarına dayanılarak alınan kararların sonuçları.</li>
                   <li>Üçüncü taraf e-ticaret platformlarındaki değişiklikler veya hatalar.</li>
