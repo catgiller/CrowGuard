@@ -97,3 +97,25 @@ def get_history(
         }
         for a in analyses
     ]
+
+
+@router.delete("/history/{item_id}")
+def delete_history(
+    item_id: int,
+    db: Session = Depends(get_db),
+    current_user=Depends(get_current_user_optional),
+):
+    if not current_user:
+        raise HTTPException(status_code=401, detail="Giriş yapmanız gerekiyor")
+
+    item = db.query(db_models.AnalysisResult).filter(
+        db_models.AnalysisResult.id == item_id,
+        db_models.AnalysisResult.user_id == current_user.id,
+    ).first()
+
+    if not item:
+        raise HTTPException(status_code=404, detail="Kayıt bulunamadı")
+
+    db.delete(item)
+    db.commit()
+    return {"ok": True}
