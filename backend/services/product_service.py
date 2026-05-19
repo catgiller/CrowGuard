@@ -24,8 +24,7 @@ def _is_url(text: str) -> bool:
 
 
 def _parse_price(price_str: str) -> float:
-    """
-    Türkçe (1.350,00) ve İngilizce (1,350.00) fiyat formatlarını doğru parse eder.
+    """Türkçe (1.350,00) ve İngilizce (1,350.00) fiyat formatlarını doğru parse eder.
     Trendyol JS state'inden gelen "350.0" gibi float string'leri de düzgün işler.
     """
     s = re.sub(r"[₺TL€$\s]", "", price_str.strip())
@@ -212,7 +211,6 @@ OWN_STORES = {
     "carsila.store": "https://carsila.store",
 }
 
-# localhost port → store name mapping for local dev
 LOCAL_STORE_PORTS = {
     "3001": "shoprill",
     "3002": "carsila",
@@ -229,14 +227,12 @@ def _detect_own_store(url: str) -> str | None:
     for domain, base in OWN_STORES.items():
         if domain in url:
             return base
-    # localhost dev: detect by port or path keyword
     from urllib.parse import urlparse as _up
     parsed = _up(url)
     if parsed.hostname in ("localhost", "127.0.0.1"):
         port = str(parsed.port or "")
         if port in LOCAL_STORE_PORTS:
             return f"http://{parsed.hostname}:{port}"
-        # fallback: guess by URL keyword
         if "shopgrill" in url.lower() or "shoprill" in url.lower():
             return "http://localhost:3001"
         if "carsila" in url.lower():
@@ -249,7 +245,6 @@ def _get_store_name_from_base(base: str) -> str:
         return "Shopgrill"
     if "carsila" in base:
         return "Carsila"
-    # localhost: guess from port
     from urllib.parse import urlparse as _up
     port = str(_up(base).port or "")
     if port in LOCAL_STORE_PORTS:
@@ -316,7 +311,6 @@ async def _analyze_own_store(url: str, db) -> ProductAnalysisResponse:
 
     average = float(data.get("average_price") or 0.0)
 
-    # Use real price history from our API if available, fall back to synthetic
     if api_price_history:
         price_history = api_price_history
         confidence = "REAL"
