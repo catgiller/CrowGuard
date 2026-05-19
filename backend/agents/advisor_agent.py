@@ -109,8 +109,8 @@ YALNIZCA şu formatta geçerli bir JSON objesi döndür:
             "youtube_latest_url": yt["latest_url"],
             "shoprill_price": rec.get("shoprill_price"),
             "carsila_price": rec.get("carsila_price"),
-            "shoprill_url": f"https://shoprill.store/products/{shoprill_slug}" if shoprill_slug else None,
-            "carsila_url": f"https://corsila.store/products/{carsila_slug}" if carsila_slug else None,
+            "shoprill_url": f"https://shopgrill.store/products/{shoprill_slug}" if shoprill_slug else None,
+            "carsila_url": f"https://carsila.store/products/{carsila_slug}" if carsila_slug else None,
             "cheaper_store": rec.get("cheaper_store"),
             "store_note": rec.get("store_note"),
         })

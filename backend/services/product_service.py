@@ -17,11 +17,12 @@ client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
 MODELS = ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash"]
 
-SUPPORTED_SITES = {"trendyol", "shoprill.store", "carsila.store"}
+SUPPORTED_SITES = {"shopgrill.store", "carsila.store"}
 
 UNSUPPORTED_SITES = {
     "hepsiburada": "Hepsiburada şu an bot koruması nedeniyle desteklenmiyor.",
     "amazon":      "Amazon şu an desteklenmiyor.",
+    "trendyol": "Trendyol şu an bot koruması nedeniyle desteklenmiyor.",
 }
 
 
@@ -220,7 +221,7 @@ async def _analyze_by_name(product_name: str, db) -> ProductAnalysisResponse:
 
 
 OWN_STORES = {
-    "shoprill.store": "https://shoprill.store",
+    "shopgrill.store": "https://shopgrill.store",
     "carsila.store": "https://carsila.store",
 }
 
@@ -249,7 +250,7 @@ def _detect_own_store(url: str) -> str | None:
         if port in LOCAL_STORE_PORTS:
             return f"http://{parsed.hostname}:{port}"
         # fallback: guess by URL keyword
-        if "shoprill" in url.lower():
+        if "shopgrill" in url.lower() or "shoprill" in url.lower():
             return "http://localhost:3001"
         if "carsila" in url.lower():
             return "http://localhost:3002"
@@ -257,8 +258,8 @@ def _detect_own_store(url: str) -> str | None:
 
 
 def _get_store_name_from_base(base: str) -> str:
-    if "shoprill" in base:
-        return "Shoprill"
+    if "shopgrill" in base or "shoprill" in base:
+        return "Shopgrill"
     if "carsila" in base:
         return "Carsila"
     # localhost: guess from port

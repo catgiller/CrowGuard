@@ -22,6 +22,6 @@ export async function GET(_req: Request, { params }: { params: Promise<{ slug: s
     reviewCount: product.reviewCount,
     badge: product.badge ?? null,
     store: "shoprill",
-    storeUrl: "https://shoprill.store",
+    storeUrl: "https://shopgrill.store",
   });
 }

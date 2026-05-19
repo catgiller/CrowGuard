@@ -22,6 +22,6 @@ export async function GET(_req: Request, { params }: { params: Promise<{ slug: s
     reviewCount: product.reviewCount,
     badge: product.badge ?? null,
     store: "carsila",
-    storeUrl: "https://corsila.store",
+    storeUrl: "https://carsila.store",
   });
 }

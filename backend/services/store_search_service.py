@@ -5,7 +5,7 @@ from urllib.parse import quote_plus
 logger = logging.getLogger(__name__)
 
 STORES = {
-    "shoprill": "https://shoprill.store",
+    "shoprill": "https://shopgrill.store",
     "carsila": "https://carsila.store",
 }
 
