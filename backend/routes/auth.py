@@ -1,6 +1,12 @@
 import datetime
+import logging
+import os
 import secrets
+import resend
 from fastapi import APIRouter, Depends, HTTPException
+
+logger = logging.getLogger(__name__)
+resend.api_key = os.getenv("RESEND_API_KEY", "")
 from sqlalchemy.orm import Session
 from database import get_db
 from models import db_models
@@ -76,7 +82,6 @@ def get_me(current_user=Depends(get_current_user)):
 def forgot_password(data: ForgotPasswordRequest, db: Session = Depends(get_db)):
     user = db.query(db_models.User).filter(db_models.User.email == data.email).first()
     if not user:
-        # Kullanıcı varlığını sızdırmamak için aynı yanıtı dön
         return {"message": "Eğer bu e-posta kayıtlıysa sıfırlama bağlantısı gönderildi."}
 
     token = secrets.token_urlsafe(32)
@@ -85,8 +90,31 @@ def forgot_password(data: ForgotPasswordRequest, db: Session = Depends(get_db)):
     db.add(db_models.PasswordResetToken(user_id=user.id, token=token, expires_at=expires))
     db.commit()
 
-    # Demo modu — gerçek projede e-posta gönderilir
-    return {"message": "Sıfırlama bağlantısı gönderildi.", "demo_token": token}
+    frontend_url = os.getenv("FRONTEND_URL", "https://pitoresk.tech")
+    reset_link = f"{frontend_url}/reset-password?token={token}"
+
+    if resend.api_key:
+        try:
+            resend.Emails.send({
+                "from": "CrowGuard <noreply@pitoresk.tech>",
+                "to": user.email,
+                "subject": "Şifre Sıfırlama",
+                "html": f"""
+                <div style="font-family:sans-serif;max-width:480px;margin:auto;padding:2rem">
+                  <h2 style="color:#d5332a">Şifre Sıfırlama</h2>
+                  <p>Merhaba <b>{user.name}</b>,</p>
+                  <p>Şifrenizi sıfırlamak için aşağıdaki butona tıklayın. Bağlantı <b>1 saat</b> geçerlidir.</p>
+                  <a href="{reset_link}" style="display:inline-block;margin:1rem 0;padding:.75rem 1.5rem;background:#d5332a;color:#fff;border-radius:8px;text-decoration:none;font-weight:700">
+                    Şifremi Sıfırla
+                  </a>
+                  <p style="color:#888;font-size:.85rem">Bu isteği siz yapmadıysanız bu e-postayı görmezden gelin.</p>
+                </div>
+                """,
+            })
+        except Exception as e:
+            logger.error(f"E-posta gönderilemedi: {e}")
+
+    return {"message": "Sıfırlama bağlantısı gönderildi."}
 
 
 @router.post("/reset-password")
