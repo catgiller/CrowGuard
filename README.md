@@ -1,8 +1,8 @@
 <div align="center">
 
-<img src="frontend/public/logo.png" alt="CrowGuard" width="140" />
+<img src="frontend/public/logo.png" alt="Pitoresk · CrowGuard" width="140" />
 
-# CrowGuard
+# Pitoresk · CrowGuard
 
 ### Türkiye için akıllı alışveriş ve ürün analiz platformu
 
