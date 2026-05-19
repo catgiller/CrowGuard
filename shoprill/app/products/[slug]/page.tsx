@@ -4,6 +4,7 @@ import Link from "next/link";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import { getProductBySlug, products, formatPrice } from "@/lib/products";
+import ProductCard from "@/components/product-card";
 
 export async function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
@@ -26,6 +27,18 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
   const { slug } = await params;
   const product = getProductBySlug(slug);
   if (!product) notFound();
+
+  const similar = products
+    .filter((p) => p.subcategory === product.subcategory && p.id !== product.id)
+    .slice(0, 4);
+  const related = similar.length < 4
+    ? [
+        ...similar,
+        ...products
+          .filter((p) => p.category === product.category && p.subcategory !== product.subcategory && p.id !== product.id)
+          .slice(0, 4 - similar.length),
+      ]
+    : similar;
 
   return (
     <>
@@ -85,11 +98,11 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             <div className="mb-6">
               <div className="flex items-baseline gap-4">
                 <span data-field="price" className="text-3xl font-bold" style={{ color: "var(--navy)" }}>
-                  {formatPrice(product.prices.shopgrill)}
+                  {formatPrice(product.prices.shoprill)}
                 </span>
               </div>
               <p className="text-xs mt-2" style={{ color: "var(--text-muted)" }}>
-                KDV dahil • Stokta {product.stock.shopgrill} adet
+                KDV dahil • Stokta {product.stock.shoprill} adet
               </p>
             </div>
 
@@ -174,6 +187,20 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             ))}
           </div>
         </section>
+
+        {/* Benzer Ürünler */}
+        {related.length > 0 && (
+          <section className="mt-16">
+            <h2 className="text-xs uppercase tracking-widest font-semibold mb-6" style={{ color: "var(--text-muted)" }}>
+              Benzer Ürünler
+            </h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {related.map((p) => (
+                <ProductCard key={p.id} product={p} />
+              ))}
+            </div>
+          </section>
+        )}
       </main>
       <Footer />
     </>

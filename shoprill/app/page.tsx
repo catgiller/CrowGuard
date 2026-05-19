@@ -68,7 +68,7 @@ export default function HomePage() {
                 <p className="text-white text-xs mb-1">{featured.brand}</p>
                 <p className="text-white font-semibold text-sm">{featured.name}</p>
                 <p className="font-bold mt-1" style={{ color: "var(--gold)" }}>
-                  {featured.prices.shopgrill.toLocaleString("tr-TR")} TL
+                  {featured.prices.shoprill.toLocaleString("tr-TR")} TL
                 </p>
               </div>
             </div>

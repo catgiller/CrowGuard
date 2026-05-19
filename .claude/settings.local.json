@@ -7,7 +7,11 @@
       "Bash(npx next *)",
       "Bash(del \"C:\\\\Users\\\\aizaw\\\\Pitoresk\\\\frontend\\\\app\\\\favicon.ico\")",
       "mcp__Claude_in_Chrome__tabs_context_mcp",
-      "PowerShell(New-Item -ItemType Directory -Path \"C:\\\\Users\\\\aizaw\\\\carsila\\\\lib\" -Force)"
+      "PowerShell(New-Item -ItemType Directory -Path \"C:\\\\Users\\\\aizaw\\\\carsila\\\\lib\" -Force)",
+      "Bash(python \"C:/Users/aizaw/update_products.py\")",
+      "Bash(python -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\('name:', d.get\\('name'\\)\\); print\\('scripts:', list\\(d.get\\('scripts',{}\\).keys\\(\\)\\)\\)\")",
+      "Bash(python -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\('name:', d['name']\\)\")",
+      "Bash(mkdir -p \"C:/Users/aizaw/Pitoresk/shoprill/app/api/products/[slug]/price-history\")"
     ]
   }
 }
