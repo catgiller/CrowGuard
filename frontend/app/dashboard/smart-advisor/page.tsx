@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { MenuButton } from "@/components/menu-button";
 import { useDashboard } from "@/contexts/dashboard-context";
 import { apiFetch } from "@/lib/api";
@@ -200,7 +199,6 @@ export default function SmartAdvisorPage() {
         <span className="topbar-title">Akıllı Asistan</span>
         <div style={{ marginLeft: "auto", display: "flex", gap: ".75rem", alignItems: "center" }}>
           <button onClick={clearChat} style={{ fontSize: ".8125rem", color: "var(--fg3)", fontFamily: "var(--ff-b)", background: "none", border: "none", cursor: "pointer", fontWeight: 500 }}>Temizle</button>
-          <ThemeToggle />
         </div>
       </div>
 

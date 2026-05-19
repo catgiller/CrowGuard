@@ -11,13 +11,14 @@ const CATEGORY_ICONS: Record<string, string> = {
   "Giyim": "👗",
   "Sağlık & Güzellik": "✨",
   "Spor & Outdoor": "🏃",
+  "Aksesuar": "💍",
 };
 
 export default function HomePage() {
   const categories = getCategories();
   const newest = products.slice(0, 4);
   const topRated = [...products].sort((a, b) => b.rating - a.rating).slice(0, 4);
-  const featured = products[1]; // Sony kulaklık
+  const featured = products[1]; // Aurex kulaklık
 
   return (
     <>
@@ -80,7 +81,7 @@ export default function HomePage() {
           <div className="max-w-7xl mx-auto flex flex-wrap justify-center gap-8">
             {[
               ["25+", "Marka"],
-              ["5 Kategori", "Seçenek"],
+              ["6 Kategori", "Seçenek"],
               ["Ücretsiz", "Kargo 500 TL+"],
               ["30 Gün", "İade Garantisi"],
             ].map(([val, label]) => (
@@ -103,7 +104,7 @@ export default function HomePage() {
               Tümünü gör →
             </Link>
           </div>
-          <div className="grid grid-cols-5 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
             {categories.map((cat) => (
               <Link
                 key={cat}

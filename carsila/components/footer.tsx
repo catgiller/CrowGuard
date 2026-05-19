@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { getCategories } from "@/lib/products";
 
 export default function Footer() {
   return (
@@ -38,7 +39,7 @@ export default function Footer() {
           <div>
             <h4 className="text-white font-semibold mb-3 text-sm">Kategoriler</h4>
             <ul className="space-y-2 text-xs" style={{ color: "#C9B0A4" }}>
-              {["Elektronik", "Ev & Yaşam", "Giyim", "Sağlık & Güzellik", "Spor & Outdoor", "Aksesuar"].map((cat) => (
+              {getCategories().map((cat) => (
                 <li key={cat}>
                   <Link href={`/category/${encodeURIComponent(cat)}`} className="hover:text-white transition-colors">{cat}</Link>
                 </li>
