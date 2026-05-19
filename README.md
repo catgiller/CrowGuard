@@ -154,9 +154,22 @@ Proje **BTK Akademi Hackathon 2026** kapsamında geliştirildi.
 | Ortam | URL |
 |---|---|
 | 🌐 **Web Uygulaması** | https://pitoresk.tech |
+| 🛍️ **Demo Mağaza · Shopgrill** | https://shopgrill.store |
+| 🛍️ **Demo Mağaza · Carsila** | https://carsila.store |
 | ⚙️ **Backend API** | https://pitoresk.onrender.com |
 | 📘 **API Dokümantasyonu** | https://pitoresk.onrender.com/docs |
 | 💾 **Repo** | https://github.com/catgiller/CrowGuard |
+
+### Demo Mağazalar Hakkında
+
+CrowGuard'ın veri kaynağı, proje kapsamında geliştirilen iki bağımsız e-ticaret sitesidir: **Shopgrill** ve **Carsila**. Büyük e-ticaret platformlarının kapalı API'leri ve gelişmiş bot koruma sistemleri sebebiyle bu platformlar üzerinden güvenilir veri akışı kurulamadığı için, gerçek bir e-ticaret ekosistemini simüle eden iki demo mağaza sıfırdan inşa edildi. Her iki mağaza da CrowGuard'a açık REST API uçları sunar:
+
+- **Ürün bilgisi**: isim, açıklama, marka, kategori, fiyat, stok, görseller
+- **Kullanıcı yorumları** ve puanlar
+- **Fiyat geçmişi** (zaman serisi verisi)
+- **Mağaza-spesifik fiyatlandırma** (aynı ürünün her mağazada farklı fiyatı)
+
+Bu yapı sayesinde uygulama, fiyat karşılaştırma ve geçmiş analizi gibi tüm özellikleri uçtan uca çalışır şekilde sunabiliyor. Mimari, ileride bir partner platform API erişimi sağlandığında veri kaynağını değiştirmeye uygun biçimde tasarlandı.
 
 ---
 
