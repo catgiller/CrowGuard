@@ -77,7 +77,7 @@ export default function LandingPage() {
         __html: `
         .snap-root { position: fixed; inset: 0; overflow-y: scroll; scroll-snap-type: y mandatory; scrollbar-width: none; }
         .snap-root::-webkit-scrollbar { display: none; }
-        .slide { height: 100dvh; scroll-snap-align: start; position: relative; overflow: hidden; }
+        .slide { height: 100dvh; scroll-snap-align: start; scroll-snap-stop: always; position: relative; overflow: hidden; }
         .dot-nav { position: fixed; right: 1.5rem; top: 50%; transform: translateY(-50%); z-index: 300; display: flex; flex-direction: column; gap: 0.625rem; }
         .dot-nav button { width: 9px; height: 9px; border-radius: 50%; border: none; padding: 0; background: rgba(255,255,255,0.18); cursor: pointer; transition: background 0.25s, transform 0.25s; }
         .dot-nav button.active { background: #fff; transform: scale(1.25); }
@@ -158,6 +158,8 @@ export default function LandingPage() {
         .chat-product-info .name { font-weight: 700; font-size: 0.8125rem; }
         .chat-product-info .meta { font-size: 0.6875rem; opacity: 0.75; }
         @media (max-width: 900px) { .feat-slide { flex-direction: column !important; padding-top: calc(var(--nav-h) + 1.25rem); } .feat-mock { width: 100%; max-width: 400px; margin: 0 auto; } .feat-text { text-align: center; } .feat-desc { margin: 0 auto; } .feat-pill { margin-top: 1.25rem; } }
+        @media (max-width: 900px) { .mock { max-height: 42dvh; overflow: hidden; } }
+        @media (max-width: 500px) { .stats { gap: 0.75rem 2rem; } .stat-num { font-size: clamp(2rem, 9vw, 2.75rem); } .stat-lbl { font-size: 0.625rem; max-width: 110px; } }
         .social-slide { display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--bg); padding: 0 clamp(1rem,4vw,3.5rem); padding-top: var(--nav-h); text-align: center; }
         .social-inner { max-width: 900px; width: 100%; }
         .testimonials { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin: 2.5rem 0; }
