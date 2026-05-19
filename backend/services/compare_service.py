@@ -122,7 +122,13 @@ async def compare_products(url1: str, url2: str) -> dict:
             detail="URL'den ürün slug'ı çıkarılamadı. Lütfen /products/[slug] formatında bir URL girin.",
         )
 
-    p1, p2, r1, r2 = await _fetch_product(base1, slug1), await _fetch_product(base2, slug2), await _fetch_reviews(base1, slug1), await _fetch_reviews(base2, slug2)
+    import asyncio
+    p1, p2, r1, r2 = await asyncio.gather(
+        _fetch_product(base1, slug1),
+        _fetch_product(base2, slug2),
+        _fetch_reviews(base1, slug1),
+        _fetch_reviews(base2, slug2),
+    )
 
     prompt = _build_compare_prompt(p1, r1, p2, r2)
 
