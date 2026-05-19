@@ -15,7 +15,7 @@ Base.metadata.create_all(bind=engine)
 limiter = Limiter(key_func=get_remote_address, default_limits=["60/minute"])
 
 app = FastAPI(
-    title="Pitoresk AI Backend",
+    title="CrowGuard AI Backend",
     description="Akıllı ürün analiz ve öneri sistemi",
     version="1.0.0",
 )
@@ -48,7 +48,7 @@ app.include_router(compare.router, tags=["Compare"])
 
 @app.get("/")
 def home():
-    return {"status": "Pitoresk AI Backend is running", "version": "1.0.0"}
+    return {"status": "CrowGuard AI Backend is running", "version": "1.0.0"}
 
 
 @app.get("/health")
