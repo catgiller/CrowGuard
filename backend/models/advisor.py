@@ -18,9 +18,9 @@ class RecommendedProduct(BaseModel):
     trend_score: int = 0
     youtube_video_count: int = 0
     youtube_latest_url: str = ""
-    shopgrill_price: Optional[float] = None
+    shoprill_price: Optional[float] = None
     carsila_price: Optional[float] = None
-    shopgrill_url: Optional[str] = None
+    shoprill_url: Optional[str] = None
     carsila_url: Optional[str] = None
     cheaper_store: Optional[str] = None
     store_note: Optional[str] = None

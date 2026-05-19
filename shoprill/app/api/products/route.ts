@@ -13,13 +13,13 @@ export async function GET(request: Request) {
     brand: p.brand,
     category: p.category,
     subcategory: p.subcategory,
-    price: p.prices.shopgrill,
-    stock: p.stock.shopgrill,
+    price: p.prices.shoprill,
+    stock: p.stock.shoprill,
     rating: p.rating,
     reviewCount: p.reviewCount,
-    image: p.images[0],
+    image: p.images[0] ?? null,
     badge: p.badge ?? null,
-    store: "shopgrill",
+    store: "shoprill",
   }));
 
   if (category) result = result.filter((p) => p.category === category);

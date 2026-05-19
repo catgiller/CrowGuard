@@ -5,7 +5,7 @@ from urllib.parse import quote_plus
 logger = logging.getLogger(__name__)
 
 STORES = {
-    "shopgrill": "https://shopgrill.store",
+    "shoprill": "https://shoprill.store",
     "carsila": "https://carsila.store",
 }
 
@@ -45,7 +45,7 @@ def build_store_context(store_results: dict[str, list[dict]], query: str) -> str
     """Gemini'ye gönderilecek mağaza verisini formatla."""
     lines = []
     for store_name, products in store_results.items():
-        store_label = "Shopgrill" if store_name == "shopgrill" else "Carsila"
+        store_label = "Shopgrill" if store_name == "shoprill" else "Carsila"
         base_url = STORES[store_name]
         if not products:
             lines.append(f"[{store_label}]: Bu mağazada '{query}' için ürün bulunamadı.")
