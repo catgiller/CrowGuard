@@ -7,10 +7,10 @@ from typing import List, Tuple
 
 @dataclass
 class PriceSignal:
-    recommendation: str   # AL | BEKLE | ALT | PAHALI
-    confidence: str       # REAL | MIXED | SYNTHETIC
+    recommendation: str
+    confidence: str
     weighted_average: float
-    trend: str            # DUSUYOR | YUKSELIYOR | STABIL
+    trend: str
     trend_pct: float
 
 
@@ -59,10 +59,8 @@ def _synthetic_history(url: str, current_price: float) -> List[dict]:
         if profile == 0:
             v = rng.uniform(0.92, 1.08)
         elif profile == 1:
-            # i yüksek = eski = fiyat daha yüksekti
             v = 1.0 + (i / 5) * rng.uniform(0.08, 0.22)
         else:
-            # i yüksek = eski = fiyat daha düşüktü (değer kaybı)
             v = 1.0 - (i / 5) * rng.uniform(0.04, 0.14)
         points.append({"date": d.isoformat(), "price": round(current_price * v, 2)})
 
@@ -105,7 +103,6 @@ def build_price_history(url: str, current_price: float, db) -> Tuple[List[dict],
     if not real:
         return synthetic, "SYNTHETIC"
 
-    # 1-3 gerçek nokta: sentetik zemin + gerçek veriler override
     combined = {p["date"]: p["price"] for p in synthetic}
     for p in real:
         combined[p["date"]] = p["price"]
@@ -135,7 +132,6 @@ def compute_price_signal(
     trend, trend_pct = _detect_trend(prices)
 
     if confidence == "SYNTHETIC":
-        # Sadece Gemini ortalamasına göre karar ver, eşikler daha dar
         ref = gemini_average if gemini_average > 0 else weighted_avg
         if ref <= 0:
             return PriceSignal("BEKLE", confidence, 0.0, trend, trend_pct)
@@ -150,7 +146,6 @@ def compute_price_signal(
             rec = "PAHALI"
         return PriceSignal(rec, confidence, ref, trend, trend_pct)
 
-    # REAL / MIXED: ağırlıklı ortalama ile karar
     ref = weighted_avg if weighted_avg > 0 else gemini_average
     if ref <= 0:
         return PriceSignal("BEKLE", confidence, 0.0, trend, trend_pct)
@@ -166,10 +161,9 @@ def compute_price_signal(
     else:
         rec = "PAHALI"
 
-    # Trend düzeltmesi: sınır bölgede ise trendden etkilensin
     if trend == "DUSUYOR" and rec == "AL" and ratio > 0.96:
-        rec = "BEKLE"  # düşüş devam edebilir, beklemek mantıklı
+        rec = "BEKLE"
     elif trend == "YUKSELIYOR" and rec == "BEKLE" and ratio < 1.12:
-        rec = "AL"     # fiyat artıyorsa gecikme pahalıya patlayabilir
+        rec = "AL"
 
     return PriceSignal(rec, confidence, ref, trend, trend_pct)

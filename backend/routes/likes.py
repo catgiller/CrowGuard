@@ -17,7 +17,6 @@ def like_product(
     if data.action not in ("like", "dislike"):
         raise HTTPException(status_code=400, detail="action 'like' veya 'dislike' olmalı")
 
-    # Aynı URL için önceki kaydı güncelle (değiştirdiyse)
     existing = (
         db.query(db_models.UserLike)
         .filter(
