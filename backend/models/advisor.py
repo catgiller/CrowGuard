@@ -13,11 +13,6 @@ class RecommendedProduct(BaseModel):
     confidence: int
     shopgrill_search_url: str = ""
     carsila_search_url: str = ""
-    google_shopping_url: str = ""
-    trend_direction: str = "STABIL"
-    trend_score: int = 0
-    youtube_video_count: int = 0
-    youtube_latest_url: str = ""
     shopgrill_price: Optional[float] = None
     carsila_price: Optional[float] = None
     shopgrill_url: Optional[str] = None
