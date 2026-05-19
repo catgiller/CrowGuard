@@ -32,7 +32,7 @@ Bu verileri öncelikli olarak kullan:
 """ if has_store_data else ""
 
     prompt = f"""
-Sen 'Pitoresk Akıllı Danışman'ısın. Kullanıcı alışveriş tavsiyesi arıyor.
+Sen 'CrowGuard Akıllı Danışman'ısın. Kullanıcı alışveriş tavsiyesi arıyor.
 Kullanıcı Sorgusu: "{user_query}"
 {store_section}
 Talimatlar:
