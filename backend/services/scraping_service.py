@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 from typing import Optional
 
+EXTRACTION_VERSION = "1"
+
 
 @dataclass
 class ScrapedProduct:
