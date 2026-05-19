@@ -309,8 +309,7 @@ CrowGuard/
 ## Ekip
 
 - **Erva Nur Şahin** — Backend & DevOps
-- **Nazife** — Frontend
-- **Burcu** — Tasarım & UX
+- **Nazife** — Frontend & Tasarım
 
 ---
 
