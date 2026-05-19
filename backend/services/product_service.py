@@ -27,7 +27,7 @@ def _is_url(text: str) -> bool:
 def _parse_price(price_str: str) -> float:
     """
     Türkçe (1.350,00) ve İngilizce (1,350.00) fiyat formatlarını doğru parse eder.
-    Trendyol JS state'inden gelen "350.0" gibi float string'leri de düzgün işler.
+    Fiyat string'inden gelen "350.0" gibi float string'leri de düzgün işler.
     """
     s = re.sub(r"[₺TL€$\s]", "", price_str.strip())
     if not s:
@@ -220,7 +220,7 @@ OWN_STORES = {
 
 # localhost port → store name mapping for local dev
 LOCAL_STORE_PORTS = {
-    "3001": "shoprill",
+    "3001": "shopgrill",
     "3002": "carsila",
     "3003": "carsila",
 }
@@ -243,7 +243,7 @@ def _detect_own_store(url: str) -> str | None:
         if port in LOCAL_STORE_PORTS:
             return f"http://{parsed.hostname}:{port}"
         # fallback: guess by URL keyword
-        if "shoprill" in url.lower():
+        if "shopgrill" in url.lower():
             return "http://localhost:3001"
         if "carsila" in url.lower():
             return "http://localhost:3002"
@@ -251,8 +251,8 @@ def _detect_own_store(url: str) -> str | None:
 
 
 def _get_store_name_from_base(base: str) -> str:
-    if "shoprill" in base:
-        return "Shoprill"
+    if "shopgrill" in base:
+        return "Shopgrill"
     if "carsila" in base:
         return "Carsila"
     # localhost: guess from port
