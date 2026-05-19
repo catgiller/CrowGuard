@@ -3,8 +3,6 @@ import os
 import logging
 from urllib.parse import quote_plus
 from google import genai
-from services.trends_service import get_product_trend
-from services.youtube_service import get_youtube_stats
 from services.store_search_service import search_stores, build_store_context
 
 logger = logging.getLogger(__name__)
@@ -18,12 +16,10 @@ def _build_search_urls(name: str) -> dict:
     return {
         "shopgrill_search_url": f"https://shopgrill.store/products?q={q}",
         "carsila_search_url": f"https://carsila.store/products?q={q}",
-        "google_shopping_url": f"https://www.google.com/search?q={q}&tbm=shop",
     }
 
 
 async def run_advisor_agent(user_query: str) -> dict:
-    # Her iki mağazada gerçek ürün verisi çek
     store_results = await search_stores(user_query)
     store_context = build_store_context(store_results, user_query)
     has_store_data = any(store_results.values())
@@ -89,9 +85,6 @@ YALNIZCA şu formatta geçerli bir JSON objesi döndür:
     for rec in recommendations:
         name = rec.get("name", "")
         urls = _build_search_urls(name)
-        trend = get_product_trend(name)
-        yt = get_youtube_stats(name)
-
         shopgrill_slug = rec.get("shopgrill_slug")
         carsila_slug = rec.get("carsila_slug")
 
@@ -102,11 +95,6 @@ YALNIZCA şu formatta geçerli bir JSON objesi döndür:
             "confidence": rec.get("confidence", 50),
             "shopgrill_search_url": urls["shopgrill_search_url"],
             "carsila_search_url": urls["carsila_search_url"],
-            "google_shopping_url": urls["google_shopping_url"],
-            "trend_direction": trend["direction"],
-            "trend_score": trend["score"],
-            "youtube_video_count": yt["video_count"],
-            "youtube_latest_url": yt["latest_url"],
             "shopgrill_price": rec.get("shopgrill_price"),
             "carsila_price": rec.get("carsila_price"),
             "shopgrill_url": f"https://shopgrill.store/products/{shopgrill_slug}" if shopgrill_slug else None,
