@@ -11,7 +11,9 @@
       "Bash(python \"C:/Users/aizaw/update_products.py\")",
       "Bash(python -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\('name:', d.get\\('name'\\)\\); print\\('scripts:', list\\(d.get\\('scripts',{}\\).keys\\(\\)\\)\\)\")",
       "Bash(python -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\('name:', d['name']\\)\")",
-      "Bash(mkdir -p \"C:/Users/aizaw/Pitoresk/shoprill/app/api/products/[slug]/price-history\")"
+      "Bash(mkdir -p \"C:/Users/aizaw/Pitoresk/shoprill/app/api/products/[slug]/price-history\")",
+      "Bash(mkdir -p \"C:/Users/aizaw/Pitoresk/carsila/app/api/products/[slug]/reviews\")",
+      "Bash(mkdir -p \"C:/Users/aizaw/Pitoresk/carsila/app/api/products/[slug]/price-history\")"
     ]
   }
 }
