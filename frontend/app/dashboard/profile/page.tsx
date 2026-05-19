@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { MenuButton } from "@/components/menu-button";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { useDashboard } from "@/contexts/dashboard-context";
 import { fetchAnalysisHistory } from "@/lib/analysis";
 import { getToken } from "@/lib/auth";
@@ -40,9 +39,7 @@ export default function ProfilePage() {
       <div className="dash-topbar">
         <MenuButton />
         <span className="topbar-title">Profil</span>
-        <div style={{ marginLeft: "auto", display: "flex", gap: ".75rem", alignItems: "center" }}>
-          <ThemeToggle />
-        </div>
+        <div style={{ marginLeft: "auto" }} />
       </div>
 
       <div className="dash-content">

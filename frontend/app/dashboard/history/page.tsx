@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { MenuButton } from "@/components/menu-button";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { ApiError } from "@/lib/api";
 import { fetchAnalysisHistory, type HistoryItem } from "@/lib/analysis";
 import { getToken } from "@/lib/auth";
@@ -72,9 +71,7 @@ export default function HistoryPage() {
       <div className="dash-topbar">
         <MenuButton />
         <span className="topbar-title">Geçmiş</span>
-        <div style={{ marginLeft: "auto", display: "flex", gap: ".75rem", alignItems: "center" }}>
-          <ThemeToggle />
-        </div>
+        <div style={{ marginLeft: "auto" }} />
       </div>
 
       <div className="dash-content">

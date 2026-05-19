@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { fetchAnalysisHistory, type HistoryItem } from "@/lib/analysis";
 import { getToken } from "@/lib/auth";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { MenuButton } from "@/components/menu-button";
 import { useDashboard } from "@/contexts/dashboard-context";
 
@@ -44,9 +43,7 @@ export default function DashboardPage() {
             For now just a visual button. */}
         <MenuButton />
 
-        <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginLeft: "auto" }}>
-          <ThemeToggle />
-        </div>
+        <div style={{ marginLeft: "auto" }} />
       </div>
 
       {/* Content */}
