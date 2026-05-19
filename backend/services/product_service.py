@@ -17,7 +17,7 @@ client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
 MODELS = ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash"]
 
-SUPPORTED_SITES = {"trendyol", "shoprill.store", "carsila.store"}
+SUPPORTED_SITES = {"trendyol", "shopgrill.store", "carsila.store"}
 
 UNSUPPORTED_SITES = {
     "hepsiburada": "Hepsiburada şu an bot koruması nedeniyle desteklenmiyor.",
@@ -220,7 +220,7 @@ async def _analyze_by_name(product_name: str, db) -> ProductAnalysisResponse:
 
 
 OWN_STORES = {
-    "shoprill.store": "https://shoprill.store",
+    "shopgrill.store": "https://shopgrill.store",
     "carsila.store": "https://carsila.store",
 }
 
