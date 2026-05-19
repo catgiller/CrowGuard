@@ -224,6 +224,13 @@ OWN_STORES = {
     "carsila.store": "https://carsila.store",
 }
 
+# localhost port → store name mapping for local dev
+LOCAL_STORE_PORTS = {
+    "3001": "shoprill",
+    "3002": "carsila",
+    "3003": "carsila",
+}
+
 
 def _extract_slug(url: str) -> str | None:
     m = re.search(r"/products/([^/?#]+)", url)
@@ -234,7 +241,32 @@ def _detect_own_store(url: str) -> str | None:
     for domain, base in OWN_STORES.items():
         if domain in url:
             return base
+    # localhost dev: detect by port or path keyword
+    from urllib.parse import urlparse as _up
+    parsed = _up(url)
+    if parsed.hostname in ("localhost", "127.0.0.1"):
+        port = str(parsed.port or "")
+        if port in LOCAL_STORE_PORTS:
+            return f"http://{parsed.hostname}:{port}"
+        # fallback: guess by URL keyword
+        if "shoprill" in url.lower():
+            return "http://localhost:3001"
+        if "carsila" in url.lower():
+            return "http://localhost:3002"
     return None
+
+
+def _get_store_name_from_base(base: str) -> str:
+    if "shoprill" in base:
+        return "Shoprill"
+    if "carsila" in base:
+        return "Carsila"
+    # localhost: guess from port
+    from urllib.parse import urlparse as _up
+    port = str(_up(base).port or "")
+    if port in LOCAL_STORE_PORTS:
+        return LOCAL_STORE_PORTS[port].capitalize()
+    return "Demo Mağaza"
 
 
 async def _analyze_own_store(url: str, db) -> ProductAnalysisResponse:
@@ -257,7 +289,7 @@ async def _analyze_own_store(url: str, db) -> ProductAnalysisResponse:
 
     real_price = float(product.get("price", 0))
     title = product.get("name", "")
-    store_name = "Shoprill" if "shoprill" in base else "Carsila"
+    store_name = _get_store_name_from_base(base)
 
     scraped = ScrapedProduct(
         url=url,
@@ -355,15 +387,16 @@ async def analyze_product_details(url: str, db) -> ProductAnalysisResponse:
         if unsupported in url_lower:
             raise HTTPException(status_code=422, detail=f"{message} Lütfen Trendyol linki deneyin.")
 
+    # Kendi mağazalarımız (prod veya localhost) — scraping değil, direkt API
+    own_store_base = _detect_own_store(url)
+    if own_store_base:
+        return await _analyze_own_store(url, db)
+
     if not any(site in url_lower for site in SUPPORTED_SITES):
         raise HTTPException(
             status_code=422,
             detail="Bu site henüz desteklenmiyor. Şu an sadece Trendyol destekleniyor.",
         )
-
-    # Kendi mağazalarımız — scraping değil, direkt API
-    if _detect_own_store(url_lower):
-        return await _analyze_own_store(url, db)
 
     logger.warning(f"Scraping başlıyor: {url}")
     scraped = await scrape_product(url)
