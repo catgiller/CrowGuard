@@ -11,16 +11,16 @@ class RecommendedProduct(BaseModel):
     price: float
     reason: str
     confidence: int
-    trendyol_url: str = ""
-    akakce_url: str = ""
+    shopgrill_search_url: str = ""
+    carsila_search_url: str = ""
     google_shopping_url: str = ""
     trend_direction: str = "STABIL"
     trend_score: int = 0
     youtube_video_count: int = 0
     youtube_latest_url: str = ""
-    shoprill_price: Optional[float] = None
+    shopgrill_price: Optional[float] = None
     carsila_price: Optional[float] = None
-    shoprill_url: Optional[str] = None
+    shopgrill_url: Optional[str] = None
     carsila_url: Optional[str] = None
     cheaper_store: Optional[str] = None
     store_note: Optional[str] = None
