@@ -2,7 +2,6 @@
 
 import { useState, useCallback, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { MenuButton } from "@/components/menu-button";
 import { ApiError } from "@/lib/api";
 import { getToken } from "@/lib/auth";
@@ -228,9 +227,7 @@ function ProductAnalysisContent() {
       <div className="dash-topbar">
         <MenuButton />
         <span className="topbar-title">Ürün Analizi</span>
-        <div style={{ marginLeft: "auto", display: "flex", gap: ".75rem", alignItems: "center" }}>
-          <ThemeToggle />
-        </div>
+        <div style={{ marginLeft: "auto" }} />
       </div>
 
       {!result && !isLoading ? (

@@ -6,22 +6,10 @@ import Footer from "@/components/footer";
 import AddToCartButton from "@/components/add-to-cart-button";
 import { getProductBySlug, products, formatPrice } from "@/lib/products";
 import ProductCard from "@/components/product-card";
+import StarRating from "@/components/star-rating";
 
 export async function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
-}
-
-function StarFull({ stars, large = false }: { stars: number; large?: boolean }) {
-  const sz = large ? "w-5 h-5" : "w-4 h-4";
-  return (
-    <div className="flex items-center gap-0.5">
-      {[1, 2, 3, 4, 5].map((i) => (
-        <svg key={i} className={sz} viewBox="0 0 20 20" fill={i <= Math.round(stars) ? "#F59E0B" : "#E5E7EB"}>
-          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-        </svg>
-      ))}
-    </div>
-  );
 }
 
 export default async function ProductDetailPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -129,10 +117,10 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             </h1>
 
             <div className="flex items-center gap-3 mb-5">
-              <StarFull stars={product.rating} large />
+              <StarRating rating={product.rating} size="lg" />
               <span data-field="rating" className="font-black text-lg">{product.rating.toFixed(1)}</span>
               <span className="text-sm" style={{ color: "var(--muted)" }}>
-                <span data-field="review-count">{product.reviewCount}</span> değerlendirme
+                <span data-field="review-count">{product.reviewCount}</span> müşteri yorumu
               </span>
             </div>
 
@@ -208,16 +196,22 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
         {/* Değerlendirmeler */}
         <section data-field="reviews">
           <h2 className="text-lg font-black mb-6" style={{ color: "var(--dark)" }}>
-            Müşteri Değerlendirmeleri
-            <span className="ml-2 text-base font-medium" style={{ color: "var(--muted)" }}>({product.reviewCount})</span>
+            Müşteri Yorumları
+            <span className="ml-2 text-base font-medium" style={{ color: "var(--muted)" }}>
+              ({product.reviewCount} adet)
+            </span>
           </h2>
+
+          <p className="text-xs mb-4 -mt-4" style={{ color: "var(--muted)" }}>
+            Aşağıda {product.reviewCount} yazılı müşteri yorumu listelenmektedir.
+          </p>
 
           {/* Yıldız dağılımı özeti */}
           <div className="flex items-center gap-6 mb-8 p-5 rounded-2xl border bg-white" style={{ borderColor: "var(--border)" }}>
             <div className="text-center">
               <p className="text-5xl font-black" style={{ color: "var(--brand)" }}>{product.rating.toFixed(1)}</p>
-              <StarFull stars={product.rating} large />
-              <p className="text-xs mt-1" style={{ color: "var(--muted)" }}>{product.reviewCount} puan</p>
+              <StarRating rating={product.rating} size="lg" />
+              <p className="text-xs mt-1" style={{ color: "var(--muted)" }}>{product.reviewCount} yorum ortalaması</p>
             </div>
             <div className="flex-1">
               {[5, 4, 3, 2, 1].map((star) => {
@@ -248,7 +242,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                   <div>
                     <span className="reviewer font-bold text-sm" style={{ color: "var(--dark)" }}>{review.author}</span>
                     <div className="flex items-center gap-2 mt-1">
-                      <StarFull stars={review.stars} />
+                      <StarRating rating={review.stars} />
                       <span className="stars sr-only">{review.stars}</span>
                       <span className="text-xs text-amber-600 font-semibold">{review.stars}.0</span>
                     </div>
