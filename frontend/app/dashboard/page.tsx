@@ -44,12 +44,6 @@ export default function DashboardPage() {
             For now just a visual button. */}
         <MenuButton />
 
-        {/* Plan toggle (demo) */}
-        <div className="plan-toggle" title="Demo: plan değiştir">
-          <button className={`plan-btn ${!isPro ? 'active' : ''}`} onClick={() => setIsPro(false)}>Ücretsiz</button>
-          <button className={`plan-btn pro ${isPro ? 'active' : ''}`} onClick={() => setIsPro(true)}>Pro</button>
-        </div>
-
         <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginLeft: "auto" }}>
           <ThemeToggle />
         </div>
@@ -135,19 +129,19 @@ export default function DashboardPage() {
             <div className="stat-trend" style={{ color: "var(--fg3)" }}>Tüm zamanlar</div>
           </div>
           <div className="stat-card">
-            <div className="stat-val" style={{ color: "var(--fg3)", fontSize: "1.125rem", marginTop: "0.25rem" }}>Yakında</div>
+            <div className="stat-val">—</div>
             <div className="stat-lbl">Ort. Güven Skoru</div>
-            <div className="stat-trend" style={{ color: "var(--fg3)" }}>Hesaplanıyor</div>
+            <div className="stat-trend" style={{ color: "var(--fg3)" }}>Yakında</div>
           </div>
           <div className="stat-card">
-            <div className="stat-val" style={{ color: "var(--fg3)", fontSize: "1.125rem", marginTop: "0.25rem" }}>Yakında</div>
+            <div className="stat-val">—</div>
             <div className="stat-lbl">Potansiyel Tasarruf</div>
-            <div className="stat-trend" style={{ color: "var(--fg3)" }}>Hesaplanıyor</div>
+            <div className="stat-trend" style={{ color: "var(--fg3)" }}>Yakında</div>
           </div>
           <div className="stat-card">
-            <div className="stat-val" style={{ color: "var(--fg3)", fontSize: "1.125rem", marginTop: "0.25rem" }}>Yakında</div>
+            <div className="stat-val">—</div>
             <div className="stat-lbl">Bulunan Alternatif</div>
-            <div className="stat-trend" style={{ color: "var(--fg3)" }}>Hesaplanıyor</div>
+            <div className="stat-trend" style={{ color: "var(--fg3)" }}>Yakında</div>
           </div>
         </div>
 
