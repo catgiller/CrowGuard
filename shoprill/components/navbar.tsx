@@ -2,15 +2,9 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useCart } from "@/lib/cart-context";
+import { getCategories } from "@/lib/products";
 
-const NAV_LINKS = [
-  { label: "Elektronik", href: "/category/Elektronik" },
-  { label: "Giyim", href: "/category/Giyim" },
-  { label: "Ev & Yaşam", href: "/category/Ev%20%26%20Ya%C5%9Fam" },
-  { label: "Sağlık", href: "/category/Sa%C4%9Fl%C4%B1k%20%26%20G%C3%BCzellik" },
-  { label: "Spor", href: "/category/Spor%20%26%20Outdoor" },
-  { label: "Aksesuar", href: "/category/Aksesuar" },
-];
+const CATEGORIES = getCategories();
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -27,9 +21,9 @@ export default function Navbar() {
               </span>
             </Link>
             <nav className="hidden md:flex items-center gap-1 flex-1">
-              {NAV_LINKS.map((l) => (
-                <Link key={l.label} href={l.href} className="px-4 py-2 text-sm font-medium rounded-lg transition-colors hover:bg-white/10" style={{ color: "rgba(255,255,255,0.75)" }}>
-                  {l.label}
+              {CATEGORIES.map((cat) => (
+                <Link key={cat} href={`/category/${encodeURIComponent(cat)}`} className="px-4 py-2 text-sm font-medium rounded-lg transition-colors hover:bg-white/10" style={{ color: "rgba(255,255,255,0.75)" }}>
+                  {cat}
                 </Link>
               ))}
             </nav>
@@ -56,8 +50,8 @@ export default function Navbar() {
       </div>
       {open && (
         <div style={{ backgroundColor: "var(--navy-light)" }} className="md:hidden shadow-xl">
-          {NAV_LINKS.map((l) => (
-            <Link key={l.label} href={l.href} className="block px-6 py-3.5 text-sm font-medium border-b hover:bg-white/10" style={{ color: "rgba(255,255,255,0.85)", borderColor: "rgba(255,255,255,0.08)" }} onClick={() => setOpen(false)}>{l.label}</Link>
+          {CATEGORIES.map((cat) => (
+            <Link key={cat} href={`/category/${encodeURIComponent(cat)}`} className="block px-6 py-3.5 text-sm font-medium border-b hover:bg-white/10" style={{ color: "rgba(255,255,255,0.85)", borderColor: "rgba(255,255,255,0.08)" }} onClick={() => setOpen(false)}>{cat}</Link>
           ))}
           <Link href="/profile" className="block px-6 py-3.5 text-sm font-medium text-white/80" onClick={() => setOpen(false)}>Profilim</Link>
         </div>

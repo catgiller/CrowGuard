@@ -20,7 +20,7 @@ function StarRating({ rating }: { rating: number }) {
 export default function ProductCard({ product }: { product: Product }) {
   const { addItem } = useCart();
   const [added, setAdded] = useState(false);
-  const discount = Math.round(((product.prices.shopgrill - product.prices.carsila) / product.prices.shopgrill) * 100);
+  const discount = Math.round(((product.prices.shoprill - product.prices.carsila) / product.prices.shoprill) * 100);
 
   function handleAddToCart(e: React.MouseEvent) {
     e.preventDefault();
@@ -84,7 +84,7 @@ export default function ProductCard({ product }: { product: Product }) {
             </span>
             {discount > 0 && (
               <span className="text-xs line-through" style={{ color: "var(--muted)" }}>
-                {formatPrice(product.prices.shopgrill)}
+                {formatPrice(product.prices.shoprill)}
               </span>
             )}
           </div>

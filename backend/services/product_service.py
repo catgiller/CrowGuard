@@ -17,7 +17,7 @@ client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
 MODELS = ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash"]
 
-SUPPORTED_SITES = {"trendyol", "shopgrill.store", "carsila.store"}
+SUPPORTED_SITES = {"trendyol", "shoprill.store", "carsila.store"}
 
 UNSUPPORTED_SITES = {
     "hepsiburada": "Hepsiburada şu an bot koruması nedeniyle desteklenmiyor.",
@@ -220,7 +220,7 @@ async def _analyze_by_name(product_name: str, db) -> ProductAnalysisResponse:
 
 
 OWN_STORES = {
-    "shopgrill.store": "https://shopgrill.store",
+    "shoprill.store": "https://shoprill.store",
     "carsila.store": "https://carsila.store",
 }
 
@@ -252,9 +252,12 @@ async def _analyze_own_store(url: str, db) -> ProductAnalysisResponse:
         r2 = await hc.get(f"{base}/api/products/{slug}/reviews")
         reviews_data = r2.json() if r2.status_code == 200 else {}
 
+        r3 = await hc.get(f"{base}/api/products/{slug}/price-history")
+        api_price_history = r3.json().get("priceHistory", []) if r3.status_code == 200 else []
+
     real_price = float(product.get("price", 0))
     title = product.get("name", "")
-    store_name = "Shopgrill" if "shopgrill" in base else "Carsila"
+    store_name = "Shoprill" if "shoprill" in base else "Carsila"
 
     scraped = ScrapedProduct(
         url=url,
@@ -292,7 +295,14 @@ async def _analyze_own_store(url: str, db) -> ProductAnalysisResponse:
     data = json.loads(raw)
 
     average = float(data.get("average_price") or 0.0)
-    price_history, confidence = build_price_history(url, real_price, db)
+
+    # Use real price history from our API if available, fall back to synthetic
+    if api_price_history:
+        price_history = api_price_history
+        confidence = "REAL"
+    else:
+        price_history, confidence = build_price_history(url, real_price, db)
+
     signal = compute_price_signal(real_price, price_history, average, confidence)
 
     total_reviews = scraped.review_count or 0

@@ -16,12 +16,12 @@ export async function GET(_req: Request, { params }: { params: Promise<{ slug: s
     description: product.description,
     features: product.features,
     images: product.images,
-    price: product.prices.shopgrill,
-    stock: product.stock.shopgrill,
+    price: product.prices.shoprill,
+    stock: product.stock.shoprill,
     rating: product.rating,
     reviewCount: product.reviewCount,
     badge: product.badge ?? null,
-    store: "shopgrill",
-    storeUrl: "https://shopgrill.store",
+    store: "shoprill",
+    storeUrl: "https://shoprill.store",
   });
 }
