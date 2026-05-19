@@ -1,12 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { BrandLogo } from "@/components/brand-logo";
+import { apiFetch } from "@/lib/api";
 
 export default function ForgotPasswordPage() {
-  const router = useRouter();
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isSent, setIsSent] = useState(false);
@@ -14,12 +13,17 @@ export default function ForgotPasswordPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    
-    // Simüle edilmiş API isteği
-    setTimeout(() => {
+    try {
+      await apiFetch("/auth/forgot-password", {
+        method: "POST",
+        body: JSON.stringify({ email }),
+      });
+    } catch {
+      // Hata olsa da başarı göster — e-posta varlığı sızdırılmasın
+    } finally {
       setIsLoading(false);
       setIsSent(true);
-    }, 1000);
+    }
   };
 
   return (
@@ -88,7 +92,7 @@ export default function ForgotPasswordPage() {
         {isSent ? (
           <div className="success-box">
             <p style={{ margin: 0, fontWeight: 600, marginBottom: "0.5rem" }}>Bağlantı gönderildi!</p>
-            <p style={{ margin: 0, fontSize: "0.8125rem", opacity: 0.9 }}>Lütfen gelen kutunuzu kontrol edin. Geçici olarak demo amaçlı <Link href="/reset-password" style={{ color: "inherit", textDecoration: "underline" }}>buraya tıklayarak</Link> sıfırlama ekranına gidebilirsiniz.</p>
+            <p style={{ margin: 0, fontSize: "0.8125rem", opacity: 0.9 }}>Lütfen gelen kutunuzu kontrol edin. Bağlantı 1 saat geçerlidir.</p>
           </div>
         ) : (
           <form onSubmit={handleSubmit}>
