@@ -40,8 +40,35 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
       ]
     : similar;
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.description,
+    brand: { "@type": "Brand", name: product.brand },
+    image: product.images,
+    offers: {
+      "@type": "Offer",
+      price: product.prices.shoprill,
+      priceCurrency: "TRY",
+      availability:
+        product.stock.shoprill > 0
+          ? "https://schema.org/InStock"
+          : "https://schema.org/OutOfStock",
+    },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: product.rating,
+      reviewCount: product.reviewCount,
+    },
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Navbar />
       <main className="flex-1 max-w-7xl mx-auto px-6 py-12">
         {/* Breadcrumb */}

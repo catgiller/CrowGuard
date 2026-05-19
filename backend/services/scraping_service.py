@@ -73,6 +73,17 @@ def detect_site(url: str) -> str:
         return "ÇiçekSepeti"
     if "akakce" in domain:
         return "Akakçe"
+    if "shoprill" in domain:
+        return "Shoprill"
+    if "carsila" in domain:
+        return "Carsila"
+    if "localhost" in domain or "127.0.0.1" in domain:
+        path = urlparse(url).path.lower()
+        if "shoprill" in url.lower():
+            return "Shoprill"
+        if "carsila" in url.lower():
+            return "Carsila"
+        return "Demo Mağaza"
     return "E-ticaret"
 
 
