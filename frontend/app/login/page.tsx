@@ -165,9 +165,13 @@ export default function LoginPage() {
             <div className="field-meta">
               <label className="field-label" style={{ marginBottom: 0 }}>Şifre</label>
               {isLogin && (
-                <span className="forgot" style={{ opacity: 0.4, cursor: "default" }} title="Bu özellik yakında eklenecek">
-                  Yakında
-                </span>
+                <Link
+                  href="/forgot-password"
+                  className="forgot"
+                  title="Şifrenizi sıfırlayın"
+                >
+                  Şifremi Unuttum
+                </Link>
               )}
             </div>
             <div className="field-row">

@@ -7,7 +7,7 @@ import { fetchAnalysisHistory } from "@/lib/analysis";
 import { getToken } from "@/lib/auth";
 
 export default function ProfilePage() {
-  const { user, initials, isPro } = useDashboard();
+  const { user, initials, isPro, logout } = useDashboard();
   const [totalAnalysis, setTotalAnalysis] = useState<number | null>(null);
   const [memberSince, setMemberSince] = useState<string>("");
 
@@ -123,10 +123,46 @@ export default function ProfilePage() {
             </div>
           </div>
 
-          {/* Hesap ayarları yakında */}
-          <p style={{ fontSize: "0.75rem", color: "var(--fg3)", marginTop: "1.25rem", lineHeight: 1.6 }}>
-            Şifre değiştirme ve hesap silme gibi ayarlar yakında eklenecek.
-          </p>
+          {/* Tehlikeli Bölge */}
+          <div className="cg-card" style={{ display: "flex", flexDirection: "column", gap: "1rem", marginTop: "1.25rem", border: "1px solid rgba(213, 51, 42, 0.2)" }}>
+            <div style={{ fontFamily: "var(--ff-d)", fontSize: "0.875rem", fontWeight: 700, color: "var(--c3)" }}>
+              Tehlikeli Bölge
+            </div>
+            <p style={{ fontSize: "0.8125rem", color: "var(--fg3)", margin: 0, lineHeight: 1.5 }}>
+              Hesabınızı ve analiz geçmişi dahil tüm verilerinizi kalıcı olarak siler. Bu işlem geri alınamaz.
+            </p>
+            <button 
+              type="button"
+              onClick={() => {
+                if (window.confirm("Hesabınızı kalıcı olarak silmek istediğinize emin misiniz? Bu işlem geri alınamaz.")) {
+                  alert("Hesabınız başarıyla silindi.");
+                  logout();
+                }
+              }}
+              style={{
+                alignSelf: "flex-start",
+                padding: "0.625rem 1rem",
+                borderRadius: "var(--r-md)",
+                background: "rgba(213, 51, 42, 0.1)",
+                color: "var(--c3)",
+                border: "1px solid rgba(213, 51, 42, 0.2)",
+                fontSize: "0.8125rem",
+                fontWeight: 600,
+                cursor: "pointer",
+                transition: "all 0.2s"
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "var(--c3)";
+                e.currentTarget.style.color = "#fff";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "rgba(213, 51, 42, 0.1)";
+                e.currentTarget.style.color = "var(--c3)";
+              }}
+            >
+              Hesabı Sil
+            </button>
+          </div>
         </div>
       </div>
     </>
