@@ -94,6 +94,8 @@ def get_history(
             "product_name": a.result_data.get("product_name") if a.result_data else None,
             "store_name": a.result_data.get("store_name") if a.result_data else None,
             "created_at": a.created_at.isoformat() if a.created_at else None,
+            "price_history": a.result_data.get("price_history") if a.result_data else None,
+            "price_analysis": a.result_data.get("price_analysis") if a.result_data else None,
         }
         for a in analyses
     ]

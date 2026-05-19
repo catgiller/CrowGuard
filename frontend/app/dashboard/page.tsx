@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { fetchAnalysisHistory, type HistoryItem } from "@/lib/analysis";
+import { fetchAnalysisHistory, type HistoryItem, formatTry } from "@/lib/analysis";
 import { getToken } from "@/lib/auth";
 import { MenuButton } from "@/components/menu-button";
 import { useDashboard } from "@/contexts/dashboard-context";
@@ -161,6 +161,22 @@ export default function DashboardPage() {
                     <div className="history-name">{item.product_name || "Ürün analizi"}</div>
                     <div className="history-meta">{item.store_name || "Analiz"}</div>
                   </div>
+                  {item.price_history && item.price_history.length > 0 && (
+                    <div className="price-bars" style={{ margin: "0 1rem", alignSelf: "center" }}>
+                      {(() => {
+                        const bars = item.price_history.slice(-12);
+                        const maxPrice = Math.max(...item.price_history.map(p => p.price), 1);
+                        return bars.map((p, i) => (
+                          <div
+                            key={`${p.date}-${i}`}
+                            className={`pbar ${i === bars.length - 1 ? "hi" : ""}`}
+                            style={{ height: `${Math.max(8, (p.price / maxPrice) * 100)}%` }}
+                            title={`${p.date}: ${formatTry(p.price)}`}
+                          />
+                        ));
+                      })()}
+                    </div>
+                  )}
                 </Link>
               ))
             ) : (
