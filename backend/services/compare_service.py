@@ -25,7 +25,6 @@ def _detect_store_base(url: str) -> str | None:
 
 
 def _extract_slug(url: str) -> str | None:
-    # /products/[slug] pattern
     import re
     m = re.search(r"/products/([^/?#]+)", url)
     return m.group(1) if m else None
