@@ -14,7 +14,11 @@
       "Bash(mkdir -p \"C:/Users/aizaw/Pitoresk/shoprill/app/api/products/[slug]/price-history\")",
       "Bash(mkdir -p \"C:/Users/aizaw/Pitoresk/carsila/app/api/products/[slug]/reviews\")",
       "Bash(mkdir -p \"C:/Users/aizaw/Pitoresk/carsila/app/api/products/[slug]/price-history\")",
-      "Read(//mnt/c/Users/aizaw/Pitoresk/backend/**)"
+      "Read(//mnt/c/Users/aizaw/Pitoresk/backend/**)",
+      "Bash(dir /s /b \"C:\\\\Users\\\\aizaw\\\\Pitoresk\")",
+      "Bash(findstr /i \"eksiklik\")",
+      "PowerShell($pkg = Get-Content \"C:\\\\Users\\\\aizaw\\\\Pitoresk\\\\frontend\\\\package.json\" | ConvertFrom-Json; $pkg.dependencies; $pkg.devDependencies)",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\aizaw\\\\Pitoresk\\\\frontend\\\\app\" -Recurse -File | Select-Object -ExpandProperty FullName | Where-Object { $_ -match \"pricing|contact|dashboard\" })"
     ]
   }
 }
