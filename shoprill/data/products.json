@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "slug": "samsung-galaxy-a55-5g",
+    "slug": "solvex-galax-a55-5g-128gb",
     "name": "Solvex Galax A55 5G 128GB",
     "brand": "Solvex",
     "category": "Elektronik",
@@ -16,8 +16,8 @@
       "128GB dahili depolama"
     ],
     "images": [
-      "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=600&q=80",
       "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600&q=80",
+      "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=600&q=80",
       "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=600&q=80"
     ],
     "prices": {
@@ -29,25 +29,8 @@
       "shoprill": 23
     },
     "rating": 4.4,
-    "reviewCount": 318,
+    "reviewCount": 11,
     "badge": "Çok Satan",
-    "starRatings": [
-      5,
-      5,
-      4,
-      5,
-      4,
-      5,
-      3,
-      5,
-      4,
-      5,
-      4,
-      4,
-      5,
-      4,
-      3
-    ],
     "reviews": [
       {
         "author": "Mehmet A.",
@@ -77,7 +60,7 @@
         "author": "Emre Y.",
         "stars": 5,
         "date": "2026-02-08",
-        "text": "Önceki telefonum A32'ydi, bu çok daha hızlı. Satın almaktan pişman olmadım kesinlikle."
+        "text": "Önceki telefonum Galax A32'ydi, bu çok daha hızlı. Satın almaktan pişman olmadım kesinlikle."
       },
       {
         "author": "Ceren U.",
@@ -169,7 +152,7 @@
   },
   {
     "id": 2,
-    "slug": "sony-wh-1000xm5-kulaklik",
+    "slug": "aurex-nc-5000xm-kulaklik",
     "name": "Aurex NC-5000XM Kablosuz Kulaklık",
     "brand": "Aurex",
     "category": "Elektronik",
@@ -179,7 +162,7 @@
       "Lider gürültü engelleme",
       "30 saat pil ömrü",
       "Çoklu nokta bağlantı",
-      "360 Reality Audio",
+      "360 Surround Audio",
       "USB-C şarj",
       "Katlanabilir tasarım"
     ],
@@ -196,26 +179,9 @@
       "carsila": 18,
       "shoprill": 31
     },
-    "rating": 4.8,
-    "reviewCount": 553,
+    "rating": 4.7,
+    "reviewCount": 12,
     "badge": "En Beğenilen",
-    "starRatings": [
-      5,
-      5,
-      5,
-      5,
-      4,
-      5,
-      5,
-      5,
-      4,
-      5,
-      5,
-      5,
-      4,
-      5,
-      5
-    ],
     "reviews": [
       {
         "author": "Can Ö.",
@@ -251,7 +217,7 @@
         "author": "Alp K.",
         "stars": 4,
         "date": "2026-02-15",
-        "text": "XM4 kullanıyordum, bu çok daha hafif ve ses kalitesi biraz daha iyi. Tavsiye ederim."
+        "text": "NC-4000 kullanıyordum, bu çok daha hafif ve ses kalitesi biraz daha iyi. Tavsiye ederim."
       },
       {
         "author": "Serap T.",
@@ -343,19 +309,19 @@
   },
   {
     "id": 3,
-    "slug": "apple-ipad-10-nesil-wifi",
+    "slug": "nexium-pad-10-nesil-wifi",
     "name": "Nexium Pad 10. Nesil 64GB WiFi",
     "brand": "Nexium",
     "category": "Elektronik",
     "subcategory": "Tablet",
-    "description": "Nexium Pad, A14 nesli işlemcisi ile güçlendirilmiş 10.9 inç Liquid Retina ekranı, 12MP geniş açı kamerası ve tüm gün süren pil ömrüyle üretkenliğinizi artırır.",
+    "description": "Nexium Pad, Hexon nesli işlemcisi ile güçlendirilmiş 10.9 inç Pro Vision ekranı, 12MP geniş açı kamerası ve tüm gün süren pil ömrüyle üretkenliğinizi artırır.",
     "features": [
-      "10.9 inç Liquid Retina ekran",
-      "A14 Bionic çip",
+      "10.9 inç Pro Vision ekran",
+      "Hexon 1480 çip",
       "12MP arka / 12MP ultrawide ön kamera",
       "USB-C bağlantı noktası",
       "WiFi 6 desteği",
-      "iPadOS 17"
+      "PadOS 17"
     ],
     "images": [
       "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600&q=80",
@@ -370,24 +336,9 @@
       "carsila": 12,
       "shoprill": 8
     },
-    "rating": 4.6,
-    "reviewCount": 234,
+    "rating": 4.4,
+    "reviewCount": 10,
     "badge": "İndirim",
-    "starRatings": [
-      5,
-      4,
-      5,
-      5,
-      4,
-      4,
-      5,
-      5,
-      3,
-      4,
-      5,
-      4,
-      5
-    ],
     "reviews": [
       {
         "author": "Arda N.",
@@ -503,7 +454,7 @@
   },
   {
     "id": 4,
-    "slug": "xiaomi-smart-band-8-pro",
+    "slug": "mirix-smart-band-8-pro",
     "name": "Mirix Smart Band 8 Pro Akıllı Bileklik",
     "brand": "Mirix",
     "category": "Elektronik",
@@ -518,9 +469,9 @@
       "5ATM su geçirmezlik"
     ],
     "images": [
-      "https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=600&q=80",
-      "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=600&q=80",
-      "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&q=80"
+      "https://images.unsplash.com/photo-1575311373937-040b8e1fd5b5?w=600&q=80",
+      "https://images.unsplash.com/photo-1557935738-59d1aeadf9e6?w=600&q=80",
+      "https://images.unsplash.com/photo-1508685096489-7cfad8fb3a6e?w=600&q=80"
     ],
     "prices": {
       "carsila": 1799,
@@ -530,26 +481,9 @@
       "carsila": 84,
       "shoprill": 56
     },
-    "rating": 3.9,
-    "reviewCount": 897,
+    "rating": 3.6,
+    "reviewCount": 10,
     "badge": "Çok Satan",
-    "starRatings": [
-      5,
-      5,
-      4,
-      5,
-      4,
-      5,
-      2,
-      5,
-      4,
-      5,
-      1,
-      4,
-      5,
-      4,
-      3
-    ],
     "reviews": [
       {
         "author": "Kaan Y.",
@@ -665,7 +599,7 @@
   },
   {
     "id": 5,
-    "slug": "anker-powercore-20000-powerbank",
+    "slug": "voltex-powercore-20000-powerbank",
     "name": "Voltex PowerCore 20000mAh Powerbank",
     "brand": "Voltex",
     "category": "Elektronik",
@@ -692,25 +626,8 @@
       "shoprill": 75
     },
     "rating": 3.8,
-    "reviewCount": 1249,
+    "reviewCount": 9,
     "badge": "Çok Satan",
-    "starRatings": [
-      5,
-      5,
-      4,
-      1,
-      5,
-      5,
-      4,
-      1,
-      5,
-      2,
-      5,
-      1,
-      4,
-      5,
-      5
-    ],
     "reviews": [
       {
         "author": "Orhan D.",
@@ -820,7 +737,7 @@
   },
   {
     "id": 6,
-    "slug": "delonghi-magnifica-evo-kahve",
+    "slug": "caldero-magnifica-evo-kahve",
     "name": "Caldero Magnifica Evo Otomatik Kahve Makinesi",
     "brand": "Caldero",
     "category": "Ev & Yaşam",
@@ -847,23 +764,9 @@
       "carsila": 9,
       "shoprill": 14
     },
-    "rating": 4.5,
-    "reviewCount": 173,
+    "rating": 4.7,
+    "reviewCount": 9,
     "badge": "Premium",
-    "starRatings": [
-      5,
-      5,
-      4,
-      5,
-      5,
-      4,
-      4,
-      5,
-      5,
-      4,
-      5,
-      4
-    ],
     "reviews": [
       {
         "author": "Serpil A.",
@@ -973,7 +876,7 @@
   },
   {
     "id": 7,
-    "slug": "philips-blender-hr2221",
+    "slug": "luxon-blender-br2221",
     "name": "Luxon BR2221 Blender Seti",
     "brand": "Luxon",
     "category": "Ev & Yaşam",
@@ -999,26 +902,9 @@
       "carsila": 63,
       "shoprill": 41
     },
-    "rating": 3.6,
-    "reviewCount": 434,
+    "rating": 3.4,
+    "reviewCount": 9,
     "badge": "İndirim",
-    "starRatings": [
-      4,
-      4,
-      5,
-      1,
-      4,
-      4,
-      2,
-      4,
-      4,
-      1,
-      5,
-      4,
-      3,
-      4,
-      3
-    ],
     "reviews": [
       {
         "author": "Hande Y.",
@@ -1154,26 +1040,9 @@
       "carsila": 200,
       "shoprill": 155
     },
-    "rating": 3.5,
-    "reviewCount": 640,
+    "rating": 3.4,
+    "reviewCount": 9,
     "badge": "Çok Satan",
-    "starRatings": [
-      4,
-      4,
-      1,
-      4,
-      5,
-      1,
-      4,
-      4,
-      2,
-      4,
-      4,
-      1,
-      5,
-      3,
-      4
-    ],
     "reviews": [
       {
         "author": "Nilay Ö.",
@@ -1283,7 +1152,7 @@
   },
   {
     "id": 9,
-    "slug": "philips-hue-akilli-ampul-e27",
+    "slug": "luxon-hue-akilli-ampul-e27",
     "name": "Luxon Hue White & Color E27 Akıllı Ampul",
     "brand": "Luxon",
     "category": "Ev & Yaşam",
@@ -1298,8 +1167,9 @@
       "25.000 saat ömür"
     ],
     "images": [
-      "https://images.unsplash.com/photo-1507494924047-60b8ee826ca9?w=600&q=80",
-      "https://images.unsplash.com/photo-1565814636199-ae8133055c1c?w=600&q=80"
+      "https://images.unsplash.com/photo-1507473886154-e7cc7a3c7f7e?w=600&q=80",
+      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80",
+      "https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=600&q=80"
     ],
     "prices": {
       "carsila": 699,
@@ -1309,23 +1179,9 @@
       "carsila": 88,
       "shoprill": 62
     },
-    "rating": 4.6,
-    "reviewCount": 318,
+    "rating": 4.7,
+    "reviewCount": 9,
     "badge": "Yeni",
-    "starRatings": [
-      5,
-      5,
-      4,
-      5,
-      5,
-      4,
-      5,
-      5,
-      4,
-      5,
-      4,
-      5
-    ],
     "reviews": [
       {
         "author": "Serhan D.",
@@ -1461,23 +1317,9 @@
       "carsila": 35,
       "shoprill": 19
     },
-    "rating": 4.3,
-    "reviewCount": 195,
+    "rating": 4.1,
+    "reviewCount": 9,
     "badge": "Yerli Üretim",
-    "starRatings": [
-      4,
-      5,
-      4,
-      4,
-      3,
-      4,
-      5,
-      4,
-      4,
-      5,
-      4,
-      3
-    ],
     "reviews": [
       {
         "author": "Güneş A.",
@@ -1587,7 +1429,7 @@
   },
   {
     "id": 11,
-    "slug": "columbia-trek-sweatshirt",
+    "slug": "arcova-trek-sweatshirt",
     "name": "Arcova Trek Sweatshirt Unisex",
     "brand": "Arcova",
     "category": "Giyim",
@@ -1614,23 +1456,8 @@
       "shoprill": 67
     },
     "rating": 4.4,
-    "reviewCount": 509,
+    "reviewCount": 9,
     "badge": "Çok Satan",
-    "starRatings": [
-      5,
-      4,
-      5,
-      4,
-      4,
-      5,
-      4,
-      5,
-      4,
-      5,
-      4,
-      4,
-      5
-    ],
     "reviews": [
       {
         "author": "Berk Y.",
@@ -1740,7 +1567,7 @@
   },
   {
     "id": 12,
-    "slug": "nike-air-max-270-spor-ayakkabi",
+    "slug": "strida-airmax-270-spor-ayakkabi",
     "name": "Strida AirMax 270 Erkek Spor Ayakkabı",
     "brand": "Strida",
     "category": "Giyim",
@@ -1767,24 +1594,9 @@
       "carsila": 28,
       "shoprill": 42
     },
-    "rating": 4.5,
-    "reviewCount": 724,
+    "rating": 4.6,
+    "reviewCount": 9,
     "badge": "En Beğenilen",
-    "starRatings": [
-      5,
-      4,
-      5,
-      5,
-      4,
-      5,
-      4,
-      5,
-      5,
-      4,
-      5,
-      4,
-      5
-    ],
     "reviews": [
       {
         "author": "Cem A.",
@@ -1894,7 +1706,7 @@
   },
   {
     "id": 13,
-    "slug": "columbia-titanium-winter-mont",
+    "slug": "arcova-thermashield-kis-mont",
     "name": "Arcova ThermaShield Kışlık Mont",
     "brand": "Arcova",
     "category": "Giyim",
@@ -1909,8 +1721,9 @@
       "Makine yıkama uyumlu"
     ],
     "images": [
+      "https://images.unsplash.com/photo-1539533113208-f6df8cc8b5ec?w=600&q=80",
       "https://images.unsplash.com/photo-1544923246-77307dd270b5?w=600&q=80",
-      "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600&q=80"
+      "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=600&q=80"
     ],
     "prices": {
       "carsila": 5499,
@@ -1921,21 +1734,8 @@
       "shoprill": 16
     },
     "rating": 4.7,
-    "reviewCount": 290,
+    "reviewCount": 9,
     "badge": "Premium",
-    "starRatings": [
-      5,
-      5,
-      4,
-      5,
-      5,
-      5,
-      4,
-      5,
-      5,
-      4,
-      5
-    ],
     "reviews": [
       {
         "author": "Yağmur B.",
@@ -2045,7 +1845,7 @@
   },
   {
     "id": 14,
-    "slug": "mango-mini-deri-omuz-canta",
+    "slug": "velia-mini-deri-omuz-canta",
     "name": "Velia Mini Deri Omuz Çantası",
     "brand": "Velia",
     "category": "Giyim",
@@ -2071,22 +1871,9 @@
       "carsila": 41,
       "shoprill": 29
     },
-    "rating": 4.2,
-    "reviewCount": 162,
+    "rating": 4.1,
+    "reviewCount": 9,
     "badge": "Yeni",
-    "starRatings": [
-      4,
-      4,
-      5,
-      3,
-      4,
-      5,
-      4,
-      4,
-      3,
-      5,
-      4
-    ],
     "reviews": [
       {
         "author": "Pınar M.",
@@ -2196,7 +1983,7 @@
   },
   {
     "id": 15,
-    "slug": "rayban-rb3025-gunes-gozlugu",
+    "slug": "solvista-sv3025-gunes-gozlugu",
     "name": "SolVista SV3025 Aviator Güneş Gözlüğü",
     "brand": "SolVista",
     "category": "Giyim",
@@ -2222,22 +2009,9 @@
       "carsila": 15,
       "shoprill": 22
     },
-    "rating": 4.8,
-    "reviewCount": 398,
+    "rating": 4.7,
+    "reviewCount": 9,
     "badge": "Klasik",
-    "starRatings": [
-      5,
-      5,
-      5,
-      4,
-      5,
-      5,
-      5,
-      4,
-      5,
-      5,
-      5
-    ],
     "reviews": [
       {
         "author": "Alper T.",
@@ -2347,7 +2121,7 @@
   },
   {
     "id": 16,
-    "slug": "cerave-retinol-serum-30ml",
+    "slug": "dermace-retinol-serum-30ml",
     "name": "Dermaçe Retinol Serum 30ml Yaşlanma Karşıtı",
     "brand": "Dermaçe",
     "category": "Sağlık & Güzellik",
@@ -2373,24 +2147,9 @@
       "carsila": 145,
       "shoprill": 98
     },
-    "rating": 4.5,
-    "reviewCount": 873,
+    "rating": 4.4,
+    "reviewCount": 10,
     "badge": "Dermatolog Seçimi",
-    "starRatings": [
-      5,
-      4,
-      5,
-      5,
-      4,
-      5,
-      4,
-      5,
-      4,
-      4,
-      5,
-      4,
-      5
-    ],
     "reviews": [
       {
         "author": "Merve S.",
@@ -2506,7 +2265,7 @@
   },
   {
     "id": 17,
-    "slug": "gillette-labs-isitmali-tiraz-seti",
+    "slug": "razex-labs-isitmali-tiraz-seti",
     "name": "Razex Labs Isıtmalı Tıraş Seti",
     "brand": "Razex",
     "category": "Sağlık & Güzellik",
@@ -2532,23 +2291,9 @@
       "carsila": 37,
       "shoprill": 25
     },
-    "rating": 4.3,
-    "reviewCount": 240,
+    "rating": 4.1,
+    "reviewCount": 9,
     "badge": "Yeni Teknoloji",
-    "starRatings": [
-      4,
-      4,
-      5,
-      3,
-      4,
-      5,
-      4,
-      4,
-      3,
-      4,
-      5,
-      4
-    ],
     "reviews": [
       {
         "author": "Hakan D.",
@@ -2658,7 +2403,7 @@
   },
   {
     "id": 18,
-    "slug": "dyson-supersonic-sac-kurutma",
+    "slug": "xyron-supersonic-sac-kurutma",
     "name": "Xyron Supersonic Saç Kurutma Makinesi",
     "brand": "Xyron",
     "category": "Sağlık & Güzellik",
@@ -2685,22 +2430,8 @@
       "shoprill": 18
     },
     "rating": 4.7,
-    "reviewCount": 451,
+    "reviewCount": 9,
     "badge": "Premium",
-    "starRatings": [
-      5,
-      5,
-      4,
-      5,
-      5,
-      5,
-      4,
-      5,
-      5,
-      4,
-      5,
-      5
-    ],
     "reviews": [
       {
         "author": "Ayla T.",
@@ -2810,7 +2541,7 @@
   },
   {
     "id": 19,
-    "slug": "chanel-chance-eau-tendre-edt-100ml",
+    "slug": "elare-charme-eau-tendre-edt-100ml",
     "name": "Élare Charme Eau Tendre EDT 100ml",
     "brand": "Élare",
     "category": "Sağlık & Güzellik",
@@ -2837,24 +2568,9 @@
       "carsila": 24,
       "shoprill": 17
     },
-    "rating": 4.9,
-    "reviewCount": 629,
+    "rating": 4.7,
+    "reviewCount": 10,
     "badge": "En Beğenilen",
-    "starRatings": [
-      5,
-      5,
-      5,
-      5,
-      4,
-      5,
-      5,
-      5,
-      5,
-      4,
-      5,
-      5,
-      5
-    ],
     "reviews": [
       {
         "author": "Özge M.",
@@ -2970,7 +2686,7 @@
   },
   {
     "id": 20,
-    "slug": "oralb-io-series-9-elektrikli-fircasi",
+    "slug": "dentix-iq-series-9-elektrikli-fircasi",
     "name": "Dentix iQ Series 9 Elektrikli Diş Fırçası",
     "brand": "Dentix",
     "category": "Sağlık & Güzellik",
@@ -2985,8 +2701,9 @@
       "14 gün pil ömrü"
     ],
     "images": [
-      "https://images.unsplash.com/photo-1559590179-cde55c14db44?w=600&q=80",
-      "https://images.unsplash.com/photo-1609587312208-cea54be969e7?w=600&q=80"
+      "https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?w=600&q=80",
+      "https://images.unsplash.com/photo-1559592371-7d3d1a2d4e6d?w=600&q=80",
+      "https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=600&q=80"
     ],
     "prices": {
       "carsila": 3499,
@@ -2997,22 +2714,8 @@
       "shoprill": 38
     },
     "rating": 4.4,
-    "reviewCount": 393,
+    "reviewCount": 9,
     "badge": "Diş Hekimi Seçimi",
-    "starRatings": [
-      5,
-      4,
-      5,
-      4,
-      4,
-      5,
-      4,
-      5,
-      4,
-      5,
-      4,
-      4
-    ],
     "reviews": [
       {
         "author": "Figen A.",
@@ -3122,7 +2825,7 @@
   },
   {
     "id": 21,
-    "slug": "manduka-pro-yoga-mati",
+    "slug": "zenuga-pro-yoga-mati",
     "name": "Zenuga PRO Yoga Matı 6mm 180cm",
     "brand": "Zenuga",
     "category": "Spor & Outdoor",
@@ -3148,21 +2851,9 @@
       "carsila": 33,
       "shoprill": 21
     },
-    "rating": 4.8,
-    "reviewCount": 282,
+    "rating": 4.7,
+    "reviewCount": 9,
     "badge": "Profesyonel Seçim",
-    "starRatings": [
-      5,
-      5,
-      5,
-      4,
-      5,
-      5,
-      5,
-      4,
-      5,
-      5
-    ],
     "reviews": [
       {
         "author": "Duygu T.",
@@ -3272,7 +2963,7 @@
   },
   {
     "id": 22,
-    "slug": "giro-register-mips-bisiklet-kaski",
+    "slug": "veloce-shield-mips-bisiklet-kaski",
     "name": "Veloce Shield MIPS Bisiklet Kaskı",
     "brand": "Veloce",
     "category": "Spor & Outdoor",
@@ -3287,8 +2978,9 @@
       "300g ağırlık"
     ],
     "images": [
-      "https://images.unsplash.com/photo-1557803175-2f8c24e3ae8b?w=600&q=80",
-      "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=600&q=80"
+      "https://images.unsplash.com/photo-1585776245991-aa3e66f2c2c0?w=600&q=80",
+      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80",
+      "https://images.unsplash.com/photo-1485965120189-e8f992113851?w=600&q=80"
     ],
     "prices": {
       "carsila": 1499,
@@ -3298,21 +2990,9 @@
       "carsila": 44,
       "shoprill": 30
     },
-    "rating": 4.5,
-    "reviewCount": 204,
+    "rating": 4.6,
+    "reviewCount": 9,
     "badge": "Güvenli Sürüş",
-    "starRatings": [
-      5,
-      4,
-      5,
-      5,
-      4,
-      5,
-      4,
-      5,
-      4,
-      5
-    ],
     "reviews": [
       {
         "author": "Çağlar A.",
@@ -3422,7 +3102,7 @@
   },
   {
     "id": 23,
-    "slug": "myprotein-impact-whey-1kg-cikolatali",
+    "slug": "maxpro-impact-whey-1kg-cikolatali",
     "name": "MaxPro Impact Whey Protein 1kg Çikolatalı",
     "brand": "MaxPro",
     "category": "Spor & Outdoor",
@@ -3448,24 +3128,9 @@
       "carsila": 110,
       "shoprill": 87
     },
-    "rating": 4.3,
-    "reviewCount": 1095,
+    "rating": 4.2,
+    "reviewCount": 10,
     "badge": "Sporcunun Favorisi",
-    "starRatings": [
-      4,
-      5,
-      4,
-      4,
-      3,
-      5,
-      4,
-      4,
-      5,
-      4,
-      3,
-      5,
-      4
-    ],
     "reviews": [
       {
         "author": "Oğuzhan K.",
@@ -3581,7 +3246,7 @@
   },
   {
     "id": 24,
-    "slug": "domyos-t520b-kosu-bandi",
+    "slug": "rythmex-t520b-kosu-bandi",
     "name": "Rythmex T520B Koşu Bandı",
     "brand": "Rythmex",
     "category": "Spor & Outdoor",
@@ -3596,8 +3261,9 @@
       "Kalp ritmi sensörü"
     ],
     "images": [
-      "https://images.unsplash.com/photo-1576678927484-cc907957088c?w=600&q=80",
-      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=600&q=80"
+      "https://images.unsplash.com/photo-1576678927484-cc9079570885?w=600&q=80",
+      "https://images.unsplash.com/photo-1571902943202-507ec2618d8d?w=600&q=80",
+      "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=600&q=80"
     ],
     "prices": {
       "carsila": 14999,
@@ -3607,22 +3273,9 @@
       "carsila": 7,
       "shoprill": 11
     },
-    "rating": 4.2,
-    "reviewCount": 148,
+    "rating": 4.1,
+    "reviewCount": 9,
     "badge": "Ev Sporu",
-    "starRatings": [
-      4,
-      4,
-      5,
-      3,
-      4,
-      4,
-      5,
-      4,
-      3,
-      4,
-      5
-    ],
     "reviews": [
       {
         "author": "Şükran A.",
@@ -3732,7 +3385,7 @@
   },
   {
     "id": 25,
-    "slug": "quechua-mh100-kamp-cadiri",
+    "slug": "campora-mh100-kamp-cadiri",
     "name": "Campora MH100 2 Kişilik Kamp Çadırı",
     "brand": "Campora",
     "category": "Spor & Outdoor",
@@ -3758,23 +3411,9 @@
       "carsila": 58,
       "shoprill": 43
     },
-    "rating": 4.4,
-    "reviewCount": 340,
+    "rating": 4.5,
+    "reviewCount": 10,
     "badge": "Outdoor Vazgeçilmezi",
-    "starRatings": [
-      5,
-      4,
-      4,
-      5,
-      4,
-      5,
-      4,
-      5,
-      4,
-      4,
-      5,
-      4
-    ],
     "reviews": [
       {
         "author": "Onur B.",
@@ -3890,7 +3529,7 @@
   },
   {
     "id": 26,
-    "slug": "vans-old-skool-charms-kadin-beyaz",
+    "slug": "chaarm-lx-retro-charms-kadin-beyaz",
     "name": "Chaarm LX Retro Charms Kadın Beyaz Spor Ayakkabı",
     "brand": "Chaarm",
     "category": "Giyim",
@@ -3916,36 +3555,9 @@
       "carsila": 31,
       "shoprill": 18
     },
-    "rating": 4.6,
-    "reviewCount": 93,
+    "rating": 4.4,
+    "reviewCount": 9,
     "badge": "Trend",
-    "starRatings": [
-      5,
-      5,
-      4,
-      5,
-      4,
-      5,
-      4,
-      5,
-      5,
-      4,
-      5,
-      4,
-      5,
-      4,
-      5,
-      5,
-      4,
-      5,
-      4,
-      5,
-      5,
-      5,
-      4,
-      5,
-      5
-    ],
     "reviews": [
       {
         "author": "Zehra K.",
@@ -4084,35 +3696,8 @@
       "shoprill": 5
     },
     "rating": 3.9,
-    "reviewCount": 59,
+    "reviewCount": 9,
     "badge": "Elektrikli",
-    "starRatings": [
-      5,
-      4,
-      5,
-      4,
-      4,
-      5,
-      5,
-      2,
-      5,
-      4,
-      1,
-      5,
-      4,
-      5,
-      5,
-      4,
-      5,
-      5,
-      4,
-      5,
-      5,
-      4,
-      5,
-      4,
-      5
-    ],
     "reviews": [
       {
         "author": "Caner M.",
@@ -4238,7 +3823,8 @@
     ],
     "images": [
       "https://images.unsplash.com/photo-1562157873-818bc0726f68?w=600&q=80",
-      "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600&q=80"
+      "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&q=80",
+      "https://images.unsplash.com/photo-1496747611176-843222e1ad04?w=600&q=80"
     ],
     "prices": {
       "carsila": 599,
@@ -4248,35 +3834,9 @@
       "carsila": 42,
       "shoprill": 28
     },
-    "rating": 4.5,
-    "reviewCount": 49,
+    "rating": 4.4,
+    "reviewCount": 9,
     "badge": "Y2K",
-    "starRatings": [
-      5,
-      5,
-      4,
-      5,
-      4,
-      5,
-      5,
-      4,
-      5,
-      4,
-      5,
-      4,
-      5,
-      5,
-      4,
-      5,
-      4,
-      5,
-      5,
-      4,
-      5,
-      5,
-      4,
-      5
-    ],
     "reviews": [
       {
         "author": "Nil T.",
@@ -4412,36 +3972,9 @@
       "carsila": 19,
       "shoprill": 14
     },
-    "rating": 3.7,
-    "reviewCount": 73,
+    "rating": 3.6,
+    "reviewCount": 9,
     "badge": "Vintage",
-    "starRatings": [
-      4,
-      5,
-      4,
-      4,
-      1,
-      5,
-      4,
-      2,
-      5,
-      4,
-      1,
-      4,
-      4,
-      5,
-      4,
-      4,
-      3,
-      5,
-      4,
-      4,
-      5,
-      4,
-      5,
-      4,
-      4
-    ],
     "reviews": [
       {
         "author": "Kerem B.",
@@ -4577,36 +4110,9 @@
       "carsila": 22,
       "shoprill": 17
     },
-    "rating": 4.8,
-    "reviewCount": 37,
+    "rating": 4.7,
+    "reviewCount": 9,
     "badge": "Koleksiyoner",
-    "starRatings": [
-      5,
-      5,
-      5,
-      4,
-      5,
-      5,
-      5,
-      5,
-      4,
-      5,
-      5,
-      5,
-      4,
-      5,
-      5,
-      5,
-      5,
-      4,
-      5,
-      5,
-      5,
-      5,
-      5,
-      4,
-      5
-    ],
     "reviews": [
       {
         "author": "Alara N.",
@@ -4742,36 +4248,9 @@
       "carsila": 58,
       "shoprill": 44
     },
-    "rating": 4.1,
-    "reviewCount": 162,
+    "rating": 4.2,
+    "reviewCount": 9,
     "badge": "Vintage",
-    "starRatings": [
-      4,
-      4,
-      5,
-      3,
-      4,
-      4,
-      5,
-      4,
-      4,
-      3,
-      5,
-      4,
-      4,
-      5,
-      4,
-      3,
-      4,
-      5,
-      4,
-      4,
-      5,
-      4,
-      4,
-      3,
-      5
-    ],
     "reviews": [
       {
         "author": "Taner G.",
@@ -4881,7 +4360,7 @@
   },
   {
     "id": 32,
-    "slug": "fifine-ampligame-usb-xlr-mikrofon",
+    "slug": "soundix-ampligame-usb-xlr-mikrofon",
     "name": "Soundix AmpliGame USB/XLR Dinamik Mikrofon RGB",
     "brand": "Soundix",
     "category": "Elektronik",
@@ -4907,36 +4386,9 @@
       "carsila": 73,
       "shoprill": 51
     },
-    "rating": 4.5,
-    "reviewCount": 240,
+    "rating": 4.6,
+    "reviewCount": 9,
     "badge": "Gaming",
-    "starRatings": [
-      5,
-      4,
-      5,
-      5,
-      4,
-      5,
-      4,
-      5,
-      4,
-      5,
-      4,
-      5,
-      5,
-      4,
-      5,
-      4,
-      5,
-      5,
-      4,
-      5,
-      4,
-      5,
-      4,
-      5,
-      5
-    ],
     "reviews": [
       {
         "author": "Arda K.",
@@ -5074,35 +4526,8 @@
       "shoprill": 19
     },
     "rating": 3.4,
-    "reviewCount": 95,
+    "reviewCount": 9,
     "badge": "Ergonomik",
-    "starRatings": [
-      4,
-      5,
-      1,
-      4,
-      5,
-      1,
-      4,
-      4,
-      2,
-      4,
-      4,
-      1,
-      5,
-      4,
-      4,
-      3,
-      4,
-      1,
-      4,
-      5,
-      4,
-      4,
-      5,
-      4,
-      4
-    ],
     "reviews": [
       {
         "author": "Gökhan Y.",
@@ -5212,7 +4637,7 @@
   },
   {
     "id": 34,
-    "slug": "xbox-wireless-controller-siyah-9nesil",
+    "slug": "nexplay-wireless-controller-siyah-9nesil",
     "name": "Nexplay Wireless Controller Siyah 9. Nesil",
     "brand": "Nexplay",
     "category": "Elektronik",
@@ -5223,12 +4648,13 @@
       "USB-C bağlantı",
       "Hibrit D-pad",
       "Geliştirilmiş grip yüzey",
-      "Xbox/PC/Android/iOS uyumlu",
+      "Konsol/PC/Android/iOS uyumlu",
       "Türkiye garantili"
     ],
     "images": [
-      "https://images.unsplash.com/photo-1592840496694-26d035b52b48?w=600&q=80",
-      "https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=600&q=80"
+      "https://images.unsplash.com/photo-1606144047084-dbf4de440d0f?w=600&q=80",
+      "https://images.unsplash.com/photo-1612287230202-1ff1d85c1d53?w=600&q=80",
+      "https://images.unsplash.com/photo-1592840496694-26d035b52b6b?w=600&q=80"
     ],
     "prices": {
       "carsila": 2199,
@@ -5238,32 +4664,15 @@
       "carsila": 62,
       "shoprill": 47
     },
-    "rating": 4.8,
-    "reviewCount": 1853,
+    "rating": 4.7,
+    "reviewCount": 10,
     "badge": "9. Nesil",
-    "starRatings": [
-      5,
-      5,
-      5,
-      4,
-      5,
-      5,
-      5,
-      5,
-      4,
-      5,
-      5,
-      5,
-      5,
-      4,
-      5
-    ],
     "reviews": [
       {
         "author": "Buğra T.",
         "stars": 5,
         "date": "2026-05-04",
-        "text": "Xbox Series X ile aldım. Grip çok iyi, D-pad öncekine göre çok daha hassas. Bluetooth gecikmesi yok."
+        "text": "Nexplay Series X ile aldım. Grip çok iyi, D-pad öncekine göre çok daha hassas. Bluetooth gecikmesi yok."
       },
       {
         "author": "Furkan A.",
@@ -5373,7 +4782,7 @@
   },
   {
     "id": 35,
-    "slug": "defacto-klasik-genis-paca-pantolon",
+    "slug": "factora-klasik-genis-paca-pantolon",
     "name": "Factora Klasik Kesim Geniş Paça Pantolon",
     "brand": "Factora",
     "category": "Giyim",
@@ -5399,36 +4808,9 @@
       "carsila": 94,
       "shoprill": 72
     },
-    "rating": 4.2,
-    "reviewCount": 351,
+    "rating": 4.1,
+    "reviewCount": 9,
     "badge": "Çok Satan",
-    "starRatings": [
-      4,
-      4,
-      5,
-      3,
-      4,
-      4,
-      5,
-      4,
-      4,
-      3,
-      5,
-      4,
-      4,
-      5,
-      4,
-      3,
-      4,
-      5,
-      4,
-      4,
-      5,
-      4,
-      4,
-      3,
-      4
-    ],
     "reviews": [
       {
         "author": "Tolga A.",
@@ -5553,8 +4935,9 @@
       "S-XL beden"
     ],
     "images": [
-      "https://images.unsplash.com/photo-1544923246-77307dd270b5?w=600&q=80",
-      "https://images.unsplash.com/photo-1507680434567-5739c80be1ac?w=600&q=80"
+      "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600&q=80",
+      "https://images.unsplash.com/photo-1521223890158-f9f7c036d1d1?w=600&q=80",
+      "https://images.unsplash.com/photo-1544022613-e87ca75a784a?w=600&q=80"
     ],
     "prices": {
       "carsila": 1025,
@@ -5564,36 +4947,9 @@
       "carsila": 38,
       "shoprill": 26
     },
-    "rating": 4.7,
-    "reviewCount": 40,
+    "rating": 4.5,
+    "reviewCount": 8,
     "badge": "Oversize",
-    "starRatings": [
-      5,
-      5,
-      5,
-      4,
-      5,
-      5,
-      5,
-      4,
-      5,
-      5,
-      5,
-      4,
-      5,
-      5,
-      5,
-      5,
-      4,
-      5,
-      5,
-      5,
-      5,
-      4,
-      5,
-      5,
-      5
-    ],
     "reviews": [
       {
         "author": "Umut B.",
@@ -5723,36 +5079,9 @@
       "carsila": 49,
       "shoprill": 35
     },
-    "rating": 4.3,
-    "reviewCount": 52,
+    "rating": 4.2,
+    "reviewCount": 9,
     "badge": "Slim Fit",
-    "starRatings": [
-      4,
-      5,
-      4,
-      4,
-      3,
-      5,
-      4,
-      4,
-      5,
-      4,
-      4,
-      5,
-      4,
-      5,
-      4,
-      4,
-      3,
-      5,
-      4,
-      4,
-      5,
-      4,
-      5,
-      4,
-      4
-    ],
     "reviews": [
       {
         "author": "Hacer A.",

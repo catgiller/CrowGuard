@@ -22,7 +22,6 @@ export type Product = {
   rating: number;
   reviewCount: number;
   badge: string;
-  starRatings: number[];
   reviews: Review[];
 };
 

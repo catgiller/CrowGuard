@@ -1,6 +1,7 @@
 ﻿import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import Image from "next/image";
+import Link from "next/link";
 
 const orders = [
   {
@@ -9,7 +10,7 @@ const orders = [
     status: "Delivered",
     statusColor: "text-emerald-600 bg-emerald-50",
     items: [
-      { name: "Sony WH-1000XM5 Headphones", price: 14999, image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=80&h=80&fit=crop" },
+      { name: "Aurex NC-5000XM Kablosuz Kulaklık", price: 14999, image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=80&h=80&fit=crop" },
     ],
     total: 14999,
   },
@@ -19,8 +20,8 @@ const orders = [
     status: "Shipped",
     statusColor: "text-blue-600 bg-blue-50",
     items: [
-      { name: "Levi's 501 Original Jeans", price: 2499, image: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=80&h=80&fit=crop" },
-      { name: "Nike Air Max 270", price: 4499, image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=80&h=80&fit=crop" },
+      { name: "Factora 501 Original Jean", price: 2499, image: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=80&h=80&fit=crop" },
+      { name: "Strida AirMax 270", price: 4499, image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=80&h=80&fit=crop" },
     ],
     total: 6998,
   },
@@ -30,16 +31,16 @@ const orders = [
     status: "Delivered",
     statusColor: "text-emerald-600 bg-emerald-50",
     items: [
-      { name: "Apple AirPods Pro", price: 9999, image: "https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?w=80&h=80&fit=crop" },
+      { name: "Aurex Buds Pro", price: 9999, image: "https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?w=80&h=80&fit=crop" },
     ],
     total: 9999,
   },
 ];
 
 const favorites = [
-  { name: "Dyson V15 Detect", price: 18999, image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=200&h=200&fit=crop", slug: "dyson-v15-detect" },
-  { name: "Samsung QLED 4K TV", price: 39999, image: "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=200&h=200&fit=crop", slug: "samsung-qled-4k-65" },
-  { name: "Kindle Paperwhite", price: 4999, image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=200&h=200&fit=crop", slug: "kindle-paperwhite-11" },
+  { name: "Xyron Supersonic Saç Kurutma Makinesi", price: 18999, image: "https://images.unsplash.com/photo-1522338242992-e1a54571a9f4?w=200&h=200&fit=crop", slug: "xyron-supersonic-sac-kurutma" },
+  { name: "Solvex Galax A55 5G 128GB", price: 13450, image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=200&h=200&fit=crop", slug: "solvex-galax-a55-5g-128gb" },
+  { name: "Nexium Pad 10. Nesil 64GB WiFi", price: 14999, image: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=200&h=200&fit=crop", slug: "nexium-pad-10-nesil-wifi" },
 ];
 
 export default function ProfilePage() {
@@ -145,7 +146,7 @@ export default function ProfilePage() {
               <h2 className="text-sm font-black text-[#0F1B35] uppercase tracking-widest mb-4">Wishlist</h2>
               <div className="space-y-3">
                 {favorites.map((fav) => (
-                  <div key={fav.slug} className="flex items-center gap-3">
+                  <Link key={fav.slug} href={`/products/${fav.slug}`} className="flex items-center gap-3 hover:opacity-80 transition-opacity">
                     <div className="relative w-10 h-10 rounded-lg overflow-hidden bg-gray-50 flex-shrink-0">
                       <Image src={fav.image} alt={fav.name} fill className="object-cover" sizes="40px" />
                     </div>
@@ -153,7 +154,7 @@ export default function ProfilePage() {
                       <p className="text-xs font-semibold text-[#0F1B35] line-clamp-1">{fav.name}</p>
                       <p className="text-xs text-[#C9A84C] font-black">{fav.price.toLocaleString("tr-TR")} TL</p>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             </div>

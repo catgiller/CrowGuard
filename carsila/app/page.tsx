@@ -10,6 +10,7 @@ const CATEGORY_ICONS: Record<string, string> = {
   "Giyim": "👕",
   "Sağlık & Güzellik": "✨",
   "Spor & Outdoor": "⛺",
+  "Aksesuar": "💍",
 };
 
 export default function HomePage() {
@@ -43,7 +44,7 @@ export default function HomePage() {
         {/* Kategoriler */}
         <section className="max-w-7xl mx-auto px-4 py-12">
           <h2 className="text-xl font-black mb-6" style={{ color: "var(--dark)" }}>Kategoriler</h2>
-          <div className="grid grid-cols-3 md:grid-cols-5 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
             {categories.map((cat) => (
               <Link
                 key={cat}
