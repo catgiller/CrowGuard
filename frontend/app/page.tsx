@@ -406,8 +406,8 @@ export default function LandingPage() {
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#fff" strokeWidth="2" style={{ width: 26, height: 26 }}><path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                 </div>
                 <div className="tcard-author" style={{ fontSize: "1.125rem", marginBottom: "0.375rem" }}>Ürün Adı ile Arama</div>
-                <div className="tcard-role" style={{ marginBottom: "1rem" }}>Genel Piyasa Analizi</div>
-                <p className="tcard-text" style={{ marginBottom: 0 }}>Link olmadan da çalışır. Herhangi bir ürün adı girin, Gemini AI genel piyasa değerlendirmesi sunsun.</p>
+                <div className="tcard-role" style={{ marginBottom: "1rem" }}>Anında Ürün Listeleme</div>
+                <p className="tcard-text" style={{ marginBottom: 0 }}>Sadece ne aradığınızı yazın. Çarşıla ve Shoprill platformlarındaki ilgili ürünleri saniyeler içinde sizin için sıralayalım.</p>
               </div>
             </div>
           </div>
