@@ -16,8 +16,8 @@ MODELS = ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash"]
 def _build_search_urls(name: str) -> dict:
     q = quote_plus(name)
     return {
-        "trendyol_url": f"https://www.trendyol.com/sr?q={q}",
-        "akakce_url": f"https://www.akakce.com/search/?q={q}",
+        "shopgrill_search_url": f"https://shopgrill.store/products?q={q}",
+        "carsila_search_url": f"https://carsila.store/products?q={q}",
         "google_shopping_url": f"https://www.google.com/search?q={q}&tbm=shop",
     }
 
@@ -54,11 +54,11 @@ YALNIZCA şu formatta geçerli bir JSON objesi döndür:
       "price": float,
       "reason": "Neden bu ürün? 1-2 cümle.",
       "confidence": integer (0-100),
-      "shoprill_price": float or null,
+      "shopgrill_price": float or null,
       "carsila_price": float or null,
-      "shoprill_slug": "slug" or null,
+      "shopgrill_slug": "slug" or null,
       "carsila_slug": "slug" or null,
-      "cheaper_store": "shoprill" | "carsila" | null,
+      "cheaper_store": "shopgrill" | "carsila" | null,
       "store_note": "Fiyat/puan farkı açıklaması veya null"
     }}
   ]
@@ -92,7 +92,7 @@ YALNIZCA şu formatta geçerli bir JSON objesi döndür:
         trend = get_product_trend(name)
         yt = get_youtube_stats(name)
 
-        shoprill_slug = rec.get("shoprill_slug")
+        shopgrill_slug = rec.get("shopgrill_slug")
         carsila_slug = rec.get("carsila_slug")
 
         enriched.append({
@@ -100,16 +100,16 @@ YALNIZCA şu formatta geçerli bir JSON objesi döndür:
             "price": rec.get("price", 0.0),
             "reason": rec.get("reason", ""),
             "confidence": rec.get("confidence", 50),
-            "trendyol_url": urls["trendyol_url"],
-            "akakce_url": urls["akakce_url"],
+            "shopgrill_search_url": urls["shopgrill_search_url"],
+            "carsila_search_url": urls["carsila_search_url"],
             "google_shopping_url": urls["google_shopping_url"],
             "trend_direction": trend["direction"],
             "trend_score": trend["score"],
             "youtube_video_count": yt["video_count"],
             "youtube_latest_url": yt["latest_url"],
-            "shoprill_price": rec.get("shoprill_price"),
+            "shopgrill_price": rec.get("shopgrill_price"),
             "carsila_price": rec.get("carsila_price"),
-            "shoprill_url": f"https://shopgrill.store/products/{shoprill_slug}" if shoprill_slug else None,
+            "shopgrill_url": f"https://shopgrill.store/products/{shopgrill_slug}" if shopgrill_slug else None,
             "carsila_url": f"https://carsila.store/products/{carsila_slug}" if carsila_slug else None,
             "cheaper_store": rec.get("cheaper_store"),
             "store_note": rec.get("store_note"),
