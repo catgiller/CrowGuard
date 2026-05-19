@@ -1401,3 +1401,8 @@ html:not(.dark).a11y {
   --border: rgba(0, 0, 0, 0.45); /* Güçlü yüksek kontrast kenarlıklar */
   --card-b: rgba(0, 0, 0, 0.35);
 }
+
+/* ── Price Bars ───────────────────────────────────── */
+.price-bars { display: flex; align-items: flex-end; gap: 3px; height: 24px; min-width: 60px; }
+.pbar { flex: 1; border-radius: 2px 2px 0 0; background: var(--bg3); }
+.pbar.hi { background: var(--grad); }
