@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+:root {
+  --navy: #0F1B35;
+  --navy-light: #1E2D4F;
+  --gold: #C9A84C;
+  --gold-light: #E0C072;
+  --light-gray: #F5F6F8;
+  --text: #1A1A2E;
+  --text-muted: #6B7280;
+  --border: #E5E7EB;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--light-gray);
+  color: var(--text);
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
