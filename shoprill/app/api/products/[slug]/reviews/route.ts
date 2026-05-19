@@ -10,7 +10,6 @@ export async function GET(_req: Request, { params }: { params: Promise<{ slug: s
     slug: product.slug,
     rating: product.rating,
     reviewCount: product.reviewCount,
-    starRatings: product.starRatings,
     reviews: product.reviews,
     store: "shoprill",
   });
