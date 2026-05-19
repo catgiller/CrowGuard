@@ -44,6 +44,8 @@ export type HistoryItem = {
   store_name: string | null;
   created_at: string | null;
   verdict?: string | null;   // AL | BEKLE | ALTERNATİF — backend hazır olunca gelir
+  price_history?: PriceHistoryPoint[] | null;
+  price_analysis?: PriceAnalysis | null;
 };
 
 export function normalizeProductUrl(input: string): string | null {
