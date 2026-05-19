@@ -84,7 +84,7 @@ export default function DashboardPage() {
             type="text"
             value={quickQuery}
             onChange={(e) => setQuickQuery(e.target.value)}
-            placeholder="Ürün linki yapıştırın (Trendyol, Hepsiburada…)"
+            placeholder="Ürün linki yapıştırın (Shoprill, Çarşıla…)"
           />
           <Link
             href={
