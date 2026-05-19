@@ -55,7 +55,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div style={{ minHeight: "100dvh", display: "flex", alignItems: "center", justifyContent: "center", background: "var(--bg)", position: "relative", overflow: "hidden", fontFamily: "var(--ff-b)" }}>
+    <div style={{ minHeight: "100dvh", display: "flex", flexDirection: "column", alignItems: "center", background: "var(--bg)", position: "relative", overflowX: "hidden", fontFamily: "var(--ff-b)", padding: "5rem clamp(1rem, 5vw, 2rem) 2rem" }}>
       <style dangerouslySetInnerHTML={{
         __html: `
         .orb { position: fixed; border-radius: 50%; pointer-events: none; filter: blur(90px); opacity: 0.16; animation: float 8s ease-in-out infinite; }
@@ -66,7 +66,7 @@ export default function LoginPage() {
         .back-link:hover { color: rgba(255,255,255,0.8); }
         html:not(.dark) .back-link:hover { color: var(--fg); }
         .back-link svg { width: 16px; height: 16px; }
-        .login-card { position: relative; z-index: 10; width: 100%; max-width: 420px; margin: 0 clamp(1rem,5vw,2rem); background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 28px; padding: clamp(2rem,5vw,3rem); backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px); }
+        .login-card { position: relative; z-index: 10; width: 100%; max-width: 420px; margin: auto 0; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 28px; padding: clamp(2rem,5vw,3rem); backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px); }
         html:not(.dark) .login-card { background: rgba(253,250,247,0.88); border-color: rgba(120,70,90,0.10); }
         .card-logo { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem; }
         .card-logo-name { font-family: var(--ff-logo); font-size: 1.25rem; font-weight: 700; background: var(--grad-h); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
