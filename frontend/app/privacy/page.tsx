@@ -115,7 +115,7 @@ export default function PrivacyPage() {
                   <li><strong>Silme hakkı:</strong> Hesabınızı ve tüm verilerinizi silmemizi talep edebilirsiniz.</li>
                   <li><strong>İtiraz hakkı:</strong> Belirli veri işleme faaliyetlerine itiraz edebilirsiniz.</li>
                 </ul>
-                <p>Bu haklarınızı kullanmak için <strong>hello@crowguard.ai</strong> adresine yazabilirsiniz. Taleplerinize en geç 30 gün içinde yanıt veririz.</p>
+                <p>Bu haklarınızı kullanmak için <strong>pcrowguard@outlook.com</strong> adresine yazabilirsiniz. Taleplerinize en geç 30 gün içinde yanıt veririz.</p>
               </div>
               <div className="legal-divider" />
 

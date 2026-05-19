@@ -16,7 +16,7 @@ export default function ContactPage() {
     const subject = (form.elements.namedItem("subject") as HTMLInputElement)?.value ?? "";
     const message = (form.elements.namedItem("message") as HTMLTextAreaElement)?.value ?? "";
     const body = `Ad: ${name}%0AKonu: ${subject}%0A%0A${message}`;
-    window.location.href = `mailto:hello@crowguard.ai?subject=${encodeURIComponent(subject || "İletişim")}&body=${body}`;
+    window.location.href = `mailto:pcrowguard@outlook.com?subject=${encodeURIComponent(subject || "İletişim")}&body=${body}`;
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
@@ -73,8 +73,8 @@ export default function ContactPage() {
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#f17628" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                 </div>
                 <div className="info-label">E-Posta</div>
-                <span className="info-value">hello@crowguard.ai</span>
-                <p className="info-note">Adres yakında aktif olacak. Şimdilik formu kullanabilirsiniz.</p>
+                <a className="info-value" href="mailto:pcrowguard@outlook.com">pcrowguard@outlook.com</a>
+                <p className="info-note">Her mesaj doğrudan ekibimize ulaşır.</p>
               </div>
 
               <div className="info-card">
@@ -82,8 +82,8 @@ export default function ContactPage() {
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#a21f65" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
                 </div>
                 <div className="info-label">GitHub</div>
-                <span className="info-value">github.com/crowguard-ai</span>
-                <p className="info-note">Repo yakında yayınlanacak.</p>
+                <a className="info-value" href="https://github.com/catgiller/CrowGuard" target="_blank" rel="noopener noreferrer">github.com/catgiller/CrowGuard</a>
+                <p className="info-note">Kaynak kodu ve katkı için bizi takip edin.</p>
               </div>
 
               <div className="info-card">

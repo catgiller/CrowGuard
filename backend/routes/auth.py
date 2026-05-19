@@ -2,11 +2,17 @@ import datetime
 import logging
 import os
 import secrets
-import resend
+import smtplib
+from email.message import EmailMessage
 from fastapi import APIRouter, Depends, HTTPException
 
 logger = logging.getLogger(__name__)
-resend.api_key = os.getenv("RESEND_API_KEY", "")
+
+SMTP_HOST = os.getenv("SMTP_HOST", "smtp-mail.outlook.com")
+SMTP_PORT = int(os.getenv("SMTP_PORT", "587"))
+SMTP_USER = os.getenv("SMTP_USER", "")
+SMTP_PASS = os.getenv("SMTP_PASS", "")
+SMTP_FROM_NAME = os.getenv("SMTP_FROM_NAME", "CrowGuard")
 from sqlalchemy.orm import Session
 from database import get_db
 from models import db_models
@@ -93,13 +99,20 @@ def forgot_password(data: ForgotPasswordRequest, db: Session = Depends(get_db)):
     frontend_url = os.getenv("FRONTEND_URL", "https://pitoresk.tech")
     reset_link = f"{frontend_url}/reset-password?token={token}"
 
-    if resend.api_key:
+    if SMTP_USER and SMTP_PASS:
         try:
-            resend.Emails.send({
-                "from": "CrowGuard <noreply@pitoresk.tech>",
-                "to": user.email,
-                "subject": "Şifre Sıfırlama",
-                "html": f"""
+            msg = EmailMessage()
+            msg["Subject"] = "Şifre Sıfırlama"
+            msg["From"] = f"{SMTP_FROM_NAME} <{SMTP_USER}>"
+            msg["To"] = user.email
+            msg.set_content(
+                f"Merhaba {user.name},\n\n"
+                f"Şifrenizi sıfırlamak için aşağıdaki bağlantıyı kullanın (1 saat geçerli):\n"
+                f"{reset_link}\n\n"
+                f"Bu isteği siz yapmadıysanız bu e-postayı görmezden gelin."
+            )
+            msg.add_alternative(
+                f"""
                 <div style="font-family:sans-serif;max-width:480px;margin:auto;padding:2rem">
                   <h2 style="color:#d5332a">Şifre Sıfırlama</h2>
                   <p>Merhaba <b>{user.name}</b>,</p>
@@ -110,7 +123,12 @@ def forgot_password(data: ForgotPasswordRequest, db: Session = Depends(get_db)):
                   <p style="color:#888;font-size:.85rem">Bu isteği siz yapmadıysanız bu e-postayı görmezden gelin.</p>
                 </div>
                 """,
-            })
+                subtype="html",
+            )
+            with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as smtp:
+                smtp.starttls()
+                smtp.login(SMTP_USER, SMTP_PASS)
+                smtp.send_message(msg)
         except Exception as e:
             logger.error(f"E-posta gönderilemedi: {e}")
 
