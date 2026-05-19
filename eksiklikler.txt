@@ -1,6 +1,6 @@
 # CrowGuard / Pitoresk — Eksiklikler ve Yapılacaklar
 
-Analiz tarihi: 2026-05-17 (güncelleme: API + TR metinler)  
+Analiz tarihi: 2026-05-17 (güncelleme: 2026-05-19 — proje geneli tarama)
 Kapsam: Proje geneli taranmıştır; **frontend/** içinde düzeltilebilen maddeler işaretlidir.
 
 ---
@@ -19,12 +19,12 @@ Kapsam: Proje geneli taranmıştır; **frontend/** içinde düzeltilebilen madde
 - [x] **Akıllı asistan → API:** `POST /smart-advisor`, öneriler React bileşeni (`AdvisorRecommendations`), `dangerouslySetInnerHTML` kaldırıldı
 - [x] **Geçmiş → API:** `GET /history` (giriş gerekli), liste + analiz sayfasına link
 - [x] **Dashboard hızlı arama:** `?url=` query ile ürün analizine aktarım
-- [x] **Dashboard son aramalar:** API’den son 3 kayıt (yoksa bilgi metni); “Tümünü Gör” → `/dashboard/history`
-- [x] **TR arayüz:** Landing rozetleri, hero metni, “Alışveriş Asistanı” alt yazısı
+- [x] **Dashboard son aramalar:** API'den son 3 kayıt (yoksa bilgi metni); "Tümünü Gör" → `/dashboard/history`
+- [x] **TR arayüz:** Landing rozetleri, hero metni, "Alışveriş Asistanı" alt yazısı
 - [x] **Sidebar çıkış** butonu eklendi
 - [x] **Ölü kod:** `components/sidebar.tsx` (Framer) silindi
 - [x] **Profil sayfası:** Dashboard chrome + kullanıcı bilgisi
-- [x] **Şifremi unuttum:** `href="#"` kaldırıldı, “Yakında” olarak işaretlendi
+- [x] **Şifremi unuttum:** `href="#"` kaldırıldı, "Yakında" olarak işaretlendi
 
 ---
 
@@ -35,29 +35,67 @@ Kapsam: Proje geneli taranmıştır; **frontend/** içinde düzeltilebilen madde
 - [ ] **Dashboard istatistikleri:** Toplam analiz, tasarruf vb. hâlâ demo sayılar
 
 ### İşlev
-- [ ] **Çoklu platform karşılaştırma:** Eski mock UI kaldırıldı; backend tek URL analiz ediyor — platformlar arası karşılaştırma API’si yok
+- [ ] **Çoklu platform karşılaştırma:** Eski mock UI kaldırıldı; backend tek URL analiz ediyor — platformlar arası karşılaştırma API'si yok
 - [ ] **Plan toggle (Ücretsiz/Pro):** UI demo; ödeme/abonelik yok
 - [ ] **Ürün adı ile arama:** Backend yalnızca URL kabul ediyor; isim araması veya arama önerisi yok
 
 ### Estetik ve UX
 - [ ] **Inline `<style>` blokları:** Birçok sayfada büyük CSS — modüllere taşınmalı
-- [ ] **`my designs/` klasörü:** Eski HTML prototipleri; arşiv veya `.gitignore`
+- [ ] **`my designs/` klasörü:** Eski HTML prototipleri; arşiv veya `.gitignore` (zaten gitignore'da)
 - [ ] **Erişilebilirlik:** Landing dot-nav, klavye odağı
 
 ### Teknik borç
-- [ ] **Lint CI:** `npm run lint` pipeline’a eklenmeli
-- [ ] **`framer-motion`:** Sidebar silindi; paket hâlâ `package.json`’da — kullanılmıyorsa kaldırılabilir
+- [ ] **Lint CI:** `npm run lint` pipeline'a eklenmeli
+- [ ] **`framer-motion`:** Sidebar silindi; paket hâlâ `package.json`'da — kullanılmıyorsa kaldırılabilir
+  - Not (2026-05-19): Güncel `frontend/package.json` artık `framer-motion` içermiyor; madde kapatılabilir.
 
 ---
 
 ## DIŞ — Yalnızca kayıt (dokunulmadı)
 
-- [ ] Repo adı Pitoresk vs marka CrowGuard; backend title “Pitoresk AI”
+- [ ] Repo adı Pitoresk vs marka CrowGuard; backend title "Pitoresk AI"
 - [ ] CORS production domain
 - [ ] `pitoresk.db`, migration, `.gitignore`
 - [ ] Kök README, `start.sh` Windows karşılığı
 - [ ] `docs/api_contract.md` ile gerçek endpoint yolları farklı (`/api/v1` vs kök `/analyze-product`)
 - [ ] KVKK/hukuki metin gözden geçirmesi
+
+---
+
+## EK TESPİTLER — 2026-05-19 (proje geneli tarama)
+
+### Repo hijyeni
+- [ ] **Kök `README.md` neredeyse boş** (`# CrowGuard` tek satır) — kurulum, mimari, ekran görüntüleri yok. *(Bu oturumda dolduruldu — bkz. README.md)*
+- [ ] **`pitoresk.db` repoya commitlenmiş** (SQLite dosyası); `.gitignore`'a eklenmeli ve geliştirici verileri temizlenmeli.
+- [ ] **`venv/` dizini repoda görünüyor** (gitignore'da olmasına rağmen geçmişte takip edilmiş olabilir) — `git rm -r --cached venv` ile kontrol edilmeli.
+- [ ] **`carsila/` ve `shoprill/`** klasörleri — bağımsız Next.js projeleri (kendi `node_modules` ile) ana repoda bulunuyor. Önceden bozuk submodule iken normal dizine çevrilmiş (commit 53490a5). Amaç/scope belgelenmemiş; alt repo veya monorepo kararı netleştirilmeli.
+- [ ] **`plan.txt`, `list_models.py`** kök seviyede — ya `docs/` veya `scripts/` altına taşı ya da sil.
+- [ ] **`.env.example` yok** — gerekli ortam değişkenleri (`GEMINI_API_KEY`, `JWT_SECRET`, `DATABASE_URL`, `NEXT_PUBLIC_API_URL`) hiçbir yerde örneklenmemiş.
+
+### Geliştirici deneyimi
+- [ ] **`start.sh` Windows karşılığı yok** — proje Windows üzerinde geliştiriliyor (`win32`); `start.ps1` veya `docker-compose.yml` eklenmeli.
+- [ ] **Dockerfile / docker-compose** yok — deploy ve onboarding zor.
+- [ ] **CI/CD yok** — `.github/workflows/` klasörü mevcut değil; lint/test/build otomasyonu yok.
+
+### Backend
+- [ ] **Test kapsamı çok düşük** — yalnızca `backend/test_main.py` var; servis ve route testleri eksik.
+- [ ] **Alembic / migration aracı yok** — şema değişiklikleri `Base.metadata.create_all` ile yapılıyor; production'da risk.
+- [ ] **`docs/api_contract.md` ile gerçek route'lar tutarsız** — sözleşme `/api/v1/agents/price-hunter` derken kod `/analyze-product` kullanıyor. Sözleşme güncellenmeli.
+- [ ] **`/analyze-review` endpoint'i** modeller ve frontend tarafında kullanılmıyor — kullanılmıyorsa kaldırılmalı.
+- [ ] **Rate limit decorator'ları route'lara uygulanmamış** — `slowapi` global default 60/dk ile sınırlı, kritik endpoint başına özel limit yok.
+- [ ] **Logging / observability yok** — yapısal log, Sentry vb. entegrasyon yok.
+
+### Frontend
+- [ ] **Next 16 + React 19** çok yeni sürümler — uyumluluk sorunları için dikkat.
+- [ ] **`proxy.ts` kök seviyede** — kullanım amacı belgelenmemiş; `lib/` veya `middleware.ts` altına taşınmalı ya da silinmeli.
+- [ ] **SEO eksik** — `app/layout.tsx` metadata, `sitemap.ts`, `robots.ts`, OG görselleri yok.
+- [ ] **Hata sayfaları** — `not-found.tsx` var ama `error.tsx`, `global-error.tsx` yok.
+- [ ] **Analytics / telemetry yok** (Vercel Analytics, Plausible vb.).
+
+### Güvenlik / Uyumluluk
+- [ ] **CORS allow_origins'da `pitoresk.tech` ve `pitoresk.vercel.app`** prod domain'leri sabitlenmiş; ancak `pitoresk.com.tr` veya alternatif domain belirsiz.
+- [ ] **JWT secret rotasyonu** belgesi yok; `auth/` modülünde token süresi/refresh akışı dokümante edilmemiş.
+- [ ] **Scraping yasal uyarısı** — `scraping_service.py` Trendyol/Hepsiburada/Amazon TR scrape ediyor; siteler ToS açısından gri alan, açık uyarı/disclaimer eklenmeli.
 
 ---
 
