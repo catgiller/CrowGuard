@@ -6,7 +6,7 @@ import httpx
 from google import genai
 from fastapi import HTTPException
 from models.product import ProductAnalysisResponse
-from services.scraping_service import scrape_product, ScrapedProduct
+from services.scraping_service import ScrapedProduct
 from services.price_algorithm import build_price_history, compute_price_signal
 from services.trends_service import get_product_trend
 from services.youtube_service import get_youtube_stats
@@ -17,13 +17,7 @@ client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
 MODELS = ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash"]
 
-SUPPORTED_SITES = {"shopgrill.store", "carsila.store"}
 
-UNSUPPORTED_SITES = {
-    "hepsiburada": "Hepsiburada şu an bot koruması nedeniyle desteklenmiyor.",
-    "amazon":      "Amazon şu an desteklenmiyor.",
-    "trendyol": "Trendyol şu an bot koruması nedeniyle desteklenmiyor.",
-}
 
 
 def _is_url(text: str) -> bool:
@@ -379,123 +373,13 @@ async def analyze_product_details(url: str, db) -> ProductAnalysisResponse:
     if not os.getenv("GEMINI_API_KEY"):
         raise HTTPException(status_code=500, detail="GEMINI_API_KEY eksik!")
 
-    # Ürün adı girişi — scraping yok, Gemini ile kategori analizi
     if not _is_url(url):
         return await _analyze_by_name(url.strip(), db)
 
-    url_lower = url.lower()
-    for unsupported, message in UNSUPPORTED_SITES.items():
-        if unsupported in url_lower:
-            raise HTTPException(status_code=422, detail=f"{message} Lütfen Trendyol linki deneyin.")
-
-    # Kendi mağazalarımız (prod veya localhost) — scraping değil, direkt API
-    own_store_base = _detect_own_store(url)
-    if own_store_base:
-        return await _analyze_own_store(url, db)
-
-    if not any(site in url_lower for site in SUPPORTED_SITES):
+    if not _detect_own_store(url):
         raise HTTPException(
             status_code=422,
-            detail="Bu site henüz desteklenmiyor. Şu an sadece Trendyol destekleniyor.",
+            detail="Sadece shopgrill.store ve carsila.store linkleri destekleniyor.",
         )
 
-    logger.warning(f"Scraping başlıyor: {url}")
-    scraped = await scrape_product(url)
-    logger.warning(f"Scraping sonucu: title={scraped.title!r} price={scraped.price!r} valid={scraped.is_valid()}")
-
-    if not scraped.is_valid() or not scraped.price:
-        raise HTTPException(
-            status_code=503,
-            detail="Bu ürün için fiyat verisi alınamadı. Lütfen farklı bir ürün deneyin.",
-        )
-
-    prompt = _build_prompt(scraped)
-    raw = None
-
-    for model_name in MODELS:
-        try:
-            logger.warning(f"Gemini: {model_name}")
-            resp = client.models.generate_content(
-                model=model_name,
-                contents=prompt,
-                config={"response_mime_type": "application/json"},
-            )
-            raw = resp.text
-            break
-        except Exception as e:
-            logger.warning(f"{model_name} başarısız: {type(e).__name__}: {str(e)[:80]}")
-            continue
-
-    if raw is None:
-        raise HTTPException(
-            status_code=503,
-            detail="Gemini servisi geçici olarak kullanılamıyor. Lütfen birkaç dakika sonra tekrar deneyin.",
-        )
-
-    try:
-        raw = raw.strip()
-        if raw.startswith("```"):
-            raw = re.sub(r"^```(?:json)?\n?", "", raw)
-            raw = re.sub(r"\n?```$", "", raw)
-
-        data = json.loads(raw)
-
-        # Gerçek scraping verisiyle ZORLA yaz
-        if scraped.image_url:
-            data["image_url"] = scraped.image_url
-
-        real_price = 0.0
-        if scraped.price:
-            parsed = _parse_price(scraped.price)
-            if parsed > 0:
-                real_price = parsed
-
-        average = float(data.get("average_price") or 0.0)
-
-        # Algoritma karar veriyor — Gemini değil
-        price_history, confidence = build_price_history(url, real_price, db)
-        signal = compute_price_signal(real_price, price_history, average, confidence)
-
-        # Gerçek yorum sayısı ve trust score
-        total_reviews = scraped.review_count or 0
-        trust_score = data["review_analysis"].get("trust_score", 0)
-        if scraped.rating:
-            try:
-                trust_score = min(100, int(float(scraped.rating) * 20))
-            except Exception:
-                pass
-
-        trend = get_product_trend(scraped.title)
-        yt = get_youtube_stats(scraped.title)
-
-        result = {
-            "product_name": data.get("product_name", scraped.title),
-            "store_name": data.get("store_name", scraped.site_name),
-            "store_url": "",
-            "image_url": data.get("image_url", ""),
-            "ai_comment": data.get("ai_comment", ""),
-            "price_analysis": {
-                "current": real_price,
-                "average": signal.weighted_average,
-                "recommendation": signal.recommendation,
-                "confidence": signal.confidence,
-                "trend": signal.trend,
-                "trend_pct": signal.trend_pct,
-            },
-            "price_history": price_history,
-            "review_analysis": {
-                "total_reviews": total_reviews,
-                "fake_percentage": data["review_analysis"].get("fake_percentage", 0),
-                "trust_score": trust_score,
-            },
-            "return_risk": data.get("return_risk", {"percentage": 0, "reasons": []}),
-            "google_trend": trend,
-            "youtube_stats": yt,
-        }
-
-        logger.info(f"Analiz tamamlandı. Fiyat: {real_price} / Ortalama: {signal.weighted_average:.2f} / Karar: {signal.recommendation} / Güven: {signal.confidence} / Trend: {signal.trend} / YT: {yt['video_count']} video")
-        return ProductAnalysisResponse(**result)
-
-    except Exception as e:
-        logger.error(f"Parse hatası: {e}", exc_info=True)
-        raise HTTPException(status_code=503, detail=f"AI Hatası: {str(e)}")
+    return await _analyze_own_store(url, db)
