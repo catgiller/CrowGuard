@@ -54,8 +54,8 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
 
   const logout = useCallback(() => {
     clearSession();
-    router.replace("/login");
-  }, [router]);
+    window.location.replace("/login");
+  }, []);
 
   const value = useMemo(
     () => ({
