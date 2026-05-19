@@ -14,7 +14,7 @@ export default function LandingPage() {
     if (!root || !dotNav) return;
 
     const sections = root.querySelectorAll('.slide');
-    
+
     // Clear and build dots
     dotNav.innerHTML = '';
     sections.forEach((_, i) => {
@@ -43,7 +43,7 @@ export default function LandingPage() {
         const suf = htmlEl.dataset.suffix || '';
         let startTime: number | null = null;
         const dur = 1400;
-        
+
         const step = (ts: number) => {
           if (!startTime) startTime = ts;
           const p = Math.min((ts - startTime) / dur, 1);
@@ -73,10 +73,11 @@ export default function LandingPage() {
 
   return (
     <>
-      <style dangerouslySetInnerHTML={{ __html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         .snap-root { position: fixed; inset: 0; overflow-y: scroll; scroll-snap-type: y mandatory; scrollbar-width: none; }
         .snap-root::-webkit-scrollbar { display: none; }
-        .slide { height: 100dvh; scroll-snap-align: start; position: relative; overflow: hidden; }
+        .slide { height: 100dvh; scroll-snap-align: start; scroll-snap-stop: always; position: relative; overflow: hidden; }
         .dot-nav { position: fixed; right: 1.5rem; top: 50%; transform: translateY(-50%); z-index: 300; display: flex; flex-direction: column; gap: 0.625rem; }
         .dot-nav button { width: 9px; height: 9px; border-radius: 50%; border: none; padding: 0; background: rgba(255,255,255,0.18); cursor: pointer; transition: background 0.25s, transform 0.25s; }
         .dot-nav button.active { background: #fff; transform: scale(1.25); }
@@ -157,6 +158,8 @@ export default function LandingPage() {
         .chat-product-info .name { font-weight: 700; font-size: 0.8125rem; }
         .chat-product-info .meta { font-size: 0.6875rem; opacity: 0.75; }
         @media (max-width: 900px) { .feat-slide { flex-direction: column !important; padding-top: calc(var(--nav-h) + 1.25rem); } .feat-mock { width: 100%; max-width: 400px; margin: 0 auto; } .feat-text { text-align: center; } .feat-desc { margin: 0 auto; } .feat-pill { margin-top: 1.25rem; } }
+        @media (max-width: 900px) { .mock { max-height: 42dvh; overflow: hidden; } }
+        @media (max-width: 500px) { .stats { gap: 0.75rem 2rem; } .stat-num { font-size: clamp(2rem, 9vw, 2.75rem); } .stat-lbl { font-size: 0.625rem; max-width: 110px; } }
         .social-slide { display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--bg); padding: 0 clamp(1rem,4vw,3.5rem); padding-top: var(--nav-h); text-align: center; }
         .social-inner { max-width: 900px; width: 100%; }
         .testimonials { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin: 2.5rem 0; }
@@ -185,7 +188,7 @@ export default function LandingPage() {
       <nav className="dot-nav" ref={dotNavRef} aria-label="Sayfa navigasyonu"></nav>
 
       <main className="snap-root" ref={rootRef}>
-        
+
         {/* SLIDE 0 */}
         <section className="slide" data-slide="0">
           <div className="hero-bg"></div>
@@ -207,7 +210,7 @@ export default function LandingPage() {
               </div>
             </div>
             <div className="hero-scroll" role="presentation">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
             </div>
           </div>
         </section>
@@ -225,19 +228,19 @@ export default function LandingPage() {
             <div className="stats">
               <div className="anim-fade-up anim-d1">
                 <div className="stat-num" data-count="67" data-suffix="%">0%</div>
-                <p className="stat-lbl">tüketici çevrimiçi yorumlara güvenme konusunda kararsız</p>
+                <p className="stat-lbl">tüketici sahte yorumların güvenilirliği azalttığını düşünüyor</p>
               </div>
               <div className="anim-fade-up anim-d2">
                 <div className="stat-num" data-count="31" data-suffix="%">0%</div>
-                <p className="stat-lbl">e-ticaret iadesi yanlış satın alma kararından kaynaklanıyor</p>
+                <p className="stat-lbl">e-ticaret iadesi beklenti ile ürün arasındaki farktan kaynaklanıyor</p>
               </div>
               <div className="anim-fade-up anim-d3">
-                <div className="stat-num" data-count="4" data-suffix="x">0x</div>
-                <p className="stat-lbl">daha akıllı kararlar ile iade oranı düşüyor</p>
+                <div className="stat-num" data-count="30" data-suffix="%">0%</div>
+                <p className="stat-lbl">iade oranı, doğru bilgi ve AI araçlarıyla azaltılabiliyor</p>
               </div>
             </div>
             <p className="problem-coda anim-fade-up anim-d4">
-              <span className="mark">CrowGuard AI</span> bu kaosu sona erdirmek için burada.
+              <span className="mark">CrowGuard</span> bu kaosu sona erdirmek için burada.
             </p>
           </div>
         </section>
@@ -246,7 +249,7 @@ export default function LandingPage() {
         <section className="slide feat-slide" data-slide="2">
           <div className="feat-text">
             <div className="feat-icon" style={{ background: "rgba(248,153,87,0.12)" }}>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#f17628" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M16 15v-1a4 4 0 00-4-4H8m0 0l3 3m-3-3l3-3m9 14V5a2 2 0 00-2-2H6a2 2 0 00-2 2v16l4-2 4 2 4-2 4 2z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#f17628" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M16 15v-1a4 4 0 00-4-4H8m0 0l3 3m-3-3l3-3m9 14V5a2 2 0 00-2-2H6a2 2 0 00-2 2v16l4-2 4 2 4-2 4 2z" /></svg>
             </div>
             <h2 className="t-lg feat-h">İade<br />Tahminleme</h2>
             <p className="t-body feat-desc">Bir ürünü sepete atmadan önce iade riskini öğrenin. Geçmiş binlerce veriyi semantik olarak analiz ederek size net bir risk skoru ve kök neden raporu sunarız.</p>
@@ -256,9 +259,9 @@ export default function LandingPage() {
             <div className="mock">
               <div className="mock-header">
                 <div className="mock-icon" style={{ background: "rgba(241,118,40,0.12)" }}>
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#f17628" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M9 21V9"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#f17628" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="3" /><path d="M3 9h18M9 21V9" /></svg>
                 </div>
-                <div><div className="mock-title">Nike Air Force 1 &apos;07</div><div className="mock-sub">Trendyol · Spor Ayakkabı</div></div>
+                <div><div className="mock-title">Nike Air Max 270</div><div className="mock-sub">Çarşıla · Spor Ayakkabı</div></div>
               </div>
               <div className="risk-label"><span style={{ color: "var(--fg3)", fontSize: ".6875rem", fontWeight: 600 }}>İade Riski</span><span style={{ color: "var(--c3)", fontWeight: 800, fontSize: ".875rem" }}>%78 Yüksek</span></div>
               <div className="risk-bar-track"><div className="risk-bar-fill" style={{ width: "78%" }}></div></div>
@@ -275,7 +278,7 @@ export default function LandingPage() {
         <section className="slide feat-slide rev" data-slide="3">
           <div className="feat-text">
             <div className="feat-icon" style={{ background: "rgba(213,51,42,0.10)" }}>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#d5332a" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A2 2 0 013 12V7a4 4 0 014-4z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#d5332a" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A2 2 0 013 12V7a4 4 0 014-4z" /></svg>
             </div>
             <h2 className="t-lg feat-h">Stratejik<br />Fiyat Radarı</h2>
             <p className="t-body feat-desc">Fiyat karşılaştırmanın ötesine geçin. AI, fiyatın değerini sorgular — AL, BEKLE ya da ALTERNATİF önerir. Net. Veriye dayalı. Anında.</p>
@@ -285,19 +288,19 @@ export default function LandingPage() {
             <div className="mock">
               <div className="mock-header">
                 <div className="mock-icon" style={{ background: "rgba(213,51,42,0.10)" }}>
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#d5332a" strokeWidth="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#d5332a" strokeWidth="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17" /><polyline points="16 7 22 7 22 13" /></svg>
                 </div>
-                <div><div className="mock-title">MacBook Air M3 13&quot;</div><div className="mock-sub">Apple · Laptop</div></div>
+                <div><div className="mock-title">Sony WH-1000XM5</div><div className="mock-sub">Shoprill · Kulaklık</div></div>
               </div>
               <div className="price-tabs">
                 <div className="price-tab">AL</div>
                 <div className="price-tab active-bk">BEKLE ✓</div>
                 <div className="price-tab">ALTERNATİF</div>
               </div>
-              <div className="price-row"><span className="lbl">Güncel Fiyat</span><span className="val" style={{ color: "var(--c3)" }}>₺52.999</span></div>
-              <div className="price-row"><span className="lbl">Tarihi Ortalama</span><span className="val">₺46.500</span></div>
+              <div className="price-row"><span className="lbl">Güncel Fiyat</span><span className="val" style={{ color: "var(--c3)" }}>₺9.200</span></div>
+              <div className="price-row"><span className="lbl">Tarihi Ortalama</span><span className="val">₺8.799</span></div>
               <div className="price-row"><span className="lbl">Tahmini Düşüş</span><span className="val" style={{ color: "#16a34a" }}>~3 hafta</span></div>
-              <p style={{ fontSize: ".75rem", color: "var(--fg3)", marginTop: ".875rem", lineHeight: 1.5 }}>Fiyat son kampanyadan sonra %14 şişti. Beklemek önerilir.</p>
+              <p style={{ fontSize: ".75rem", color: "var(--fg3)", marginTop: ".875rem", lineHeight: 1.5 }}>Fiyat son kampanyadan sonra %5 yükseldi. Beklemek önerilir.</p>
             </div>
           </div>
         </section>
@@ -306,7 +309,7 @@ export default function LandingPage() {
         <section className="slide feat-slide" data-slide="4">
           <div className="feat-text">
             <div className="feat-icon" style={{ background: "rgba(210,96,165,0.10)" }}>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#d260a5" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#d260a5" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
             </div>
             <h2 className="t-lg feat-h">Güven ve<br />Şeffaflık</h2>
             <p className="t-body feat-desc">4.8 yıldızlı ürün aslında 3.2 mi? Yorumların dil örüntüsünü, geliş hızını ve hesap profillerini analiz ederek gerçek güven skorunu ortaya çıkarırız.</p>
@@ -316,9 +319,9 @@ export default function LandingPage() {
             <div className="mock">
               <div className="mock-header">
                 <div className="mock-icon" style={{ background: "rgba(210,96,165,0.10)" }}>
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#d260a5" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#d260a5" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" /></svg>
                 </div>
-                <div><div className="mock-title">Xiaomi Mi Robot Süpürge</div><div className="mock-sub">Hepsiburada · Ev Aletleri</div></div>
+                <div><div className="mock-title">DeLonghi Magnifica Evo</div><div className="mock-sub">Çarşıla · Ev & Yaşam</div></div>
               </div>
               <div style={{ marginBottom: ".875rem" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: ".375rem" }}>
@@ -351,7 +354,7 @@ export default function LandingPage() {
         <section className="slide feat-slide rev" data-slide="5">
           <div className="feat-text">
             <div className="feat-icon" style={{ background: "rgba(162,31,101,0.10)" }}>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#a21f65" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#a21f65" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
             </div>
             <h2 className="t-lg feat-h">Çok Ajanlı<br />Akıllı Danışman</h2>
             <p className="t-body feat-desc">Ne aradığınızı tam bilmiyorsanız sorun değil. Bütçenizi ve ihtiyacınızı doğal dilde anlatın — Gemini tabanlı AI sistemi en optimize ürünleri sizin için bulur.</p>
@@ -374,44 +377,40 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* SLIDE 6 — Social Proof */}
+        {/* SLIDE 6 — Desteklenen Platformlar */}
         <section className="slide social-slide" data-slide="6">
           <div className="social-inner">
-            <p className="section-label">Kullanıcılar Ne Diyor?</p>
+            <p className="section-label">Desteklenen Platformlar</p>
             <h2 className="t-xl" style={{ color: "var(--fg)" }}>
-              Alışveriş kararlarında<br /><em style={{ fontStyle: "italic", fontWeight: 400, color: "var(--fg3)" }}>fark yarattık.</em>
+              Analiz edebileceğiniz<br /><em style={{ fontStyle: "italic", fontWeight: 400, color: "var(--fg3)" }}>kaynaklar.</em>
             </h2>
             <div className="testimonials anim-fade-up">
-              <div className="tcard">
-                <div className="tcard-stars">
-                  <span className="tcard-star">★</span><span className="tcard-star">★</span><span className="tcard-star">★</span><span className="tcard-star">★</span><span className="tcard-star">★</span>
+              <div className="tcard" style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", padding: "2rem 1.5rem" }}>
+                <div style={{ width: 56, height: 56, borderRadius: 14, overflow: "hidden", marginBottom: "1.25rem", boxShadow: "0 4px 16px rgba(229,93,43,0.18)" }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/carsila-icon.svg" alt="Çarşıla" width={56} height={56} />
                 </div>
-                <p className="tcard-text">&quot;Bir laptopa bakıyordum, CrowGuard&apos;ın fiyat geçmişi analizi sayesinde 3 hafta bekledim ve 800₺ tasarruf ettim. Artık her alışverişte kullanıyorum.&quot;</p>
-                <div className="tcard-author">Mert K.</div>
-                <div className="tcard-role">Yazılım Geliştirici</div>
+                <div className="tcard-author" style={{ fontSize: "1.125rem", marginBottom: "0.375rem" }}>Çarşıla</div>
+                <div className="tcard-role" style={{ marginBottom: "1rem" }}>Demo E-Ticaret Sitesi</div>
+                <p className="tcard-text" style={{ marginBottom: 0 }}>30+ ürün, 5 kategori, gerçek yorum verileri ile donatılmış test mağazası. Ürün linkini yapıştırın, CrowGuard analiz etsin.</p>
               </div>
-              <div className="tcard">
-                <div className="tcard-stars">
-                  <span className="tcard-star">★</span><span className="tcard-star">★</span><span className="tcard-star">★</span><span className="tcard-star">★</span><span className="tcard-star">★</span>
+              <div className="tcard" style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", padding: "2rem 1.5rem" }}>
+                <div style={{ width: 56, height: 56, borderRadius: 14, overflow: "hidden", marginBottom: "1.25rem", boxShadow: "0 4px 16px rgba(15,27,53,0.18)" }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/shoprill-icon.svg" alt="Shoprill" width={56} height={56} />
                 </div>
-                <p className="tcard-text">&quot;Aldığım ürünlerin %60&apos;ını iade ederdim. Sahte yorum tespiti özelliği sayesinde son 2 ayda tek bir iade yapmadım. Gerçekten hayat kurtarıcı.&quot;</p>
-                <div className="tcard-author">Selin A.</div>
-                <div className="tcard-role">Girişimci</div>
+                <div className="tcard-author" style={{ fontSize: "1.125rem", marginBottom: "0.375rem" }}>Shoprill</div>
+                <div className="tcard-role" style={{ marginBottom: "1rem" }}>Demo E-Ticaret Sitesi</div>
+                <p className="tcard-text" style={{ marginBottom: 0 }}>Premium ürün kataloğu, detaylı açıklamalar ve kullanıcı değerlendirmeleri ile gerçekçi alışveriş deneyimi.</p>
               </div>
-              <div className="tcard">
-                <div className="tcard-stars">
-                  <span className="tcard-star">★</span><span className="tcard-star">★</span><span className="tcard-star">★</span><span className="tcard-star">★</span><span className="tcard-star">★</span>
+              <div className="tcard" style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", padding: "2rem 1.5rem" }}>
+                <div style={{ width: 56, height: 56, borderRadius: 14, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1.25rem", background: "var(--grad)", boxShadow: "0 4px 16px rgba(213,51,42,0.15)" }}>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#fff" strokeWidth="2" style={{ width: 26, height: 26 }}><path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                 </div>
-                <p className="tcard-text">&quot;Akıllı Danışman özelliği muhteşem. Bütçemi ve ihtiyaçlarımı yazdım, 30 saniyede gerçekten işe yarayan ürünler önerdi. Klasik arama motorlarına dönmek istemiyorum.&quot;</p>
-                <div className="tcard-author">Burak T.</div>
-                <div className="tcard-role">Öğrenci</div>
+                <div className="tcard-author" style={{ fontSize: "1.125rem", marginBottom: "0.375rem" }}>Ürün Adı ile Arama</div>
+                <div className="tcard-role" style={{ marginBottom: "1rem" }}>Anında Ürün Listeleme</div>
+                <p className="tcard-text" style={{ marginBottom: 0 }}>Sadece ne aradığınızı yazın. Çarşıla ve Shoprill platformlarındaki ilgili ürünleri saniyeler içinde sizin için sıralayalım.</p>
               </div>
-            </div>
-            <div className="platform-row">
-              <span className="platform-chip">🛍️ Trendyol</span>
-              <span className="platform-chip">📦 Amazon</span>
-              <span className="platform-chip">🛒 Hepsiburada</span>
-              <span className="platform-chip">ve daha fazlası yakında...</span>
             </div>
           </div>
         </section>
@@ -424,7 +423,7 @@ export default function LandingPage() {
             <h2 className="t-xl cta-h" style={{ marginBottom: "1.25rem" }}>
               Pişmanlıksız alışveriş<br /><em>bugün başlıyor.</em>
             </h2>
-            <p className="t-body cta-sub">Kredi kartı gerektirmez. Ücretsiz başlayın, ihtiyaç duydukça yükseltin.</p>
+            <p className="t-body cta-sub">Hesap oluşturun, hemen analiz etmeye başlayın. Temel özellikler tamamen ücretsiz.</p>
             <div style={{ display: "flex", gap: ".875rem", justifyContent: "center", flexWrap: "wrap" }}>
               <Link href="/login" className="btn btn-grad btn-xl">Ücretsiz Başla</Link>
               <Link href="/pricing" className="btn btn-ghost btn-xl">Planları İncele</Link>
@@ -443,7 +442,7 @@ export default function LandingPage() {
               <li><Link href="/privacy">Gizlilik</Link></li>
               <li><Link href="/terms">Kullanım Koşulları</Link></li>
             </ul>
-            <span className="footer-copy">© 2026 CrowGuard AI</span>
+            <span className="footer-copy">© 2026 CrowGuard</span>
           </div>
         </section>
       </main>

@@ -44,17 +44,39 @@ export type HistoryItem = {
   store_name: string | null;
   created_at: string | null;
   verdict?: string | null;   // AL | BEKLE | ALTERNATİF — backend hazır olunca gelir
+  price_history?: PriceHistoryPoint[] | null;
+  price_analysis?: PriceAnalysis | null;
+};
+
+export type SearchResultItem = {
+  id: string;
+  slug: string;
+  name: string;
+  brand: string;
+  price: number;
+  image: string | null;
+  store: string;
+  url: string;
 };
 
 export function normalizeProductUrl(input: string): string | null {
   const trimmed = input.trim();
   if (!trimmed) return null;
+  if (trimmed.includes(" ")) return null;
   try {
     const withProtocol = /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
-    return new URL(withProtocol).href;
+    const url = new URL(withProtocol);
+    if (!url.hostname.includes(".")) return null;
+    return url.href;
   } catch {
     return null;
   }
+}
+
+export function searchProducts(q: string, token?: string | null) {
+  return apiFetch<SearchResultItem[]>(`/search-products?q=${encodeURIComponent(q)}`, {
+    token: token ?? undefined,
+  });
 }
 
 export function mapRecommendationToVerdict(

@@ -16,7 +16,7 @@ const ORDERS = [
     date: "12 Mayıs 2026",
     status: "Teslim Edildi",
     statusColor: "text-green-700 bg-green-100",
-    items: ["Sony WH-1000XM5 Kablosuz Kulaklık", "CeraVe Retinol Serum 30ml"],
+    items: ["Aurex NC-5000XM Kablosuz Kulaklık", "Dermaçe Retinol Serum 30ml"],
     total: 9298,
   },
   {
@@ -24,7 +24,7 @@ const ORDERS = [
     date: "28 Nisan 2026",
     status: "Kargoda",
     statusColor: "text-blue-700 bg-blue-100",
-    items: ["Nike Air Max 270 Erkek Spor Ayakkabı"],
+    items: ["Strida AirMax 270 Erkek Spor Ayakkabı"],
     total: 4299,
   },
   {
@@ -32,15 +32,15 @@ const ORDERS = [
     date: "3 Nisan 2026",
     status: "Teslim Edildi",
     statusColor: "text-green-700 bg-green-100",
-    items: ["Xiaomi Smart Band 8 Pro", "Manduka PRO Yoga Matı"],
+    items: ["Mirix Smart Band 8 Pro", "Zenuga PRO Yoga Matı"],
     total: 4598,
   },
 ];
 
 const FAVORITES = [
-  "Dyson Supersonic Saç Kurutma Makinesi",
-  "Chanel Chance Eau Tendre EDT 100ml",
-  "Xbox Wireless Controller Siyah",
+  "Xyron Supersonic Saç Kurutma Makinesi",
+  "Élare Charme Eau Tendre EDT 100ml",
+  "Nexplay Wireless Controller Siyah",
 ];
 
 export default function ProfilePage() {

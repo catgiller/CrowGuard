@@ -2,7 +2,6 @@
 
 import { useState, useCallback, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { MenuButton } from "@/components/menu-button";
 import { ApiError } from "@/lib/api";
 import { getToken } from "@/lib/auth";
@@ -11,7 +10,9 @@ import {
   formatTry,
   mapRecommendationToVerdict,
   normalizeProductUrl,
+  searchProducts,
   type ProductAnalysisResponse,
+  type SearchResultItem,
 } from "@/lib/analysis";
 
 function verdictLabel(v: string) {
@@ -132,24 +133,27 @@ function ProductAnalysisContent() {
   const searchParams = useSearchParams();
   const [query, setQuery] = useState("");
   const [result, setResult] = useState<ProductAnalysisResponse | null>(null);
+  const [searchResults, setSearchResults] = useState<SearchResultItem[] | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const runAnalysis = useCallback(async (raw: string) => {
     const url = normalizeProductUrl(raw);
-    if (!url) {
-      setError("Geçerli bir ürün linki girin (ör. trendyol.com, hepsiburada.com, amazon.com.tr).");
-      return;
-    }
 
-    setQuery(url);
+    setQuery(raw);
     setError(null);
     setIsLoading(true);
     setResult(null);
+    setSearchResults(null);
 
     try {
-      const data = await analyzeProduct(url, getToken());
-      setResult(data);
+      if (!url) {
+        const products = await searchProducts(raw, getToken());
+        setSearchResults(products);
+      } else {
+        const data = await analyzeProduct(url, getToken());
+        setResult(data);
+      }
     } catch (err) {
       if (err instanceof ApiError) {
         setError(err.message);
@@ -228,18 +232,16 @@ function ProductAnalysisContent() {
       <div className="dash-topbar">
         <MenuButton />
         <span className="topbar-title">Ürün Analizi</span>
-        <div style={{ marginLeft: "auto", display: "flex", gap: ".75rem", alignItems: "center" }}>
-          <ThemeToggle />
-        </div>
+        <div style={{ marginLeft: "auto" }} />
       </div>
 
       {!result && !isLoading ? (
         <div className="search-screen">
           <h1 className="search-headline">
-            Ürün linkini <em>analiz edelim</em>
+            Ürün aramaya <em>başlayalım</em>
           </h1>
           <p className="search-sub">
-            Trendyol, Hepsiburada veya Amazon TR ürün sayfasının tam linkini yapıştırın. Analiz birkaç saniye sürebilir.
+            Shoprill, Çarşıla ürün linkini veya ürün adını yazın. Analiz birkaç saniye sürebilir.
           </p>
           <div className="search-box">
             <svg
@@ -256,7 +258,7 @@ function ProductAnalysisContent() {
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="https://www.trendyol.com/..."
+              placeholder="Ürün linki veya adı (ör: https://carsila.store/... veya iPhone 15)"
               onKeyDown={(e) => e.key === "Enter" && !isLoading && runAnalysis(query)}
               disabled={isLoading}
             />
@@ -269,7 +271,67 @@ function ProductAnalysisContent() {
       ) : isLoading ? (
         <div className="loading-box">
           <div className="loading-spinner" aria-hidden />
-          <p>Ürün taranıyor ve yapay zeka analizi yapılıyor…</p>
+          <p>İşlem yapılıyor…</p>
+        </div>
+      ) : searchResults ? (
+        <div className="results-screen" style={{ padding: "1.5rem" }}>
+          <div className="compact-search" style={{ marginBottom: "1.5rem" }}>
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && runAnalysis(query)}
+            />
+            <button type="button" onClick={() => runAnalysis(query)}>Ara</button>
+            <button
+              type="button"
+              onClick={() => {
+                setSearchResults(null);
+                setResult(null);
+                setError(null);
+                setQuery("");
+              }}
+              style={{ background: "transparent", border: "1.5px solid var(--border)", borderRadius: "var(--r-full)", padding: "0.5rem 0.875rem", fontSize: "0.8125rem", color: "var(--fg3)", cursor: "pointer" }}
+            >
+              Yeni
+            </button>
+          </div>
+          {error && <p className="form-error" style={{ marginBottom: "1rem" }} role="alert">{error}</p>}
+          <h2 style={{ fontFamily: "var(--ff-d)", fontSize: "1.25rem", fontWeight: 700, color: "var(--fg)", marginBottom: "1rem" }}>
+            "{query}" için sonuçlar
+          </h2>
+          {searchResults.length === 0 ? (
+            <p style={{ color: "var(--fg3)", fontSize: "0.9375rem" }}>Ürün bulunamadı.</p>
+          ) : (
+            <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+              {searchResults.map((p) => (
+                <div
+                  key={`${p.store}-${p.id}`}
+                  style={{ display: "flex", gap: "1rem", padding: "1rem", background: "var(--bg2)", borderRadius: "var(--r-md)", border: "1px solid var(--border)", alignItems: "center" }}
+                >
+                  {p.image ? (
+                    <img src={p.image} alt={p.name} style={{ width: 60, height: 60, objectFit: "contain", borderRadius: "8px", background: "#fff" }} />
+                  ) : (
+                    <div style={{ width: 60, height: 60, borderRadius: "8px", background: "var(--bg3)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.5rem" }}>📦</div>
+                  )}
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontSize: "0.875rem", fontWeight: 700, color: "var(--fg)", marginBottom: "0.25rem" }}>{p.name}</div>
+                    <div style={{ fontSize: "0.75rem", color: "var(--fg3)" }}>
+                      {p.store === "shoprill" ? "🛍️ Shoprill" : "🛒 Çarşıla"} · {p.brand}
+                    </div>
+                  </div>
+                  <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "0.5rem" }}>
+                    <div style={{ fontSize: "1rem", fontWeight: 800, color: "var(--fg)" }}>{formatTry(p.price)}</div>
+                    <button
+                      onClick={() => runAnalysis(p.url)}
+                      style={{ background: "var(--grad)", color: "#fff", border: "none", borderRadius: "var(--r-full)", padding: "0.4rem 1rem", fontSize: "0.75rem", fontWeight: 700, cursor: "pointer" }}
+                    >
+                      Analiz Et
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       ) : result ? (
         <div className="results-screen">

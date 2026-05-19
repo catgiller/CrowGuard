@@ -4,22 +4,11 @@ import Link from "next/link";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import { getProductBySlug, products, formatPrice } from "@/lib/products";
+import ProductCard from "@/components/product-card";
+import StarRating from "@/components/star-rating";
 
 export async function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
-}
-
-function StarRating({ rating, large = false }: { rating: number; large?: boolean }) {
-  const size = large ? "w-5 h-5" : "w-4 h-4";
-  return (
-    <div className="flex items-center gap-0.5">
-      {[1, 2, 3, 4, 5].map((i) => (
-        <svg key={i} className={size} viewBox="0 0 20 20" fill={i <= Math.round(rating) ? "#C9A84C" : "#E5E7EB"}>
-          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-        </svg>
-      ))}
-    </div>
-  );
 }
 
 export default async function ProductDetailPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -27,8 +16,47 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
   const product = getProductBySlug(slug);
   if (!product) notFound();
 
+  const similar = products
+    .filter((p) => p.subcategory === product.subcategory && p.id !== product.id)
+    .slice(0, 4);
+  const related = similar.length < 4
+    ? [
+        ...similar,
+        ...products
+          .filter((p) => p.category === product.category && p.subcategory !== product.subcategory && p.id !== product.id)
+          .slice(0, 4 - similar.length),
+      ]
+    : similar;
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.description,
+    brand: { "@type": "Brand", name: product.brand },
+    image: product.images,
+    offers: {
+      "@type": "Offer",
+      price: product.prices.shoprill,
+      priceCurrency: "TRY",
+      availability:
+        product.stock.shoprill > 0
+          ? "https://schema.org/InStock"
+          : "https://schema.org/OutOfStock",
+    },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: product.rating,
+      reviewCount: product.reviewCount,
+    },
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Navbar />
       <main className="flex-1 max-w-7xl mx-auto px-6 py-12">
         {/* Breadcrumb */}
@@ -74,11 +102,11 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             </h1>
 
             <div className="flex items-center gap-3 mb-6 pb-6 border-b" style={{ borderColor: "var(--border)" }}>
-              <StarRating rating={product.rating} large />
+              <StarRating rating={product.rating} size="lg" />
               <span data-field="rating" className="font-semibold text-sm">{product.rating.toFixed(1)}</span>
               <span className="text-xs" style={{ color: "var(--text-muted)" }}>•</span>
               <span data-field="review-count" className="text-sm" style={{ color: "var(--text-muted)" }}>
-                {product.reviewCount} değerlendirme
+                {product.reviewCount} müşteri yorumu
               </span>
             </div>
 
@@ -143,12 +171,15 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
           <div className="flex items-center justify-between mb-8">
             <div>
               <h2 className="text-xs uppercase tracking-widest font-semibold mb-1" style={{ color: "var(--text-muted)" }}>
-                Müşteri Yorumları
+                Müşteri Yorumları ({product.reviewCount} adet)
               </h2>
+              <p className="text-xs mb-2" style={{ color: "var(--text-muted)" }}>
+                Aşağıda {product.reviewCount} yazılı müşteri yorumu listelenmektedir.
+              </p>
               <div className="flex items-center gap-2">
-                <StarRating rating={product.rating} large />
+                <StarRating rating={product.rating} size="lg" />
                 <span className="text-lg font-bold" style={{ color: "var(--navy)" }}>{product.rating.toFixed(1)}</span>
-                <span className="text-sm" style={{ color: "var(--text-muted)" }}>({product.reviews.length} yorum)</span>
+                <span className="text-sm" style={{ color: "var(--text-muted)" }}>ortalama puan</span>
               </div>
             </div>
           </div>
@@ -174,6 +205,20 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             ))}
           </div>
         </section>
+
+        {/* Benzer Ürünler */}
+        {related.length > 0 && (
+          <section className="mt-16">
+            <h2 className="text-xs uppercase tracking-widest font-semibold mb-6" style={{ color: "var(--text-muted)" }}>
+              Benzer Ürünler
+            </h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {related.map((p) => (
+                <ProductCard key={p.id} product={p} />
+              ))}
+            </div>
+          </section>
+        )}
       </main>
       <Footer />
     </>

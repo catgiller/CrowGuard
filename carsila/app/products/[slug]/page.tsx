@@ -5,22 +5,11 @@ import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import AddToCartButton from "@/components/add-to-cart-button";
 import { getProductBySlug, products, formatPrice } from "@/lib/products";
+import ProductCard from "@/components/product-card";
+import StarRating from "@/components/star-rating";
 
 export async function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
-}
-
-function StarFull({ stars, large = false }: { stars: number; large?: boolean }) {
-  const sz = large ? "w-5 h-5" : "w-4 h-4";
-  return (
-    <div className="flex items-center gap-0.5">
-      {[1, 2, 3, 4, 5].map((i) => (
-        <svg key={i} className={sz} viewBox="0 0 20 20" fill={i <= Math.round(stars) ? "#F59E0B" : "#E5E7EB"}>
-          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-        </svg>
-      ))}
-    </div>
-  );
 }
 
 export default async function ProductDetailPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -30,10 +19,48 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
 
   const shopDiff = product.prices.shoprill - product.prices.carsila;
   const discount = Math.round((shopDiff / product.prices.shoprill) * 100);
-  const starOnlyCount = product.reviewCount - product.reviews.length;
+
+  const similar = products
+    .filter((p) => p.subcategory === product.subcategory && p.id !== product.id)
+    .slice(0, 4);
+  const related = similar.length < 4
+    ? [
+        ...similar,
+        ...products
+          .filter((p) => p.category === product.category && p.subcategory !== product.subcategory && p.id !== product.id)
+          .slice(0, 4 - similar.length),
+      ]
+    : similar;
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.description,
+    brand: { "@type": "Brand", name: product.brand },
+    image: product.images,
+    offers: {
+      "@type": "Offer",
+      price: product.prices.carsila,
+      priceCurrency: "TRY",
+      availability:
+        product.stock.carsila > 0
+          ? "https://schema.org/InStock"
+          : "https://schema.org/OutOfStock",
+    },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: product.rating,
+      reviewCount: product.reviewCount,
+    },
+  };
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Navbar />
       <main className="flex-1 max-w-7xl mx-auto px-4 py-10">
         {/* Breadcrumb */}
@@ -90,10 +117,10 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             </h1>
 
             <div className="flex items-center gap-3 mb-5">
-              <StarFull stars={product.rating} large />
+              <StarRating rating={product.rating} size="lg" />
               <span data-field="rating" className="font-black text-lg">{product.rating.toFixed(1)}</span>
               <span className="text-sm" style={{ color: "var(--muted)" }}>
-                <span data-field="review-count">{product.reviewCount}</span> değerlendirme
+                <span data-field="review-count">{product.reviewCount}</span> müşteri yorumu
               </span>
             </div>
 
@@ -169,21 +196,27 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
         {/* Değerlendirmeler */}
         <section data-field="reviews">
           <h2 className="text-lg font-black mb-6" style={{ color: "var(--dark)" }}>
-            Müşteri Değerlendirmeleri
-            <span className="ml-2 text-base font-medium" style={{ color: "var(--muted)" }}>({product.reviewCount})</span>
+            Müşteri Yorumları
+            <span className="ml-2 text-base font-medium" style={{ color: "var(--muted)" }}>
+              ({product.reviewCount} adet)
+            </span>
           </h2>
+
+          <p className="text-xs mb-4 -mt-4" style={{ color: "var(--muted)" }}>
+            Aşağıda {product.reviewCount} yazılı müşteri yorumu listelenmektedir.
+          </p>
 
           {/* Yıldız dağılımı özeti */}
           <div className="flex items-center gap-6 mb-8 p-5 rounded-2xl border bg-white" style={{ borderColor: "var(--border)" }}>
             <div className="text-center">
               <p className="text-5xl font-black" style={{ color: "var(--brand)" }}>{product.rating.toFixed(1)}</p>
-              <StarFull stars={product.rating} large />
-              <p className="text-xs mt-1" style={{ color: "var(--muted)" }}>{product.reviewCount} puan</p>
+              <StarRating rating={product.rating} size="lg" />
+              <p className="text-xs mt-1" style={{ color: "var(--muted)" }}>{product.reviewCount} yorum ortalaması</p>
             </div>
             <div className="flex-1">
               {[5, 4, 3, 2, 1].map((star) => {
-                const allStars = [...product.reviews.map(r => r.stars), ...product.starRatings];
-                const count = allStars.filter(s => s === star).length;
+                const allStars = product.reviews.map((r) => r.stars);
+                const count = allStars.filter((s) => s === star).length;
                 const pct = allStars.length > 0 ? Math.round((count / allStars.length) * 100) : 0;
                 return (
                   <div key={star} className="flex items-center gap-2 mb-1">
@@ -209,7 +242,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                   <div>
                     <span className="reviewer font-bold text-sm" style={{ color: "var(--dark)" }}>{review.author}</span>
                     <div className="flex items-center gap-2 mt-1">
-                      <StarFull stars={review.stars} />
+                      <StarRating rating={review.stars} />
                       <span className="stars sr-only">{review.stars}</span>
                       <span className="text-xs text-amber-600 font-semibold">{review.stars}.0</span>
                     </div>
@@ -220,28 +253,21 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               </div>
             ))}
           </div>
-
-          {/* Yıldız-sadece değerlendirmeler */}
-          {starOnlyCount > 0 && (
-            <div className="p-5 rounded-2xl border bg-white" style={{ borderColor: "var(--border)" }}>
-              <p className="text-sm font-semibold mb-3" style={{ color: "var(--dark)" }}>
-                Diğer {starOnlyCount.toLocaleString("tr-TR")} değerlendirme
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {product.starRatings.slice(0, 15).map((stars, i) => (
-                  <div key={i} className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-gray-50 border" style={{ borderColor: "var(--border)" }}>
-                    <StarFull stars={stars} />
-                  </div>
-                ))}
-                {product.starRatings.length > 15 && (
-                  <span className="text-xs px-3 py-1 rounded-full bg-gray-50 border" style={{ borderColor: "var(--border)", color: "var(--muted)" }}>
-                    +{(product.starRatings.length - 15 + starOnlyCount - product.starRatings.length).toLocaleString("tr-TR")} daha
-                  </span>
-                )}
-              </div>
-            </div>
-          )}
         </section>
+
+        {/* Benzer Ürünler */}
+        {related.length > 0 && (
+          <section className="mt-16">
+            <h2 className="text-lg font-black mb-6" style={{ color: "var(--dark)" }}>
+              Benzer Ürünler
+            </h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {related.map((p) => (
+                <ProductCard key={p.id} product={p} />
+              ))}
+            </div>
+          </section>
+        )}
       </main>
       <Footer />
     </>

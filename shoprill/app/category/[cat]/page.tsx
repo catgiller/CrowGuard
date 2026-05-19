@@ -6,7 +6,7 @@ import ProductCard from "@/components/product-card";
 import { getProductsByCategory, getCategories } from "@/lib/products";
 
 export async function generateStaticParams() {
-  return getCategories().map((cat) => ({ cat: encodeURIComponent(cat) }));
+  return getCategories().map((cat) => ({ cat }));
 }
 
 export default async function CategoryPage({ params }: { params: Promise<{ cat: string }> }) {
