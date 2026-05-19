@@ -5,7 +5,8 @@ import { MarketingFooter } from "@/components/marketing-footer";
 export default function AboutPage() {
   return (
     <main style={{ minHeight: "100dvh", display: "flex", flexDirection: "column" }}>
-      <style dangerouslySetInnerHTML={{__html:`
+      <style dangerouslySetInnerHTML={{
+        __html: `
         .about-wrap { max-width: 1100px; margin: 0 auto; padding: 0 clamp(1.5rem,5vw,4rem); }
 
         /* Hero */
@@ -62,7 +63,7 @@ export default function AboutPage() {
         /* Tech */
         .tech-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
         .tech-pill { display: inline-flex; align-items: center; padding: 0.35em 0.875em; border-radius: var(--r-full); font-size: 0.8125rem; font-weight: 600; border: 1px solid var(--border); color: var(--fg2); background: var(--bg2); }
-      `}}/>
+      `}} />
 
       <MarketingNav />
 
@@ -75,12 +76,12 @@ export default function AboutPage() {
               <p className="section-label">Hakkımızda</p>
               <h1>Akıllı alışveriş,<br />herkes için.</h1>
               <p className="about-hero-lead">
-                CrowGuard AI, e-ticarette kaybolup giden güveni geri getirmek için
+                CrowGuard, e-ticarette kaybolup giden güveni geri getirmek için
                 kuruldu. Sahte yorumlar, yapay fiyat indirimleri ve iade riski taşıyan
                 ürünler — bunları görmezden gelmek artık zorunda değilsiniz.
               </p>
               <p className="about-hero-lead">
-                Bir hackathon fikri olarak doğdu; gerçek bir ürüne dönüştü.
+                Bir hackathon projesi olarak başladı, çalışan bir ürüne dönüştü.
               </p>
             </div>
             <div className="about-hero-stat">
@@ -89,12 +90,12 @@ export default function AboutPage() {
                 <div className="hero-stat-lbl">Ürün URL'si girdikten sonra ilk analiz sonucuna ulaşma süresi</div>
               </div>
               <div className="hero-stat-card">
-                <div className="hero-stat-num">4&nbsp;ajan</div>
-                <div className="hero-stat-lbl">Aynı anda çalışan yapay zeka ajanı — fiyat, yorum, iade ve öneri</div>
+                <div className="hero-stat-num">Gemini&nbsp;AI</div>
+                <div className="hero-stat-lbl">Fiyat, yorum güvenilirliği, iade riski ve öneri — tek bir yapay zeka motoru</div>
               </div>
               <div className="hero-stat-card">
-                <div className="hero-stat-num">3&nbsp;platform</div>
-                <div className="hero-stat-lbl">Trendyol, Amazon ve Hepsiburada desteği — daha fazlası yolda</div>
+                <div className="hero-stat-num">2&nbsp;kaynak</div>
+                <div className="hero-stat-lbl">Çarşıla ve Shoprill demo mağazaları — ayrıca ürün adıyla genel arama</div>
               </div>
             </div>
           </div>
@@ -115,21 +116,21 @@ export default function AboutPage() {
             <div className="vision-grid">
               <div className="vision-card">
                 <div className="vision-icon" style={{ background: "rgba(213,51,42,0.1)" }}>
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#d5332a" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#d5332a" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
                 </div>
                 <div className="vision-title">Güvenilir veri</div>
                 <p className="vision-desc">Yorumları, fiyat geçmişini ve satıcı davranışlarını birlikte analiz ederek manipülasyonu tespit ediyoruz.</p>
               </div>
               <div className="vision-card">
                 <div className="vision-icon" style={{ background: "rgba(241,118,40,0.1)" }}>
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#f17628" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#f17628" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                 </div>
                 <div className="vision-title">Anlık karar</div>
                 <p className="vision-desc">AL, BEKLE ya da ALTERNATİF — uzun raporlar değil, net ve gerekçeli bir öneri. Hızlı, sade, işe yarar.</p>
               </div>
               <div className="vision-card">
                 <div className="vision-icon" style={{ background: "rgba(162,31,101,0.1)" }}>
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#a21f65" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#a21f65" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
                 </div>
                 <div className="vision-title">Herkes için</div>
                 <p className="vision-desc">Teknik bilgi gerektirmeden kullanılabilir. Bir URL yeterli — gerisini yapay zeka halleder.</p>
@@ -146,19 +147,19 @@ export default function AboutPage() {
               Perde arkasında ne oluyor?
             </h2>
             <p style={{ fontSize: "1rem", color: "var(--fg2)", lineHeight: 1.8, maxWidth: "640px" }}>
-              Bir ürün linki girdiğinde LangGraph tabanlı çok ajanlı sistemimiz devreye girer.
-              Dört ajan paralel olarak çalışır ve sonuçları birleştirerek tek bir karar üretir.
+              Bir ürün linki ya da ismi girdiğinde Gemini AI tabanlı analiz sistemimiz devreye girer.
+              Ürün bilgisi, fiyat verisi ve yorum analizi bir araya getirilerek tek bir karar üretilir.
             </p>
             <div className="how-row">
               <div className="how-step">
                 <div className="how-num">01 — VERİ</div>
                 <div className="how-title">Bilgi toplanır</div>
-                <p className="how-desc">Ürün bilgileri, fiyat geçmişi ve kullanıcı yorumları ilgili platformdan çekilir.</p>
+                <p className="how-desc">Ürün bilgileri, fiyat ve kullanıcı yorumları ilgili siteden çekilir. URL yerine ürün adı girilirse Gemini doğrudan analiz yapar.</p>
               </div>
               <div className="how-step">
                 <div className="how-num">02 — ANALİZ</div>
-                <div className="how-title">Ajanlar çalışır</div>
-                <p className="how-desc">Fiyat, yorum güvenilirliği ve iade riski ajanları aynı anda analiz yapar. Gemini API her birini değerlendirir.</p>
+                <div className="how-title">AI analiz eder</div>
+                <p className="how-desc">Gemini API ürünü değerlendirir; fiyat algoritması geçmiş verilere göre AL / BEKLE / ALTERNATİF önerisi üretir.</p>
               </div>
               <div className="how-step">
                 <div className="how-num">03 — KARAR</div>
@@ -177,13 +178,12 @@ export default function AboutPage() {
               Biz kimiz?
             </h2>
             <p style={{ fontSize: "1rem", color: "var(--fg2)", lineHeight: 1.8, maxWidth: "600px" }}>
-              İkimiz de yazılım geliştirici ve hayat arkadaşıyız. Bu projeyi hem birlikte
+              İkimiz de yazılım geliştirici ve okul arkadaşıyız. Bu projeyi hem birlikte
               çalışabildiğimizi görmek hem de gerçek bir şey üretmek için yaptık.
             </p>
             <div className="team-grid">
               <div className="team-card">
-                {/* Profil fotoğrafı gelince: <img src="/team/nazife.jpg" alt="Nazife Atlas" className="team-photo" /> */}
-                <div className="team-photo-placeholder" style={{ background: "rgba(248,153,87,0.15)", color: "var(--c1)" }}>NA</div>
+                <img src="/team/nazife.png" alt="Nazife Atlas" className="team-photo" style={{ objectPosition: "center 35%" }} />
                 <div className="team-info">
                   <div className="team-name">Nazife Atlas</div>
                   <div className="team-role">Frontend Developer</div>
@@ -193,14 +193,13 @@ export default function AboutPage() {
                     Next.js ve TypeScript ile çalışıyorum.
                   </p>
                   <Link href="https://www.linkedin.com/in/nazife-atlas/" target="_blank" rel="noopener noreferrer" className="team-linkedin">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
                     LinkedIn
                   </Link>
                 </div>
               </div>
               <div className="team-card">
-                {/* Profil fotoğrafı gelince: <img src="/team/ervanur.jpg" alt="Ervanur Şahin" className="team-photo" /> */}
-                <div className="team-photo-placeholder" style={{ background: "rgba(162,31,101,0.15)", color: "var(--c5)" }}>ES</div>
+                <img src="/team/ervanur.png" alt="Ervanur Şahin" className="team-photo" />
                 <div className="team-info">
                   <div className="team-name">Ervanur Şahin</div>
                   <div className="team-role">Backend Developer</div>
@@ -210,7 +209,7 @@ export default function AboutPage() {
                     entegrasyonu benim tarafımdan geliştirildi.
                   </p>
                   <Link href="https://www.linkedin.com/in/erva-şahin-973650392/" target="_blank" rel="noopener noreferrer" className="team-linkedin">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
                     LinkedIn
                   </Link>
                 </div>
@@ -232,10 +231,10 @@ export default function AboutPage() {
             <div className="tech-row">
               <span className="tech-pill">Next.js</span>
               <span className="tech-pill">TypeScript</span>
-              <span className="tech-pill">Tailwind CSS</span>
+              <span className="tech-pill">Vanilla CSS</span>
               <span className="tech-pill">FastAPI</span>
               <span className="tech-pill">SQLite</span>
-              <span className="tech-pill">LangGraph</span>
+              <span className="tech-pill">BeautifulSoup</span>
               <span className="tech-pill">Gemini API</span>
             </div>
           </div>

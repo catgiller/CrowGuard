@@ -3,9 +3,8 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { MenuButton } from "@/components/menu-button";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { ApiError } from "@/lib/api";
-import { fetchAnalysisHistory, type HistoryItem } from "@/lib/analysis";
+import { fetchAnalysisHistory, type HistoryItem, formatTry } from "@/lib/analysis";
 import { getToken } from "@/lib/auth";
 
 function formatWhen(iso: string | null) {
@@ -25,9 +24,8 @@ function formatWhen(iso: string | null) {
 function storeIcon(storeName: string | null) {
   if (!storeName) return "🔗";
   const s = storeName.toLowerCase();
-  if (s.includes("trendyol")) return "🛍️";
-  if (s.includes("hepsiburada")) return "🛒";
-  if (s.includes("amazon")) return "📦";
+  if (s.includes("shoprill")) return "🛍️";
+  if (s.includes("carsila") || s.includes("çarşıla")) return "🛒";
   return "🔗";
 }
 
@@ -72,9 +70,7 @@ export default function HistoryPage() {
       <div className="dash-topbar">
         <MenuButton />
         <span className="topbar-title">Geçmiş</span>
-        <div style={{ marginLeft: "auto", display: "flex", gap: ".75rem", alignItems: "center" }}>
-          <ThemeToggle />
-        </div>
+        <div style={{ marginLeft: "auto" }} />
       </div>
 
       <div className="dash-content">
@@ -114,6 +110,22 @@ export default function HistoryPage() {
                     {formatWhen(item.created_at)}
                   </div>
                 </div>
+                {item.price_history && item.price_history.length > 0 && (
+                  <div className="price-bars" style={{ margin: "0 1rem", alignSelf: "center" }}>
+                    {(() => {
+                      const bars = item.price_history.slice(-12);
+                      const maxPrice = Math.max(...item.price_history.map(p => p.price), 1);
+                      return bars.map((p, i) => (
+                        <div
+                          key={`${p.date}-${i}`}
+                          className={`pbar ${i === bars.length - 1 ? "hi" : ""}`}
+                          style={{ height: `${Math.max(8, (p.price / maxPrice) * 100)}%` }}
+                          title={`${p.date}: ${formatTry(p.price)}`}
+                        />
+                      ));
+                    })()}
+                  </div>
+                )}
                 {item.verdict && (
                   <span style={{
                     fontSize: "0.5625rem", fontWeight: 800, letterSpacing: "0.08em",

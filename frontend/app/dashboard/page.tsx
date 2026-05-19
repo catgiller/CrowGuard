@@ -2,9 +2,8 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { fetchAnalysisHistory, type HistoryItem } from "@/lib/analysis";
+import { fetchAnalysisHistory, type HistoryItem, formatTry } from "@/lib/analysis";
 import { getToken } from "@/lib/auth";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { MenuButton } from "@/components/menu-button";
 import { useDashboard } from "@/contexts/dashboard-context";
 
@@ -44,15 +43,7 @@ export default function DashboardPage() {
             For now just a visual button. */}
         <MenuButton />
 
-        {/* Plan toggle (demo) */}
-        <div className="plan-toggle" title="Demo: plan değiştir">
-          <button className={`plan-btn ${!isPro ? 'active' : ''}`} onClick={() => setIsPro(false)}>Ücretsiz</button>
-          <button className={`plan-btn pro ${isPro ? 'active' : ''}`} onClick={() => setIsPro(true)}>Pro</button>
-        </div>
-
-        <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginLeft: "auto" }}>
-          <ThemeToggle />
-        </div>
+        <div style={{ marginLeft: "auto" }} />
       </div>
 
       {/* Content */}
@@ -93,7 +84,7 @@ export default function DashboardPage() {
             type="text"
             value={quickQuery}
             onChange={(e) => setQuickQuery(e.target.value)}
-            placeholder="Ürün linki yapıştırın (Trendyol, Hepsiburada…)"
+            placeholder="Ürün linki yapıştırın (Shoprill, Çarşıla…)"
           />
           <Link
             href={
@@ -135,19 +126,19 @@ export default function DashboardPage() {
             <div className="stat-trend" style={{ color: "var(--fg3)" }}>Tüm zamanlar</div>
           </div>
           <div className="stat-card">
-            <div className="stat-val" style={{ color: "var(--fg3)", fontSize: "1.125rem", marginTop: "0.25rem" }}>Yakında</div>
+            <div className="stat-val">—</div>
             <div className="stat-lbl">Ort. Güven Skoru</div>
-            <div className="stat-trend" style={{ color: "var(--fg3)" }}>Hesaplanıyor</div>
+            <div className="stat-trend" style={{ color: "var(--fg3)" }}>Yakında</div>
           </div>
           <div className="stat-card">
-            <div className="stat-val" style={{ color: "var(--fg3)", fontSize: "1.125rem", marginTop: "0.25rem" }}>Yakında</div>
+            <div className="stat-val">—</div>
             <div className="stat-lbl">Potansiyel Tasarruf</div>
-            <div className="stat-trend" style={{ color: "var(--fg3)" }}>Hesaplanıyor</div>
+            <div className="stat-trend" style={{ color: "var(--fg3)" }}>Yakında</div>
           </div>
           <div className="stat-card">
-            <div className="stat-val" style={{ color: "var(--fg3)", fontSize: "1.125rem", marginTop: "0.25rem" }}>Yakında</div>
+            <div className="stat-val">—</div>
             <div className="stat-lbl">Bulunan Alternatif</div>
-            <div className="stat-trend" style={{ color: "var(--fg3)" }}>Hesaplanıyor</div>
+            <div className="stat-trend" style={{ color: "var(--fg3)" }}>Yakında</div>
           </div>
         </div>
 
@@ -170,6 +161,22 @@ export default function DashboardPage() {
                     <div className="history-name">{item.product_name || "Ürün analizi"}</div>
                     <div className="history-meta">{item.store_name || "Analiz"}</div>
                   </div>
+                  {item.price_history && item.price_history.length > 0 && (
+                    <div className="price-bars" style={{ margin: "0 1rem", alignSelf: "center" }}>
+                      {(() => {
+                        const bars = item.price_history.slice(-12);
+                        const maxPrice = Math.max(...item.price_history.map(p => p.price), 1);
+                        return bars.map((p, i) => (
+                          <div
+                            key={`${p.date}-${i}`}
+                            className={`pbar ${i === bars.length - 1 ? "hi" : ""}`}
+                            style={{ height: `${Math.max(8, (p.price / maxPrice) * 100)}%` }}
+                            title={`${p.date}: ${formatTry(p.price)}`}
+                          />
+                        ));
+                      })()}
+                    </div>
+                  )}
                 </Link>
               ))
             ) : (

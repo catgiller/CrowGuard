@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
-from routes import analysis, advisor, auth, likes
+from routes import analysis, advisor, auth, likes, compare
 from database import engine, Base
 from dotenv import load_dotenv
 import os
@@ -43,6 +43,7 @@ app.include_router(auth.router, prefix="/auth", tags=["Authentication"])
 app.include_router(analysis.router, tags=["Analysis"])
 app.include_router(advisor.router, tags=["Advisor"])
 app.include_router(likes.router)
+app.include_router(compare.router, tags=["Compare"])
 
 
 @app.get("/")

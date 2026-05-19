@@ -1,0 +1,3 @@
+Hackathon bittikten sonra /etc/hosts'tan shopgrill.store kaydını kaldır:
+
+sudo sed -i '/shopgrill.store/d' /etc/hosts

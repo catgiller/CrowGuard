@@ -28,7 +28,7 @@ export function MarketingFooter() {
           </li>
         </ul>
 
-        <span className="footer-copy">© 2026 CrowGuard AI. Tüm hakları saklıdır.</span>
+        <span className="footer-copy">© 2026 CrowGuard. Tüm hakları saklıdır.</span>
       </div>
     </footer>
   );

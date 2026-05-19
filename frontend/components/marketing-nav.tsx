@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import { BrandLogo } from "@/components/brand-logo";
-import { ThemeToggle } from "@/components/theme-toggle";
 
 const NAV_LINKS = [
   { href: "/about",   label: "Hakkında" },
@@ -60,7 +59,6 @@ export function MarketingNav() {
           {NAV_LINKS.map((l) => (
             <Link key={l.href} href={l.href} className="nav-link hide-sm">{l.label}</Link>
           ))}
-          <ThemeToggle />
           <Link href="/login" className="nav-link hide-sm">Giriş Yap</Link>
           <Link href="/login" className="btn btn-grad btn-sm">Ücretsiz Başla</Link>
           <button className="hamburger-btn" onClick={() => setOpen(true)} aria-label="Menüyü aç">

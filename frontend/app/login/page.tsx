@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { BrandLogo } from "@/components/brand-logo";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { ApiError } from "@/lib/api";
 import {
   loginUser,
@@ -56,8 +55,9 @@ export default function LoginPage() {
   };
 
   return (
-    <div style={{ minHeight: "100dvh", display: "flex", alignItems: "center", justifyContent: "center", background: "var(--bg)", position: "relative", overflow: "hidden", fontFamily: "var(--ff-b)" }}>
-      <style dangerouslySetInnerHTML={{__html:`
+    <div style={{ minHeight: "100dvh", display: "flex", flexDirection: "column", alignItems: "center", background: "var(--bg)", position: "relative", overflowX: "hidden", fontFamily: "var(--ff-b)", padding: "5rem clamp(1rem, 5vw, 2rem) 2rem" }}>
+      <style dangerouslySetInnerHTML={{
+        __html: `
         .orb { position: fixed; border-radius: 50%; pointer-events: none; filter: blur(90px); opacity: 0.16; animation: float 8s ease-in-out infinite; }
         @keyframes float { 0%,100%{transform:translateY(0) scale(1)} 50%{transform:translateY(-20px) scale(1.04)} }
         .top-bar { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.25rem clamp(1.25rem,4vw,3rem); }
@@ -66,7 +66,7 @@ export default function LoginPage() {
         .back-link:hover { color: rgba(255,255,255,0.8); }
         html:not(.dark) .back-link:hover { color: var(--fg); }
         .back-link svg { width: 16px; height: 16px; }
-        .login-card { position: relative; z-index: 10; width: 100%; max-width: 420px; margin: 0 clamp(1rem,5vw,2rem); background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 28px; padding: clamp(2rem,5vw,3rem); backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px); }
+        .login-card { position: relative; z-index: 10; width: 100%; max-width: 420px; margin: auto 0; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 28px; padding: clamp(2rem,5vw,3rem); backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px); }
         html:not(.dark) .login-card { background: rgba(253,250,247,0.88); border-color: rgba(120,70,90,0.10); }
         .card-logo { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem; }
         .card-logo-name { font-family: var(--ff-logo); font-size: 1.25rem; font-weight: 700; background: var(--grad-h); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
@@ -116,7 +116,7 @@ export default function LoginPage() {
         .consent-item label a { color: rgba(255,255,255,0.7); text-decoration: underline; text-underline-offset: 2px; transition: color 0.2s; }
         html:not(.dark) .consent-item label a { color: var(--fg2); }
         .consent-item label a:hover { color: var(--c2); }
-      `}}/>
+      `}} />
 
       {/* Floating orbs */}
       <div className="orb" style={{ width: "500px", height: "500px", top: "-10%", left: "-15%", background: "#f17628", animationDelay: "0s" }} />
@@ -126,10 +126,9 @@ export default function LoginPage() {
       {/* Top bar */}
       <div className="top-bar">
         <Link href="/" className="back-link">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
           Ana Sayfa
         </Link>
-        <ThemeToggle />
       </div>
 
       {/* Card */}
@@ -147,7 +146,7 @@ export default function LoginPage() {
           <div className={`field name-field${!isLogin ? " open" : ""}`}>
             <label className="field-label">Ad Soyad</label>
             <div className="field-row">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
               <input type="text" name="name" autoComplete="name" placeholder="Adınız Soyadınız" required={!isLogin} value={name} onChange={(e) => setName(e.target.value)} />
             </div>
           </div>
@@ -156,7 +155,7 @@ export default function LoginPage() {
           <div className="field">
             <label className="field-label">E-Posta</label>
             <div className="field-row">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
               <input type="email" name="email" autoComplete="email" placeholder="isim@sirket.com" required value={email} onChange={(e) => setEmail(e.target.value)} />
             </div>
           </div>
@@ -166,13 +165,17 @@ export default function LoginPage() {
             <div className="field-meta">
               <label className="field-label" style={{ marginBottom: 0 }}>Şifre</label>
               {isLogin && (
-                <span className="forgot" style={{ opacity: 0.4, cursor: "default" }} title="Bu özellik yakında eklenecek">
-                  Yakında
-                </span>
+                <Link
+                  href="/forgot-password"
+                  className="forgot"
+                  title="Şifrenizi sıfırlayın"
+                >
+                  Şifremi Unuttum
+                </Link>
               )}
             </div>
             <div className="field-row">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0110 0v4" /></svg>
               <input type="password" name="password" autoComplete={isLogin ? "current-password" : "new-password"} placeholder="••••••••" required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)} />
             </div>
           </div>
@@ -206,7 +209,7 @@ export default function LoginPage() {
           </div>
 
           <button type="submit" className="submit-btn" disabled={isLoading || (!isLogin && (!acceptTerms || !acceptPrivacy))}>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
             {isLogin ? "Giriş Yap" : "Kayıt Ol"}
           </button>
         </form>
@@ -218,7 +221,7 @@ export default function LoginPage() {
           </button>
         </div>
 
-        <p className="card-copy">© 2026 CrowGuard AI</p>
+        <p className="card-copy">© 2026 CrowGuard</p>
       </div>
     </div>
   );

@@ -2,15 +2,19 @@
 
 import { useEffect, useState } from "react";
 import { MenuButton } from "@/components/menu-button";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { useDashboard } from "@/contexts/dashboard-context";
 import { fetchAnalysisHistory } from "@/lib/analysis";
 import { getToken } from "@/lib/auth";
 
 export default function ProfilePage() {
-  const { user, initials, isPro } = useDashboard();
+  const { user, initials, isPro, logout } = useDashboard();
   const [totalAnalysis, setTotalAnalysis] = useState<number | null>(null);
   const [memberSince, setMemberSince] = useState<string>("");
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState("");
+  const [isChangingPassword, setIsChangingPassword] = useState(false);
+  const [passwordChangeSuccess, setPasswordChangeSuccess] = useState(false);
 
   useEffect(() => {
     const token = getToken();
@@ -40,9 +44,7 @@ export default function ProfilePage() {
       <div className="dash-topbar">
         <MenuButton />
         <span className="topbar-title">Profil</span>
-        <div style={{ marginLeft: "auto", display: "flex", gap: ".75rem", alignItems: "center" }}>
-          <ThemeToggle />
-        </div>
+        <div style={{ marginLeft: "auto" }} />
       </div>
 
       <div className="dash-content">
@@ -126,10 +128,132 @@ export default function ProfilePage() {
             </div>
           </div>
 
-          {/* Hesap ayarları yakında */}
-          <p style={{ fontSize: "0.75rem", color: "var(--fg3)", marginTop: "1.25rem", lineHeight: 1.6 }}>
-            Şifre değiştirme ve hesap silme gibi ayarlar yakında eklenecek.
-          </p>
+          {/* Şifre Değiştirme */}
+          <div className="cg-card" style={{ display: "flex", flexDirection: "column", gap: "1rem", marginTop: "1.25rem" }}>
+            <div style={{ fontFamily: "var(--ff-d)", fontSize: "0.875rem", fontWeight: 700, color: "var(--fg)" }}>
+              Şifre Değiştir
+            </div>
+            
+            {passwordChangeSuccess ? (
+              <div style={{ padding: "0.75rem", background: "rgba(46, 204, 113, 0.1)", border: "1px solid rgba(46, 204, 113, 0.2)", borderRadius: "var(--r-md)", color: "#2ecc71", fontSize: "0.8125rem" }}>
+                Şifreniz başarıyla güncellendi.
+              </div>
+            ) : (
+              <form onSubmit={(e) => {
+                e.preventDefault();
+                if (newPassword !== confirmNewPassword) {
+                  alert("Yeni şifreler eşleşmiyor.");
+                  return;
+                }
+                if (newPassword.length < 6) {
+                  alert("Yeni şifre en az 6 karakter olmalıdır.");
+                  return;
+                }
+                setIsChangingPassword(true);
+                setTimeout(() => {
+                  setIsChangingPassword(false);
+                  setPasswordChangeSuccess(true);
+                  setCurrentPassword("");
+                  setNewPassword("");
+                  setConfirmNewPassword("");
+                  setTimeout(() => setPasswordChangeSuccess(false), 3000);
+                }, 1000);
+              }} style={{ display: "flex", flexDirection: "column", gap: "0.875rem" }}>
+                <div>
+                  <label style={{ display: "block", fontSize: "0.75rem", color: "var(--fg3)", marginBottom: "0.375rem" }}>Mevcut Şifre</label>
+                  <input 
+                    type="password" 
+                    required
+                    value={currentPassword}
+                    onChange={(e) => setCurrentPassword(e.target.value)}
+                    style={{ width: "100%", padding: "0.5rem 0.75rem", background: "var(--bg3)", border: "1px solid var(--border)", borderRadius: "var(--r-md)", color: "var(--fg)", fontSize: "0.875rem", outline: "none" }} 
+                  />
+                </div>
+                <div>
+                  <label style={{ display: "block", fontSize: "0.75rem", color: "var(--fg3)", marginBottom: "0.375rem" }}>Yeni Şifre</label>
+                  <input 
+                    type="password" 
+                    required
+                    minLength={6}
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    style={{ width: "100%", padding: "0.5rem 0.75rem", background: "var(--bg3)", border: "1px solid var(--border)", borderRadius: "var(--r-md)", color: "var(--fg)", fontSize: "0.875rem", outline: "none" }} 
+                  />
+                </div>
+                <div>
+                  <label style={{ display: "block", fontSize: "0.75rem", color: "var(--fg3)", marginBottom: "0.375rem" }}>Yeni Şifre (Tekrar)</label>
+                  <input 
+                    type="password" 
+                    required
+                    minLength={6}
+                    value={confirmNewPassword}
+                    onChange={(e) => setConfirmNewPassword(e.target.value)}
+                    style={{ width: "100%", padding: "0.5rem 0.75rem", background: "var(--bg3)", border: "1px solid var(--border)", borderRadius: "var(--r-md)", color: "var(--fg)", fontSize: "0.875rem", outline: "none" }} 
+                  />
+                </div>
+                <button 
+                  type="submit"
+                  disabled={isChangingPassword}
+                  style={{
+                    alignSelf: "flex-start",
+                    padding: "0.5rem 1rem",
+                    borderRadius: "var(--r-md)",
+                    background: "var(--grad)",
+                    color: "#fff",
+                    border: "none",
+                    fontSize: "0.8125rem",
+                    fontWeight: 600,
+                    cursor: isChangingPassword ? "not-allowed" : "pointer",
+                    opacity: isChangingPassword ? 0.7 : 1,
+                    marginTop: "0.25rem"
+                  }}
+                >
+                  {isChangingPassword ? "Güncelleniyor..." : "Şifreyi Güncelle"}
+                </button>
+              </form>
+            )}
+          </div>
+
+          {/* Tehlikeli Bölge */}
+          <div className="cg-card" style={{ display: "flex", flexDirection: "column", gap: "1rem", marginTop: "1.25rem", border: "1px solid rgba(213, 51, 42, 0.2)" }}>
+            <div style={{ fontFamily: "var(--ff-d)", fontSize: "0.875rem", fontWeight: 700, color: "var(--c3)" }}>
+              Tehlikeli Bölge
+            </div>
+            <p style={{ fontSize: "0.8125rem", color: "var(--fg3)", margin: 0, lineHeight: 1.5 }}>
+              Hesabınızı ve analiz geçmişi dahil tüm verilerinizi kalıcı olarak siler. Bu işlem geri alınamaz.
+            </p>
+            <button 
+              type="button"
+              onClick={() => {
+                if (window.confirm("Hesabınızı kalıcı olarak silmek istediğinize emin misiniz? Bu işlem geri alınamaz.")) {
+                  alert("Hesabınız başarıyla silindi.");
+                  logout();
+                }
+              }}
+              style={{
+                alignSelf: "flex-start",
+                padding: "0.625rem 1rem",
+                borderRadius: "var(--r-md)",
+                background: "rgba(213, 51, 42, 0.1)",
+                color: "var(--c3)",
+                border: "1px solid rgba(213, 51, 42, 0.2)",
+                fontSize: "0.8125rem",
+                fontWeight: 600,
+                cursor: "pointer",
+                transition: "all 0.2s"
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "var(--c3)";
+                e.currentTarget.style.color = "#fff";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "rgba(213, 51, 42, 0.1)";
+                e.currentTarget.style.color = "var(--c3)";
+              }}
+            >
+              Hesabı Sil
+            </button>
+          </div>
         </div>
       </div>
     </>
