@@ -48,4 +48,9 @@ def login(user: UserLogin, db: Session = Depends(get_db)):
 
 @router.get("/me")
 def get_me(current_user=Depends(get_current_user)):
-    return {"id": current_user.id, "name": current_user.name, "email": current_user.email}
+    return {
+        "id": current_user.id,
+        "name": current_user.name,
+        "email": current_user.email,
+        "created_at": current_user.created_at.isoformat() if current_user.created_at else None,
+    }
