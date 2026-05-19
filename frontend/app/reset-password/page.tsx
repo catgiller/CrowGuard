@@ -53,6 +53,8 @@ export default function ResetPasswordPage() {
         .back-link svg { width: 16px; height: 16px; }
         .login-card { position: relative; z-index: 10; width: 100%; max-width: 420px; margin: auto 0; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 28px; padding: clamp(2rem,5vw,3rem); backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px); }
         html:not(.dark) .login-card { background: rgba(253,250,247,0.88); border-color: rgba(120,70,90,0.10); }
+        .card-logo { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem; }
+        .card-logo-name { font-family: var(--ff-logo); font-size: 1.25rem; font-weight: 700; background: var(--grad-h); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
         .card-heading { font-family: var(--ff-d); font-size: clamp(1.75rem,4vw,2.25rem); font-weight: 800; line-height: 1.2; background: var(--grad-h); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-top: 0; margin-bottom: 0.375rem; }
         .card-sub { font-size: 0.875rem; color: rgba(255,255,255,0.38); margin-bottom: 2rem; font-weight: 400; line-height: 1.5; }
         html:not(.dark) .card-sub { color: var(--fg3); }
@@ -95,7 +97,6 @@ export default function ResetPasswordPage() {
       {/* Card */}
       <div className="login-card">
         <BrandLogo height={36} variant="compact" showWordmark />
-        <div style={{ marginBottom: "2rem" }}></div>
 
         <h2 className="card-heading">Yeni Şifre</h2>
         <p className="card-sub">
