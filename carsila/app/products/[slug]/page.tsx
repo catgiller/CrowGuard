@@ -5,6 +5,7 @@ import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import AddToCartButton from "@/components/add-to-cart-button";
 import { getProductBySlug, products, formatPrice } from "@/lib/products";
+import ProductCard from "@/components/product-card";
 
 export async function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
@@ -28,9 +29,21 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
   const product = getProductBySlug(slug);
   if (!product) notFound();
 
-  const shopDiff = product.prices.shopgrill - product.prices.carsila;
-  const discount = Math.round((shopDiff / product.prices.shopgrill) * 100);
+  const shopDiff = product.prices.shoprill - product.prices.carsila;
+  const discount = Math.round((shopDiff / product.prices.shoprill) * 100);
   const starOnlyCount = product.reviewCount - product.reviews.length;
+
+  const similar = products
+    .filter((p) => p.subcategory === product.subcategory && p.id !== product.id)
+    .slice(0, 4);
+  const related = similar.length < 4
+    ? [
+        ...similar,
+        ...products
+          .filter((p) => p.category === product.category && p.subcategory !== product.subcategory && p.id !== product.id)
+          .slice(0, 4 - similar.length),
+      ]
+    : similar;
 
   return (
     <>
@@ -111,7 +124,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                 </span>
                 {discount > 0 && (
                   <span className="text-base line-through font-medium" style={{ color: "var(--muted)" }}>
-                    {formatPrice(product.prices.shopgrill)}
+                    {formatPrice(product.prices.shoprill)}
                   </span>
                 )}
               </div>
@@ -242,6 +255,20 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             </div>
           )}
         </section>
+
+        {/* Benzer Ürünler */}
+        {related.length > 0 && (
+          <section className="mt-16">
+            <h2 className="text-lg font-black mb-6" style={{ color: "var(--dark)" }}>
+              Benzer Ürünler
+            </h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {related.map((p) => (
+                <ProductCard key={p.id} product={p} />
+              ))}
+            </div>
+          </section>
+        )}
       </main>
       <Footer />
     </>

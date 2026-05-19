@@ -54,11 +54,11 @@ YALNIZCA şu formatta geçerli bir JSON objesi döndür:
       "price": float,
       "reason": "Neden bu ürün? 1-2 cümle.",
       "confidence": integer (0-100),
-      "shopgrill_price": float or null,
+      "shoprill_price": float or null,
       "carsila_price": float or null,
-      "shopgrill_slug": "slug" or null,
+      "shoprill_slug": "slug" or null,
       "carsila_slug": "slug" or null,
-      "cheaper_store": "shopgrill" | "carsila" | null,
+      "cheaper_store": "shoprill" | "carsila" | null,
       "store_note": "Fiyat/puan farkı açıklaması veya null"
     }}
   ]
@@ -92,7 +92,7 @@ YALNIZCA şu formatta geçerli bir JSON objesi döndür:
         trend = get_product_trend(name)
         yt = get_youtube_stats(name)
 
-        shopgrill_slug = rec.get("shopgrill_slug")
+        shoprill_slug = rec.get("shoprill_slug")
         carsila_slug = rec.get("carsila_slug")
 
         enriched.append({
@@ -107,9 +107,9 @@ YALNIZCA şu formatta geçerli bir JSON objesi döndür:
             "trend_score": trend["score"],
             "youtube_video_count": yt["video_count"],
             "youtube_latest_url": yt["latest_url"],
-            "shopgrill_price": rec.get("shopgrill_price"),
+            "shoprill_price": rec.get("shoprill_price"),
             "carsila_price": rec.get("carsila_price"),
-            "shopgrill_url": f"https://shopgrill.store/products/{shopgrill_slug}" if shopgrill_slug else None,
+            "shoprill_url": f"https://shoprill.store/products/{shoprill_slug}" if shoprill_slug else None,
             "carsila_url": f"https://corsila.store/products/{carsila_slug}" if carsila_slug else None,
             "cheaper_store": rec.get("cheaper_store"),
             "store_note": rec.get("store_note"),

@@ -10,7 +10,7 @@ client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 MODELS = ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash"]
 
 STORE_API_MAP = {
-    "shopgrill.store": "https://shopgrill.store",
+    "shoprill.store": "https://shoprill.store",
     "carsila.store": "https://carsila.store",
     "localhost:3001": "http://localhost:3001",
     "localhost:3002": "http://localhost:3002",
@@ -110,7 +110,7 @@ async def compare_products(url1: str, url2: str) -> dict:
     if not base1 or not base2:
         raise HTTPException(
             status_code=422,
-            detail="Sadece shopgrill.store ve carsila.store adresleri destekleniyor.",
+            detail="Sadece shoprill.store ve carsila.store adresleri destekleniyor.",
         )
 
     slug1 = _extract_slug(url1)
