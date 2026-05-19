@@ -41,12 +41,10 @@ async def analyze_product(
     url = data.url.strip()
     cache_key = make_cache_key(url)
 
-    # 1. Cache kontrolü
     cached = get_cached(db, cache_key)
     if cached:
         return cached
 
-    # 2. Scrape + AI analiz
     try:
         result = await analyze_product_details(url, db)
     except HTTPException:
@@ -56,7 +54,6 @@ async def analyze_product(
 
     result_dict = result.model_dump()
 
-    # 3. Cache'e yaz (background'da — kullanıcıyı beklettirme)
     background_tasks.add_task(
         set_cache_background,
         url=url,
