@@ -239,23 +239,25 @@ NEXT_PUBLIC_API_URL=http://localhost:8000
 
 ## API Uçları
 
-| Yöntem | Yol | Açıklama | Auth |
+> 🔓 Açık endpoint (auth gerekmez) · 🔒 Korumalı endpoint (giriş gerekir) · 🔑 Opsiyonel (giriş varsa kullanıcıya bağlanır)
+
+| Yöntem | Yol | Açıklama | Erişim |
 |---|---|---|---|
-| `GET`    | `/`                       | Sağlık + sürüm bilgisi | ❌ |
-| `GET`    | `/health`                 | Health check | ❌ |
-| `POST`   | `/auth/register`          | Kullanıcı kaydı | ❌ |
-| `POST`   | `/auth/login`             | Giriş (JWT döner) | ❌ |
-| `GET`    | `/auth/me`                | Mevcut kullanıcı bilgisi | ✅ |
-| `POST`   | `/auth/forgot-password`   | Şifre sıfırlama linki gönderir | ❌ |
-| `POST`   | `/auth/reset-password`    | Yeni şifre belirler | ❌ |
-| `POST`   | `/auth/change-password`   | Mevcut şifreyi değiştirir | ✅ |
-| `DELETE` | `/auth/account`           | Hesabı siler | ✅ |
-| `POST`   | `/analyze-product`        | Ürün URL analizi | opsiyonel |
-| `POST`   | `/compare`                | İki mağaza arası karşılaştırma | opsiyonel |
-| `POST`   | `/smart-advisor`          | Niyet + bütçe ile öneri | opsiyonel |
-| `GET`    | `/history`                | Son 20 analiz | ✅ |
-| `DELETE` | `/history/{id}`           | Analiz kaydını siler | ✅ |
-| `POST`   | `/likes/*`                | Beğeni işlemleri | ✅ |
+| `GET`    | `/`                       | Sağlık + sürüm bilgisi | 🔓 |
+| `GET`    | `/health`                 | Health check | 🔓 |
+| `POST`   | `/auth/register`          | Kullanıcı kaydı | 🔓 |
+| `POST`   | `/auth/login`             | Giriş (JWT döner) | 🔓 |
+| `GET`    | `/auth/me`                | Mevcut kullanıcı bilgisi | 🔒 |
+| `POST`   | `/auth/forgot-password`   | Şifre sıfırlama linki gönderir | 🔓 |
+| `POST`   | `/auth/reset-password`    | Yeni şifre belirler | 🔓 |
+| `POST`   | `/auth/change-password`   | Mevcut şifreyi değiştirir | 🔒 |
+| `DELETE` | `/auth/account`           | Hesabı siler | 🔒 |
+| `POST`   | `/analyze-product`        | Ürün URL analizi | 🔑 |
+| `POST`   | `/compare`                | İki mağaza arası karşılaştırma | 🔑 |
+| `POST`   | `/smart-advisor`          | Niyet + bütçe ile öneri | 🔑 |
+| `GET`    | `/history`                | Son 20 analiz | 🔒 |
+| `DELETE` | `/history/{id}`           | Analiz kaydını siler | 🔒 |
+| `POST`   | `/likes/*`                | Beğeni işlemleri | 🔒 |
 
 İnteraktif Swagger UI: **[pitoresk.onrender.com/docs](https://pitoresk.onrender.com/docs)**
 
