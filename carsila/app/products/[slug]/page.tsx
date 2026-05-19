@@ -31,7 +31,6 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
 
   const shopDiff = product.prices.shoprill - product.prices.carsila;
   const discount = Math.round((shopDiff / product.prices.shoprill) * 100);
-  const starOnlyCount = product.reviewCount - product.reviews.length;
 
   const similar = products
     .filter((p) => p.subcategory === product.subcategory && p.id !== product.id)
@@ -222,8 +221,8 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             </div>
             <div className="flex-1">
               {[5, 4, 3, 2, 1].map((star) => {
-                const allStars = [...product.reviews.map(r => r.stars), ...product.starRatings];
-                const count = allStars.filter(s => s === star).length;
+                const allStars = product.reviews.map((r) => r.stars);
+                const count = allStars.filter((s) => s === star).length;
                 const pct = allStars.length > 0 ? Math.round((count / allStars.length) * 100) : 0;
                 return (
                   <div key={star} className="flex items-center gap-2 mb-1">
@@ -260,27 +259,6 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               </div>
             ))}
           </div>
-
-          {/* Yıldız-sadece değerlendirmeler */}
-          {starOnlyCount > 0 && (
-            <div className="p-5 rounded-2xl border bg-white" style={{ borderColor: "var(--border)" }}>
-              <p className="text-sm font-semibold mb-3" style={{ color: "var(--dark)" }}>
-                Diğer {starOnlyCount.toLocaleString("tr-TR")} değerlendirme
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {product.starRatings.slice(0, 15).map((stars, i) => (
-                  <div key={i} className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-gray-50 border" style={{ borderColor: "var(--border)" }}>
-                    <StarFull stars={stars} />
-                  </div>
-                ))}
-                {product.starRatings.length > 15 && (
-                  <span className="text-xs px-3 py-1 rounded-full bg-gray-50 border" style={{ borderColor: "var(--border)", color: "var(--muted)" }}>
-                    +{(product.starRatings.length - 15 + starOnlyCount - product.starRatings.length).toLocaleString("tr-TR")} daha
-                  </span>
-                )}
-              </div>
-            </div>
-          )}
         </section>
 
         {/* Benzer Ürünler */}

@@ -6,7 +6,7 @@ import { getProductsByCategory, getCategories } from "@/lib/products";
 import Link from "next/link";
 
 export async function generateStaticParams() {
-  return getCategories().map((cat) => ({ cat: encodeURIComponent(cat) }));
+  return getCategories().map((cat) => ({ cat }));
 }
 
 export default async function CategoryPage({ params }: { params: Promise<{ cat: string }> }) {

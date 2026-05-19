@@ -2,8 +2,9 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useCart } from "@/lib/cart-context";
+import { getCategories } from "@/lib/products";
 
-const categories = ["Elektronik", "Ev & Yaşam", "Giyim", "Sağlık & Güzellik", "Spor & Outdoor", "Aksesuar"];
+const categories = getCategories();
 
 export default function Navbar() {
   const [search, setSearch] = useState("");
