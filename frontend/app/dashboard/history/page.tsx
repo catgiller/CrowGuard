@@ -24,9 +24,8 @@ function formatWhen(iso: string | null) {
 function storeIcon(storeName: string | null) {
   if (!storeName) return "🔗";
   const s = storeName.toLowerCase();
-  if (s.includes("trendyol")) return "🛍️";
-  if (s.includes("hepsiburada")) return "🛒";
-  if (s.includes("amazon")) return "📦";
+  if (s.includes("shoprill")) return "🛍️";
+  if (s.includes("carsila") || s.includes("çarşıla")) return "🛒";
   return "🔗";
 }
 
