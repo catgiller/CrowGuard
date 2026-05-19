@@ -1336,7 +1336,18 @@ textarea.cg-input {
    html.a11y ile etkinleşir — localStorage'da saklanır
 ─────────────────────────────────────────────────── */
 html.a11y {
-  font-size: 120%; /* Daha büyük taban yazı boyutu */
+  font-size: 120%;
+}
+
+/* Landing snap-scroll: a11y modunda içerik 100dvh'yi aşacağı için
+   snap'i kapat ve slide'ları serbest yüksekliğe bırak */
+html.a11y .snap-root {
+  scroll-snap-type: none;
+}
+html.a11y .slide {
+  height: auto;
+  min-height: 100dvh;
+  overflow: visible;
 }
 
 html.a11y body {
